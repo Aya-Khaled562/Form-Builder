@@ -70,12 +70,16 @@ export class IHtmlElement{
 class ILayoutHtmlElement extends IHtmlElement{
     #cols;
     #collabsed;
-    #htmlElement;
+    #htmlElements;
 
-    constructor(){
+    constructor(id, name, customClass, style, cols, collabsed){
+        super(id, name, customClass, style);
         if(this.constructor == ILayoutHtmlElement){
             throw new Error("ILayoutHtmlElement is abstract class");
         }
+        this.#cols = cols;
+        this.#collabsed = collabsed;
+        this.#htmlElements = [];
     }
     get Cols(){
         return this.#cols;
@@ -83,8 +87,8 @@ class ILayoutHtmlElement extends IHtmlElement{
     get Collabsed(){
         return this.#collabsed;
     };
-    get HtmlElement(){
-        return this.#htmlElement;
+    get HtmlElements(){
+        return this.#htmlElements;
     }
 
     set Cols(value){
@@ -93,8 +97,9 @@ class ILayoutHtmlElement extends IHtmlElement{
     set Collabsed(value){
         this.#collabsed = value;
     }
-    set HtmlElement(value){
-        this.#htmlElement = value;
+    
+    addElement(ele) {
+        this.#htmlElements.push(ele);
     }
 }
 
