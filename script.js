@@ -103,9 +103,17 @@ class ILayoutHtmlElement extends IHtmlElement{
     }
 }
 
-class Taps extends ILayoutHtmlElement{
-    constructor(id, name, customClass , style, )
+class Tap extends ILayoutHtmlElement{
+    constructor(id, name, customClass , style,cols , collabsed){
+        super(id, name, customClass, style, cols, collabsed);
+    }
 }
+
+class Section extends ILayoutHtmlElement{
+    constructor(id, name, customClass , style,cols , collabsed){
+        super(id, name, customClass, style, cols, collabsed);
+    }
+} 
 
 
 
