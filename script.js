@@ -1,4 +1,4 @@
-export class IHtmlElement{
+class IHtmlElement{
     #id;
     #name;
     #customClass;
@@ -65,8 +65,6 @@ export class IHtmlElement{
     }
 
 }
-
-
 class ILayoutHtmlElement extends IHtmlElement{
     #cols;
     #collabsed;
@@ -102,10 +100,10 @@ class ILayoutHtmlElement extends IHtmlElement{
         this.#htmlElements.push(ele);
     }
 }
-
 class Tap extends ILayoutHtmlElement{
     constructor(id, name, customClass , style,cols , collabsed){
         super(id, name, customClass, style, cols, collabsed);
+
     }
 }
 
@@ -113,7 +111,13 @@ class Section extends ILayoutHtmlElement{
     constructor(id, name, customClass , style,cols , collabsed){
         super(id, name, customClass, style, cols, collabsed);
     }
-} 
+
+}
+
+
+
+
+
 
 
 
