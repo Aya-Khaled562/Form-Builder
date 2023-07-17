@@ -1,15 +1,23 @@
 export class IHtmlElement{
     #id;
     #name;
-    #CustomClass;
+    #customClass;
     #style;
-    #htmlContent;
+    #designContent;
+    #previewContent
     #mode;
 
-    constructor(){
+    constructor(id, name, customClass, style){
         if(this.constructor = IHtmlElement){
             throw new Error("Abstract Class")
         }
+
+        this.#id = id;
+        this.#name = name;
+        this.#customClass = customClass;
+        this.#style = style;
+        this.#mode = false;
+
     }
 
     get Id(){
@@ -19,13 +27,16 @@ export class IHtmlElement{
         return this.#name;
     }
     get CustomClass(){
-        return this.#CustomClass;
+        return this.#customClass;
     }
     get Style(){
         return this.#style;
     }
-    get HtmlCotent(){
-        return this.#htmlContent;
+    get DesignContent(){
+        return this.#designContent;
+    }
+    get PreviewContent(){
+        return this.#previewContent;
     }
     get Mode(){
         return this.#mode;
@@ -37,13 +48,16 @@ export class IHtmlElement{
         this.#name = value;
     } 
     set CustomClass(value){
-        this.#CustomClass = value;
+        this.#customClass = value;
     }
     set Style(value){
         this.#style = value;
     }
-    set HtmlCotent(value){
-        this.#htmlContent = value;
+    set DesignContent(value){
+        this.#designContent = value;
+    }
+    set PreviewContent(value){
+        this.#previewContent = value;
     }
 
     set Mode(value){
@@ -54,8 +68,39 @@ export class IHtmlElement{
 
 
 class ILayoutHtmlElement extends IHtmlElement{
+    #cols;
+    #collabsed;
+    #htmlElement;
+
     constructor(){
-        
+        if(this.constructor == ILayoutHtmlElement){
+            throw new Error("ILayoutHtmlElement is abstract class");
+        }
+    }
+    get Cols(){
+        return this.#cols;
+    }
+    get Collabsed(){
+        return this.#collabsed;
+    };
+    get HtmlElement(){
+        return this.#htmlElement;
+    }
+
+    set Cols(value){
+        this.#cols = value;
+    }
+    set Collabsed(value){
+        this.#collabsed = value;
+    }
+    set HtmlElement(value){
+        this.#htmlElement = value;
     }
 }
+
+class Taps extends ILayoutHtmlElement{
+    constructor(id, name, customClass , style, )
+}
+
+
 
