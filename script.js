@@ -8,7 +8,7 @@ export class IHtmlElement{
     #mode;
 
     constructor(id, name, customClass, style){
-        if(this.constructor = IHtmlElement){
+        if(this.constructor == IHtmlElement){
             throw new Error("Abstract Class")
         }
 
@@ -20,6 +20,9 @@ export class IHtmlElement{
 
     }
 
+    toString(){
+        return this.Mode? this.PreviewContent : this.DesignContent;
+    }
     get Id(){
         return this.#id;
     }
@@ -67,45 +70,81 @@ export class IHtmlElement{
 }
 
 
-class ILayoutHtmlElement extends IHtmlElement{
+class ILayoutHtmlElement extends IHtmlElement {
     #cols;
     #collabsed;
     #htmlElements;
 
-    constructor(id, name, customClass, style, cols, collabsed){
+    constructor(id, name, customClass, style, cols, collabsed) {
         super(id, name, customClass, style);
-        if(this.constructor == ILayoutHtmlElement){
+        if (this.constructor == ILayoutHtmlElement) {
             throw new Error("ILayoutHtmlElement is abstract class");
         }
         this.#cols = cols;
         this.#collabsed = collabsed;
         this.#htmlElements = [];
     }
-    get Cols(){
+
+    get Cols() {
         return this.#cols;
     }
-    get Collabsed(){
+
+    get Collabsed() {
         return this.#collabsed;
     };
-    get HtmlElements(){
+
+    get HtmlElements() {
         return this.#htmlElements;
     }
 
-    set Cols(value){
+    set Cols(value) {
         this.#cols = value;
     }
-    set Collabsed(value){
+
+    set Collabsed(value) {
         this.#collabsed = value;
     }
-    
+
     addElement(ele) {
         this.#htmlElements.push(ele);
     }
 }
 
-class Tap extends ILayoutHtmlElement{
-    constructor(id, name, customClass , style,cols , collabsed){
+class NonLayoutElement extends IHtmlElement {
+    #required;
+
+    constructor(isRequired, _id, _name, _customClass, _style){
+        super(_id, _name, _customClass, _style);
+        this.Required = isRequired;
+    }
+
+
+    get Required(){
+        return this.#required;
+    }
+
+    set Required(value){
+        this.#required = value;
+    }
+}
+
+class Tap extends ILayoutHtmlElement {
+    constructor(id, name, customClass, style, cols, collabsed) {
         super(id, name, customClass, style, cols, collabsed);
+    }
+}
+class TextElement extends NonLayoutElement {
+
+    constructor(isRequired, _id, _name, _customClass, _style) {
+        super(isRequired, _id, _name, _customClass, _style);
+        super.DesignContent = `<div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Another label</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                              </div>`
+        super.PreviewContent = `<div class="mb-3">
+                                <label for="formGroupExampleInput2" class="form-label">Another label</label>
+                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                              </div>`
     }
 }
 
@@ -113,7 +152,7 @@ class Section extends ILayoutHtmlElement{
     constructor(id, name, customClass , style,cols , collabsed){
         super(id, name, customClass, style, cols, collabsed);
     }
-} 
+}
 
 
 
