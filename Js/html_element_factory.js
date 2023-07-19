@@ -1,6 +1,6 @@
-import TypeContent from "./typecontent";
-import Element from "./element";
-import AbstractElementFactory from "./abstract_element_factory";
+import TypeContent from "./typecontent.js";
+import Element from "./element.js";
+import AbstractElementFactory from "./abstract_element_factory.js";
 
 
 export default class HtmlElementFactory extends AbstractElementFactory {
@@ -16,21 +16,72 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
+    // createTab(id, name, customClass, style, mode, numOfCols) {
+    //     // console.log("from create tab");
+    //     const typeContentTab = new TypeContent(
+    //         'tab',
+    //         'layout',
+    //         `<div class = "container" style="border:2px solid red; margin:5px">
+    //         <div class="row">
+    //         <h5>${name}</h5>
+    //         </div>
+    //         </div>
+    //         `,
+            
+    //         `<label>${name}</label>
+    //         <div id="${id}" class="${customClass}" style="${style}"><!--TAP 01 --></div>`
+    //     );
+    
+    //     const tab = new Element(id, name, customClass, style, typeContentTab, mode);
+
+    //     for (let i = 0; i < numOfCols; i++) {
+    //         const typeContentColumn = new TypeContent(
+    //             'column',
+    //             'layout',
+    //             `<div id="${id}" class="${customClass}" style="${style}"></div>`,
+    //             `<div id="${id}" class="${customClass}" style="${style}"></div>`
+    //         );
+    
+    //         const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContentColumn, mode);
+    //         tab.addElement(column);
+    //     }
+    //     console.log("tab name: " , tab.Name)
+    //     return tab;
+    // }
+    
     createTab(id, name, customClass, style, mode, numOfCols) {
-        const typeContent = new TypeContent(
+        const typeContentTab = new TypeContent(
             'tab',
             'layout',
-            '<div id="tap01" class="col"><!--TAP 01 --></div>',
-            'Tab Preview'
+            `<div class="container" style="border: 2px solid red; margin: 5px;">
+                <div class="row">
+                    <h5>${name}</h5>
+                    <!--COLUMNS-->
+                </div>
+            </div>`,
+            `<label>${name}</label>
+            <div id="${id}" class="${customClass}" style="${style}"><!--TAP 01 --></div>`
         );
-
-        const tab = new Element(id, name, customClass, style, typeContent, mode);
+    
+        const tab = new Element(id, name, customClass, style, typeContentTab, mode);
+    
         for (let i = 0; i < numOfCols; i++) {
-            const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContent, mode);
+            const typeContentColumn = new TypeContent(
+                'column',
+                'layout',
+                `<div id="${id}" class="${customClass}" style="${style}"></div>`,
+                `<div id="${id}" class="${customClass}" style="${style}"></div>`
+            );
+    
+            const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContentColumn, mode);
             tab.addElement(column);
         }
+        console.log("tab name: ", tab.Name);
         return tab;
     }
+    
+    
+    
 
     createSection(id, name, customClass, style, mode, numOfCols) {
         const typeContent = new TypeContent(

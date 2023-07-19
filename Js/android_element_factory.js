@@ -1,6 +1,6 @@
-import TypeContent from "./typecontent";
-import Element from "./element";
-import AbstractElementFactory from "./abstract_element_factory";
+import TypeContent from "./typecontent.js";
+import Element from "./element.js";
+import AbstractElementFactory from "./abstract_element_factory.js";
 
 
 export default class AndroidElementFactory extends AbstractElementFactory {

@@ -72,22 +72,48 @@ export default class Element {
         this.#elements.push(element);
     }
 
+    // renderDesignContent() {
+    //     if (this.#typeContent._type === 'tab') {
+    //         const columns = this.#elements.map((column) => {
+    //             return column.renderDesignContent();
+    //         });
+    //         return `<div class = "container" style="border:2px solid red; margin:5px">
+    //         <div class="row">
+    //         <h5>${this.#name}</h5>
+    //         ${columns.join('')}
+    //         </div>
+    //         </div>`;
+            
+    //     } else if (this.#typeContent._type === 'section') {
+    //         const fields = this.#elements.map((field) => {
+    //             return field.renderDesignContent();
+    //         });
+    //         return `<div>${fields.join('')}</div>`;
+    //     } else {
+    //         return this.#typeContent._designContent;
+    //     }
+    // }
+
+
     renderDesignContent() {
         if (this.#typeContent._type === 'tab') {
             const columns = this.#elements.map((column) => {
-                return `<div class="container  px-3 py-3 mx-3 my-3" style="border: 2px solid red">${column.renderDesignContent()}</div>`;
+                return column.renderDesignContent();
             });
-            return `<div class="col  px-3 py-3 mx-3 my-3">${columns.join('')}</div>`;
+            const tabDesign = this.#typeContent._designContent.replace('<!--COLUMNS-->', columns.join(''));
+            return tabDesign;
         } else if (this.#typeContent._type === 'section') {
             const fields = this.#elements.map((field) => {
                 return field.renderDesignContent();
             });
-            return `<div class="col px-3 py-3 mx-3 my-3" style = "border: 2px solid yellow">${fields.join('')}</div>`;
+            return `<div>${fields.join('')}</div>`;
         } else {
             return this.#typeContent._designContent;
         }
     }
+    
 
+   
     renderPreviewContent() {
         if (this.#typeContent._type === 'tab') {
             const columns = this.#elements.map((column) => {

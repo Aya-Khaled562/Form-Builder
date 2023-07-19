@@ -1,6 +1,15 @@
-import FormBuilder from "./formbuilder";
-import HtmlElementFactory from "./html_element_factory";
+import FormBuilder from "./formbuilder.js";
+
+// window.addTab =  function addTab(numOfCols) {
+//     const builder = new FormBuilder('html', 'create', formContainer);
+//     const form = builder.ElementContent();
+//     document.getElementById('formContainer').innerHTML = form;
+// }
 
 
-const htmlFactory = new HtmlElementFactory();
-const builder = new FormBuilder('html', true);
+const builder = new FormBuilder('html', 'create', 'formContainer');
+    // const form = builder.ElementContent();
+    // document.getElementById('formContainer').innerHTML = form;
+
+
+
