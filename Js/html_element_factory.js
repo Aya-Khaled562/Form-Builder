@@ -78,7 +78,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             );
             const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContentColumn, mode);
             section.addElement(column);
-            const feild = this.createText('text1', "ahmed khaled", 'py-1' , "", mode);
+            const feild = this.createText('text1', "feild_name", 'py-1' , "", mode);
             column.addElement(feild);
         }
 
