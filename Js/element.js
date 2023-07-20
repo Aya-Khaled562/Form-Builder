@@ -95,23 +95,47 @@ export default class Element {
     // }
 
 
+    // renderDesignContent() {
+    //     if (this.#typeContent._type === 'tab') {
+    //         const columns = this.#elements.map((column) => {
+    //             return column.renderDesignContent();
+    //         });
+    //         const tabDesign = this.#typeContent._designContent.replace('<!--COLUMNS-->', columns.join(''));
+    //         return tabDesign;
+    //     } else if (this.#typeContent._type === 'section') {
+    //         const fields = this.#elements.map((field) => {
+    //             return field.renderDesignContent();
+    //         });
+    //         const sectionDesing = this.#typeContent._designContent.replace("<!--sections-->" , fields.join(''));
+    //         return sectionDesing;
+    //     } else {
+    //         return this.#typeContent._designContent;
+    //     }
+    // }
+    
     renderDesignContent() {
         if (this.#typeContent._type === 'tab') {
             const columns = this.#elements.map((column) => {
                 return column.renderDesignContent();
             });
-            const tabDesign = this.#typeContent._designContent.replace('<!--COLUMNS-->', columns.join(''));
+            const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
             return tabDesign;
         } else if (this.#typeContent._type === 'section') {
             const fields = this.#elements.map((field) => {
                 return field.renderDesignContent();
             });
-            return `<div>${fields.join('')}</div>`;
-        } else {
+            const sectionDesign = this.#typeContent._designContent.replace("<!--columns-->", fields.join(''));
+            return sectionDesign;
+        } else if (this.#typeContent._type === 'column') {
+            const sections = this.#elements.map((section) => {
+                return section.renderDesignContent();
+            });
+            const columnDesign = this.#typeContent._designContent.replace("<!--content-->", sections.join(''));
+            return columnDesign;
+        }else {
             return this.#typeContent._designContent;
         }
     }
-    
 
    
     renderPreviewContent() {

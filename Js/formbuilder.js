@@ -48,8 +48,8 @@ export default class FormBuilder {
         console.log("parentId",parentId)
         switch(this.#mode){
             case 'create':
-                const element = this.#platformFactory.createTab('Id1', "Tap1", "col py-3", "border: 1px dashed green; padding=10px ; margin:10px", this.#mode, 3);
-                const render=  element.renderDesignContent();
+                const tap = this.#platformFactory.createTab('Id1', "Tap", "col py-2", "border: 1px dashed green; margin:10px", this.#mode, 2);
+                const render=  tap.renderDesignContent();
                 document.getElementById(parentId).innerHTML = render;
                 break;
             case 'update':
