@@ -68,6 +68,10 @@ export default class Element {
         return this.#elements.length;
     }
 
+    getElementByIndex(index){
+        return this.#elements[index]
+    }
+    
     addElement(element) {
         this.#elements.push(element);
     }
@@ -151,6 +155,14 @@ export default class Element {
             return `<div class="col px-3 py-3 mx-3 my-3" style = "border: 2px solid yellow">${fields.join('')}</div>`;
         } else {
             return this.#typeContent._previewContent;
+        }
+    }
+
+    render(){
+        if(this.#mode === 'create' || this.#mode === 'update'){
+            return this.renderDesignContent();
+        }else{
+            return this.renderPreviewContent();
         }
     }
 

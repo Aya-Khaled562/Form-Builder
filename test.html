@@ -9,21 +9,10 @@
     
 </head>
 <body>
-    
-    <!-- <div>
-        <button onclick="addTab(1)">Add Tab with 1 Column</button>
-        <button onclick="addTab(2)">Add Tab with 2 Columns</button>
-        <button onclick="addTab(3)">Add Tab with 3 Columns</button>
-    </div>
-    <div>
-        <button onclick="addSection(1)">Add Section with 1 Column</button>
-        <button onclick="addSection(2)">Add Section with 2 Columns</button>
-        <button onclick="addSection(3)">Add Section with 3 Columns</button>
-    </div> -->
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
+              <a class="navbar-brand" href="#">Form Builder</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -37,33 +26,34 @@
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
+                      Add Tab
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><a class="dropdown-item" id="addTabWith1Col">On Column</a></li>
+                      <li><a class="dropdown-item" id="addTabWith2Col">Two Columns</a></li>
+                      <li><a class="dropdown-item" id="addTabWith3Col">Three Columns</a></li>
+                      
                     </ul>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Add Section
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" id="addSectionWith1Col">On Column</a></li>
+                      <li><a class="dropdown-item" id="addSectionWith2Col">Two Columns</a></li>
+                      <li><a class="dropdown-item" id="addSectionWith3Col">Three Columns</a></li>
+                      
+                    </ul>
                   </li>
                 </ul>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
               </div>
             </div>
-          </nav>
-
-          <div class="container mt-5">
-            <div class="row px-2" id="formContainer" >
-                hello 
-            
+        </nav>
+        <div class="container mt-5">
+          <div class="row px-2" id="formContainer" >
+          </div>
         </div>
-    </div>
 
     </div>
     
