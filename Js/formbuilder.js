@@ -34,22 +34,26 @@ export default class FormBuilder {
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
         this.ElementContent(this.#parentId);
     }
+
     addElement(element) {
         this.#elements.push(element);
     }
+
     setPlatform(platform) {
         this.#platform = platform;
     }
+
     setMode(mode) {
         this.#mode = mode;
     }
+
     getElementByIndex(index) {
         return this.#elements[index];
     }
+
     setTab(tab){
         this.#Tabs.push(tab);
     }
-
 
     getTabById(tabId){
         return this.#Tabs.find(tab=> tab.Id == tabId);
@@ -112,11 +116,54 @@ export default class FormBuilder {
         });
     }
 
+    // HandleDragAndDrop(tab){
+    //     const columns = tab.getElements();
+    //     // const sections = columns.flatMap((col) => col.getElements());
+    //     console.log(this.#Sections)
+    //     this.#Sections.forEach(sec=> {
+    //         const sectionElement = document.getElementById(sec.Id);
+    //         sectionElement.addEventListener('dragstart',function(e){
+    //             columns.forEach(col => {
+    //                 let selected = e.target;
+    //                 const colElement = document.getElementById(col.Id);
+                
+    //                 colElement.addEventListener('dragover',function(e){
+    //                     e.preventDefault();
+    //                 });
+    //                 colElement.addEventListener('drop', function(e){
+    //                     console.log
+    //                     col.addElement(selected)
+    //                     selected = null;
+    //                 });
+    //             });
+    //         });
+    //     })
+        
+    // }
+
+    HandleDragAndDrop() {
+        let sections = [];
+        this.#Sections.forEach(sec => {
+            sections.push(document.getElementById(sec.Id)) ;
+        })
+        sections.forEach(sec=>{
+            sec.addEventListener('dragstart',function(e){
+                console.log('dragstart');
+            });
+        })
+    }
+    
     ElementContent(parentId){
         switch(this.#mode){
             case 'create':
                 const genId = `tab_${this.#tabCounter++}`;
-                const tab = this.#platformFactory.createTab(genId, "Tap", "col py-2", "border: 1px solid green", this.#mode, 2);
+                const tab = this.#platformFactory.createTab(genId, "Tab", "col py-2", "border: 1px solid green", this.#mode, 2);
+                tab.getElements().forEach(element => {
+                    element.getElements().forEach(sec=>{
+                        this.#Sections.push(sec);
+                    })
+                });
+
                 this.setTab(tab);
                 const render=  tab.render();
                 document.getElementById(parentId).innerHTML = render;
@@ -127,10 +174,12 @@ export default class FormBuilder {
                     target.addEventListener('click', ()=> {
                         this.handleTabClick(t.Id)
                     });
+                    this.HandleDragAndDrop();
                 });
 
                 break;
             case 'update':
+                
                 break;
             case 'preview':
                 break;
@@ -145,6 +194,12 @@ export default class FormBuilder {
                 const tabId = `tab_${this.#tabCounter++}`;
                 const tab = this.#platformFactory.createTab(tabId, 'Tab', '', 'border: 1px solid green;', this.#mode, numOfCols);
                 this.setTab(tab);
+                tab.getElements().forEach(element => {
+                    element.getElements().forEach(sec=>{
+                        this.#Sections.push(sec);
+                    })
+                });
+                
                 const renderTab =  tab.render();
                 document.getElementById(parentId).innerHTML += renderTab;
 
@@ -154,15 +209,17 @@ export default class FormBuilder {
                     target.addEventListener('click', ()=> {
                         this.handleTabClick(t.Id)
                     });
+                    HandleDragAndDrop();
                 });
+
                 break;
             case 'section':
-                const secId = `tab_${this.#tabCounter++}`;
+                const secId = `sec_${this.#tabCounter++}`;
                 const section = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode, numOfCols);
                 this.setSection(section);
+                console.log(this.#Sections)
                 const renderSection =  section.render();
                 const targetId = this.addSectionToTab(section);
-                console.log(targetId)
                 document.getElementById(`${targetId}`).innerHTML += renderSection;
                 break;
             case 'text':
