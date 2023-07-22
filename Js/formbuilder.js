@@ -111,11 +111,13 @@ export default class FormBuilder {
               this.#activeTab = t;
             } else {
               tabElement.style.borderColor = 'green';
+              this.#activeTab = null;
             }
           } else {
             tabElement.style.borderColor = 'green';
           }
         });
+        console.log('active', this.#activeTab);
     }
 
     // HandleDragAndDrop(tab){
@@ -158,16 +160,13 @@ export default class FormBuilder {
     ElementContent(parentId){
         switch(this.#mode){
             case 'create':
-                const genId = `tab_${this.#tabCounter++}`;
-                const secId = `sec_${this.#tabCounter++}`;
-                const colId = `col_${this.#colCounter++}`;
-                const tab = this.#platformFactory.createTab(genId, "Tab", "col py-2", "border: 1px solid green", this.#mode);
-                const column = this.#platformFactory.createColumn(colId, 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const column2 = this.#platformFactory.createColumn(colId, 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const section = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode); 
-                const section2 = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode); 
-                const colSec1 = this.#platformFactory.createColumn(colId, 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
-                const colSec2 = this.#platformFactory.createColumn(colId, 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
+                const tab = this.#platformFactory.createTab('tab_def', "Tab", "col py-2", "border: 1px solid green", this.#mode);
+                const column = this.#platformFactory.createColumn('tab_col_def1', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const column2 = this.#platformFactory.createColumn('tab_col_def2', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const section = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
+                const section2 = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
+                const colSec1 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
+                const colSec2 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
                 section.addElement(colSec1);
                 section2.addElement(colSec2);
                 column.addElement(section);
@@ -179,14 +178,15 @@ export default class FormBuilder {
                 const render=  tab.render();
                 document.getElementById(parentId).innerHTML = render;
 
-                //add click 
-                this.#Tabs.forEach(t => {
-                    const target = document.getElementById(`${t.Id}`);
-                    target.addEventListener('click', ()=> {
-                        this.handleTabClick(t.Id)
-                    });
-                    this.HandleDragAndDrop();
-                });
+                this.addClickOnTab()
+                // //add click 
+                // this.#Tabs.forEach(t => {
+                //     const target = document.getElementById(`${t.Id}`);
+                //     target.addEventListener('click', ()=> {
+                //         this.handleTabClick(t.Id)
+                //     });
+                //     this.HandleDragAndDrop();
+                // });
 
                 break;
             case 'update':
@@ -200,13 +200,9 @@ export default class FormBuilder {
     }
 
     addClickOnTab(){
-        console.log('tabs', this.#Tabs)
+        console.log("tabs", this.#Tabs)
         this.#Tabs.forEach(t => {
-            console.log(`${t.Id}`);
-            console.log('t', t)
-            console.log(t.Id);
             const target = document.getElementById(`${t.Id}`);
-            console.log('target', target)
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
