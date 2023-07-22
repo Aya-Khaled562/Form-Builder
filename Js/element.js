@@ -85,8 +85,8 @@ export default class Element {
             const columns = this.#elements.map((column) => {
                 return column.renderDesignContent();
             });
-            const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
-            return tabDesign;
+            const design = this.#typeContent._designContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
+            return design;
         }else{
 
             return this.#typeContent._designContent;

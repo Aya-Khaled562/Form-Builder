@@ -19,6 +19,7 @@ export default class FormBuilder {
     #activeTab
     #tabCounter;
     #sectionCounter
+    #colCounter;
 
     constructor(platform, mode, parentId) {
         this.#platform = platform;
@@ -30,6 +31,7 @@ export default class FormBuilder {
         this.#activeTab = null;
         this.#tabCounter = 1;
         this.#sectionCounter = 1;
+        this.#colCounter = 1;
 
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
         this.ElementContent(this.#parentId);
@@ -157,12 +159,21 @@ export default class FormBuilder {
         switch(this.#mode){
             case 'create':
                 const genId = `tab_${this.#tabCounter++}`;
-                const tab = this.#platformFactory.createTab(genId, "Tab", "col py-2", "border: 1px solid green", this.#mode, 2);
-                tab.getElements().forEach(element => {
-                    element.getElements().forEach(sec=>{
-                        this.#Sections.push(sec);
-                    })
-                });
+                const secId = `sec_${this.#tabCounter++}`;
+                const colId = `col_${this.#colCounter++}`;
+                const tab = this.#platformFactory.createTab(genId, "Tab", "col py-2", "border: 1px solid green", this.#mode);
+                const column = this.#platformFactory.createColumn(colId, 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const column2 = this.#platformFactory.createColumn(colId, 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const section = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode); 
+                const section2 = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode); 
+                const colSec1 = this.#platformFactory.createColumn(colId, 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
+                const colSec2 = this.#platformFactory.createColumn(colId, 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
+                section.addElement(colSec1);
+                section2.addElement(colSec2);
+                column.addElement(section);
+                column2.addElement(section2);
+                tab.addElement(column);
+                tab.addElement(column2);
 
                 this.setTab(tab);
                 const render=  tab.render();
@@ -188,44 +199,39 @@ export default class FormBuilder {
         }
     }
 
-    build(type,parentId=null, numOfCols=1) {
+    addClickOnTab(){
+        console.log('tabs', this.#Tabs)
+        this.#Tabs.forEach(t => {
+            console.log(`${t.Id}`);
+            console.log('t', t)
+            console.log(t.Id);
+            const target = document.getElementById(`${t.Id}`);
+            console.log('target', target)
+            target.addEventListener('click', ()=> {
+                this.handleTabClick(t.Id)
+            });
+            // HandleDragAndDrop();
+        });
+    }
+    build(type,id, name, customClass, style ,parentId=null) {
         switch(type){
             case 'tab':
-                const tabId = `tab_${this.#tabCounter++}`;
-                const tab = this.#platformFactory.createTab(tabId, 'Tab', '', 'border: 1px solid green;', this.#mode, numOfCols);
+                const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
                 this.setTab(tab);
-                tab.getElements().forEach(element => {
-                    element.getElements().forEach(sec=>{
-                        this.#Sections.push(sec);
-                    })
-                });
-                
-                const renderTab =  tab.render();
-                document.getElementById(parentId).innerHTML += renderTab;
-
-                //add click
-                this.#Tabs.forEach(t => {
-                    const target = document.getElementById(`${t.Id}`);
-                    target.addEventListener('click', ()=> {
-                        this.handleTabClick(t.Id)
-                    });
-                    HandleDragAndDrop();
-                });
-
-                break;
+                return tab;
             case 'section':
-                const secId = `sec_${this.#tabCounter++}`;
-                const section = this.#platformFactory.createSection(secId, 'Section', '', 'border: 1px dashed green', this.#mode, numOfCols);
+                const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
                 this.setSection(section);
-                console.log(this.#Sections)
-                const renderSection =  section.render();
-                const targetId = this.addSectionToTab(section);
-                document.getElementById(`${targetId}`).innerHTML += renderSection;
-                break;
+                return section;
+            case 'column':
+                const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
+                return column;
+
             case 'text':
                 const text = this.#platformFactory.createText(id, name, customClass, style, this.#mode);
-                const renderText=  text.render();
-                document.getElementById(parentId).innerHTML += renderText;
+                // const renderText=  text.render();
+                // document.getElementById(parentId).innerHTML += renderText;
+                return text;
                 break;
             
         }
