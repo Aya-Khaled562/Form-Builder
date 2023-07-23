@@ -16,6 +16,13 @@ function addTab(numOfCols){
         tab.addElement(col);
     }
     document.getElementById('formContainer').innerHTML += tab.render();
+    tab.getElements().forEach(col => {
+        col.getElements().forEach(sec=>{
+            sec = document.getElementById(`${sec.Id}`);
+            builder.setSection(sec);
+        });
+    });
+    console.log(builder.getSections());
     builder.addClickOnTab()
 }
 

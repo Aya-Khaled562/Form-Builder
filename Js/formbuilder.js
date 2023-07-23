@@ -73,6 +73,9 @@ export default class FormBuilder {
         this.#Sections.push(section);
     }
 
+    getSections(){
+        return this.#Sections;
+    }
     getSectionById(secId){
         return this.#Sections.find(sec => sec.id == secId);
     }
@@ -177,7 +180,10 @@ export default class FormBuilder {
                 this.setTab(tab);
                 const render=  tab.render();
                 document.getElementById(parentId).innerHTML = render;
-
+                const sec1 = document.getElementById(`${section.Id}`);
+                this.setSection(sec1);
+                const sec2 = document.getElementById(`${section2.Id}`);
+                this.setSection(sec2);
                 this.addClickOnTab()
                 // //add click 
                 // this.#Tabs.forEach(t => {
@@ -217,7 +223,7 @@ export default class FormBuilder {
                 return tab;
             case 'section':
                 const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
-                this.setSection(section);
+                // this.setSection(section);
                 return section;
             case 'column':
                 const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
@@ -228,7 +234,7 @@ export default class FormBuilder {
                 // const renderText=  text.render();
                 // document.getElementById(parentId).innerHTML += renderText;
                 return text;
-                break;
+               
             
         }
         
