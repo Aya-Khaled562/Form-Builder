@@ -12,14 +12,10 @@ function addTab(numOfCols){
         let sec = builder.build('section',`sec_${secCounter++}`,`Section ${secCounter++}`,'mx-1 section','border: 1px dashed green;');
         let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(colSec);
-        // console.log('sec', sec)
         col.addElement(sec);
         tab.addElement(col);
     }
     document.getElementById('formContainer').innerHTML += tab.render();
-    // const container = document.getElementById('formContainer');
-    // container.appendChild(tab.render());
-
     tab.getElements().forEach(col => {
 
         col.getElements().forEach(sec=>{
@@ -60,5 +56,5 @@ document.getElementById("addSectionWith2Col").addEventListener("click", () => ad
 document.getElementById("addSectionWith3Col").addEventListener("click", () => addSection(3));
 
 
-builder.addClickOnTab()
+// builder.addClickOnTab()
 builder.HandleDragAndDrop();
