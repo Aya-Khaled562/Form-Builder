@@ -9,17 +9,14 @@ export default class FormBuilder {
     #elements;
     #platformFactory
     #parentId
-    #id;
-    #name;
-    #customClass;
-    #style;
-    #oldStyle;
     #Tabs
-    #Sections
+    #sectionsBeforRender
+    #sectionAfterRender
+    #columnsTabAfterRender
+    #columnsTabBeforRender
     #activeTab
-    #tabCounter;
-    #sectionCounter
-    #colCounter;
+    
+
 
     constructor(platform, mode, parentId) {
         this.#platform = platform;
@@ -27,19 +24,18 @@ export default class FormBuilder {
         this.#elements = [];
         this.#parentId = parentId;
         this.#Tabs = [];
-        this.#Sections = [];
+        this.#sectionsBeforRender= [];
+        this.#sectionAfterRender = [];
+        this.#columnsTabAfterRender = [];
+        this.#columnsTabBeforRender = [];
         this.#activeTab = null;
-        this.#tabCounter = 1;
-        this.#sectionCounter = 1;
-        this.#colCounter = 1;
-
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
         this.ElementContent(this.#parentId);
     }
 
-    addElement(element) {
-        this.#elements.push(element);
-    }
+    // addElement(element) {
+    //     this.#elements.push(element);
+    // }
 
     setPlatform(platform) {
         this.#platform = platform;
@@ -69,17 +65,30 @@ export default class FormBuilder {
         return this.#activeTab;
     }
 
-    setSection(section){
-        this.#Sections.push(section);
+    setSectionBeforRender(section){
+        this.#sectionsBeforRender.push(section);
+    }
+    getSectionBeforRender(){
+        return this.#sectionsBeforRender;
     }
 
-    getSections(){
-        return this.#Sections;
+    setSectionAfterRender(section){
+        this.#sectionAfterRender.push(section);
     }
-    getSectionById(secId){
-        return this.#Sections.find(sec => sec.id == secId);
+    getSectionAfterRender(){
+        return this.#sectionAfterRender;
     }
 
+    setColumnsTab(column){
+        this.#columnsTabAfterRender.push(column);
+    }
+    getIndexOfColumnsTabAfterRender(column){
+        return this.#columnsTabAfterRender.indexOf(column);
+    }
+    setColumnsTabBeforeRender(column){
+        this.#columnsTabBeforRender.push(column) ;
+    }
+    
     addSectionToTab(section){
         let targetId = '';
         if(this.#activeTab){
@@ -123,41 +132,58 @@ export default class FormBuilder {
         console.log('active', this.#activeTab);
     }
 
-    // HandleDragAndDrop(tab){
-    //     const columns = tab.getElements();
-    //     // const sections = columns.flatMap((col) => col.getElements());
-    //     console.log(this.#Sections)
-    //     this.#Sections.forEach(sec=> {
-    //         const sectionElement = document.getElementById(sec.Id);
-    //         sectionElement.addEventListener('dragstart',function(e){
-    //             columns.forEach(col => {
-    //                 let selected = e.target;
-    //                 const colElement = document.getElementById(col.Id);
-                
-    //                 colElement.addEventListener('dragover',function(e){
-    //                     e.preventDefault();
-    //                 });
-    //                 colElement.addEventListener('drop', function(e){
-    //                     console.log
-    //                     col.addElement(selected)
-    //                     selected = null;
-    //                 });
-    //             });
-    //         });
-    //     })
-        
-    // }
-
     HandleDragAndDrop() {
-        let sections = [];
-        this.#Sections.forEach(sec => {
-            sections.push(document.getElementById(sec.Id)) ;
-        })
-        sections.forEach(sec=>{
-            sec.addEventListener('dragstart',function(e){
-                console.log('dragstart');
+
+        let dragBeforeRender = null;
+        let dragAfterRender = null;
+        console.log('sections After render', this.#sectionAfterRender)
+        // console.log('section before render', this.#sectionBeforeRender)
+
+        this.#sectionAfterRender.forEach((section, index)=>{
+            section.addEventListener('dragstart',(e)=>{
+                dragAfterRender = this.#sectionAfterRender[index];
+                dragBeforeRender = this.#sectionsBeforRender[index];
+                section.style.opacity = '0.5';
+                console.log('dragstart',dragAfterRender);
             });
-        })
+            section.addEventListener('dragend',(e)=>{
+                dragAfterRender = null;
+                section.style.opacity = '1';
+                console.log('dragend');
+            });
+
+            this.#columnsTabAfterRender.forEach((column, index)=>{
+                column.addEventListener('dragover',(e)=>{
+                    e.preventDefault();
+                    column.style.borderBottom = '3px solid blue'
+                    console.log('dragover');
+                });
+                column.addEventListener('dragleave',(e)=>{
+                    column.style.borderBottom = '1px solid orange';
+                    console.log('dragleave');
+                });
+                
+                column.addEventListener('drop',(e)=>{
+                    e.preventDefault();
+                    
+                    console.log('target col', column);
+                    let col = this.#columnsTabBeforRender[index];
+                    let parentColAfterRender = dragAfterRender.parentNode;
+                    let parentColIndexBeforeRender = this.getIndexOfColumnsTabAfterRender(parentColAfterRender);
+                    let parentCol = this.#columnsTabBeforRender[parentColIndexBeforeRender];
+                    console.log( 'parent',parentCol);
+                    parentCol.removeElement(dragBeforeRender);
+                    col.addElement(dragBeforeRender);
+                    column.style.borderBottom = '1px solid orange';
+                    column.append(dragAfterRender);
+                    console.log('target col after add col', col)
+                    console.log("old parent", parentCol);
+                    e.stopPropagation();
+                });
+            });
+
+            
+        });
     }
     
     ElementContent(parentId){
@@ -167,33 +193,41 @@ export default class FormBuilder {
                 const column = this.#platformFactory.createColumn('tab_col_def1', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
                 const column2 = this.#platformFactory.createColumn('tab_col_def2', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
                 const section = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
-                const section2 = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
+                const section2 = this.#platformFactory.createSection('sec_def2', 'Section', '', 'border: 1px dashed green', this.#mode); 
                 const colSec1 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
                 const colSec2 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
                 section.addElement(colSec1);
                 section2.addElement(colSec2);
+                this.setSectionBeforRender(section);
+                this.setSectionBeforRender(section2);
+
                 column.addElement(section);
                 column2.addElement(section2);
+                this.setColumnsTabBeforeRender(column);
+                this.setColumnsTabBeforeRender(column2);
+
                 tab.addElement(column);
                 tab.addElement(column2);
 
                 this.setTab(tab);
                 const render=  tab.render();
                 document.getElementById(parentId).innerHTML = render;
-                const sec1 = document.getElementById(`${section.Id}`);
-                this.setSection(sec1);
-                const sec2 = document.getElementById(`${section2.Id}`);
-                this.setSection(sec2);
-                this.addClickOnTab()
-                // //add click 
-                // this.#Tabs.forEach(t => {
-                //     const target = document.getElementById(`${t.Id}`);
-                //     target.addEventListener('click', ()=> {
-                //         this.handleTabClick(t.Id)
-                //     });
-                //     this.HandleDragAndDrop();
-                // });
 
+
+                let sec1 = document.getElementById(`${section.Id}`);
+                this.setSectionAfterRender(sec1);
+                sec1 = document.getElementById(`${section2.Id}`);
+                this.setSectionAfterRender(sec1);
+
+                let col = document.getElementById(`${column.Id}`);
+                this.setColumnsTab(col);
+                col = document.getElementById(`${column2.Id}`);
+                this.setColumnsTab(col);
+
+
+                this.addClickOnTab()
+                this.HandleDragAndDrop();
+                
                 break;
             case 'update':
                 
@@ -206,15 +240,15 @@ export default class FormBuilder {
     }
 
     addClickOnTab(){
-        console.log("tabs", this.#Tabs)
         this.#Tabs.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
-            // HandleDragAndDrop();
         });
     }
+
+
     build(type,id, name, customClass, style ,parentId=null) {
         switch(type){
             case 'tab':
@@ -223,7 +257,6 @@ export default class FormBuilder {
                 return tab;
             case 'section':
                 const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
-                // this.setSection(section);
                 return section;
             case 'column':
                 const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);

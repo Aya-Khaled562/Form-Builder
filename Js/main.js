@@ -1,9 +1,9 @@
 import FormBuilder from "./formbuilder.js";
 
-const builder = new FormBuilder('html', 'create', 'formContainer');
 let tabConter = 0;
 let secCounter = 0;
 let colCounter = 0;
+const builder = new FormBuilder('html', 'create', 'formContainer');
 
 function addTab(numOfCols){
     const tab = builder.build('tab',`tab_${tabConter++}`,"Tab", "col py-2", "border: 1px solid green");
@@ -12,30 +12,43 @@ function addTab(numOfCols){
         let sec = builder.build('section',`sec_${secCounter++}`,'Section','mx-1','border: 1px dashed green;');
         let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(colSec);
+        builder.setSectionBeforRender(sec);
         col.addElement(sec);
         tab.addElement(col);
     }
     document.getElementById('formContainer').innerHTML += tab.render();
+
+
     tab.getElements().forEach(col => {
+
         col.getElements().forEach(sec=>{
+            builder.setSectionBeforRender(sec);
             sec = document.getElementById(`${sec.Id}`);
-            builder.setSection(sec);
+            builder.setSectionAfterRender(sec);
         });
+        
+        builder.setColumnsTabBeforeRender(col);
+        col = document.getElementById(`${col.Id}`);
+        builder.setColumnsTab(col);
     });
-    console.log(builder.getSections());
+
     builder.addClickOnTab()
+    builder.HandleDragAndDrop();
 }
 
 function addSection(numOfCols){
-    let sec = builder.build('section',`sec_${secCounter++}`,'Section','mx-1','border: 1px dashed green;');
+    let sec = builder.build('section',`sec_${secCounter++}`,`Section`,'mx-1','border: 1px dashed green;');
     for(let i=0; i<numOfCols; i++){
         let col = builder.build('column',`col_${colCounter++}`,'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(col);
     }
     const targetId = builder.addSectionToTab(sec);
     document.getElementById(`${targetId}`).innerHTML += sec.render();
-    
+    sec = document.getElementById(`${sec.Id}`);
+    builder.setSectionAfterRender(sec);
+    builder.HandleDragAndDrop();
 }
+
 document.getElementById("addTabWith1Col").addEventListener("click", () => addTab(1));
 document.getElementById("addTabWith2Col").addEventListener("click", () => addTab(2));
 document.getElementById("addTabWith3Col").addEventListener("click", () => addTab(3));

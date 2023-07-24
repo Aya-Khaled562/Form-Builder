@@ -78,6 +78,14 @@ export default class Element {
     
     addElement(element) {
         this.#elements.push(element);
+        // console.log("patent Id", this.Id)
+        // console.log("Elements after addition: " ,this.#elements)
+    }
+    removeElement(element) {
+        this.#elements.splice(this.#elements.indexOf(element), 1);
+        // console.log("removed Id", this.Id)
+        // console.log("Removed element", element);
+        // console.log('elements', this.#elements);
     }
 
     renderDesignContent() {
@@ -119,25 +127,3 @@ export default class Element {
     }
 
 }
-
-// if (this.#typeContent._type === 'tab') {
-        //     const columns = this.#elements.map((column) => {
-        //         return column.renderDesignContent();
-        //     });
-        //     const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
-        //     return tabDesign;
-        // } else if (this.#typeContent._type === 'section') {
-        //     const fields = this.#elements.map((field) => {
-        //         return field.renderDesignContent();
-        //     });
-        //     const sectionDesign = this.#typeContent._designContent.replace("<!--columns-->", fields.join(''));
-        //     return sectionDesign;
-        // } else if (this.#typeContent._type === 'column') {
-        //     const sections = this.#elements.map((section) => {
-        //         return section.renderDesignContent();
-        //     });
-        //     const columnDesign = this.#typeContent._designContent.replace("<!--content-->", sections.join(''));
-        //     return columnDesign;
-        // }else {
-        //     return this.#typeContent._designContent;
-        // }

@@ -35,20 +35,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         );
 
        return new Element(id, name, customClass, style, typeContentTab, mode);
-        // for (let i = 0; i < numOfCols; i++) {
-        //     const typeContentColumn = new TypeContent(
-        //         'column',
-        //         'layout',
-        //         `<div id="${id}-col${i + 1}" class="col py-2 mx-1" style = "border: 1px solid orange"> <!--columns--> </div>`,
-        //         `<div id="${id}-col${i + 1}" class="col py-2"> <!--content--> </div>`
-        //     );
-        //     const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContentColumn, mode);
-        //     tab.addElement(column);
-        //     const section = this.createSection(`sec_${i}`, "Section", "col py-1 my-1 mx-1", "border: 1px dashed green;", mode, 1);
-        //     column.addElement(section);
-        // }
-    
-        // return tab;
     }
    
     createSection(id, name, customClass, style, mode) {
@@ -62,25 +48,10 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 </div>
             </div>`,
             `<label>${name}</label>
-            <div id="${id}" class="${customClass}" style="${style}"> <!--columns--> </div>`
+            <div id="${id}" class="${customClass}" style="${style}" draggable="true"> <!--columns--> </div>`
         );
 
         return new Element(id, name, customClass, style, typeContentSection, mode);
-
-        // for(let i = 0; i < numOfFields; i++){
-        //     const typeContentColumn = new TypeContent(
-        //         'column',
-        //         'layout',
-        //         `<div id="${id}-col${i + 1}" class="col py-1 my-1 mx-1 "> <!--columns--> </div>`,
-        //         `<div id="${id}-col${i + 1}" class="col py-1 my-1 mx-1"> <!--content--> </div>`
-        //     );
-        //     const column = new Element(`${id}-col${i + 1}`, `Column ${i + 1}`, '', '', typeContentColumn, mode);
-        //     section.addElement(column);
-        //     const feild = this.createText('text1', "feild_name", 'col py-3' , "border: 1px dashed green;", mode);
-        //     column.addElement(feild);
-        // }
-
-        // return section;
     }
 
     createColumn(id, name, customClass, style, mode){
