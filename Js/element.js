@@ -1,3 +1,5 @@
+export const Types = {Tab: "tab", Section: "section", Text: "text", Column: "column"};
+export const Categories = {Layout: "layout", FormControl: "formControl"};
 
 export default class Element {
     #id;
@@ -16,6 +18,7 @@ export default class Element {
         this.#typeContent = typeContent;
         this.#mode = mode;
     }
+
     get Id() {
         return this.#id;
     }
@@ -64,18 +67,26 @@ export default class Element {
         this.#mode = value;
     }
 
+    get TypeContent() {
+        return this.#typeContent;
+    }
+
+    set TypeContent(value) {
+        this.#typeContent = value;
+    }
+
     getElements() {
         return this.#elements;
-    }    
+    }
 
     getNumOfElements() {
         return this.#elements.length;
     }
 
-    getElementByIndex(index){
+    getElementByIndex(index) {
         return this.#elements[index]
     }
-    
+
     addElement(element) {
         this.#elements.push(element);
     }
@@ -93,7 +104,7 @@ export default class Element {
         }
     }
 
-   
+
     renderPreviewContent() {
         if (this.#typeContent._type === 'tab') {
             const columns = this.#elements.map((column) => {
@@ -121,23 +132,23 @@ export default class Element {
 }
 
 // if (this.#typeContent._type === 'tab') {
-        //     const columns = this.#elements.map((column) => {
-        //         return column.renderDesignContent();
-        //     });
-        //     const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
-        //     return tabDesign;
-        // } else if (this.#typeContent._type === 'section') {
-        //     const fields = this.#elements.map((field) => {
-        //         return field.renderDesignContent();
-        //     });
-        //     const sectionDesign = this.#typeContent._designContent.replace("<!--columns-->", fields.join(''));
-        //     return sectionDesign;
-        // } else if (this.#typeContent._type === 'column') {
-        //     const sections = this.#elements.map((section) => {
-        //         return section.renderDesignContent();
-        //     });
-        //     const columnDesign = this.#typeContent._designContent.replace("<!--content-->", sections.join(''));
-        //     return columnDesign;
-        // }else {
-        //     return this.#typeContent._designContent;
-        // }
+//     const columns = this.#elements.map((column) => {
+//         return column.renderDesignContent();
+//     });
+//     const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
+//     return tabDesign;
+// } else if (this.#typeContent._type === 'section') {
+//     const fields = this.#elements.map((field) => {
+//         return field.renderDesignContent();
+//     });
+//     const sectionDesign = this.#typeContent._designContent.replace("<!--columns-->", fields.join(''));
+//     return sectionDesign;
+// } else if (this.#typeContent._type === 'column') {
+//     const sections = this.#elements.map((section) => {
+//         return section.renderDesignContent();
+//     });
+//     const columnDesign = this.#typeContent._designContent.replace("<!--content-->", sections.join(''));
+//     return columnDesign;
+// }else {
+//     return this.#typeContent._designContent;
+// }
