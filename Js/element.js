@@ -81,6 +81,18 @@ export default class Element {
         // console.log("patent Id", this.Id)
         // console.log("Elements after addition: " ,this.#elements)
     }
+
+    insertElement(newElement, referenceElement){
+        let index = this.#elements.findIndex(referenceElement);
+        if(index !== -1){
+            this.#elements.splice(referenceElement , 0, newElement)
+        }else{
+            this.#elements.push(newElement);
+        }
+    }
+    indexOfElement(id){
+        return this.#elements.findIndex(ele => ele.Id === id);
+    }
     removeElement(element) {
         this.#elements.splice(this.#elements.indexOf(element), 1);
         // console.log("removed Id", this.Id)

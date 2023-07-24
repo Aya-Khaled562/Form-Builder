@@ -41,7 +41,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         const typeContentSection = new TypeContent(
             'section',
             'layout',
-            `<div class="container my-2 py-1" style="${style}" id="${id}" draggable="true">
+            `<div class="container my-2 py-1 ${customClass}" style="${style}" id="${id}" draggable="true" >
                 <div class="row">
                     <h6>${name}</h6>
                     <div class="py-3" style="border: 1px solid blue;"></div>
