@@ -1,7 +1,7 @@
 import FormBuilder from "./formbuilder.js";
 
 let tabConter = 0;
-let secCounter = 0;
+let secCounter = 2;
 let colCounter = 0;
 const builder = new FormBuilder('html', 'create', 'formContainer');
 
