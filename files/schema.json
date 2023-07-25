@@ -1,77 +1,86 @@
 {
   "platform": "html",
-  "entity": "user",
-  "description": "user form",
   "mode": "update",
-  "tabs": [
+  "entity": "",
+  "description": "",
+  "elements": [
     {
-      "type": "tab",
+      "id": "tab01",
       "name": "General tab 01",
-      "category": "layout",
-      "style": "border: 1px solid green",
       "customClass": "col py-2",
-      "columns": [
+      "style": "border: 1px solid green",
+      "type": "tab",
+      "category": "layout",
+      "elements": [
         {
-          "type": "column",
+          "id": "col01",
           "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
           "customClass": "col py-1 my-1 mx-1",
-          "sections": [
+          "style": "border: 1px solid orange",
+          "type": "column",
+          "category": "layout",
+          "elements": [
             {
-              "type": "section",
+              "id": "section01",
               "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
               "customClass": "mx-1",
-              "columns": [
+              "style": "border: 1px dashed green;",
+              "type": "section",
+              "category": "layout",
+              "elements": [
                 {
-                  "type": "column",
+                  "id": "col16",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName01",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName01",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 },
                 {
-                  "type": "column",
+                  "id": "col17",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName02",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName02",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 }
@@ -82,259 +91,148 @@
       ]
     },
     {
-      "type": "tab",
+      "id": "tab02",
       "name": "General tab 02",
-      "category": "layout",
-      "style": "border: 1px solid green",
       "customClass": "col py-2",
-      "columns": [
+      "style": "border: 1px solid green",
+      "type": "tab",
+      "category": "layout",
+      "elements": [
         {
-          "type": "column",
+          "id": "col02",
           "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
           "customClass": "col py-1 my-1 mx-1",
-          "sections": [
+          "style": "border: 1px solid orange",
+          "type": "column",
+          "category": "layout",
+          "elements": [
             {
-              "type": "section",
+              "id": "section01e",
               "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
               "customClass": "mx-1",
-              "columns": [
+              "style": "border: 1px dashed green;",
+              "type": "section",
+              "category": "layout",
+              "elements": [
                 {
-                  "type": "column",
+                  "id": "col03",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName03",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName03",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 },
                 {
-                  "type": "column",
+                  "id": "col04",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName04",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName04",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 }
               ]
             },
             {
-              "type": "section",
+              "id": "section03",
               "name": "Section03",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
               "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "column",
-          "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
-          "customClass": "col py-1 my-1 mx-1",
-          "sections": [
-            {
+              "style": "border: 1px dashed green;",
               "type": "section",
-              "name": "Section02",
               "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
+              "elements": [
                 {
-                  "type": "column",
+                  "id": "col05",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName05",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName05",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 },
                 {
-                  "type": "column",
+                  "id": "col06",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
+                      "id": "firstName06",
                       "name": "firstName",
-                      "displayName": "First Name",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
+                      "id": "lastName06",
                       "name": "lastName",
-                      "displayName": "Last Name",
                       "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "section",
-              "name": "Section04",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
+                      "style": "",
                       "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 }
@@ -345,73 +243,82 @@
       ]
     },
     {
-      "type": "tab",
-      "name": "General tab 01",
-      "category": "layout",
-      "style": "border: 1px solid green",
+      "id": "tab03",
+      "name": "General tab 03",
       "customClass": "col py-2",
-      "columns": [
+      "style": "border: 1px solid green",
+      "type": "tab",
+      "category": "layout",
+      "elements": [
         {
-          "type": "column",
+          "id": "col08",
           "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
           "customClass": "col py-1 my-1 mx-1",
-          "sections": [
+          "style": "border: 1px solid orange",
+          "type": "column",
+          "category": "layout",
+          "elements": [
             {
-              "type": "section",
+              "id": "section01dd",
               "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
               "customClass": "mx-1",
-              "columns": [
+              "style": "border: 1px dashed green;",
+              "type": "section",
+              "category": "layout",
+              "elements": [
                 {
-                  "type": "column",
+                  "id": "col09",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
+                      "id": "firstName11",
+                      "name": "mobile",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
+                      "id": "lastName11",
+                      "name": "gender",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 },
                 {
-                  "type": "column",
+                  "id": "col10",
                   "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
                     {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
+                      "id": "firstName12",
+                      "name": "city",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     },
                     {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
+                      "id": "lastName12",
+                      "name": "address",
                       "customClass": "",
-                      "style": ""
+                      "style": "",
+                      "type": "text",
+                      "category": "formControl",
+                      "elements": []
                     }
                   ]
                 }

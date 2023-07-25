@@ -3,434 +3,7 @@ import {Types} from "./element.js";
 import HtmlElementFactory from "./html_element_factory.js";
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
 
-const json = `{
-  "platform": "html",
-  "entity": "user",
-  "description": "user form",
-  "mode": "update",
-  "tabs": [
-    {
-        "id": "tab01",
-      "type": "tab",
-      "name": "General tab 01",
-      "category": "layout",
-      "style": "border: 1px solid green",
-      "customClass": "col py-2",
-      "columns": [
-        {
-          "type": "column",
-          "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
-          "customClass": "col py-1 my-1 mx-1",
-          "sections": [
-            {
-              "type": "section",
-              "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-    "id": "tab02",
-      "type": "tab",
-      "name": "General tab 02",
-      "category": "layout",
-      "style": "border: 1px solid green",
-      "customClass": "col py-2",
-      "columns": [
-        {
-          "type": "column",
-          "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
-          "customClass": "col py-1 my-1 mx-1",
-          "sections": [
-            {
-              "type": "section",
-              "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "section",
-              "name": "Section03",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "column",
-          "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
-          "customClass": "col py-1 my-1 mx-1",
-          "sections": [
-            {
-              "type": "section",
-              "name": "Section02",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "section",
-              "name": "Section04",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-    "id": "tab03",
-      "type": "tab",
-      "name": "General tab 03",
-      "category": "layout",
-      "style": "border: 1px solid green",
-      "customClass": "col py-2",
-      "columns": [
-        {
-          "type": "column",
-          "name": "col in tab",
-          "category": "layout",
-          "style": "border: 1px solid orange",
-          "customClass": "col py-1 my-1 mx-1",
-          "sections": [
-            {
-              "type": "section",
-              "name": "Section01",
-              "category": "layout",
-              "style": "border: 1px dashed green;",
-              "customClass": "mx-1",
-              "columns": [
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                },
-                {
-                  "type": "column",
-                  "name": "Col in section",
-                  "category": "layout",
-                  "style": "border: 1px solid blue;",
-                  "customClass": "col py-3 px-1 my-1 mx-1",
-                  "formControls": [
-                    {
-                      "id": "firstName",
-                      "type": "text",
-                      "name": "firstName",
-                      "displayName": "First Name",
-                      "customClass": "",
-                      "style": ""
-                    },
-                    {
-                      "id": "lastName",
-                      "type": "text",
-                      "name": "lastName",
-                      "displayName": "Last Name",
-                      "customClass": "",
-                      "style": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}`;
+
 export default class FormBuilder {
     #platform;
     #mode;
@@ -449,10 +22,11 @@ export default class FormBuilder {
     #tabCounter;
     #sectionCounter
     #colCounter;
+    #json;
 
-    constructor(platform, mode, parentId) {
-        this.#platform = platform;
-        this.#mode = mode;
+    constructor(json, parentId) {
+        this.#platform = json.platform;
+        this.#mode = json.mode;
         this.#elementsMap = new Map();
         this.#elements = [];
         this.#parentId = parentId;
@@ -462,6 +36,7 @@ export default class FormBuilder {
         this.#tabCounter = 1;
         this.#sectionCounter = 1;
         this.#colCounter = 1;
+        this.#json = json;
 
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
         this.ElementContent(this.#parentId);
@@ -470,6 +45,10 @@ export default class FormBuilder {
 
     getPlatformFactory() {
         return this.#platformFactory;
+    }
+
+    getElements() {
+        return this.#elements;
     }
 
     addElementToMap(element) {
@@ -643,23 +222,23 @@ export default class FormBuilder {
     }
 
     load() {
-        let jsonData = JSON.parse(json);
-        let platform = jsonData.platform;
-        this.#mode = jsonData.mode;
 
-        const formTabs = jsonData.tabs;
+        let platform = this.#json.platform;
+        this.#mode = this.#json.mode;
+
+        const formTabs = this.#json.elements;
         formTabs.forEach((tab) => {
             const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
-            tab.columns.forEach((tabColumn) => {
+            tab.elements.forEach((tabColumn) => {
                 const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, tabColumn.customClass, tabColumn.style, this.#mode);
 
-                tabColumn.sections.forEach((section) => {
+                tabColumn.elements.forEach((section) => {
                     const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
 
-                    section.columns.forEach((column) => {
+                    section.elements.forEach((column) => {
                         const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, column.customClass, column.style, this.#mode);
 
-                        column.formControls.forEach((control) => {
+                        column.elements.forEach((control) => {
                             let formControl = null;
                             switch (control.type) {
                                 case Types.Text:
@@ -685,7 +264,12 @@ export default class FormBuilder {
         });
 
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
-        this.#Tabs.forEach((tab) => addAllEventsToElement(tab.Id));
+        this.#elementsMap.forEach((el) => {
+            if (Object.values(Types).includes(el.TypeContent._type)) {
+                console.log(el.TypeContent._type)
+                addAllEventsToElement(el.Id);
+            }
+        });
         console.log(this.#Tabs)
     }
 
@@ -719,8 +303,19 @@ export default class FormBuilder {
                 // document.getElementById(parentId).innerHTML += renderText;
                 return text;
                 break;
-            
+
         }
-        
+
+
+    }
+
+    toSaveSchema() {
+        return {
+            platform: this.#platform,
+            mode: this.#mode,
+            entity: "",
+            description: "",
+            elements: this.#elements.map(e => e.toSaveSchema())
+        }
     }
 }

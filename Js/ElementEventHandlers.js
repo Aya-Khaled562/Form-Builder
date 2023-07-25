@@ -1,17 +1,8 @@
 function showModal(e) {
-    var attr = $(this).attr('data-id');
-
-    console.log('attr', attr)
-    if (typeof attr !== 'undefined' && attr !== false) {
-        $('#exampleModal').data('id', e.currentTarget.id);
-    } else {
-        $('#exampleModal').attr('data-id', e.currentTarget.id);
-    }
+    e.stopPropagation();
+    $('#exampleModal').attr('data-id', e.currentTarget.id);
 
     $('#exampleModal').modal('show');
-
-
-    console.log('targetid', e.currentTarget.id)
 
 }
 

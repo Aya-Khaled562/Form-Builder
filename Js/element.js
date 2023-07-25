@@ -91,14 +91,18 @@ export default class Element {
         this.#elements.push(element);
     }
 
+    popElement() {
+        return this.#elements.pop();
+    }
+
     renderDesignContent() {
-        if(this.#typeContent._category == 'layout'){
+        if (this.#typeContent._category == 'layout') {
             const columns = this.#elements.map((column) => {
                 return column.renderDesignContent();
             });
             const design = this.#typeContent._designContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
             return design;
-        }else{
+        } else {
 
             return this.#typeContent._designContent;
         }
@@ -121,12 +125,24 @@ export default class Element {
         }
     }
 
-    render(){
-        if(this.#mode === 'create' || this.#mode === 'update'){
+    render() {
+        if (this.#mode === 'create' || this.#mode === 'update') {
             return this.renderDesignContent();
-        }else{
+        } else {
             return this.renderPreviewContent();
         }
+    }
+
+    toSaveSchema() {
+        return {
+            id: this.Id,
+            name: this.#name,
+            customClass: this.#customClass,
+            style: this.#style,
+            type: this.#typeContent._type,
+            category: this.#typeContent._category,
+            elements: this.#elements.map(e => e.toSaveSchema())
+        };
     }
 
 }
