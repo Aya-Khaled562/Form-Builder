@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Layout Example</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/formbuilder.css">
     <script src="Js/bootstrap.bundle.min.js"></script>
     
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">Form Builder</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,11 +51,13 @@
               </div>
             </div>
         </nav>
-        <div class="container mt-5">
-          <div class="row px-2">
-            <div id="formContainer" class="col-8"></div>
-            <div class="col-4 my-3" style="border: 1px solid blueviolet;"></div>
-            <div></div>
+        
+        <div class="container-fluid mt-5">
+          <div class="row px-2" id="formContainer">
+            <div id="form" class="col-10">
+
+            </div> 
+            <div class="col-2 my-3 sidebar px-0" style="border: 1px solid rgb(245, 241, 241);"  id="entity"></div>
           </div>
         </div>
 

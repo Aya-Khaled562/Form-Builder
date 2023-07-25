@@ -78,8 +78,6 @@ export default class Element {
     
     addElement(element) {
         this.#elements.push(element);
-        // console.log("patent Id", this.Id)
-        // console.log("Elements after addition: " ,this.#elements)
     }
 
     insertElement(newElement, referenceElement){
@@ -90,14 +88,12 @@ export default class Element {
             this.#elements.push(newElement);
         }
     }
+
     indexOfElement(id){
         return this.#elements.findIndex(ele => ele.Id === id);
     }
     removeElement(element) {
         this.#elements.splice(this.#elements.indexOf(element), 1);
-        // console.log("removed Id", this.Id)
-        // console.log("Removed element", element);
-        // console.log('elements', this.#elements);
     }
 
     renderDesignContent() {
@@ -112,6 +108,7 @@ export default class Element {
             return this.#typeContent._designContent;
         }
     }
+
 
    
     renderPreviewContent() {
