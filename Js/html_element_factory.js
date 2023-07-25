@@ -31,7 +31,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 </div>
             </div>`,
             `<label>${name}</label>
-            <div class="${customClass}" style="${style}" style="margin:10px;"> <!--columns--> </div>`
+            <div class="${customClass}" style="${style}" style="margin:10px;"> <div class="py-3" style="border: 1px solid blue;"></div></div>`
         );
 
        return new Element(id, name, customClass, style, typeContentTab, mode);
@@ -62,7 +62,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 </div>
             </div>`,
             `<label>${name}</label>
-            <div id="${id}" class="${customClass}" style="${style}"> <!--columns--> </div>`
+            <div id="${id}" class="${customClass}" style="${style}"><div class="py-3" style="border: 1px solid blue;"></div></div>`
         );
 
         return new Element(id, name, customClass, style, typeContentSection, mode);
@@ -88,7 +88,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'column',
             'layout',
             `<div id="${id}" class="${customClass}" style = "${style}"> <div class="py-3" style="border: 1px solid blue;"></div> </div>`,
-            `<div id="${id}" class="col py-1 my-1 mx-1"> <!--content--> </div>`
+            `<div id="${id}" class="col py-1 my-1 mx-1"> <div class="py-3" style="border: 1px solid blue;"></div> </div>`
         );
         return new Element(id, name, customClass, style, typeContentColumn, mode);
     }

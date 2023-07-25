@@ -110,17 +110,14 @@ export default class Element {
 
 
     renderPreviewContent() {
-        if (this.#typeContent._type === 'tab') {
+        if (this.#typeContent._category == 'layout') {
             const columns = this.#elements.map((column) => {
-                return `<div class="container  px-3 py-3 mx-3 my-3" style="border: 2px solid red">${column.renderPreviewContent()}</div>`;
+                return column.renderPreviewContent();
             });
-            return `<div class="col  px-3 py-3 mx-3 my-3">${columns.join('')}</div>`;
-        } else if (this.#typeContent._type === 'section') {
-            const fields = this.#elements.map((field) => {
-                return field.renderPreviewContent();
-            });
-            return `<div class="col px-3 py-3 mx-3 my-3" style = "border: 2px solid yellow">${fields.join('')}</div>`;
+            const preview = this.#typeContent._previewContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
+            return preview;
         } else {
+
             return this.#typeContent._previewContent;
         }
     }

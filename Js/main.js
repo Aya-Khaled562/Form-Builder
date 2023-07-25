@@ -4,10 +4,11 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "./element.js";
 
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
+import {download, getJson} from "./Utils.js";
 
 const jsonData = await getJson('/files/schema.json');
 
-const builder = new FormBuilder(jsonData, 'formContainer');
+const builder = new FormBuilder(jsonData, 'update', 'formContainer');
 let tabConter = 0;
 let secCounter = 0;
 let colCounter = 0;
@@ -140,24 +141,9 @@ window.addEventListener('load', async function () {
     // Save form
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
-        download(builder.toSaveSchema())
+        download(builder.toSaveSchema());
+        window.open('/previewPage.html', '_blank');
     });
-})
+});
 
 
-async function getJson(path) {
-    const response = await fetch(path);
-    return await response.json();
-}
-
-function download(jsonData, type_of = "text/plain", filename = "data.txt") {
-    let body = document.body;
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(jsonData, null, 2)], {
-        type: type_of
-    }));
-    a.setAttribute("download", filename);
-    body.appendChild(a);
-    a.click();
-    body.removeChild(a);
-}

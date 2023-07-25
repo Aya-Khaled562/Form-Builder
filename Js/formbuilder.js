@@ -11,11 +11,6 @@ export default class FormBuilder {
     #elementsMap;
     #platformFactory
     #parentId
-    #id;
-    #name;
-    #customClass;
-    #style;
-    #oldStyle;
     #Tabs
     #Sections
     #activeTab
@@ -24,9 +19,9 @@ export default class FormBuilder {
     #colCounter;
     #json;
 
-    constructor(json, parentId) {
+    constructor(json, mode, parentId) {
         this.#platform = json.platform;
-        this.#mode = json.mode;
+        this.#mode = mode;
         this.#elementsMap = new Map();
         this.#elements = [];
         this.#parentId = parentId;
@@ -40,7 +35,10 @@ export default class FormBuilder {
 
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
         this.ElementContent(this.#parentId);
+    }
 
+    get ParentId() {
+        return this.#parentId;
     }
 
     getPlatformFactory() {
@@ -213,8 +211,13 @@ export default class FormBuilder {
                 break;
             case 'update':
                 this.load();
+                this.#addDesignContent();
                 break;
             case 'preview':
+                this.load();
+                console.log(this.#elements)
+                document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+
                 break;
             default:
                 throw new Error(`Invalid mode ${this.#mode}`);
@@ -222,10 +225,6 @@ export default class FormBuilder {
     }
 
     load() {
-
-        let platform = this.#json.platform;
-        this.#mode = this.#json.mode;
-
         const formTabs = this.#json.elements;
         formTabs.forEach((tab) => {
             const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
@@ -263,14 +262,16 @@ export default class FormBuilder {
             this.addElementToMap(newTab);
         });
 
+
+    }
+
+    #addDesignContent() {
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
-                console.log(el.TypeContent._type)
                 addAllEventsToElement(el.Id);
             }
         });
-        console.log(this.#Tabs)
     }
 
     addClickOnTab() {
