@@ -2,9 +2,8 @@ import '/node_modules/jquery/dist/jquery.min.js'
 import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import FormBuilder from "./formbuilder.js";
-import {getJson} from "./Utils.js";
 
-const jsonData = await getJson('../files/schema.json');
+const jsonData = JSON.parse(localStorage.getItem('previewJson'))
 
 console.log(jsonData);
 //window.onload =  function () {

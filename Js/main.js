@@ -176,6 +176,8 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     saveFromElm.addEventListener('click', function (e) {
         download(builder.toSaveSchema());
         window.open('/previewPage.html', '_blank');
+
+        localStorage.setItem('previewJson', JSON.stringify(builder.toSaveSchema()));
     });
 //});
 

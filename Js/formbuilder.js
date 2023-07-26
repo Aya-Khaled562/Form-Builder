@@ -180,7 +180,9 @@ export default class FormBuilder {
             }
             else if(e.target.classList.contains('field')){
                 this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`,'py-3','border: 1px solid green');
+                this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
+                this.addElementToMap(this.dragBeforeRender);
+
                 e.target.style.opacity = '0.5';
                 console.log('dragstart field', this.dragAfterRender);
             }
@@ -246,7 +248,6 @@ export default class FormBuilder {
             }
 
             else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
-                console.log('drop fiewl')
                 e.target.style.borderBottom = '1px solid blue';
 
                 const div = document.createElement('div');
@@ -255,7 +256,9 @@ export default class FormBuilder {
                 oldParentColAfterRender.removeChild(this.dragAfterRender);
                 this.targetField.active = false;
                 e.target.append(div.firstChild);
-                console.log('old col',oldParentColBeforeRender)
+                addAllEventsToElement(this.dragAfterRender.id)
+                console.log('firstchild', div.firstChild);
+                console.log('drag after render', this.dragAfterRender)
             }
         });
     
@@ -347,12 +350,13 @@ export default class FormBuilder {
 
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            switch (control.type) {
-                                case Types.Text:
-                                    formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
-                                    console.log('formControl', formControl)
-                                    break;
-                            }
+                            // switch (control.type) {
+                            //     case Types.Text:
+                            //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
+                            //         console.log('formControl', formControl)
+                            //         break;
+                            // }
+                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
                         });
