@@ -233,7 +233,7 @@ export default class FormBuilder {
                 console.log('dragleave');
             }
             else if (e.target.classList.contains('colsec') && this.dragAfterRender.classList.contains('field')) {
-                e.target.style.borderBottom = '1px dashed blue';
+                e.target.style.borderBottom = '1px solid blue';
                 console.log('dragleave field');
             }
         });
