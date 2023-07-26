@@ -22,7 +22,7 @@ copyHtmlBtn.addEventListener('click', function (e) {
     console.log(editFromBtn)
     editFromBtn.addEventListener('click', function () {
 
-        window.open('/Form-Builder/test.html', '_blank');
+        window.open('test.html', '_blank');
 
     })
 //};
