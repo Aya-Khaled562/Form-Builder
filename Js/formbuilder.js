@@ -306,8 +306,6 @@ export default class FormBuilder {
                 break;
 
         }
-
-
     }
 
     toSaveSchema() {

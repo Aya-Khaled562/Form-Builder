@@ -8,7 +8,7 @@ import {download, getJson} from "./Utils.js";
 
 const jsonData = await getJson('/files/schema.json');
 
-const builder = new FormBuilder(jsonData, 'update', 'formContainer');
+
 let tabConter = 0;
 let secCounter = 0;
 let colCounter = 0;
@@ -38,6 +38,9 @@ function addSection(numOfCols) {
 }
 
 
+//window.addEventListener('load',  function () {
+const builder = new FormBuilder(jsonData, 'update', 'formContainer');
+
 document.getElementById("addTabWith1Col").addEventListener("click", () => addTab(1));
 document.getElementById("addTabWith2Col").addEventListener("click", () => addTab(2));
 document.getElementById("addTabWith3Col").addEventListener("click", () => addTab(3));
@@ -46,15 +49,15 @@ document.getElementById("addSectionWith1Col").addEventListener("click", () => ad
 document.getElementById("addSectionWith2Col").addEventListener("click", () => addSection(2));
 document.getElementById("addSectionWith3Col").addEventListener("click", () => addSection(3));
 
-window.addEventListener('load', async function () {
+console.log("enter dom loaded>>>>>>>>>")
+console.log($('#exampleModal'))
+$('#exampleModal').on('shown.bs.modal', function (e) {
+    console.log("modal is fired>>>>>>");
+    let elementId = $('#exampleModal').attr('data-id');
+    console.log(elementId)
+    let element = builder.getElementFromMap(elementId)
 
-
-    $('#exampleModal').on('shown.bs.modal', function (e) {
-        let elementId = $('#exampleModal').attr('data-id');
-        console.log(elementId)
-        let element = builder.getElementFromMap(elementId)
-
-        $('#exampleModal .modal-body').html(`<div class="mb-3">
+    $('#exampleModal .modal-body').html(`<div class="mb-3">
             <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Display Name</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
         </div>`);
@@ -144,6 +147,6 @@ window.addEventListener('load', async function () {
         download(builder.toSaveSchema());
         window.open('/previewPage.html', '_blank');
     });
-});
+//});
 
 
