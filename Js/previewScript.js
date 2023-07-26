@@ -4,7 +4,7 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import FormBuilder from "./formbuilder.js";
 import {getJson} from "./Utils.js";
 
-const jsonData = await getJson('../files/schema.json');
+const jsonData = await getJson('../Form-Builder/files/schema.json');
 
 console.log(jsonData);
 //window.onload =  function () {

@@ -39,8 +39,8 @@
                     {
                       "id": "firstName01",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -48,8 +48,8 @@
                     {
                       "id": "lastName01",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -67,8 +67,8 @@
                     {
                       "id": "firstName02",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -76,8 +76,8 @@
                     {
                       "id": "lastName02",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -125,8 +125,8 @@
                     {
                       "id": "firstName03",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -134,8 +134,8 @@
                     {
                       "id": "lastName03",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -153,8 +153,8 @@
                     {
                       "id": "firstName04",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -162,8 +162,8 @@
                     {
                       "id": "lastName04",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -191,8 +191,8 @@
                     {
                       "id": "firstName05",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -200,8 +200,8 @@
                     {
                       "id": "lastName05",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -219,8 +219,8 @@
                     {
                       "id": "firstName06",
                       "name": "firstName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -228,8 +228,8 @@
                     {
                       "id": "lastName06",
                       "name": "lastName",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -277,8 +277,8 @@
                     {
                       "id": "firstName11",
                       "name": "mobile",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -286,8 +286,8 @@
                     {
                       "id": "lastName11",
                       "name": "gender",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -305,8 +305,8 @@
                     {
                       "id": "firstName12",
                       "name": "city",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
@@ -314,8 +314,8 @@
                     {
                       "id": "lastName12",
                       "name": "address",
-                      "customClass": "",
-                      "style": "",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
                       "elements": []
