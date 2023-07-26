@@ -254,8 +254,6 @@ export default class FormBuilder {
                 this.targetField.active = false;
                 e.target.append(div.firstChild);
                 addAllEventsToElement(this.dragAfterRender.id)
-                console.log('firstchild', div.firstChild);
-                console.log('drag after render', this.dragAfterRender)
             }
         });
     

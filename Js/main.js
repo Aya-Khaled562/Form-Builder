@@ -119,6 +119,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
             element.Name = displayName;
         }
 
+        let columnsAdded = [];
         if (element.TypeContent._type == Types.Tab || element.TypeContent._type == Types.Section) {
             let checkedColumnsValue = $('#exampleModal input[name=numberOfColumnsOptions]:checked').val();
 
@@ -133,11 +134,13 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab)
                         col = builder.getPlatformFactory()
-                            .createColumn(crypto.randomUUID(), 'col', 'col py-1 my-1 mx-1', 'border: 1px solid orange;')
+                            .createColumn(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;')
                     else
                         col = builder.getPlatformFactory()
-                            .createColumn(crypto.randomUUID(), 'col', 'col py-1 my-1 mx-1', 'border: 1px solid blue;');
+                            .createColumn(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;');
                     element.addElement(col);
+                    columnsAdded.push(col);
+                    builder.setColumnsBeforeRender(col);  // needs to handle
                     currentNumberOfCols++;
                 }
             }
@@ -149,6 +152,12 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
+
+
+        columnsAdded.forEach(colum => {
+            builder.setColumnsAterRender(document.getElementById(colum.Id))
+            console.log("columns added>>> ", document.getElementById(colum.Id))
+        });
 
         addAllEventsToElement(elementId);
         element.getElements().forEach((lev1) => {
