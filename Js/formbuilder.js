@@ -170,6 +170,7 @@ export default class FormBuilder {
 
     HandleDragAndDrop() {
         const formContainer = document.getElementById('formContainer');
+
         formContainer.addEventListener('dragstart', (e) => {
             this.dragAfterRender = e.target;
             if (e.target.classList.contains('section')) {
@@ -226,14 +227,16 @@ export default class FormBuilder {
             let oldParentColAfterRender = this.dragAfterRender.parentNode;
             let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
             let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
-            
-            if(oldParentColAfterRender.classList.contains('colsec') && oldParentColAfterRender.classList.contains('coltab') ) {
+            console.log('old parent col before render',oldParentColBeforeRender )
+            if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
                 oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
                 oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
                 oldParentColBeforeRender.removeElement(this.dragBeforeRender);
+                console.log('old parent col before render kkjkj',oldParentColBeforeRender )
             }
             console.log('col before render', newColBeforRender);
             newColBeforRender.addElement(this.dragBeforeRender);
+            console.log('new column', newColBeforRender)
 
                 
             if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
@@ -243,7 +246,8 @@ export default class FormBuilder {
             }
 
             else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
-                e.target.style.borderBottom = '1px dashed blue';
+                console.log('drop fiewl')
+                e.target.style.borderBottom = '1px solid blue';
 
                 const div = document.createElement('div');
                 console.log('fie', this.targetField)
@@ -251,6 +255,7 @@ export default class FormBuilder {
                 oldParentColAfterRender.removeChild(this.dragAfterRender);
                 this.targetField.active = false;
                 e.target.append(div.firstChild);
+                console.log('old col',oldParentColBeforeRender)
             }
         });
     

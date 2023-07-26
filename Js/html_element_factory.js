@@ -13,7 +13,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <label class="col" style="width: 50%;">${name}</label>
                 <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'single line of text input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -27,7 +27,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'option set input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -41,7 +41,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'two options input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -55,7 +55,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'decimal number input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -69,7 +69,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'multiple line of text input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -83,7 +83,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'Text input preview'
+            'date and time input preview'
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
