@@ -6,7 +6,13 @@ import {Types} from "./element.js";
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
 import {download, getJson} from "./Utils.js";
 
-const jsonData = await getJson('/files/schema.json');
+
+let jsonData = sessionStorage.getItem('jsonDataForm');
+if (jsonData != null) {
+    jsonData = JSON.parse(jsonData);
+} else {
+    jsonData = await getJson('/files/schema.json');
+}
 
 
 let tabConter = 0;
@@ -15,8 +21,8 @@ let colCounter = 0;
 const builder = new FormBuilder(jsonData, 'update', 'form');
 
 
-function addTab(numOfCols){
-    const tab = builder.build('tab',`tab_${tabConter++}`,"Tab", "col py-2", "border: 1px solid green" );
+function addTab(numOfCols) {
+    const tab = builder.build('tab', `tab_${tabConter++}`, "Tab", "col py-2", "border: 1px solid green");
     for(let i=0; i<numOfCols; i++){
         let col = builder.build('column',`col_${colCounter++}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
         let sec = builder.build('section',`sec_${secCounter++}`,`Section`,' section','border: 1px dashed green;');
@@ -184,9 +190,9 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
         download(builder.toSaveSchema());
-        window.open('/previewPage.html', '_blank');
+        window.open('/previewPage.html', '_self');
 
-        localStorage.setItem('previewJson', JSON.stringify(builder.toSaveSchema()));
+        sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
     });
 //});
 

@@ -3,7 +3,7 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import FormBuilder from "./formbuilder.js";
 
-const jsonData = JSON.parse(localStorage.getItem('previewJson'))
+const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
 
 console.log(jsonData);
 //window.onload =  function () {
@@ -22,7 +22,7 @@ copyHtmlBtn.addEventListener('click', function (e) {
     console.log(editFromBtn)
     editFromBtn.addEventListener('click', function () {
 
-        window.open('test.html', '_blank');
+        window.open('/Form-Builder/test.html', '_self');
 
     })
 //};
