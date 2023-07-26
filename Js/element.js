@@ -1,4 +1,4 @@
-export const Types = {Tab: "tab", Section: "section", Text: "text", Column: "column"};
+export const Types = {Tab: "tab", Section: "section", Text: "single line of text", Column: "column"};
 export const Categories = {Layout: "layout", FormControl: "formControl"};
 
 export default class Element {

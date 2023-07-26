@@ -113,6 +113,7 @@ export default class FormBuilder {
         this.#columnsAfterRender.push(column);
     }
     getIndexOfColumnsAfterRender(id){
+        console.log('all columns array', this.#columnsAfterRender);
         return this.#columnsAfterRender.findIndex(col => col.id === id);
     }
     setColumnsBeforeRender(column){
@@ -231,6 +232,7 @@ export default class FormBuilder {
                 oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
                 oldParentColBeforeRender.removeElement(this.dragBeforeRender);
             }
+            console.log('col before render', newColBeforRender);
             newColBeforRender.addElement(this.dragBeforeRender);
 
                 
@@ -330,13 +332,13 @@ export default class FormBuilder {
         formTabs.forEach((tab) => {
             const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
             tab.elements.forEach((tabColumn) => {
-                const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, tabColumn.customClass, tabColumn.style, this.#mode);
+                const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode);
 
                 tabColumn.elements.forEach((section) => {
                     const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
 
                     section.elements.forEach((column) => {
-                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, column.customClass, column.style, this.#mode);
+                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode);
 
                         column.elements.forEach((control) => {
                             let formControl = null;
@@ -349,12 +351,15 @@ export default class FormBuilder {
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
                         });
+                        this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
                     });
+                    this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
                     this.addElementToMap(newSection);
 
                 });
+                this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
             });
 
@@ -370,10 +375,25 @@ export default class FormBuilder {
     #addDesignContent() {
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
+            console.log('element', el)
             if (Object.values(Types).includes(el.TypeContent._type)) {
+                if (el.TypeContent._type == Types.Text)
+                    console.log('text type', el.TypeContent._type)
+                else
+                    console.log('other type', el.TypeContent._type)
                 addAllEventsToElement(el.Id);
             }
         });
+
+        this.#columnsBeforRender.forEach(col => {
+            console.log('col')
+            this.#columnsAfterRender.push(document.getElementById(col.Id));
+        });
+
+        this.#sectionsBeforRender.forEach(col => {
+            this.#sectionAfterRender.push(document.getElementById(col.Id));
+        });
+
         this.addClickOnTab()
         this.getEntity();
     }
