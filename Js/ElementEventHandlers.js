@@ -17,7 +17,7 @@ events.set('dblclick', dbleClickHandlers);
 export default events;
 
 export function addAllEventsToElement(elementIdSelector) {
-    console.log('id modal fired', elementIdSelector);
+    // console.log('id modal fired', elementIdSelector);
 
     events.forEach((handlersArr, eventType) => {
         handlersArr.forEach((handler) => {

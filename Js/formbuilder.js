@@ -113,7 +113,7 @@ export default class FormBuilder {
         this.#columnsAfterRender.push(column);
     }
     getIndexOfColumnsAfterRender(id){
-        console.log('all columns array', this.#columnsAfterRender);
+        // console.log('all columns array', this.#columnsAfterRender);
         return this.#columnsAfterRender.findIndex(col => col.id === id);
     }
     setColumnsBeforeRender(column){
@@ -167,6 +167,18 @@ export default class FormBuilder {
         console.log('active', this.#activeTab);
     }
 
+    getFeildBeforeRender(id){
+        let oldFeilds = [];
+        this.#sectionsBeforRender.forEach(sec => {
+            sec.getElements().forEach(col => {
+                col.getElements().forEach(feild => {
+                    oldFeilds.push(feild);
+                })
+            })
+        });
+        console.log('oldFeilds func', oldFeilds);
+        return oldFeilds.find(field => field.Id === id);
+    }
 
     HandleDragAndDrop() {
         const formContainer = document.getElementById('formContainer');
@@ -179,9 +191,16 @@ export default class FormBuilder {
                 console.log('dragstart' , e.target);
             }
             else if(e.target.classList.contains('field')){
-                this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
-                this.addElementToMap(this.dragBeforeRender);
+                if(e.target.classList.contains('newField')){
+                    this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
+                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
+                    this.addElementToMap(this.dragBeforeRender);
+                }else{
+                    this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
+                    console.log('oldField' , this.dragBeforeRender);
+
+                }
+                
 
                 e.target.style.opacity = '0.5';
                 console.log('dragstart field', this.dragAfterRender);
@@ -249,16 +268,20 @@ export default class FormBuilder {
 
             else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
                 e.target.style.borderBottom = '1px solid blue';
+                if(this.dragAfterRender.classList.contains('newField')) {
+                    const div = document.createElement('div');
+                    console.log('fie', this.targetField)
+                    div.innerHTML = this.dragBeforeRender.render()
+                    oldParentColAfterRender.removeChild(this.dragAfterRender);
+                    this.targetField.active = false;
+                    e.target.append(div.firstChild);
+                    addAllEventsToElement(this.dragAfterRender.id)
+                }else{
+                    e.target.style.borderBottom = '1px solid blue';
+                    e.target.append(this.dragAfterRender);
 
-                const div = document.createElement('div');
-                console.log('fie', this.targetField)
-                div.innerHTML = this.dragBeforeRender.render()
-                oldParentColAfterRender.removeChild(this.dragAfterRender);
-                this.targetField.active = false;
-                e.target.append(div.firstChild);
-                addAllEventsToElement(this.dragAfterRender.id)
-                console.log('firstchild', div.firstChild);
-                console.log('drag after render', this.dragAfterRender)
+                }
+                
             }
         });
     
@@ -471,7 +494,7 @@ export default class FormBuilder {
         let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
 
         this.#entity.fields.forEach(field=>{
-            entityDesign += `<div class="border py-2 px-1 field" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+            entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
         });
         entityDesign += `</div>`;
 
