@@ -94,6 +94,12 @@ export default class Element {
     popElement() {
         return this.#elements.pop();
     }
+    indexOfElement(id){
+        return this.#elements.findIndex(ele => ele.Id === id);
+    }
+    removeElement(element) {
+        this.#elements.splice(this.#elements.indexOf(element), 1);
+    }
 
     renderDesignContent() {
         if (this.#typeContent._category == 'layout') {
@@ -108,7 +114,7 @@ export default class Element {
         }
     }
 
-
+   
     renderPreviewContent() {
         if (this.#typeContent._category == 'layout') {
             const columns = this.#elements.map((column) => {
@@ -117,7 +123,6 @@ export default class Element {
             const preview = this.#typeContent._previewContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
             return preview;
         } else {
-
             return this.#typeContent._previewContent;
         }
     }
@@ -143,25 +148,3 @@ export default class Element {
     }
 
 }
-
-// if (this.#typeContent._type === 'tab') {
-//     const columns = this.#elements.map((column) => {
-//         return column.renderDesignContent();
-//     });
-//     const tabDesign = this.#typeContent._designContent.replace('<!--columns-->', columns.join(''));
-//     return tabDesign;
-// } else if (this.#typeContent._type === 'section') {
-//     const fields = this.#elements.map((field) => {
-//         return field.renderDesignContent();
-//     });
-//     const sectionDesign = this.#typeContent._designContent.replace("<!--columns-->", fields.join(''));
-//     return sectionDesign;
-// } else if (this.#typeContent._type === 'column') {
-//     const sections = this.#elements.map((section) => {
-//         return section.renderDesignContent();
-//     });
-//     const columnDesign = this.#typeContent._designContent.replace("<!--content-->", sections.join(''));
-//     return columnDesign;
-// }else {
-//     return this.#typeContent._designContent;
-// }

@@ -7,16 +7,20 @@ import {addAllEventsToElement} from "./ElementEventHandlers.js";
 export default class FormBuilder {
     #platform;
     #mode;
+    #entity;
     #elements;
     #elementsMap;
     #platformFactory
     #parentId
     #Tabs
-    #Sections
+    #sectionsBeforRender
+    #sectionAfterRender
+    #columnsAfterRender
+    #columnsBeforRender
     #activeTab
-    #tabCounter;
-    #sectionCounter
-    #colCounter;
+    dragBeforeRender = null;
+    dragAfterRender = null;
+    newField = null;
     #json;
 
     constructor(json, mode, parentId) {
@@ -26,11 +30,12 @@ export default class FormBuilder {
         this.#elements = [];
         this.#parentId = parentId;
         this.#Tabs = [];
-        this.#Sections = [];
+        this.#sectionsBeforRender= [];
+        this.#sectionAfterRender = [];
+        this.#columnsAfterRender = [];
+        this.#columnsBeforRender = [];
         this.#activeTab = null;
-        this.#tabCounter = 1;
-        this.#sectionCounter = 1;
-        this.#colCounter = 1;
+        this.#entity = null;
         this.#json = json;
 
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
@@ -89,12 +94,33 @@ export default class FormBuilder {
         return this.#activeTab;
     }
 
-    setSection(section){
-        this.#Sections.push(section);
+    setSectionBeforRender(section){
+        this.#sectionsBeforRender.push(section);
     }
 
-    getSectionById(secId){
-        return this.#Sections.find(sec => sec.id == secId);
+    getSectionBeforRender(){
+        return this.#sectionsBeforRender;
+    }
+
+    setSectionAfterRender(section){
+        this.#sectionAfterRender.push(section);
+    }
+    getSectionAfterRender(){
+        return this.#sectionAfterRender;
+    }
+
+    setColumnsAterRender(column){
+        this.#columnsAfterRender.push(column);
+    }
+    getIndexOfColumnsAfterRender(id){
+        return this.#columnsAfterRender.findIndex(col => col.id === id);
+    }
+    setColumnsBeforeRender(column){
+        this.#columnsBeforRender.push(column) ;
+    }
+
+    getSectionBeforeRenderById(id) {
+        return this.#sectionsBeforRender.find((section) => section.Id === id);
     }
 
     addSectionToTab(section){
@@ -140,57 +166,226 @@ export default class FormBuilder {
         console.log('active', this.#activeTab);
     }
 
-    // HandleDragAndDrop(tab){
-    //     const columns = tab.getElements();
-    //     // const sections = columns.flatMap((col) => col.getElements());
-    //     console.log(this.#Sections)
-    //     this.#Sections.forEach(sec=> {
-    //         const sectionElement = document.getElementById(sec.Id);
-    //         sectionElement.addEventListener('dragstart',function(e){
-    //             columns.forEach(col => {
-    //                 let selected = e.target;
-    //                 const colElement = document.getElementById(col.Id);
-                
-    //                 colElement.addEventListener('dragover',function(e){
-    //                     e.preventDefault();
-    //                 });
-    //                 colElement.addEventListener('drop', function(e){
-    //                     console.log
-    //                     col.addElement(selected)
-    //                     selected = null;
-    //                 });
-    //             });
-    //         });
-    //     })
-        
-    // }
 
     HandleDragAndDrop() {
-        let sections = [];
-        this.#Sections.forEach(sec => {
-            sections.push(document.getElementById(sec.Id)) ;
-        })
-        sections.forEach(sec=>{
-            sec.addEventListener('dragstart',function(e){
-                console.log('dragstart');
-            });
-        })
+        const formContainer = document.getElementById('formContainer');
+
+
+        formContainer.addEventListener('dragstart', (e) => {
+            if (e.target.classList.contains('section')) {
+                this.dragAfterRender = e.target;
+
+                this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
+                e.target.style.opacity = '0.5';
+                console.log('dragstart' , e.target);
+            }
+            else if(e.target.classList.contains('field')){
+                this.dragAfterRender = e.target;
+                let targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
+                this.dragBeforeRender = this.build(targetField.type, `${targetField.name}`, `${targetField.displayName}`,'py-3','border: 1px solid green');
+                console.log('type: ', this.dragBeforeRender);
+                e.target.style.opacity = '0.5';
+                console.log('dragstart field', this.dragAfterRender);
+            }
+
+        });
+
+        formContainer.addEventListener('dragend', (e) => {
+            if (e.target.classList.contains('section')) {
+                if (this.dragAfterRender) {
+                    this.dragAfterRender.style.opacity = '1';
+                    this.dragAfterRender = null;
+                    console.log('dragend section');
+                }
+            }
+            else if (e.target.classList.contains('field')) {
+                if (this.dragAfterRender) {
+                    this.dragAfterRender.style.opacity = '1';
+                    this.dragAfterRender = null;
+                    console.log('dragend field');
+                }
+            }
+        });
+
+        formContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
+                e.target.style.borderBottom = '3px solid blue';
+                console.log('dragover');
+            }
+            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
+                e.target.style.borderBottom = '3px solid blue';
+                console.log('dragover field');
+            }
+        });
+
+        formContainer.addEventListener('dragleave', (e) => {
+            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
+                e.target.style.borderBottom = '1px solid orange';
+                console.log('dragleave');
+            }
+            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
+                e.target.style.borderBottom = '1px dashed blue';
+                console.log('dragleave field');
+            }
+        });
+
+        formContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let targetColId = e.target.id;
+                let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
+                let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+                let oldParentColAfterRender = this.dragAfterRender.parentNode;
+                let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+                let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+                oldParentColBeforeRender.removeElement(this.dragBeforeRender);
+                newColBeforRender.addElement(this.dragBeforeRender);
+
+
+            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
+                // let targetColId = e.target.id;
+                // let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
+                // let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+                // let oldParentColAfterRender = this.dragAfterRender.parentNode;
+                // let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+                // let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+                // oldParentColBeforeRender.removeElement(this.dragBeforeRender);
+                // newColBeforRender.addElement(this.dragBeforeRender);
+                e.target.style.borderBottom = '1px solid orange';
+                e.target.append(this.dragAfterRender);
+                console.log('drop');
+            }
+
+            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
+                console.log('drop field');
+                let targetColId = e.target.id;
+                let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
+                let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+                let oldParentColAfterRender = this.dragAfterRender.parentNode;
+                if(oldParentColAfterRender.classList.contains('colsec')) {
+                    console.log('true')
+                    let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+                    let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+                    oldParentColBeforeRender.removeElement(this.dragBeforeRender);
+                }
+                newColBeforRender.addElement(this.dragBeforeRender);
+                e.target.style.borderBottom = '1px dashed blue';
+                // e.target.classList.remove('py-3');
+                const div = document.createElement('div');
+                div.innerHTML = this.dragBeforeRender.render()
+                oldParentColAfterRender.removeChild(this.dragAfterRender);
+                e.target.append(div.firstChild);
+
+            }
+        });
+
     }
+
+
+
+    // HandleDragAndDrop() {
+    //     const formContainer = document.getElementById('formContainer');
+    //     const dashedBorderStyle = '1px dashed blue';
+
+    //     formContainer.addEventListener('dragstart', (e) => {
+    //         if (e.target.classList.contains('section')) {
+    //             this.dragAfterRender = e.target;
+    //             this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
+    //             e.target.style.opacity = '0.5';
+    //             console.log('dragstart section');
+    //         } else if (e.target.classList.contains('field')) {
+    //             this.dragAfterRender = e.target;
+    //             let targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
+    //             this.dragBeforeRender = this.build(targetField.type, `${targetField.name}`, `${targetField.displayName}`, 'py-3', 'border: 1px solid green');
+    //             console.log('type: ', this.dragBeforeRender);
+    //             e.target.style.opacity = '0.5';
+    //             console.log('dragstart field', this.dragAfterRender);
+    //         }
+    //     });
+
+    //     formContainer.addEventListener('dragend', (e) => {
+    //         if (e.target.classList.contains('section') || e.target.classList.contains('field')) {
+    //             if (this.dragAfterRender) {
+    //                 this.dragAfterRender.style.opacity = '1';
+    //                 this.dragAfterRender = null;
+    //                 console.log('dragend section/field');
+    //             }
+    //         }
+    //     });
+
+    //     // Dragover event for coltab (Sections)
+    //     const coltabElements = document.querySelectorAll('.coltab');
+    //     coltabElements.forEach(coltabElement => {
+    //         coltabElement.addEventListener('dragover', (e) => {
+    //             e.preventDefault();
+    //             coltabElement.style.borderBottom = '3px solid blue';
+    //             console.log('dragover section');
+    //         });
+
+    //         coltabElement.addEventListener('dragleave', (e) => {
+    //             coltabElement.style.borderBottom = '1px solid orange';
+    //             console.log('dragleave section');
+    //         });
+
+    //         coltabElement.addEventListener('drop', (e) => {
+    //             e.preventDefault();
+    //             e.stopPropagation();
+    //             let targetColId = coltabElement.id;
+    //             // Handle dropping section logic here
+    //             console.log('drop section to coltab', targetColId);
+    //         });
+    //     });
+
+    //     // Dragover event for colsec (Fields)
+    //     const colsecElements = document.querySelectorAll('.colsec');
+    //     colsecElements.forEach(colsecElement => {
+    //         colsecElement.addEventListener('dragover', (e) => {
+    //             e.preventDefault();
+    //             colsecElement.style.borderBottom = '3px solid blue';
+    //             console.log('dragover field');
+    //         });
+
+    //         colsecElement.addEventListener('dragleave', (e) => {
+    //             colsecElement.style.borderBottom = dashedBorderStyle;
+    //             console.log('dragleave field');
+    //         });
+
+    //         colsecElement.addEventListener('drop', (e) => {
+    //             e.preventDefault();
+    //             e.stopPropagation();
+    //             let targetColId = colsecElement.id;
+    //             // Handle dropping field logic here
+    //             console.log('drop field to colsec', targetColId);
+    //         });
+    //     });
+    // }
+
     
-    ElementContent(parentId){
+
+   async ElementContent(parentId){
         switch(this.#mode){
             case 'create':
                 const tab = this.#platformFactory.createTab('tab_def', "Tab", "col py-2", "border: 1px solid green", this.#mode);
-                const column = this.#platformFactory.createColumn('tab_col_def1', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const column2 = this.#platformFactory.createColumn('tab_col_def2', 'Column', 'col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const section = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
-                const section2 = this.#platformFactory.createSection('sec_def1', 'Section', '', 'border: 1px dashed green', this.#mode); 
-                const colSec1 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
-                const colSec2 = this.#platformFactory.createColumn('sec', 'Column', 'col py-3 px-1 my-1 mx-1 ', 'border: 1px solid blue', this.#mode);
+                const column = this.#platformFactory.createColumn('tab_col_def0', 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const column2 = this.#platformFactory.createColumn('tab_col_def1', 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
+                const section = this.#platformFactory.createSection('sec_def0', 'Section1', 'section', 'border: 1px dashed green', this.#mode);
+                const section2 = this.#platformFactory.createSection('sec_def1', 'Section2', 'section', 'border: 1px dashed green', this.#mode);
+                const colSec1 = this.#platformFactory.createColumn('sec_col_def0', 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed blue', this.#mode);
+                const colSec2 = this.#platformFactory.createColumn('sec_col_def1', 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed blue', this.#mode);
                 section.addElement(colSec1);
                 section2.addElement(colSec2);
+                this.setSectionBeforRender(section);
+                this.setSectionBeforRender(section2);
+
                 column.addElement(section);
                 column2.addElement(section2);
+                this.setColumnsBeforeRender(column);
+                this.setColumnsBeforeRender(column2);
+                this.setColumnsBeforeRender(colSec1);
+                this.setColumnsBeforeRender(colSec2);
+
                 tab.addElement(column);
                 tab.addElement(column2);
 
@@ -198,15 +393,26 @@ export default class FormBuilder {
                 const render=  tab.render();
                 document.getElementById(parentId).innerHTML = render;
 
+
+                let sec1 = document.getElementById(`${section.Id}`);
+                this.setSectionAfterRender(sec1);
+                sec1 = document.getElementById(`${section2.Id}`);
+                this.setSectionAfterRender(sec1);
+
+                let col = document.getElementById(`${column.Id}`);
+                this.setColumnsAterRender(col);
+                col = document.getElementById(`${column2.Id}`);
+                this.setColumnsAterRender(col);
+                col = document.getElementById(`${colSec1.Id}`);
+                this.setColumnsAterRender(col);
+                col = document.getElementById(`${colSec2.Id}`);
+                this.setColumnsAterRender(col);
+
+
                 this.addClickOnTab()
-                // //add click 
-                // this.#Tabs.forEach(t => {
-                //     const target = document.getElementById(`${t.Id}`);
-                //     target.addEventListener('click', ()=> {
-                //         this.handleTabClick(t.Id)
-                //     });
-                //     this.HandleDragAndDrop();
-                // });
+                // this.HandleDragAndDrop();
+                this.getEntity();
+
 
                 break;
             case 'update':
@@ -274,17 +480,18 @@ export default class FormBuilder {
         });
     }
 
-    addClickOnTab() {
-        console.log("tabs", this.#Tabs)
+    addClickOnTab(){
         this.#Tabs.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
-            target.addEventListener('click', () => {
+            target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
-            // HandleDragAndDrop();
         });
     }
-    build(type,id, name, customClass, style ,parentId=null) {
+
+
+    build(type,id, name, customClass, style) {
+
         switch(type){
             case 'tab':
                 const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
@@ -292,20 +499,55 @@ export default class FormBuilder {
                 return tab;
             case 'section':
                 const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
-                this.setSection(section);
                 return section;
             case 'column':
                 const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
                 return column;
-
-            case 'text':
-                const text = this.#platformFactory.createText(id, name, customClass, style, this.#mode);
-                // const renderText=  text.render();
-                // document.getElementById(parentId).innerHTML += renderText;
+            case 'single line of text':
+                const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
                 return text;
-                break;
-
+            case 'option set':
+                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode);
+                return optionSet;
+            case 'two options':
+                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode);
+                return twoOptions;
+            case 'decimal number':
+                const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode);
+                return decimalNumber;
+            case 'multiple line of text':
+                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode);
+                return multipleLineOfText;
+            case 'date and time':
+                const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode);
+                return dateAndTime;
         }
+
+    }
+
+    async readJson() {
+        try{
+            const response = await fetch('/entity.json');
+            if(!response)
+                throw new Error("Can't read entity");
+            const entity = await response.json();
+            return entity;
+
+        }catch(error){
+            console.error('Error reading entity', error);
+        }
+    }
+
+    async getEntity(){
+        this.#entity = await this.readJson();
+        let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
+
+        this.#entity.fields.forEach(field=>{
+            entityDesign += `<div class="border py-2 px-1 field" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+
+        });
+        entityDesign += `</div>`;
+        document.getElementById('entity').innerHTML = entityDesign;
     }
 
     toSaveSchema() {
@@ -317,4 +559,5 @@ export default class FormBuilder {
             elements: this.#elements.map(e => e.toSaveSchema())
         }
     }
+
 }
