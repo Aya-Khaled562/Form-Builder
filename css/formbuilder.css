@@ -3,16 +3,13 @@
     padding: 0;
     
 }
-/* .sidebar{
-    position: absolute;
-    top: 20;
-    bottom: 0;
-    right: 0;
-    width: 25%;
+
+.sidebar{
+    height: calc(97vh - 120px); 
     overflow-y: auto;
-    z-index: 100;
-} */
-/* #formContainer{
-    margin-right: 25%;
+}
+
+#form {
+    max-height: calc(100vh - 110px); /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
     overflow-y: auto;
-} */
+}

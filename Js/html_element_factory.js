@@ -97,11 +97,11 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             `<div class="container my-3" style="${style}" id="${id}">
                 <div class="row">
                     <h5>${name}</h5>
-                    <div class="py-3" style="border: 1px solid blue;"></div>
+                    <!--content-->
                 </div>
             </div>`,
             `<label>${name}</label>
-            <div class="${customClass}" style="${style}" style="margin:10px;"> <div class="py-3" style="border: 1px solid blue;"></div></div>`
+            <div class="${customClass}" style="${style}" style="margin:10px;"> <!--content--></div>`
         );
 
        return new Element(id, name, customClass, style, typeContentTab, mode);
@@ -114,11 +114,11 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             `<div class="container my-2 py-1 ${customClass}" style="${style}" id="${id}" draggable="true" >
                 <div class="row">
                     <h6>${name}</h6>
-                    <div class="py-3" style="border: 1px solid blue;"></div>
+                    <!--content-->
                 </div>
             </div>`,
             `<label>${name}</label>
-            <div id="${id}" class="${customClass}" style="${style}" draggable="true"> <!--columns--> </div>`
+            <div id="${id}" class="${customClass}" style="${style}" draggable="true"> <!--content--> </div>`
         );
 
         return new Element(id, name, customClass, style, typeContentSection, mode);
@@ -128,7 +128,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         const typeContentColumn = new TypeContent(
             'column',
             'layout',
-            `<div id="${id}" class="${customClass}" style = "${style}"> <div class="py-3" style="border: 1px solid blue;"></div></div>`,
+            `<div id="${id}" class="${customClass}" style = "${style}"> <!--content--></div>`,
             `<div id="${id}" class="col py-1 my-1 mx-1"> <!--content--> </div>`
         );
         return new Element(id, name, customClass, style, typeContentColumn, mode);

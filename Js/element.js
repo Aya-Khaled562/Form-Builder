@@ -106,7 +106,7 @@ export default class Element {
             const columns = this.#elements.map((column) => {
                 return column.renderDesignContent();
             });
-            const design = this.#typeContent._designContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
+            const design = this.#typeContent._designContent.replace('<!--content-->', columns.join(''));
             return design;
         } else {
 
@@ -120,7 +120,7 @@ export default class Element {
             const columns = this.#elements.map((column) => {
                 return column.renderPreviewContent();
             });
-            const preview = this.#typeContent._previewContent.replace('<div class="py-3" style="border: 1px solid blue;"></div>', columns.join(''));
+            const preview = this.#typeContent._previewContent.replace('<!--content-->', columns.join(''));
             return preview;
         } else {
             return this.#typeContent._previewContent;

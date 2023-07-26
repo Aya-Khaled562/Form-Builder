@@ -169,198 +169,92 @@ export default class FormBuilder {
 
     HandleDragAndDrop() {
         const formContainer = document.getElementById('formContainer');
-
-
         formContainer.addEventListener('dragstart', (e) => {
+            this.dragAfterRender = e.target;
             if (e.target.classList.contains('section')) {
-                this.dragAfterRender = e.target;
-
                 this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
                 e.target.style.opacity = '0.5';
                 console.log('dragstart' , e.target);
             }
             else if(e.target.classList.contains('field')){
-                this.dragAfterRender = e.target;
-                let targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                this.dragBeforeRender = this.build(targetField.type, `${targetField.name}`, `${targetField.displayName}`,'py-3','border: 1px solid green');
-                console.log('type: ', this.dragBeforeRender);
+                this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
+                this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`,'py-3','border: 1px solid green');
                 e.target.style.opacity = '0.5';
                 console.log('dragstart field', this.dragAfterRender);
             }
-
         });
-
+    
         formContainer.addEventListener('dragend', (e) => {
-            if (e.target.classList.contains('section')) {
+            if (e.target.classList.contains('section') || e.target.classList.contains('field')) {
                 if (this.dragAfterRender) {
                     this.dragAfterRender.style.opacity = '1';
                     this.dragAfterRender = null;
                     console.log('dragend section');
                 }
             }
-            else if (e.target.classList.contains('field')) {
-                if (this.dragAfterRender) {
-                    this.dragAfterRender.style.opacity = '1';
-                    this.dragAfterRender = null;
-                    console.log('dragend field');
-                }
-            }
         });
-
+    
         formContainer.addEventListener('dragover', (e) => {
             e.preventDefault();
-            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
+            if ((e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) ||
+                (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) ) 
+            {
                 e.target.style.borderBottom = '3px solid blue';
                 console.log('dragover');
             }
-            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
-                e.target.style.borderBottom = '3px solid blue';
-                console.log('dragover field');
-            }
         });
-
+    
         formContainer.addEventListener('dragleave', (e) => {
             if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
                 e.target.style.borderBottom = '1px solid orange';
                 console.log('dragleave');
             }
-            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
+            else if (e.target.classList.contains('colsec') && this.dragAfterRender.classList.contains('field')) {
                 e.target.style.borderBottom = '1px dashed blue';
                 console.log('dragleave field');
             }
         });
-
+    
         formContainer.addEventListener('drop', (e) => {
             e.preventDefault();
             e.stopPropagation();
-
+            
             let targetColId = e.target.id;
-                let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
-                let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
-                let oldParentColAfterRender = this.dragAfterRender.parentNode;
-                let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-                let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+            let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
+            let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+            let oldParentColAfterRender = this.dragAfterRender.parentNode;
+            let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+            let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+            
+            if(oldParentColAfterRender.classList.contains('colsec') && oldParentColAfterRender.classList.contains('coltab') ) {
+                oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+                oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
                 oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-                newColBeforRender.addElement(this.dragBeforeRender);
+            }
+            newColBeforRender.addElement(this.dragBeforeRender);
 
-
+                
             if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
-                // let targetColId = e.target.id;
-                // let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
-                // let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
-                // let oldParentColAfterRender = this.dragAfterRender.parentNode;
-                // let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-                // let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
-                // oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-                // newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid orange';
                 e.target.append(this.dragAfterRender);
                 console.log('drop');
             }
 
             else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
-                console.log('drop field');
-                let targetColId = e.target.id;
-                let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
-                let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
-                let oldParentColAfterRender = this.dragAfterRender.parentNode;
-                if(oldParentColAfterRender.classList.contains('colsec')) {
-                    console.log('true')
-                    let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-                    let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
-                    oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-                }
-                newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px dashed blue';
-                // e.target.classList.remove('py-3');
+
                 const div = document.createElement('div');
+                console.log('fie', this.targetField)
                 div.innerHTML = this.dragBeforeRender.render()
                 oldParentColAfterRender.removeChild(this.dragAfterRender);
+                this.targetField.active = false;
                 e.target.append(div.firstChild);
-
             }
         });
-
+    
     }
 
 
-
-    // HandleDragAndDrop() {
-    //     const formContainer = document.getElementById('formContainer');
-    //     const dashedBorderStyle = '1px dashed blue';
-
-    //     formContainer.addEventListener('dragstart', (e) => {
-    //         if (e.target.classList.contains('section')) {
-    //             this.dragAfterRender = e.target;
-    //             this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
-    //             e.target.style.opacity = '0.5';
-    //             console.log('dragstart section');
-    //         } else if (e.target.classList.contains('field')) {
-    //             this.dragAfterRender = e.target;
-    //             let targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-    //             this.dragBeforeRender = this.build(targetField.type, `${targetField.name}`, `${targetField.displayName}`, 'py-3', 'border: 1px solid green');
-    //             console.log('type: ', this.dragBeforeRender);
-    //             e.target.style.opacity = '0.5';
-    //             console.log('dragstart field', this.dragAfterRender);
-    //         }
-    //     });
-
-    //     formContainer.addEventListener('dragend', (e) => {
-    //         if (e.target.classList.contains('section') || e.target.classList.contains('field')) {
-    //             if (this.dragAfterRender) {
-    //                 this.dragAfterRender.style.opacity = '1';
-    //                 this.dragAfterRender = null;
-    //                 console.log('dragend section/field');
-    //             }
-    //         }
-    //     });
-
-    //     // Dragover event for coltab (Sections)
-    //     const coltabElements = document.querySelectorAll('.coltab');
-    //     coltabElements.forEach(coltabElement => {
-    //         coltabElement.addEventListener('dragover', (e) => {
-    //             e.preventDefault();
-    //             coltabElement.style.borderBottom = '3px solid blue';
-    //             console.log('dragover section');
-    //         });
-
-    //         coltabElement.addEventListener('dragleave', (e) => {
-    //             coltabElement.style.borderBottom = '1px solid orange';
-    //             console.log('dragleave section');
-    //         });
-
-    //         coltabElement.addEventListener('drop', (e) => {
-    //             e.preventDefault();
-    //             e.stopPropagation();
-    //             let targetColId = coltabElement.id;
-    //             // Handle dropping section logic here
-    //             console.log('drop section to coltab', targetColId);
-    //         });
-    //     });
-
-    //     // Dragover event for colsec (Fields)
-    //     const colsecElements = document.querySelectorAll('.colsec');
-    //     colsecElements.forEach(colsecElement => {
-    //         colsecElement.addEventListener('dragover', (e) => {
-    //             e.preventDefault();
-    //             colsecElement.style.borderBottom = '3px solid blue';
-    //             console.log('dragover field');
-    //         });
-
-    //         colsecElement.addEventListener('dragleave', (e) => {
-    //             colsecElement.style.borderBottom = dashedBorderStyle;
-    //             console.log('dragleave field');
-    //         });
-
-    //         colsecElement.addEventListener('drop', (e) => {
-    //             e.preventDefault();
-    //             e.stopPropagation();
-    //             let targetColId = colsecElement.id;
-    //             // Handle dropping field logic here
-    //             console.log('drop field to colsec', targetColId);
-    //         });
-    //     });
-    // }
 
     
 
@@ -418,6 +312,7 @@ export default class FormBuilder {
             case 'update':
                 this.load();
                 this.#addDesignContent();
+                
                 break;
             case 'preview':
                 this.load();
@@ -447,7 +342,8 @@ export default class FormBuilder {
                             let formControl = null;
                             switch (control.type) {
                                 case Types.Text:
-                                    formControl = this.#platformFactory.createText(control.id, control.name, control.customClass, control.style, this.#mode);
+                                    formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
+                                    console.log('formControl', formControl)
                                     break;
                             }
                             newSectionCol.addElement(formControl);
@@ -478,7 +374,10 @@ export default class FormBuilder {
                 addAllEventsToElement(el.Id);
             }
         });
+        this.addClickOnTab()
+        this.getEntity();
     }
+
 
     addClickOnTab(){
         this.#Tabs.forEach(t => {
@@ -527,7 +426,7 @@ export default class FormBuilder {
 
     async readJson() {
         try{
-            const response = await fetch('/entity.json');
+            const response = await fetch('../files/entity.json');
             if(!response)
                 throw new Error("Can't read entity");
             const entity = await response.json();
@@ -544,9 +443,9 @@ export default class FormBuilder {
 
         this.#entity.fields.forEach(field=>{
             entityDesign += `<div class="border py-2 px-1 field" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
-
         });
         entityDesign += `</div>`;
+
         document.getElementById('entity').innerHTML = entityDesign;
     }
 
