@@ -5,11 +5,11 @@
 }
 
 .sidebar{
-    height: calc(97vh - 120px); 
+    height: calc(96vh - 150px); 
     overflow-y: auto;
 }
 
 #form {
-    max-height: calc(100vh - 110px); /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
+    max-height: calc(96vh - 150px); /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
     overflow-y: auto;
 }
