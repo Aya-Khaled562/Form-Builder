@@ -38,8 +38,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
-            <label class="col" style="width: 50%;">${name}</label>
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field" style="" draggable="true" id="${id}">
+             <label class="form-label me-5">${name}</label>
             <select class="form-select" aria-label="Default select example">${setOptions}</select> 
             </div>`
         );
@@ -56,8 +56,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
-            <label class="col" style="width: 50%;">${name}</label>
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field" style="width: 50%;" draggable="true" id="${id}">
+            <label class="form-label me-5">${name}</label>
             <select class="form-select" aria-label="Default select example">
   <option selected value="${Object.values(options)[0]}">${Object.keys(options)[0]}</option>
   <option value="${Object.values(options)[1]}">${Object.keys(options)[1]}</option>
@@ -76,7 +76,10 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'decimal number input preview'
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field">
+                        <label for="${id}" class="form-label me-5">${name}</label>
+                         <input type="number" class="form-control " style=" width: 50%;" id="${id}">
+                        </div>`
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -90,7 +93,10 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'multiple line of text input preview'
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field">
+                        <label for="${id}" class="form-label me-5">${name}</label>
+                         <textarea class="form-control " style=" width: 50%;" id="${id}" rows="3"></textarea>
+                        </div>`
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);

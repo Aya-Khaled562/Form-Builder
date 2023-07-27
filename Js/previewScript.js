@@ -7,13 +7,13 @@ const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
 
 console.log(jsonData);
 //window.onload =  function () {
-const builder = new FormBuilder(jsonData, 'preview', 'formContainer');
+const builder = new FormBuilder(jsonData, 'preview', 'form');
 
 // Save form
 console.log("preview window loading>>>>>>>>>");
 let copyHtmlBtn = document.getElementById('copyFormHtml');
 copyHtmlBtn.addEventListener('click', function (e) {
-    let formContainer = document.getElementById(builder.ParentId);
+    let formContainer = document.getElementById(builder.ParentId).parentElement;
     navigator.clipboard.writeText(formContainer.innerHTML);
 });
 

@@ -157,12 +157,26 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
             } else if (checkedColumnsValue > currentNumberOfCols) {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
-                    if (element.TypeContent._type == Types.Tab)
+                    if (element.TypeContent._type == Types.Tab) {
                         col = builder.getPlatformFactory()
                             .createColumn(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;')
-                    else
+                        let section = builder.build(Types.Section, crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;');
+                        columnsAdded.push(section);
+
+                        let sectionCol = builder.build(Types.Column, crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;');
+                        section.addElement(sectionCol);
+                        columnsAdded.push(sectionCol);
+
+
+                        col.addElement(section);
+                        builder.addElementToMap(section);
+                        builder.setSectionBeforRender(section);
+                        builder.setColumnsBeforeRender(sectionCol);
+                    } else {
                         col = builder.getPlatformFactory()
                             .createColumn(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;');
+                    }
+
                     element.addElement(col);
                     columnsAdded.push(col);
                     builder.setColumnsBeforeRender(col);  // needs to handle
