@@ -292,16 +292,12 @@ export default class FormBuilder {
    async ElementContent(){
         switch(this.#mode){
             case 'create':
-                this.load();
-                this.addDesignContent();
-                this.getEntity();
-                break;
             case 'update':
                 this.load();
+                document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+
                 this.addDesignContent();
                 this.getEntity();
-
-
                 break;
             case 'preview':
                 this.load();
@@ -358,7 +354,7 @@ export default class FormBuilder {
     }
 
     addDesignContent() {
-        document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+        // document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
                 addAllEventsToElement(el.Id);

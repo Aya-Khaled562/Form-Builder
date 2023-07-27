@@ -50,8 +50,7 @@ function addTab(numOfCols){
     }
 
     document.getElementById('form').innerHTML += tab.render();
-    // builder.addDesignContent();
-    builder.addClickOnTab();
+    builder.addDesignContent();
 }
 
 function addSection(numOfCols){
