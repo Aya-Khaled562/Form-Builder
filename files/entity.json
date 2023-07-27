@@ -5,15 +5,17 @@
             "displayName":"First Name",
             "name":"firstname",
             "type":"single line of text",
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Last Name",
             "name":"lastname",
             "type":"single line of text",
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Social Status",
@@ -24,8 +26,9 @@
                 "Married": "1",
                 "Divorced": "2"
             },
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Gender",
@@ -35,29 +38,33 @@
                 "Male": "0",
                 "Female": "1"
             },
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Salary",
             "name":"salary",
             "type":"decimal number",
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Notes",
             "name":"notes",
             "type":"multiple line of text",
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         },
         {
             "displayName":"Start Date",
             "name":"startdate",
             "type":"date and time",
-            "required": "true",
-            "searchable": "true"
+            "required": true,
+            "searchable": true,
+            "active": true
         }
     ]
 }
