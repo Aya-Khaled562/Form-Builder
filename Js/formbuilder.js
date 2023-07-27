@@ -193,12 +193,13 @@ export default class FormBuilder {
             else if(e.target.classList.contains('field')){
                 if(e.target.classList.contains('newField')){
                     this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
+                    console.log('target field from entity>>>', this.targetField)
+                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green', this.targetField.options);
+                    console.log('drag before rednder new element >>> ', this.dragBeforeRender)
                     this.addElementToMap(this.dragBeforeRender);
                 }else{
                     this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
                     console.log('oldField' , this.dragBeforeRender);
-
                 }
 
 
@@ -379,7 +380,8 @@ export default class FormBuilder {
                             //         console.log('formControl', formControl)
                             //         break;
                             // }
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style);
+
+                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.optionsSetValues);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
                         });
@@ -435,9 +437,9 @@ export default class FormBuilder {
     }
 
 
-    build(type,id, name, customClass, style) {
+    build(type, id, name, customClass, style, ...params) {
 
-        switch(type){
+        switch (type) {
             case 'tab':
                 const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
                 this.setTab(tab);
@@ -452,10 +454,11 @@ export default class FormBuilder {
                 const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
                 return text;
             case 'option set':
-                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode);
+                console.log('params', params);
+                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, params[0]);
                 return optionSet;
             case 'two options':
-                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode);
+                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, params[0]);
                 return twoOptions;
             case 'decimal number':
                 const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode);

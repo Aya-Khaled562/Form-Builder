@@ -28,8 +28,9 @@ export default class Element {
         this.#style = style;
         this.#typeContent = typeContent;
         this.#mode = mode;
-        if (params.length == 1)
+        if (params.length == 1 && params[0] != undefined && [Types.TwoOption, Types.OptionSet].includes(typeContent._type)) {
             this.#optionsSetValues = params[0];
+        }
     }
 
     get Id() {
@@ -149,7 +150,7 @@ export default class Element {
     }
 
     toSaveSchema() {
-        return {
+        let objectSchema = {
             id: this.Id,
             name: this.#name,
             customClass: this.#customClass,
@@ -158,6 +159,13 @@ export default class Element {
             category: this.#typeContent._category,
             elements: this.#elements.map(e => e.toSaveSchema())
         };
+
+        if (this.#optionsSetValues != null) {
+            objectSchema.optionsSetValues = this.#optionsSetValues;
+            console.log()
+
+        }
+        return objectSchema;
     }
 
 }
