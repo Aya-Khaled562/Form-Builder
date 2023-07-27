@@ -4,7 +4,7 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "./element.js";
 
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
-import {getJson} from "./Utils.js";
+import {download, getJson} from "./Utils.js";
 
 
 let jsonData = sessionStorage.getItem('jsonDataForm');
@@ -199,7 +199,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     // Save form
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
-        builder.download(builder.toSaveSchema());
+        download(builder.toSaveSchema());
         window.open('/previewPage.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));

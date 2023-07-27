@@ -7,7 +7,8 @@ export const Types = {
     OptionSet: 'option set',
     DecimalNumber: 'decimal number',
     MultipleLineOfText: 'multiple line of text',
-    DateAndTime: 'date and time'
+    DateAndTime: 'date and time',
+    File: 'file'
 };
 export const Categories = {Layout: "layout", FormControl: "formControl"};
 
