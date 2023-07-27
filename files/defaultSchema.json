@@ -1,0 +1,57 @@
+{
+    "platform": "html",
+    "mode": "create",
+    "entity": "",
+    "description": "",
+    "elements": [
+      {
+        "id": "tab_def",
+        "name": "Tab",
+        "customClass": "col py-2",
+        "style": "border: 1px solid green",
+        "type": "tab",
+        "category": "layout",
+        "elements": [
+          {
+            "id": "tab_col_def0",
+            "name": "Column",
+            "customClass": "coltab col py-1 my-1 mx-1",
+            "style": "border: 1px solid orange",
+            "type": "column",
+            "category": "layout",
+            "elements": [
+              {
+                "id": "sec_def0",
+                "name": "Section1",
+                "customClass": "section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "elements": [
+                  {
+                    "id": "sec_col_def0",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
+                    "style": "border: 1px solid blue",
+                    "type": "column",
+                    "category": "layout",
+                    "elements": []
+
+                  },
+                  {
+                    "id": "sec_col_def1",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
+                    "style": "border: 1px solid blue",
+                    "type": "column",
+                    "category": "layout",
+                    "elements": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

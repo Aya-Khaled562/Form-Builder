@@ -115,7 +115,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         const typeContentTab = new TypeContent(
             'tab',
             'layout',
-            `<div class="container my-3" style="${style}" id="${id}">
+            `<div class="container my-3 tab" style="${style}" id="${id}"  >
                 <div class="row">
                     <h5>${name}</h5>
                     <!--content-->

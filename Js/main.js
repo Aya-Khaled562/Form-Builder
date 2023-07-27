@@ -8,35 +8,46 @@ import {download, getJson} from "./Utils.js";
 
 
 let jsonData = sessionStorage.getItem('jsonDataForm');
+let mode = sessionStorage.getItem('formMode');
+
+if (mode == null)
+    mode = 'create';
+
 if (jsonData != null) {
     jsonData = JSON.parse(jsonData);
-} else {
+} else if ( mode == 'update') {
     jsonData = await getJson('/files/schema.json');
+}else {
+    jsonData = await getJson('/files/defaultSchema.json');
 }
 
+console.log('json data', jsonData)
 
 let tabConter = 0;
 let secCounter = 2;
 let colCounter = 0;
-const builder = new FormBuilder(jsonData, 'update', 'form');
+
+const builder = new FormBuilder(jsonData, mode, 'form');
 
 
-function addTab(numOfCols) {
-    const tab = builder.build('tab', `tab_${tabConter++}`, "Tab", "col py-2", "border: 1px solid green");
-    for (let i = 0; i < numOfCols; i++) {
-        let col = builder.build('column', `col_${colCounter++}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
-        let sec = builder.build('section', `sec_${secCounter++}`, `Section`, ' section', 'border: 1px dashed green;');
-        let colSec = builder.build('column', `col_${colCounter++}`, 'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+function addTab(numOfCols){
+    const tab = builder.build('tab',`tab_${tabConter++}`,"Tab1", "col py-2", "border: 1px solid green" );
+    for(let i=0; i<numOfCols; i++){
+        let col = builder.build('column',`col_${colCounter++}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
+        let sec = builder.build('section',`sec_${secCounter++}`,`Section`,' section','border: 1px dashed green;');
+        let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(colSec);
         builder.addElementToMap(sec)
         col.addElement(sec);
         tab.addElement(col);
     }
 
-    builder.addElement(tab);
-    builder.addElementToMap(tab);
+    // builder.addElement(tab);
+    // builder.addElementToMap(tab);
 
     document.getElementById('form').innerHTML += tab.render();
+    builder.setTabAfterRender(tab)
+
     tab.getElements().forEach(col => {
 
         col.getElements().forEach(sec => {
@@ -55,18 +66,19 @@ function addTab(numOfCols) {
         builder.setColumnsAterRender(col);
     });
 
-    builder.addClickOnTab()
+    // builder.addClickOnTab()
+    builder.addDesignContent();
 }
 
-function addSection(numOfCols) {
-    let sec = builder.build('section', `sec_${secCounter++}`, `Section`, 'section', 'border: 1px dashed green;');
-    for (let i = 0; i < numOfCols; i++) {
-        let col = builder.build('column', `col_${colCounter++}`, 'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+function addSection(numOfCols){
+    let sec = builder.build('section',`sec_${secCounter++}`,`Section`,'section','border: 1px dashed green;');
+    for(let i=0; i<numOfCols; i++){
+        let col = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
 
-    builder.addElement(sec);
+    // builder.addElement(sec);
     builder.addElementToMap(sec);
 
     const targetId = builder.addSectionToTab(sec);
@@ -79,6 +91,7 @@ function addSection(numOfCols) {
 
     sec = document.getElementById(`${sec.Id}`);
     builder.setSectionAfterRender(sec);
+    builder.addDesignContent();
 }
 
 document.getElementById("addTabWith1Col").addEventListener("click", () => addTab(1));
@@ -90,8 +103,8 @@ document.getElementById("addSectionWith2Col").addEventListener("click", () => ad
 document.getElementById("addSectionWith3Col").addEventListener("click", () => addSection(3));
 
 
-console.log("enter dom loaded>>>>>>>>>")
-console.log($('#exampleModal'))
+// console.log("enter dom loaded>>>>>>>>>")
+// console.log($('#exampleModal'))
 
 $('#exampleModal').on('shown.bs.modal', function (e) {
     console.log("modal is fired>>>>>>");
@@ -198,10 +211,26 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         window.open('/previewPage.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
+        sessionStorage.setItem('formMode', builder.getMode());
+
     });
+
+    let updateModeBtn = document.getElementById('updateMode');
+    updateModeBtn.addEventListener('click', function (e) {
+        window.open('/test.html', '_self');
+        sessionStorage.setItem('formMode', 'update');
+    });
+    let createModeBtn = document.getElementById('createMode');
+    createModeBtn.addEventListener('click', function (e) {
+        window.open('/test.html', '_self');
+        sessionStorage.setItem('formMode', 'create');
+    });
+
+    
 //});
 
-builder.HandleDragAndDrop();
+builder.handleDragAndDrop();
+
 
 
 
