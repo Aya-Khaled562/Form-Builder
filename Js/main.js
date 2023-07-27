@@ -4,7 +4,7 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "./element.js";
 
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
-import {download, getJson} from "./Utils.js";
+import {getJson} from "./Utils.js";
 
 
 let jsonData = sessionStorage.getItem('jsonDataForm');
@@ -188,7 +188,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     // Save form
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
-        download(builder.toSaveSchema());
+        builder.download(builder.toSaveSchema());
         window.open('/previewPage.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
@@ -198,12 +198,12 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
     let updateModeBtn = document.getElementById('updateMode');
     updateModeBtn.addEventListener('click', function (e) {
-        window.open('/test.html', '_self');
+        window.open('/Form-Builder/test.html', '_self');
         sessionStorage.setItem('formMode', 'update');
     });
     let createModeBtn = document.getElementById('createMode');
     createModeBtn.addEventListener('click', function (e) {
-        window.open('/test.html', '_self');
+        window.open('/Form-Builder/test.html', '_self');
         sessionStorage.setItem('formMode', 'create');
     });
 

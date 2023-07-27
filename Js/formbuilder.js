@@ -1,5 +1,5 @@
 import AndroidElementFactory from "./android_element_factory.js";
-import {Types} from "./element.js";
+import {Categories, Types} from "./element.js";
 import HtmlElementFactory from "./html_element_factory.js";
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
 
@@ -300,6 +300,8 @@ export default class FormBuilder {
                 this.load();
                 this.addDesignContent();
                 this.getEntity();
+
+
                 break;
             case 'preview':
                 this.load();
@@ -333,6 +335,7 @@ export default class FormBuilder {
                             formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.optionsSetValues);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
+
                         });
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
@@ -434,17 +437,26 @@ export default class FormBuilder {
         }
     }
 
-    async getEntity(){
+    async getEntity() {
         this.#entity = await this.readJson();
         let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
 
-        this.#entity.fields.forEach(field=>{
-            if(field.active === true)
+        this.#elementsMap.forEach(element => {
+            if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
+                let field = this.#entity.fields.find(field => field.name === element.Id);
+                field.active = false;
+            }
+        })
+
+        this.#entity.fields.forEach(field => {
+            if (field.active === true)
                 entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
         });
         entityDesign += `</div>`;
 
         document.getElementById('entity').innerHTML = entityDesign;
+
+
     }
 
     toSaveSchema() {
