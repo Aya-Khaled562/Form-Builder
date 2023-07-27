@@ -21,76 +21,52 @@ if (jsonData != null) {
     jsonData = await getJson('/files/defaultSchema.json');
 }
 
-console.log('json data', jsonData)
-
 let tabConter = 0;
 let secCounter = 2;
-let colCounter = 0;
+let coltabCounter = 0;
+let colsecCounter = 0;
 
 const builder = new FormBuilder(jsonData, mode, 'form');
 
 
 function addTab(numOfCols){
-    const tab = builder.build('tab',`tab_${tabConter++}`,"Tab1", "col py-2", "border: 1px solid green" );
+    
+    tabConter++
+    const tab = builder.build('tab',`tab_${tabConter}`,"Tab", "col py-2", "border: 1px solid green" );
     for(let i=0; i<numOfCols; i++){
-        let col = builder.build('column',`col_${colCounter++}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
-        let sec = builder.build('section',`sec_${secCounter++}`,`Section`,' section','border: 1px dashed green;');
-        let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
+        secCounter++
+        coltabCounter++
+        colsecCounter++
+        let col = builder.build('column',`tab${tabConter}_col_${coltabCounter}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
+        let sec = builder.build('section',`tab${coltabCounter}_sec_${secCounter}`,`Section`,' section','border: 1px dashed green;');
+        let colSec = builder.build('column',`sec${secCounter}_col_${colsecCounter}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
+        
+        builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
-        builder.addElementToMap(sec)
+        builder.setColumnsBeforeRender(colSec);
         col.addElement(sec);
+        builder.setColumnsBeforeRender(col);
         tab.addElement(col);
     }
 
-    // builder.addElement(tab);
-    // builder.addElementToMap(tab);
-
     document.getElementById('form').innerHTML += tab.render();
-    builder.setTabAfterRender(tab)
-
-    tab.getElements().forEach(col => {
-
-        col.getElements().forEach(sec => {
-            builder.setSectionBeforRender(sec);
-            sec.getElements().forEach(secCol => {
-                builder.setColumnsBeforeRender(secCol);
-                secCol = document.getElementById(`${secCol.Id}`);
-                builder.setColumnsAterRender(secCol);
-            });
-            sec = document.getElementById(`${sec.Id}`);
-            builder.setSectionAfterRender(sec);
-        });
-
-        builder.setColumnsBeforeRender(col);
-        col = document.getElementById(`${col.Id}`);
-        builder.setColumnsAterRender(col);
-    });
-
-    // builder.addClickOnTab()
     builder.addDesignContent();
 }
 
 function addSection(numOfCols){
-    let sec = builder.build('section',`sec_${secCounter++}`,`Section`,'section','border: 1px dashed green;');
+    
+    let sec = builder.build('section',`sec_${secCounter}`,`Section`,'section','border: 1px dashed green;');
     for(let i=0; i<numOfCols; i++){
-        let col = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
+        secCounter++
+        colsecCounter++
+        let col = builder.build('column',`sec${secCounter}_col_${colsecCounter}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
 
-    // builder.addElement(sec);
-    builder.addElementToMap(sec);
-
     const targetId = builder.addSectionToTab(sec);
     builder.setSectionBeforRender(sec);
     document.getElementById(`${targetId}`).innerHTML += sec.render();
-    sec.getElements().forEach(col => {
-        col = document.getElementById(`${col.Id}`);
-        builder.setColumnsAterRender(col);
-    });
-
-    sec = document.getElementById(`${sec.Id}`);
-    builder.setSectionAfterRender(sec);
     builder.addDesignContent();
 }
 
@@ -102,9 +78,6 @@ document.getElementById("addSectionWith1Col").addEventListener("click", () => ad
 document.getElementById("addSectionWith2Col").addEventListener("click", () => addSection(2));
 document.getElementById("addSectionWith3Col").addEventListener("click", () => addSection(3));
 
-
-// console.log("enter dom loaded>>>>>>>>>")
-// console.log($('#exampleModal'))
 
 $('#exampleModal').on('shown.bs.modal', function (e) {
     console.log("modal is fired>>>>>>");
@@ -191,12 +164,6 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
 
-
-        columnsAdded.forEach(colum => {
-            builder.setColumnsAterRender(document.getElementById(colum.Id));
-            console.log("columns added>>> ", document.getElementById(colum.Id));
-        });
-
         addAllEventsToElement(elementId);
         element.getElements().forEach((lev1) => {
             if (lev1.TypeContent._type == Types.Column) {
@@ -244,6 +211,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 //});
 
 builder.handleDragAndDrop();
+
 
 
 

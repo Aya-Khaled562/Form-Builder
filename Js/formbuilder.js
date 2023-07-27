@@ -57,7 +57,7 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
-        console.log('elements map', this.#elementsMap)
+        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -79,8 +79,6 @@ export default class FormBuilder {
     getMode() {
         return this.#mode;
     }
-
-    
 
     getElementByIndex(index) {
         return this.#elements[index];
@@ -117,16 +115,11 @@ export default class FormBuilder {
     getSectionAfterRender(){
         return this.#sectionAfterRender;
     }
-
-    setColumnsAterRender(column){
-        this.#columnsAfterRender.push(column);
-    }
-    getIndexOfColumnsAfterRender(id){
-        return this.#columnsAfterRender.findIndex(col => col.id === id);
-    }
     setColumnsBeforeRender(column){
+
         this.#columnsBeforRender.push(column) ;
     }
+
 
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
@@ -199,9 +192,7 @@ export default class FormBuilder {
             this.dragAfterRender = e.target;
             if (e.target.classList.contains('section')) {
                 this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
-                console.log('dragBeforeRender', this.dragBeforeRender);
                 e.target.style.opacity = '0.5';
-                console.log('dragstart' , e.target);
             }
             else if(e.target.classList.contains('field')){
                 if(e.target.classList.contains('newField')){
@@ -212,11 +203,10 @@ export default class FormBuilder {
                     this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
                     console.log('oldField' , this.dragBeforeRender);
                 }
-
-
                 e.target.style.opacity = '0.5';
-                console.log('dragstart field', this.dragAfterRender);
             }
+
+            console.log('dragstart' , e.target);
         });
     
         formContainer.addEventListener('dragend', (e) => {
@@ -256,22 +246,14 @@ export default class FormBuilder {
             e.stopPropagation();
             
             let targetColId = e.target.id;
-            let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
-            let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+            let newColBeforRender = this.#columnsBeforRender.find(col => col.Id === targetColId);
             let oldParentColAfterRender = this.dragAfterRender.parentNode;
-            let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-            let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
-            console.log('old parent col before render',oldParentColBeforeRender )
-            if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
-                oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-                oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
-                oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-                // console.log('old parent col before render kkjkj',oldParentColBeforeRender )
-            }
-            // console.log('col before render', newColBeforRender);
-            // newColBeforRender.addElement(this.dragBeforeRender);
-            // console.log('new column', newColBeforRender)
+            let oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id)
 
+            if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
+                oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id);
+                oldParentColBeforeRender.removeElement(this.dragBeforeRender);
+            }
                 
             if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
                 newColBeforRender.addElement(this.dragBeforeRender);
@@ -284,14 +266,15 @@ export default class FormBuilder {
                 newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid blue';
                 if(this.dragAfterRender.classList.contains('newField')) {
+                    this.dragAfterRender.classList.remove('newField');
                     const div = document.createElement('div');
-                    console.log('fie', this.targetField)
                     div.innerHTML = this.dragBeforeRender.render()
                     oldParentColAfterRender.removeChild(this.dragAfterRender);
                     this.targetField.active = false;
                     e.target.append(div.firstChild);
                     addAllEventsToElement(this.dragAfterRender.id)
                 }else{
+                    
                     e.target.style.borderBottom = '1px solid blue';
                     e.target.append(this.dragAfterRender);
 
@@ -309,10 +292,12 @@ export default class FormBuilder {
             case 'create':
                 this.load();
                 this.addDesignContent();
+                this.getEntity();
                 break;
             case 'update':
                 this.load();
                 this.addDesignContent();
+                this.getEntity();
                 break;
             case 'preview':
                 this.load();
@@ -353,7 +338,6 @@ export default class FormBuilder {
                     this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
                     this.addElementToMap(newSection);
-
                 });
                 this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
@@ -369,7 +353,6 @@ export default class FormBuilder {
     }
 
     addDesignContent() {
-        console.log('parent',this.#parentId)
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
@@ -377,26 +360,13 @@ export default class FormBuilder {
             }
         });
 
-        this.#columnsBeforRender.forEach(col => {
-            this.#columnsAfterRender.push(document.getElementById(col.Id));
-        });
-
-        this.#sectionsBeforRender.forEach(col => {
-            this.#sectionAfterRender.push(document.getElementById(col.Id));
-        });
-        this.#Tabs.forEach(tab=>{
-            this.#tabAfterRender.push(document.getElementById(tab.Id));
-        });
-
         this.addClickOnTab()
-        this.getEntity();
     }
 
 
     addClickOnTab(){
         this.#Tabs.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
-            console.log('click on tab', target)
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
