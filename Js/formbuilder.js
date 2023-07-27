@@ -207,6 +207,8 @@ export default class FormBuilder {
                     console.log('oldField' , this.dragBeforeRender);
 
                 }
+                
+
                 e.target.style.opacity = '0.5';
                 console.log('dragstart field', this.dragAfterRender);
             }
@@ -290,7 +292,7 @@ export default class FormBuilder {
                     e.target.append(this.dragAfterRender);
 
                 }
-                
+
             }
             
         });
@@ -369,10 +371,6 @@ export default class FormBuilder {
         console.log('element map',this.#elementsMap)
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
-                // if (el.TypeContent._type == Types.Text)
-                //     console.log('text type', el.TypeContent._type)
-                // else
-                //     console.log('other type', el.TypeContent._type)
                 addAllEventsToElement(el.Id);
             }
         });

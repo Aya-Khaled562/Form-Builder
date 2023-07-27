@@ -4,7 +4,7 @@ import AbstractElementFactory from "./abstract_element_factory.js";
 
 
 export default class HtmlElementFactory extends AbstractElementFactory {
-    
+
     createSingleLineOfText(id, name, customClass, style, mode) {
         const typeContent = new TypeContent(
             'single line of text',
@@ -13,7 +13,10 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <label class="col" style="width: 50%;">${name}</label>
                 <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'single line of text input preview'
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field">
+                        <label for="${id}" class="form-label me-5">${name}</label>
+                         <input type="text" class="form-control " style=" width: 50%;" id="${id}">
+                        </div>`
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
@@ -33,7 +36,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
-    createTwoOptions(id, name, customClass, style, mode){
+    createTwoOptions(id, name, customClass, style, mode) {
         const typeContent = new TypeContent(
             'two options',
             'formControl',
@@ -41,13 +44,19 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'two option input preview'
+            `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
+            <label class="col" style="width: 50%;">${name}</label>
+            <select class="form-select" aria-label="Default select example">
+  <option selected value="1">One</option>
+  <option value="2">Two</option>
+</select> 
+            </div>`
         );
 
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
-    createDecimalNumber(id, name, customClass, style, mode){
+    createDecimalNumber(id, name, customClass, style, mode) {
         const typeContent = new TypeContent(
             'decimal number',
             'formControl',
@@ -61,7 +70,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
-    createMultipleLineOfText(id, name, customClass, style, mode){
+    createMultipleLineOfText(id, name, customClass, style, mode) {
         const typeContent = new TypeContent(
             'multiple line of text',
             'formControl',
@@ -75,7 +84,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
-    createDateAndTime(id, name, customClass, style, mode){
+    createDateAndTime(id, name, customClass, style, mode) {
         const typeContent = new TypeContent(
             'date and time',
             'formControl',
@@ -90,7 +99,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createTab(id, name, customClass, style, mode) {
-        
+
         const typeContentTab = new TypeContent(
             'tab',
             'layout',
@@ -104,9 +113,9 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <div class="${customClass}" style="${style}" style="margin:10px;"> <!--content--></div>`
         );
 
-       return new Element(id, name, customClass, style, typeContentTab, mode);
+        return new Element(id, name, customClass, style, typeContentTab, mode);
     }
-   
+
     createSection(id, name, customClass, style, mode) {
         const typeContentSection = new TypeContent(
             'section',
@@ -117,19 +126,23 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                     <!--content-->
                 </div>
             </div>`,
-            `<label>${name}</label>
-            <div id="${id}" class="${customClass}" style="${style}" draggable="true"> <!--content--> </div>`
+            `<div class="container section my-2 py-1 ${customClass}" style="${style}" id="${id}" >
+                   <h6>${name}</h6>
+                <div class="row justify-content-between">
+                    <!--content-->
+                </div>
+            </div>`
         );
 
         return new Element(id, name, customClass, style, typeContentSection, mode);
     }
 
-    createColumn(id, name, customClass, style, mode){
+    createColumn(id, name, customClass, style, mode) {
         const typeContentColumn = new TypeContent(
             'column',
             'layout',
             `<div id="${id}" class="${customClass}" style = "${style}"> <!--content--></div>`,
-            `<div id="${id}" class="col py-1 my-1 mx-1"> <!--content--> </div>`
+            `<div id="${id}" class="${customClass}"> <!--content--></div>`
         );
         return new Element(id, name, customClass, style, typeContentColumn, mode);
     }
