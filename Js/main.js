@@ -23,21 +23,25 @@ const builder = new FormBuilder(jsonData, 'update', 'form');
 
 function addTab(numOfCols) {
     const tab = builder.build('tab', `tab_${tabConter++}`, "Tab", "col py-2", "border: 1px solid green");
-    for(let i=0; i<numOfCols; i++){
-        let col = builder.build('column',`col_${colCounter++}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
-        let sec = builder.build('section',`sec_${secCounter++}`,`Section`,' section','border: 1px dashed green;');
-        let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+    for (let i = 0; i < numOfCols; i++) {
+        let col = builder.build('column', `col_${colCounter++}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
+        let sec = builder.build('section', `sec_${secCounter++}`, `Section`, ' section', 'border: 1px dashed green;');
+        let colSec = builder.build('column', `col_${colCounter++}`, 'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
         sec.addElement(colSec);
+        builder.addElementToMap(sec)
         col.addElement(sec);
         tab.addElement(col);
     }
 
+    builder.addElement(tab);
+    builder.addElementToMap(tab);
+
     document.getElementById('form').innerHTML += tab.render();
     tab.getElements().forEach(col => {
 
-        col.getElements().forEach(sec=>{
+        col.getElements().forEach(sec => {
             builder.setSectionBeforRender(sec);
-            sec.getElements().forEach(secCol=>{
+            sec.getElements().forEach(secCol => {
                 builder.setColumnsBeforeRender(secCol);
                 secCol = document.getElementById(`${secCol.Id}`);
                 builder.setColumnsAterRender(secCol);
@@ -54,26 +58,28 @@ function addTab(numOfCols) {
     builder.addClickOnTab()
 }
 
-function addSection(numOfCols){
-    let sec = builder.build('section',`sec_${secCounter++}`,`Section`,'section','border: 1px dashed green;');
-    for(let i=0; i<numOfCols; i++){
-        let col = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+function addSection(numOfCols) {
+    let sec = builder.build('section', `sec_${secCounter++}`, `Section`, 'section', 'border: 1px dashed green;');
+    for (let i = 0; i < numOfCols; i++) {
+        let col = builder.build('column', `col_${colCounter++}`, 'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
+
+    builder.addElement(sec);
+    builder.addElementToMap(sec);
+
     const targetId = builder.addSectionToTab(sec);
     builder.setSectionBeforRender(sec);
     document.getElementById(`${targetId}`).innerHTML += sec.render();
-    sec.getElements().forEach(col=>{
-            col = document.getElementById(`${col.Id}`);
-            builder.setColumnsAterRender(col);
+    sec.getElements().forEach(col => {
+        col = document.getElementById(`${col.Id}`);
+        builder.setColumnsAterRender(col);
     });
 
     sec = document.getElementById(`${sec.Id}`);
     builder.setSectionAfterRender(sec);
 }
-
-
 
 document.getElementById("addTabWith1Col").addEventListener("click", () => addTab(1));
 document.getElementById("addTabWith2Col").addEventListener("click", () => addTab(2));
@@ -161,8 +167,8 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
 
         columnsAdded.forEach(colum => {
-            builder.setColumnsAterRender(document.getElementById(colum.Id))
-            console.log("columns added>>> ", document.getElementById(colum.Id))
+            builder.setColumnsAterRender(document.getElementById(colum.Id));
+            console.log("columns added>>> ", document.getElementById(colum.Id));
         });
 
         addAllEventsToElement(elementId);

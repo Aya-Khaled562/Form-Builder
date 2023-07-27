@@ -407,18 +407,12 @@ export default class FormBuilder {
     #addDesignContent() {
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
-            console.log('element', el)
             if (Object.values(Types).includes(el.TypeContent._type)) {
-                if (el.TypeContent._type == Types.Text)
-                    console.log('text type', el.TypeContent._type)
-                else
-                    console.log('other type', el.TypeContent._type)
                 addAllEventsToElement(el.Id);
             }
         });
 
         this.#columnsBeforRender.forEach(col => {
-            console.log('col')
             this.#columnsAfterRender.push(document.getElementById(col.Id));
         });
 
