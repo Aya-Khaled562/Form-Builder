@@ -57,7 +57,7 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
-        console.log('elements map', this.#elementsMap)
+        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -118,21 +118,27 @@ export default class FormBuilder {
         return this.#sectionAfterRender;
     }
 
-    setColumnsAterRender(column){
-        this.#columnsAfterRender.push(column);
-    }
-    getIndexOfColumnsAfterRender(id){
-        return this.#columnsAfterRender.findIndex(col => col.id === id);
-    }
+    // setColumnsAterRender(column){
+    //     this.#columnsAfterRender.push(column);
+    //     // console.log('#columnsAfterRender in set', this.#columnsAfterRender)
+    // }
+    // getIndexOfColumnsAfterRender(id){
+    //     // console.log('#columnsAfterRender', this.#columnsAfterRender)
+    //     return this.#columnsAfterRender.findIndex(col => col.id === id);
+    // }
+    
     setColumnsBeforeRender(column){
+        // console.log('#columnsBeforRender',this.#columnsBeforRender)
         this.#columnsBeforRender.push(column) ;
     }
+
 
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
     }
 
     setTabAfterRender(tab){
+        // console.log('#tabAfterRender', this.#tabAfterRender)
         this.#tabAfterRender.push(tab);
     }
 
@@ -204,6 +210,7 @@ export default class FormBuilder {
                 console.log('dragstart' , e.target);
             }
             else if(e.target.classList.contains('field')){
+                console.log('target feild',e.target)
                 if(e.target.classList.contains('newField')){
                     this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
                     this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
@@ -257,16 +264,24 @@ export default class FormBuilder {
             e.stopPropagation();
             
             let targetColId = e.target.id;
-            let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
-            let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+            console.log('targetColId', targetColId)
+            // let newColumnIndexAfterRender = this.getIndexOfColumnsAfterRender(targetColId);
+            // console.log('newColumnIndexAfterRender', newColumnIndexAfterRender)
+            console.log('#columnsBeforRender',  this.#columnsBeforRender)
+            // let newColBeforRender = this.#columnsBeforRender[newColumnIndexAfterRender];
+            let newColBeforRender = this.#columnsBeforRender.find(col => col.Id === targetColId);
+            console.log('newColBeforRender',newColBeforRender)
             let oldParentColAfterRender = this.dragAfterRender.parentNode;
-            let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-            let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+            // let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+            // let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+            let oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id)
 
-            console.log('old parent col before render',oldParentColBeforeRender )
+            console.log('old parent col before render',oldParentColBeforeRender)
+
+
             if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
-                oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
-                oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+                // oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
+                oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id);
                 oldParentColBeforeRender.removeElement(this.dragBeforeRender);
                 // console.log('old parent col before render kkjkj',oldParentColBeforeRender )
             }
@@ -286,8 +301,9 @@ export default class FormBuilder {
                 newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid blue';
                 if(this.dragAfterRender.classList.contains('newField')) {
+                    this.dragAfterRender.classList.remove('newField');
                     const div = document.createElement('div');
-                    console.log('fie', this.targetField)
+                    console.log('field', this.targetField)
                     div.innerHTML = this.dragBeforeRender.render()
                     oldParentColAfterRender.removeChild(this.dragAfterRender);
                     this.targetField.active = false;
@@ -311,10 +327,12 @@ export default class FormBuilder {
             case 'create':
                 this.load();
                 this.addDesignContent();
+                this.getEntity();
                 break;
             case 'update':
                 this.load();
                 this.addDesignContent();
+                this.getEntity();
                 break;
             case 'preview':
                 this.load();
@@ -356,7 +374,6 @@ export default class FormBuilder {
                     this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
                     this.addElementToMap(newSection);
-
                 });
                 this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
@@ -372,35 +389,32 @@ export default class FormBuilder {
     }
 
     addDesignContent() {
-        console.log('parent',this.#parentId)
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
-        console.log('element map',this.#elementsMap)
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
                 addAllEventsToElement(el.Id);
             }
         });
 
-        this.#columnsBeforRender.forEach(col => {
-            this.#columnsAfterRender.push(document.getElementById(col.Id));
-        });
+        // this.#columnsBeforRender.forEach(col => {
+        //     this.#columnsAfterRender.push(document.getElementById(col.Id));
+        // });
 
-        this.#sectionsBeforRender.forEach(col => {
-            this.#sectionAfterRender.push(document.getElementById(col.Id));
-        });
-        this.#Tabs.forEach(tab=>{
-            this.#tabAfterRender.push(document.getElementById(tab.Id));
-        });
+        // this.#sectionsBeforRender.forEach(col => {
+        //     this.#sectionAfterRender.push(document.getElementById(col.Id));
+        // });
+        
+        // this.#Tabs.forEach(tab=>{
+        //     this.#tabAfterRender.push(document.getElementById(tab.Id));
+        // });
 
         this.addClickOnTab()
-        this.getEntity();
     }
 
 
     addClickOnTab(){
         this.#Tabs.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
-            console.log('click on tab', target)
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
