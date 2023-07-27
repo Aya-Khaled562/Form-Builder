@@ -206,7 +206,7 @@ export default class FormBuilder {
             else if(e.target.classList.contains('field')){
                 if(e.target.classList.contains('newField')){
                     this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green');
+                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green', this.targetField.options);
                     this.addElementToMap(this.dragBeforeRender);
                 }else{
                     this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
