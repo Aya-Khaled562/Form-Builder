@@ -7,26 +7,28 @@ import {addAllEventsToElement} from "./ElementEventHandlers.js";
 import {download, getJson} from "./Utils.js";
 
 const jsonData = await getJson('/files/schema.json');
-
+const jsonDataCreate = await getJson('/files/defaultSchema.json');
 
 let tabConter = 0;
 let secCounter = 2;
 let colCounter = 0;
-const builder = new FormBuilder(jsonData, 'update', 'form');
+
+const builder = new FormBuilder(jsonDataCreate, 'create', 'form');
 
 
 function addTab(numOfCols){
-    const tab = builder.build('tab',`tab_${tabConter++}`,"Tab", "col py-2", "border: 1px solid green" );
+    const tab = builder.build('tab',`tab_${tabConter++}`,"Tab1", "col py-2", "border: 1px solid green" );
     for(let i=0; i<numOfCols; i++){
         let col = builder.build('column',`col_${colCounter++}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
         let sec = builder.build('section',`sec_${secCounter++}`,`Section`,' section','border: 1px dashed green;');
-        let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+        let colSec = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(colSec);
         col.addElement(sec);
         tab.addElement(col);
     }
-
     document.getElementById('form').innerHTML += tab.render();
+    builder.setTabAfterRender(tab)
+
     tab.getElements().forEach(col => {
 
         col.getElements().forEach(sec=>{
@@ -45,13 +47,14 @@ function addTab(numOfCols){
         builder.setColumnsAterRender(col);
     });
 
-    builder.addClickOnTab()
+    // builder.addClickOnTab()
+    builder.addDesignContent();
 }
 
 function addSection(numOfCols){
     let sec = builder.build('section',`sec_${secCounter++}`,`Section`,'section','border: 1px dashed green;');
     for(let i=0; i<numOfCols; i++){
-        let col = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-3 px-1 my-1 mx-1 ', 'border: 1px dashed blue');
+        let col = builder.build('column',`col_${colCounter++}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
@@ -65,6 +68,7 @@ function addSection(numOfCols){
 
     sec = document.getElementById(`${sec.Id}`);
     builder.setSectionAfterRender(sec);
+    builder.addDesignContent();
 }
 
 
@@ -78,8 +82,8 @@ document.getElementById("addSectionWith2Col").addEventListener("click", () => ad
 document.getElementById("addSectionWith3Col").addEventListener("click", () => addSection(3));
 
 
-console.log("enter dom loaded>>>>>>>>>")
-console.log($('#exampleModal'))
+// console.log("enter dom loaded>>>>>>>>>")
+// console.log($('#exampleModal'))
 
 $('#exampleModal').on('shown.bs.modal', function (e) {
     console.log("modal is fired>>>>>>");
@@ -181,7 +185,8 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     });
 //});
 
-builder.HandleDragAndDrop();
+builder.handleDragAndDrop();
+
 
 
 

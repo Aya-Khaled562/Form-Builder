@@ -13,6 +13,7 @@ export default class FormBuilder {
     #platformFactory
     #parentId
     #Tabs
+    #tabAfterRender
     #sectionsBeforRender
     #sectionAfterRender
     #columnsAfterRender
@@ -30,6 +31,7 @@ export default class FormBuilder {
         this.#elements = [];
         this.#parentId = parentId;
         this.#Tabs = [];
+        this.#tabAfterRender = [];
         this.#sectionsBeforRender= [];
         this.#sectionAfterRender = [];
         this.#columnsAfterRender = [];
@@ -37,9 +39,8 @@ export default class FormBuilder {
         this.#activeTab = null;
         this.#entity = null;
         this.#json = json;
-
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
-        this.ElementContent(this.#parentId);
+        this.ElementContent();
     }
 
     get ParentId() {
@@ -56,6 +57,7 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
+        console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -80,6 +82,7 @@ export default class FormBuilder {
 
     setTab(tab){
         this.#Tabs.push(tab);
+        console.log('Tabs',this.#Tabs);
     }
 
     getTabById(tabId){
@@ -113,7 +116,6 @@ export default class FormBuilder {
         this.#columnsAfterRender.push(column);
     }
     getIndexOfColumnsAfterRender(id){
-        // console.log('all columns array', this.#columnsAfterRender);
         return this.#columnsAfterRender.findIndex(col => col.id === id);
     }
     setColumnsBeforeRender(column){
@@ -122,6 +124,10 @@ export default class FormBuilder {
 
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
+    }
+
+    setTabAfterRender(tab){
+        this.#tabAfterRender.push(tab);
     }
 
     addSectionToTab(section){
@@ -180,13 +186,14 @@ export default class FormBuilder {
         return oldFeilds.find(field => field.Id === id);
     }
 
-    HandleDragAndDrop() {
+    handleDragAndDrop() {
         const formContainer = document.getElementById('formContainer');
 
         formContainer.addEventListener('dragstart', (e) => {
             this.dragAfterRender = e.target;
             if (e.target.classList.contains('section')) {
                 this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
+                console.log('dragBeforeRender', this.dragBeforeRender);
                 e.target.style.opacity = '0.5';
                 console.log('dragstart' , e.target);
             }
@@ -200,19 +207,17 @@ export default class FormBuilder {
                     console.log('oldField' , this.dragBeforeRender);
 
                 }
-                
-
                 e.target.style.opacity = '0.5';
                 console.log('dragstart field', this.dragAfterRender);
             }
         });
     
         formContainer.addEventListener('dragend', (e) => {
-            if (e.target.classList.contains('section') || e.target.classList.contains('field')) {
+            if (e.target.classList.contains('section') || e.target.classList.contains('field') || e.target.classList.contains('tab')) {
                 if (this.dragAfterRender) {
                     this.dragAfterRender.style.opacity = '1';
                     this.dragAfterRender = null;
-                    console.log('dragend section');
+                    console.log('dragend');
                 }
             }
         });
@@ -225,6 +230,7 @@ export default class FormBuilder {
                 e.target.style.borderBottom = '3px solid blue';
                 console.log('dragover');
             }
+            
         });
     
         formContainer.addEventListener('dragleave', (e) => {
@@ -248,25 +254,28 @@ export default class FormBuilder {
             let oldParentColAfterRender = this.dragAfterRender.parentNode;
             let oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
             let oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
+
             console.log('old parent col before render',oldParentColBeforeRender )
             if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
                 oldParentColIndex = this.getIndexOfColumnsAfterRender(oldParentColAfterRender.id);
                 oldParentColBeforeRender = this.#columnsBeforRender[oldParentColIndex];
                 oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-                console.log('old parent col before render kkjkj',oldParentColBeforeRender )
+                // console.log('old parent col before render kkjkj',oldParentColBeforeRender )
             }
-            console.log('col before render', newColBeforRender);
-            newColBeforRender.addElement(this.dragBeforeRender);
-            console.log('new column', newColBeforRender)
+            // console.log('col before render', newColBeforRender);
+            // newColBeforRender.addElement(this.dragBeforeRender);
+            // console.log('new column', newColBeforRender)
 
                 
             if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
+                newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid orange';
                 e.target.append(this.dragAfterRender);
                 console.log('drop');
             }
 
             else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
+                newColBeforRender.addElement(this.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid blue';
                 if(this.dragAfterRender.classList.contains('newField')) {
                     const div = document.createElement('div');
@@ -283,75 +292,25 @@ export default class FormBuilder {
                 }
                 
             }
+            
         });
     
+        
     }
 
-
-
-    
-
-   async ElementContent(parentId){
+   async ElementContent(){
         switch(this.#mode){
             case 'create':
-                const tab = this.#platformFactory.createTab('tab_def', "Tab", "col py-2", "border: 1px solid green", this.#mode);
-                const column = this.#platformFactory.createColumn('tab_col_def0', 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const column2 = this.#platformFactory.createColumn('tab_col_def1', 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange', this.#mode);
-                const section = this.#platformFactory.createSection('sec_def0', 'Section1', 'section', 'border: 1px dashed green', this.#mode);
-                const section2 = this.#platformFactory.createSection('sec_def1', 'Section2', 'section', 'border: 1px dashed green', this.#mode);
-                const colSec1 = this.#platformFactory.createColumn('sec_col_def0', 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed blue', this.#mode);
-                const colSec2 = this.#platformFactory.createColumn('sec_col_def1', 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed blue', this.#mode);
-                section.addElement(colSec1);
-                section2.addElement(colSec2);
-                this.setSectionBeforRender(section);
-                this.setSectionBeforRender(section2);
-
-                column.addElement(section);
-                column2.addElement(section2);
-                this.setColumnsBeforeRender(column);
-                this.setColumnsBeforeRender(column2);
-                this.setColumnsBeforeRender(colSec1);
-                this.setColumnsBeforeRender(colSec2);
-
-                tab.addElement(column);
-                tab.addElement(column2);
-
-                this.setTab(tab);
-                const render=  tab.render();
-                document.getElementById(parentId).innerHTML = render;
-
-
-                let sec1 = document.getElementById(`${section.Id}`);
-                this.setSectionAfterRender(sec1);
-                sec1 = document.getElementById(`${section2.Id}`);
-                this.setSectionAfterRender(sec1);
-
-                let col = document.getElementById(`${column.Id}`);
-                this.setColumnsAterRender(col);
-                col = document.getElementById(`${column2.Id}`);
-                this.setColumnsAterRender(col);
-                col = document.getElementById(`${colSec1.Id}`);
-                this.setColumnsAterRender(col);
-                col = document.getElementById(`${colSec2.Id}`);
-                this.setColumnsAterRender(col);
-
-
-                this.addClickOnTab()
-                // this.HandleDragAndDrop();
-                this.getEntity();
-
-
+                this.load();
+                this.addDesignContent();
                 break;
             case 'update':
                 this.load();
-                this.#addDesignContent();
-                
+                this.addDesignContent();
                 break;
             case 'preview':
                 this.load();
-                console.log(this.#elements)
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
-
                 break;
             default:
                 throw new Error(`Invalid mode ${this.#mode}`);
@@ -364,25 +323,25 @@ export default class FormBuilder {
             const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
             tab.elements.forEach((tabColumn) => {
                 const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode);
-
                 tabColumn.elements.forEach((section) => {
                     const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
-
                     section.elements.forEach((column) => {
-                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode);
-
-                        column.elements.forEach((control) => {
-                            let formControl = null;
-                            // switch (control.type) {
-                            //     case Types.Text:
-                            //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
-                            //         console.log('formControl', formControl)
-                            //         break;
-                            // }
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style);
-                            newSectionCol.addElement(formControl);
-                            this.addElementToMap(formControl);
-                        });
+                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1', column.style, this.#mode);
+                        if(column.elements.length > 0) {
+                            column.elements.forEach((control) => {
+                                let formControl = null;
+                                // switch (control.type) {
+                                //     case Types.Text:
+                                //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
+                                //         console.log('formControl', formControl)
+                                //         break;
+                                // }
+                                formControl = this.build(control.type, control.id, control.name, control.customClass, control.style);
+                                newSectionCol.addElement(formControl);
+                                this.addElementToMap(formControl);
+                            });
+                        }
+                        
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
                     });
@@ -404,26 +363,29 @@ export default class FormBuilder {
 
     }
 
-    #addDesignContent() {
+    addDesignContent() {
+        console.log('parent',this.#parentId)
         document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+        console.log('element map',this.#elementsMap)
         this.#elementsMap.forEach((el) => {
-            console.log('element', el)
             if (Object.values(Types).includes(el.TypeContent._type)) {
-                if (el.TypeContent._type == Types.Text)
-                    console.log('text type', el.TypeContent._type)
-                else
-                    console.log('other type', el.TypeContent._type)
+                // if (el.TypeContent._type == Types.Text)
+                //     console.log('text type', el.TypeContent._type)
+                // else
+                //     console.log('other type', el.TypeContent._type)
                 addAllEventsToElement(el.Id);
             }
         });
 
         this.#columnsBeforRender.forEach(col => {
-            console.log('col')
             this.#columnsAfterRender.push(document.getElementById(col.Id));
         });
 
         this.#sectionsBeforRender.forEach(col => {
             this.#sectionAfterRender.push(document.getElementById(col.Id));
+        });
+        this.#Tabs.forEach(tab=>{
+            this.#tabAfterRender.push(document.getElementById(tab.Id));
         });
 
         this.addClickOnTab()
@@ -434,6 +396,7 @@ export default class FormBuilder {
     addClickOnTab(){
         this.#Tabs.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
+            console.log('click on tab', target)
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
             });
@@ -447,30 +410,39 @@ export default class FormBuilder {
             case 'tab':
                 const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
                 this.setTab(tab);
+                this.#elements.push(tab);
+                this.addElementToMap(tab)
                 return tab;
             case 'section':
                 const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
+                this.addElementToMap(section)
                 return section;
             case 'column':
                 const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
                 return column;
             case 'single line of text':
                 const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
+                this.addElementToMap(text);
                 return text;
             case 'option set':
                 const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode);
+                this.addElementToMap(optionSet)
                 return optionSet;
             case 'two options':
                 const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode);
+                this.addElementToMap(twoOptions)
                 return twoOptions;
             case 'decimal number':
                 const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode);
+                this.addElementToMap(decimalNumber)
                 return decimalNumber;
             case 'multiple line of text':
                 const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode);
+                this.addElementToMap(multipleLineOfText)
                 return multipleLineOfText;
             case 'date and time':
                 const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode);
+                this.addElementToMap(dateAndTime)
                 return dateAndTime;
         }
 
