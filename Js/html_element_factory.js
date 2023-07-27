@@ -22,7 +22,15 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new Element(id, name, customClass, style, typeContent, mode);
     }
 
-    createOptionSet(id, name, customClass, style, mode) {
+    createOptionSet(id, name, customClass, style, mode, options) {
+
+        let setOptions = ``;
+        console.log('option set values', options)
+        for (let i = 0; i < Object.keys(options).length; i++) {
+            let option = `<option value="${Object.values(options)[i]}">${Object.keys(options)[i]}</option>`
+            setOptions += option;
+        }
+        console.log('string set options', setOptions)
         const typeContent = new TypeContent(
             'option set',
             'formControl',
@@ -30,13 +38,17 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${name}</label>
             <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            'option set input preview'
+            `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
+            <label class="col" style="width: 50%;">${name}</label>
+            <select class="form-select" aria-label="Default select example">${setOptions}</select> 
+            </div>`
         );
 
-        return new Element(id, name, customClass, style, typeContent, mode);
+        return new Element(id, name, customClass, style, typeContent, mode, options);
     }
 
-    createTwoOptions(id, name, customClass, style, mode) {
+    createTwoOptions(id, name, customClass, style, mode, options) {
+        console.log('html factory ooptions>>>', options)
         const typeContent = new TypeContent(
             'two options',
             'formControl',
@@ -47,13 +59,13 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
             <select class="form-select" aria-label="Default select example">
-  <option selected value="1">One</option>
-  <option value="2">Two</option>
+  <option selected value="${Object.values(options)[0]}">${Object.keys(options)[0]}</option>
+  <option value="${Object.values(options)[1]}">${Object.keys(options)[1]}</option>
 </select> 
             </div>`
         );
 
-        return new Element(id, name, customClass, style, typeContent, mode);
+        return new Element(id, name, customClass, style, typeContent, mode, options);
     }
 
     createDecimalNumber(id, name, customClass, style, mode) {
