@@ -436,15 +436,17 @@ export default class FormBuilder {
 
     async getEntity(){
         this.#entity = await this.readJson();
-        let entityDesign = `<h5 class="py-3 my-0" style="background-color: rgb(56, 118, 204);">${this.#entity.entity_name}</h5> <div class="fieldContainer"> `
+        let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
+
         this.#entity.fields.forEach(field=>{
-            if(field.active === true){
-                entityDesign += `<div class="border py-2 px-1 field" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
-            }
+            if(field.active === true)
+                entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
         });
         entityDesign += `</div>`;
+
         document.getElementById('entity').innerHTML = entityDesign;
     }
+
     toSaveSchema() {
         return {
             platform: this.#platform,
