@@ -158,13 +158,24 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
             }
         }
 
-        element.TypeContent = builder.build(element.TypeContent._type, element.Id, element.Name, element.CustomClass, element.Style)
-            .TypeContent;
+        if (element.TypeContent._type == Types.Tab) {
+            element.TypeContent = builder.getPlatformFactory().createTab(element.Id, element.Name, element.CustomClass, element.Style, element.Mode)
+                .TypeContent;
+        } else {
+            element.TypeContent = builder.build(element.TypeContent._type, element.Id, element.Name, element.CustomClass, element.Style)
+                .TypeContent;
+        }
+
 
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
 
         addAllEventsToElement(elementId);
+        if (element.TypeContent._type == Types.Tab) {
+            console.log('handle click on tab>>>>>>>>>>>>>>>')
+            builder.addClickOnTab();
+        }
+
         element.getElements().forEach((lev1) => {
             if (lev1.TypeContent._type == Types.Column) {
                 lev1.getElements().forEach(lev2 => {
@@ -179,7 +190,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
                     })
                 });
             }
-        })
+        });
 
         $('#exampleModal').modal('hide');
 
