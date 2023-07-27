@@ -19,14 +19,17 @@ export default class Element {
     #typeContent;
     #mode;
     #elements = [];
+    #optionsSetValues = null;
 
-    constructor(id, name, customClass, style, typeContent, mode) {
+    constructor(id, name, customClass, style, typeContent, mode, ...params) {
         this.#id = id;
         this.#name = name;
         this.#customClass = customClass;
         this.#style = style;
         this.#typeContent = typeContent;
         this.#mode = mode;
+        if (params.length == 1)
+            this.#optionsSetValues = params[0];
     }
 
     get Id() {

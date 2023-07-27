@@ -158,8 +158,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
             }
         }
 
-        element.TypeContent = builder.getPlatformFactory()
-            .createTab(element.Id, element.Name, element.CustomClass, element.Style, element.Mode)
+        element.TypeContent = builder.build(element.TypeContent._type, element.Id, element.Name, element.CustomClass, element.Style)
             .TypeContent;
 
         $(element.render()).insertAfter(`#${elementId}`);
