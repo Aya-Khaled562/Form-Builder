@@ -184,12 +184,12 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
     let updateModeBtn = document.getElementById('updateMode');
     updateModeBtn.addEventListener('click', function (e) {
-        window.open('/Form-Builder/test.html', '_self');
+        window.open('/test.html', '_self');
         sessionStorage.setItem('formMode', 'update');
     });
     let createModeBtn = document.getElementById('createMode');
     createModeBtn.addEventListener('click', function (e) {
-        window.open('/Form-Builder/test.html', '_self');
+        window.open('/test.html', '_self');
         sessionStorage.setItem('formMode', 'create');
     });
 
