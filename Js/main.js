@@ -8,18 +8,26 @@ import {download, getJson} from "./Utils.js";
 
 
 let jsonData = sessionStorage.getItem('jsonDataForm');
+let mode = sessionStorage.getItem('formMode');
+
+if (mode == null)
+    mode = 'create';
+
 if (jsonData != null) {
     jsonData = JSON.parse(jsonData);
-} else {
+} else if ( mode == 'update') {
     jsonData = await getJson('/files/schema.json');
+}else {
+    jsonData = await getJson('/files/defaultSchema.json');
 }
-const jsonDataCreate = await getJson('/files/defaultSchema.json');
+
+console.log('json data', jsonData)
 
 let tabConter = 0;
 let secCounter = 2;
 let colCounter = 0;
 
-const builder = new FormBuilder(jsonDataCreate, 'create', 'form');
+const builder = new FormBuilder(jsonData, mode, 'form');
 
 
 function addTab(numOfCols){
@@ -34,8 +42,8 @@ function addTab(numOfCols){
         tab.addElement(col);
     }
 
-    builder.addElement(tab);
-    builder.addElementToMap(tab);
+    // builder.addElement(tab);
+    // builder.addElementToMap(tab);
 
     document.getElementById('form').innerHTML += tab.render();
     builder.setTabAfterRender(tab)
@@ -70,7 +78,7 @@ function addSection(numOfCols){
         builder.setColumnsBeforeRender(col);
     }
 
-    builder.addElement(sec);
+    // builder.addElement(sec);
     builder.addElementToMap(sec);
 
     const targetId = builder.addSectionToTab(sec);
@@ -203,7 +211,22 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         window.open('/previewPage.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
+        sessionStorage.setItem('formMode', builder.getMode());
+
     });
+
+    let updateModeBtn = document.getElementById('updateMode');
+    updateModeBtn.addEventListener('click', function (e) {
+        window.open('/test.html', '_self');
+        sessionStorage.setItem('formMode', 'update');
+    });
+    let createModeBtn = document.getElementById('createMode');
+    createModeBtn.addEventListener('click', function (e) {
+        window.open('/test.html', '_self');
+        sessionStorage.setItem('formMode', 'create');
+    });
+
+    
 //});
 
 builder.handleDragAndDrop();

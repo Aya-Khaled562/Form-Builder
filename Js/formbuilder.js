@@ -76,6 +76,12 @@ export default class FormBuilder {
         this.#mode = mode;
     }
 
+    getMode() {
+        return this.#mode;
+    }
+
+    
+
     getElementByIndex(index) {
         return this.#elements[index];
     }
