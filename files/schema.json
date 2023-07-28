@@ -1,0 +1,66 @@
+{
+  "platform": "html",
+  "mode": "update",
+  "entity": "",
+  "description": "",
+  "elements": [
+    {
+      "id": "tab01",
+      "name": "General tab 01",
+      "customClass": "col py-2",
+      "style": "border: 1px solid green",
+      "type": "tab",
+      "category": "layout",
+      "elements": [
+        {
+          "id": "col01",
+          "name": "col in tab",
+          "customClass": "col py-1 my-1 mx-1",
+          "style": "border: 1px solid orange",
+          "type": "column",
+          "category": "layout",
+          "elements": [
+            {
+              "id": "section01",
+              "name": "Section01",
+              "customClass": "mx-1",
+              "style": "border: 1px dashed green;",
+              "type": "section",
+              "category": "layout",
+              "elements": [
+                {
+                  "id": "col16",
+                  "name": "Col in section",
+                  "customClass": "col py-3 px-1 my-1 mx-1",
+                  "style": "border: 1px solid blue;",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": [
+                    {
+                      "id": "firstname",
+                      "name": "First Name",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
+                      "type": "single line of text",
+                      "category": "formControl",
+                      "elements": []
+                    },
+                    {
+                      "id": "lastname",
+                      "name": "Last Name",
+                      "customClass": "py-3",
+                      "style": "border: 1px solid green",
+                      "type": "single line of text",
+                      "category": "formControl",
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.sidebar{
+    height: calc(100vh - 150px); 
+    overflow-y: auto;
+}
+
+#form {
+    max-height: calc(100vh - 150px); /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
+    overflow-y: auto;
+}
+.nav-link{
+    cursor: pointer;
+}
