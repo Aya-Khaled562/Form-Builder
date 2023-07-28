@@ -200,7 +200,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
         download(builder.toSaveSchema());
-        window.open('/previewPage.html', '_self');
+        window.open('/pages/preview.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
         sessionStorage.setItem('formMode', builder.getMode());
@@ -209,12 +209,12 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
     let updateModeBtn = document.getElementById('updateMode');
     updateModeBtn.addEventListener('click', function (e) {
-        window.open('/test.html', '_self');
+        window.open('/Form-Builder/index.html', '_self');
         sessionStorage.setItem('formMode', 'update');
     });
     let createModeBtn = document.getElementById('createMode');
     createModeBtn.addEventListener('click', function (e) {
-        window.open('/test.html', '_self');
+        window.open('/Form-Builder/index.html', '_self');
         sessionStorage.setItem('formMode', 'create');
     });
 
