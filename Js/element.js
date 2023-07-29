@@ -106,12 +106,19 @@ export default class Element {
         this.#elements.push(element);
     }
 
+    clearElements() {
+        this.#elements = [];
+        this.#elements.length = 0;
+    }
+
     popElement() {
         return this.#elements.pop();
     }
-    indexOfElement(id){
+
+    indexOfElement(id) {
         return this.#elements.findIndex(ele => ele.Id === id);
     }
+
     removeElement(element) {
         this.#elements.splice(this.#elements.indexOf(element), 1);
     }

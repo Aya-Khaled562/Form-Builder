@@ -54,7 +54,7 @@ function addTab(numOfCols){
 }
 
 function addSection(numOfCols){
-    
+
     let sec = builder.build('section',`sec_${secCounter}`,`Section`,'section','border: 1px dashed green;');
     for(let i=0; i<numOfCols; i++){
         secCounter++
@@ -170,22 +170,22 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
 
-        addAllEventsToElement(elementId);
-        if (element.TypeContent._type == Types.Tab) {
-            console.log('handle click on tab>>>>>>>>>>>>>>>')
-            builder.addClickOnTab();
-        }
+        addAllEventsToElement(elementId, builder);
+        // if (element.TypeContent._type == Types.Tab) {
+        //     console.log('handle click on tab>>>>>>>>>>>>>>>')
+        //     //builder.addClickOnTab();
+        // }
 
         element.getElements().forEach((lev1) => {
             if (lev1.TypeContent._type == Types.Column) {
                 lev1.getElements().forEach(lev2 => {
                     if (lev2.TypeContent._type != Types.Column)
-                        addAllEventsToElement(lev2.Id);
+                        addAllEventsToElement(lev2.Id, builder);
                     lev2.getElements().forEach(lev3 => {
                         if (lev3.TypeContent._type != Types.Column)
-                            addAllEventsToElement(lev3.Id)
+                            addAllEventsToElement(lev3.Id, builder)
                         else {
-                            lev3.getElements().forEach(lev4 => addAllEventsToElement(lev4.Id))
+                            lev3.getElements().forEach(lev4 => addAllEventsToElement(lev4.Id, builder))
                         }
                     })
                 });
@@ -218,11 +218,26 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         sessionStorage.setItem('formMode', 'create');
     });
 
-    
+
 //});
 
 builder.handleDragAndDrop();
 
+
+let removeBtn = document.getElementById('removeBtn');
+removeBtn.addEventListener('click', function (e) {
+    let curActiveElement = builder.getActiveElement();
+
+    if (curActiveElement != null) {
+
+        builder.removeElement(curActiveElement.Id);
+        builder.getActiveElement().clearElements();
+
+        document.getElementById(curActiveElement.Id).remove();
+
+        builder.setActiveElement('notID');
+    }
+})
 
 
 

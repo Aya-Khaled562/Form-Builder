@@ -18,7 +18,7 @@ export default class FormBuilder {
     #sectionAfterRender
     #columnsAfterRender
     #columnsBeforRender
-    #activeTab
+    #activeElement
     dragBeforeRender = null;
     dragAfterRender = null;
     newField = null;
@@ -36,7 +36,7 @@ export default class FormBuilder {
         this.#sectionAfterRender = [];
         this.#columnsAfterRender = [];
         this.#columnsBeforRender = [];
-        this.#activeTab = null;
+        this.#activeElement = null;
         this.#entity = null;
         this.#json = json;
         this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
@@ -68,6 +68,25 @@ export default class FormBuilder {
         this.#elements.push(element);
     }
 
+    removeElement(elementId) {
+        let element = this.#elementsMap.get(elementId);
+
+        if (element == null)
+            return;
+
+        this.#elementsMap.delete(elementId);
+
+        if (element.TypeContent._type == Types.Tab) {
+            this.#elements = this.#elements.filter((el) => el.Id != elementId);
+            this.#Tabs = this.#Tabs.filter((el) => el.Id != elementId);
+        } else if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl) {
+            let colId = document.getElementById(elementId).parentElement.id;
+            let column = this.#columnsBeforRender.find(col => col.Id == colId);
+            column.removeElement(elementId);
+        }
+
+    }
+
     setPlatform(platform) {
         this.#platform = platform;
     }
@@ -84,28 +103,28 @@ export default class FormBuilder {
         return this.#elements[index];
     }
 
-    setTab(tab){
+    setTab(tab) {
         this.#Tabs.push(tab);
-        console.log('Tabs',this.#Tabs);
+        console.log('Tabs', this.#Tabs);
     }
 
-    getTabById(tabId){
-        return this.#Tabs.find(tab=> tab.Id == tabId);
+    getTabById(tabId) {
+        return this.#Tabs.find(tab => tab.Id == tabId);
     }
 
-    setActiveTab(tabId){
-        this.#activeTab = this.getTabById(tabId);
+    setActiveElement(elementId) {
+        this.#activeElement = this.#elementsMap.get(elementId);
     }
 
-    getActiveTab(){
-        return this.#activeTab;
+    getActiveElement() {
+        return this.#activeElement;
     }
 
-    setSectionBeforRender(section){
+    setSectionBeforRender(section) {
         this.#sectionsBeforRender.push(section);
     }
 
-    getSectionBeforRender(){
+    getSectionBeforRender() {
         return this.#sectionsBeforRender;
     }
 
@@ -129,17 +148,17 @@ export default class FormBuilder {
         this.#tabAfterRender.push(tab);
     }
 
-    addSectionToTab(section){
+    addSectionToTab(section) {
         let targetId = '';
-        if(this.#activeTab){
-            const target = this.#activeTab.getElementByIndex(0);
+        if (this.#activeElement && this.#activeElement.TypeContent._type == Types.Tab) {
+            const target = this.#activeElement.getElementByIndex(0);
             target.addElement(section);
             targetId = target.Id;
-        }else{
-            const targetTab = this.#Tabs[this.#Tabs.length-1];
+        } else {
+            const targetTab = this.#Tabs[this.#Tabs.length - 1];
             console.log('target tab: ', targetTab)
             const targetCol = targetTab.getElementByIndex(0);
-            console.log('target col: ',targetCol);
+            console.log('target col: ', targetCol);
             targetCol.addElement(section);
             targetId = targetCol.Id;
         }
@@ -161,17 +180,17 @@ export default class FormBuilder {
           const tabElement = document.getElementById(`${t.Id}`);
           if (t.Id === tabId) {
             if (tabElement.style.borderColor === 'green') {
-              tabElement.style.borderColor = 'red';
-              this.#activeTab = t;
+                tabElement.style.borderColor = 'red';
+                this.#activeElement = t;
             } else {
-              tabElement.style.borderColor = 'green';
-              this.#activeTab = null;
+                tabElement.style.borderColor = 'green';
+                this.#activeElement = null;
             }
           } else {
-            tabElement.style.borderColor = 'green';
+              tabElement.style.borderColor = 'green';
           }
         });
-        console.log('active', this.#activeTab);
+        console.log('active', this.#activeElement);
     }
 
     getFeildBeforeRender(id){
@@ -274,7 +293,7 @@ export default class FormBuilder {
                     oldParentColAfterRender.removeChild(this.dragAfterRender);
                     this.targetField.active = false;
                     e.target.append(div.firstChild);
-                    addAllEventsToElement(this.dragAfterRender.id)
+                    addAllEventsToElement(this.dragAfterRender.id, this)
                 }else{
                     
                     e.target.style.borderBottom = '1px solid blue';
@@ -357,11 +376,11 @@ export default class FormBuilder {
         // document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
         this.#elementsMap.forEach((el) => {
             if (Object.values(Types).includes(el.TypeContent._type)) {
-                addAllEventsToElement(el.Id);
+                addAllEventsToElement(el.Id, this);
             }
         });
 
-        this.addClickOnTab()
+        //this.addClickOnTab()
     }
 
 
