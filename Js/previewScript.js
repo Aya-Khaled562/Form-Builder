@@ -5,7 +5,7 @@ import FormBuilder from "./formbuilder.js";
 
 const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
 
-console.log(jsonData);
+// console.log(jsonData);
 const builder = new FormBuilder(jsonData, 'preview', 'form');
 
 // Save form
@@ -17,7 +17,7 @@ copyHtmlBtn.addEventListener('click', function (e) {
 });
 
     let editFromBtn = document.getElementById('EditForm');
-    console.log(editFromBtn)
+    // console.log(editFromBtn)
     editFromBtn.addEventListener('click', function () {
         window.open('/index.html', '_self');
     })

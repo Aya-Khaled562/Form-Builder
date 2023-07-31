@@ -45,6 +45,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
 
     $(`#${elementIdSelector}`).on('click', selectElement(builder));
 
+    // handleDragAndDrop(builder);
 }
 
 export function handleDragAndDrop(formBuilder) {
@@ -60,6 +61,7 @@ export function handleDragAndDrop(formBuilder) {
             if(e.target.classList.contains('newField')){
                 formBuilder.targetField = formBuilder.Entity.fields.find(field => field.name === formBuilder.dragAfterRender.id);
                 formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px solid green', formBuilder.targetField.options);
+                console.log("Created drag and drop: ",formBuilder.dragBeforeRender )
                 formBuilder.addElementToMap(formBuilder.dragBeforeRender);
             }else{
                 formBuilder.dragBeforeRender = formBuilder.getFeildBeforeRender(e.target.id);
@@ -126,7 +128,9 @@ export function handleDragAndDrop(formBuilder) {
 
         else if (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) {
             newColBeforRender.addElement(formBuilder.dragBeforeRender);
+            
             e.target.style.borderBottom = '1px solid blue';
+
             if(formBuilder.dragAfterRender.classList.contains('newField')) {
                 formBuilder.dragAfterRender.classList.remove('newField');
                 const div = document.createElement('div');

@@ -43,7 +43,11 @@
                       "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
-                      "elements": []
+                      "value": {
+                        "type": "single line of text",
+                         "source": {"value":"aya"},
+                         "id": ""
+                      }
                     },
                     {
                       "id": "lastname",
@@ -52,7 +56,11 @@
                       "style": "border: 1px solid green",
                       "type": "single line of text",
                       "category": "formControl",
-                      "elements": []
+                      "value": {
+                        "type": "single line of text",
+                         "source": {"value":"aya"},
+                         "id": ""
+                      }
                     }
                   ]
                 }

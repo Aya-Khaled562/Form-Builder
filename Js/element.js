@@ -1,3 +1,7 @@
+
+
+import Value from "./value.js";
+
 export const Types = {
     Tab: "tab",
     Section: "section",
@@ -8,8 +12,9 @@ export const Types = {
     DecimalNumber: 'decimal number',
     MultipleLineOfText: 'multiple line of text',
     DateAndTime: 'date and time',
-    File: 'file'
+    FileUpload: 'file upload'
 };
+
 export const Categories = {Layout: "layout", FormControl: "formControl"};
 
 export default class Element {
@@ -19,6 +24,7 @@ export default class Element {
     #style;
     #typeContent;
     #mode;
+    #value;
     #elements = [];
     #optionsSetValues = null;
 
@@ -30,8 +36,17 @@ export default class Element {
         this.#typeContent = typeContent;
         this.#mode = mode;
         if (params.length == 1 && params[0] != undefined && [Types.TwoOption, Types.OptionSet].includes(typeContent._type)) {
-            this.#optionsSetValues = params[0];
+            // this.#optionsSetValues = params[0];
+            this.#value = new Value("",this.#typeContent._type, params[0] );
+            console.log('value: ', this.#value.Source);
         }
+    }
+
+    set Value(value) {
+        this.#value = value;
+    }
+    get Value() {
+        return this.#value;
     }
 
     get Id() {
@@ -104,6 +119,7 @@ export default class Element {
 
     addElement(element) {
         this.#elements.push(element);
+        // console.log("Added element", this.#elements)
     }
 
     clearElements() {
@@ -158,6 +174,24 @@ export default class Element {
     }
 
     toSaveSchema() {
+
+        // let objectSchema = {
+        //     id: this.Id,
+        //     name: this.#name,
+        //     customClass: this.#customClass,
+        //     style: this.#style,
+        //     type: this.#typeContent._type,
+        //     category: this.#typeContent._category,
+        //     elements: this.#elements.map(e => e.toSaveSchema())
+        // };
+
+
+        // if (this.#optionsSetValues != null) {
+        //     objectSchema.optionsSetValues = this.#optionsSetValues;
+        //     console.log()
+
+        // }
+        // return objectSchema;
         let objectSchema = {
             id: this.Id,
             name: this.#name,
@@ -165,14 +199,19 @@ export default class Element {
             style: this.#style,
             type: this.#typeContent._type,
             category: this.#typeContent._category,
-            elements: this.#elements.map(e => e.toSaveSchema())
+            // elements: this.#elements.map(e => e.toSaveSchema())
         };
 
-        if (this.#optionsSetValues != null) {
-            objectSchema.optionsSetValues = this.#optionsSetValues;
-            console.log()
-
+        if(this.#typeContent._category === 'layout'){
+            objectSchema.elements = this.#elements.map(e => e.toSaveSchema())
+        }else{
+            if(this.#typeContent._type === 'option set' || this.#typeContent._type === 'two options')
+            {
+                objectSchema.value = this.#value;
+            }
         }
+
+        console.log('objectSchema', objectSchema.value)
         return objectSchema;
     }
 

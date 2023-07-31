@@ -224,14 +224,8 @@ export default class FormBuilder {
 
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            // switch (control.type) {
-                            //     case Types.Text:
-                            //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
-                            //         console.log('formControl', formControl)
-                            //         break;
-                            // }
-
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.optionsSetValues);
+                            console.log('control: ' , control)
+                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.value);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
 
@@ -246,14 +240,9 @@ export default class FormBuilder {
                 this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
             });
-
-
-            // this.#elements.push(newTab);
             this.#elements.push(newTab);
             this.addElementToMap(newTab);
         });
-
-
     }
 
     addDesignContent() {
@@ -294,16 +283,24 @@ export default class FormBuilder {
             case 'column':
                 const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
                 return column;
+            
+            //new Type
+            case 'file upload':
+                const file = this.#platformFactory.createFileUpload(id, name, customClass, style, this.#mode);
+                this.addElementToMap(file);
+                return file;
+ 
             case 'single line of text':
                 const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
                 this.addElementToMap(text);
                 return text;
             case 'option set':
-                console.log('params', params);
+                console.log('option set: ', params[0]);
                 const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, params[0]);
                 this.addElementToMap(optionSet)
                 return optionSet;
             case 'two options':
+                console.log('two options : ', params[0])
                 const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, params[0]);
                 this.addElementToMap(twoOptions)
                 return twoOptions;
@@ -359,6 +356,7 @@ export default class FormBuilder {
     }
 
     toSaveSchema() {
+        console.log("aksdfj: ", this.#elements.map(e => e.toSaveSchema()))
         return {
             platform: this.#platform,
             mode: this.#mode,

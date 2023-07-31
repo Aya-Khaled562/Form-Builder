@@ -9,4 +9,7 @@ export default class AbstractElementFactory {
     createTab(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
     createSection(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
     createColumn(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
+
+    //new type
+    createFileUpload(id, name, customClass, style, mode) { throw new Error("Method not implemented"); }
 }

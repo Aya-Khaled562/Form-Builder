@@ -199,10 +199,13 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     // Save form
     let saveFromElm = document.getElementById('saveJsonForm');
     saveFromElm.addEventListener('click', function (e) {
+        console.log("builder.tosave: ", builder.toSaveSchema())
         download(builder.toSaveSchema());
+
         window.open('/pages/preview.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
+        console.log('mode: ', builder.getMode())
         sessionStorage.setItem('formMode', builder.getMode());
 
     });
