@@ -3,7 +3,7 @@ import '/node_modules/jquery/dist/jquery.min.js'
 import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "./element.js";
 
-import {addAllEventsToElement} from "./ElementEventHandlers.js";
+import {addAllEventsToElement, handleDragAndDrop} from "./ElementEventHandlers.js";
 import {download, getJson} from "./Utils.js";
 
 
@@ -221,8 +221,8 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
 //});
 
-builder.handleDragAndDrop();
-
+// builder.handleDragAndDrop();
+handleDragAndDrop(builder);
 
 let removeBtn = document.getElementById('removeBtn');
 removeBtn.addEventListener('click', function (e) {

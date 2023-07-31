@@ -12,11 +12,7 @@ export default class FormBuilder {
     #elementsMap;
     #platformFactory
     #parentId
-    #Tabs
-    #tabAfterRender
     #sectionsBeforRender
-    #sectionAfterRender
-    #columnsAfterRender
     #columnsBeforRender
     #activeElement
     dragBeforeRender = null;
@@ -30,19 +26,18 @@ export default class FormBuilder {
         this.#elementsMap = new Map();
         this.#elements = [];
         this.#parentId = parentId;
-        this.#Tabs = [];
-        this.#tabAfterRender = [];
         this.#sectionsBeforRender= [];
-        this.#sectionAfterRender = [];
-        this.#columnsAfterRender = [];
         this.#columnsBeforRender = [];
         this.#activeElement = null;
         this.#entity = null;
         this.#json = json;
-        this.#platformFactory = this.createPlatformFactory(this.#platform);// html or android
+        this.#platformFactory = this.createPlatformFactory(this.#platform);
         this.ElementContent();
     }
 
+    get Entity(){
+        return this.#entity;
+    }
     get ParentId() {
         return this.#parentId;
     }
@@ -57,7 +52,6 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
-        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -78,7 +72,7 @@ export default class FormBuilder {
 
         if (element.TypeContent._type == Types.Tab) {
             this.#elements = this.#elements.filter((el) => el.Id != elementId);
-            this.#Tabs = this.#Tabs.filter((el) => el.Id != elementId);
+            this.#elements = this.#elements.filter((el) => el.Id != elementId);
         } else if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl) {
             let colId = document.getElementById(elementId).parentElement.id;
             let column = this.#columnsBeforRender.find(col => col.Id == colId);
@@ -104,12 +98,11 @@ export default class FormBuilder {
     }
 
     setTab(tab) {
-        this.#Tabs.push(tab);
-        console.log('Tabs', this.#Tabs);
+        this.#elements.push(tab);
     }
 
     getTabById(tabId) {
-        return this.#Tabs.find(tab => tab.Id == tabId);
+        return this.#elements.find(tab => tab.Id == tabId);
     }
 
     setActiveElement(elementId) {
@@ -128,14 +121,7 @@ export default class FormBuilder {
         return this.#sectionsBeforRender;
     }
 
-    setSectionAfterRender(section){
-        this.#sectionAfterRender.push(section);
-    }
-    getSectionAfterRender(){
-        return this.#sectionAfterRender;
-    }
     setColumnsBeforeRender(column){
-
         this.#columnsBeforRender.push(column) ;
     }
 
@@ -143,11 +129,11 @@ export default class FormBuilder {
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
     }
-
-    setTabAfterRender(tab){
-        this.#tabAfterRender.push(tab);
+    
+    get ColumnsBeforRender(){
+        return this.#columnsBeforRender;
     }
-
+   
     addSectionToTab(section) {
         let targetId = '';
         if (this.#activeElement && this.#activeElement.TypeContent._type == Types.Tab) {
@@ -155,7 +141,7 @@ export default class FormBuilder {
             target.addElement(section);
             targetId = target.Id;
         } else {
-            const targetTab = this.#Tabs[this.#Tabs.length - 1];
+            const targetTab = this.#elements[this.#elements.length - 1];
             console.log('target tab: ', targetTab)
             const targetCol = targetTab.getElementByIndex(0);
             console.log('target col: ', targetCol);
@@ -176,7 +162,7 @@ export default class FormBuilder {
     }
 
     handleTabClick(tabId) {
-        this.#Tabs.forEach(t => {
+        this.#elements.forEach(t => {
           const tabElement = document.getElementById(`${t.Id}`);
           if (t.Id === tabId) {
             if (tabElement.style.borderColor === 'green') {
@@ -204,108 +190,6 @@ export default class FormBuilder {
         });
         console.log('oldFeilds func', oldFeilds);
         return oldFeilds.find(field => field.Id === id);
-    }
-
-    handleDragAndDrop() {
-        const formContainer = document.getElementById('formContainer');
-
-        formContainer.addEventListener('dragstart', (e) => {
-            this.dragAfterRender = e.target;
-            if (e.target.classList.contains('section')) {
-                this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
-                e.target.style.opacity = '0.5';
-            }
-            else if(e.target.classList.contains('field')){
-                if(e.target.classList.contains('newField')){
-                    this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green', this.targetField.options);
-                    this.addElementToMap(this.dragBeforeRender);
-                }else{
-                    this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
-                    console.log('oldField' , this.dragBeforeRender);
-                }
-                e.target.style.opacity = '0.5';
-            }
-
-            console.log('dragstart' , e.target);
-        });
-    
-        formContainer.addEventListener('dragend', (e) => {
-            if (e.target.classList.contains('section') || e.target.classList.contains('field') || e.target.classList.contains('tab')) {
-                if (this.dragAfterRender) {
-                    this.dragAfterRender.style.opacity = '1';
-                    this.dragAfterRender = null;
-                    console.log('dragend');
-                }
-            }
-        });
-    
-        formContainer.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            if ((e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) ||
-                (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) ) 
-            {
-                e.target.style.borderBottom = '3px solid blue';
-                console.log('dragover');
-            }
-            
-        });
-    
-        formContainer.addEventListener('dragleave', (e) => {
-            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
-                e.target.style.borderBottom = '1px solid orange';
-                console.log('dragleave');
-            }
-            else if (e.target.classList.contains('colsec') && this.dragAfterRender.classList.contains('field')) {
-                e.target.style.borderBottom = '1px solid blue';
-                console.log('dragleave field');
-            }
-        });
-    
-        formContainer.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            let targetColId = e.target.id;
-            let newColBeforRender = this.#columnsBeforRender.find(col => col.Id === targetColId);
-            let oldParentColAfterRender = this.dragAfterRender.parentNode;
-            let oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id)
-
-            if(oldParentColAfterRender.classList.contains('colsec') || oldParentColAfterRender.classList.contains('coltab') ) {
-                oldParentColBeforeRender = this.#columnsBeforRender.find(col => col.Id === oldParentColAfterRender.id);
-                oldParentColBeforeRender.removeElement(this.dragBeforeRender);
-            }
-                
-            if (e.target.classList.contains('coltab') && this.dragAfterRender.classList.contains('section')) {
-                newColBeforRender.addElement(this.dragBeforeRender);
-                e.target.style.borderBottom = '1px solid orange';
-                e.target.append(this.dragAfterRender);
-                console.log('drop');
-            }
-
-            else if (e.target.classList.contains('colsec')&& this.dragAfterRender.classList.contains('field')) {
-                newColBeforRender.addElement(this.dragBeforeRender);
-                e.target.style.borderBottom = '1px solid blue';
-                if(this.dragAfterRender.classList.contains('newField')) {
-                    this.dragAfterRender.classList.remove('newField');
-                    const div = document.createElement('div');
-                    div.innerHTML = this.dragBeforeRender.render()
-                    oldParentColAfterRender.removeChild(this.dragAfterRender);
-                    this.targetField.active = false;
-                    e.target.append(div.firstChild);
-                    addAllEventsToElement(this.dragAfterRender.id, this)
-                }else{
-                    
-                    e.target.style.borderBottom = '1px solid blue';
-                    e.target.append(this.dragAfterRender);
-
-                }
-
-            }
-            
-        });
-    
-        
     }
 
    async ElementContent(){
@@ -364,7 +248,7 @@ export default class FormBuilder {
             });
 
 
-            this.#Tabs.push(newTab);
+            // this.#elements.push(newTab);
             this.#elements.push(newTab);
             this.addElementToMap(newTab);
         });
@@ -385,7 +269,7 @@ export default class FormBuilder {
 
 
     addClickOnTab(){
-        this.#Tabs.forEach(t => {
+        this.#elements.forEach(t => {
             const target = document.getElementById(`${t.Id}`);
             target.addEventListener('click', ()=> {
                 this.handleTabClick(t.Id)
