@@ -283,6 +283,7 @@ export default class FormBuilder {
 
 
     build(type, obj) {
+        console.log("mode in build", this.#mode)
         obj.mode = this.#mode;
         console.log('object in build method', obj)
         switch (type) {

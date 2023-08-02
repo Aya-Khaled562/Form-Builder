@@ -18,7 +18,6 @@
         jsonData = await getJson('/files/defaultSchema.json');
     }
 
-    debugger;
     const formApp = new FormApp(jsonData, mode);
 
 

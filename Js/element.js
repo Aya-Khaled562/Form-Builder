@@ -44,7 +44,7 @@ export default class Element {
         this.#visible = obj.visible ?? true;
         this.#collapse = obj.collapse ?? false;
         this.value = obj.value;
-        #this.islocked = false;
+        this.islocked = false;
 
     }
 
