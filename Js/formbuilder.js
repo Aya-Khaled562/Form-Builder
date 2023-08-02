@@ -1,7 +1,8 @@
 import AndroidElementFactory from "./android_element_factory.js";
 import {Categories, Types} from "./element.js";
 import HtmlElementFactory from "./html_element_factory.js";
-import {addAllEventsToElement} from "./ElementEventHandlers.js";
+import {addAllEventsToElement, fieldIsRequired} from "./ElementEventHandlers.js";
+import {createElementFactoryPropertiesObj} from "./Utils.js";
 
 
 export default class FormBuilder {
@@ -19,10 +20,9 @@ export default class FormBuilder {
     dragAfterRender = null;
     newField = null;
     #json;
-    #fields 
+    #fields
     constructor(json,mode, parentId) {
         this.#platform = json.platform;
-        // this.#mode = mode;
         this.#mode = mode;
         this.#elementsMap = new Map();
         this.#elements = [];
@@ -35,8 +35,6 @@ export default class FormBuilder {
         this.#fields = [];
         this.#platformFactory = this.createPlatformFactory(this.#platform);
         this.ElementContent();
-        console.log('mode: ', this.#mode)
-        
     }
 
     get Entity(){
@@ -45,7 +43,7 @@ export default class FormBuilder {
     get ParentId() {
         return this.#parentId;
     }
-    
+
     getPlatformFactory() {
         return this.#platformFactory;
     }
@@ -53,9 +51,10 @@ export default class FormBuilder {
     getElements() {
         return this.#elements;
     }
-    
+
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
+        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -78,11 +77,19 @@ export default class FormBuilder {
 
         if (element.TypeContent._type == Types.Tab) {
             this.#elements = this.#elements.filter((el) => el.Id != elementId);
-            this.#elements = this.#elements.filter((el) => el.Id != elementId);
+            //this.#elements = this.#elements.filter((el) => el.Id != elementId);
         } else if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl) {
             let colId = document.getElementById(elementId).parentElement.id;
             let column = this.#columnsBeforRender.find(col => col.Id == colId);
             column.removeElement(elementId);
+        }
+
+        if (element.TypeContent._category == Categories.FormControl) {
+            console.log(this.#entity.fields)
+            let field = this.#entity.fields.find(field => field.name == element.Id);
+            if (field) {
+                document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+            }
         }
 
     }
@@ -135,11 +142,11 @@ export default class FormBuilder {
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
     }
-    
+
     get ColumnsBeforRender(){
         return this.#columnsBeforRender;
     }
-   
+
     addSectionToTab(section) {
         let targetId = '';
         if (this.#activeElement && this.#activeElement.TypeContent._type == Types.Tab) {
@@ -203,14 +210,17 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
+
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
+
                 this.getEntity();
                 break;
             case 'preview':
                 this.load();
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+                this.addPreviewEvents();
                 break;
             default:
                 throw new Error(`Invalid mode ${this.#mode}`);
@@ -220,18 +230,28 @@ export default class FormBuilder {
     load() {
         const formTabs = this.#json.elements;
         formTabs.forEach((tab) => {
-            const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
+            tab.mode = this.#mode;
+            const newTab = this.#platformFactory.createTab(tab);
             tab.elements.forEach((tabColumn) => {
-                const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode);
+                tabColumn.mode = this.#mode;
+                const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode));
                 tabColumn.elements.forEach((section) => {
-                    const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
+                    section.mode = this.#mode;
+                    const newSection = this.#platformFactory.createSection(section);
                     section.elements.forEach((column) => {
-                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode);
+                        column.mode = column;
+                        const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
+                        console.log('new section col', newSectionCol)
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.isrequired ,control.value);
-                            this.#fields.push(formControl);
+                            // switch (control.type) {
+                            //     case Types.Text:
+                            //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
+                            //         console.log('formControl', formControl)
+                            //         break;
+                            // }
 
+                            formControl = this.build(control.type, control);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
                         });
@@ -256,69 +276,52 @@ export default class FormBuilder {
             if (Object.values(Types).includes(el.TypeContent._type)) {
                 addAllEventsToElement(el.Id, this);
             }
+
         });
 
-        //this.addClickOnTab()
     }
 
 
-    addClickOnTab(){
-        this.#elements.forEach(t => {
-            const target = document.getElementById(`${t.Id}`);
-            target.addEventListener('click', ()=> {
-                this.handleTabClick(t.Id)
-            });
-        });
-    }
-
-
-    build(type, id, name, customClass, style,isrequired = false ,...params) {
-
+    build(type, obj) {
+        obj.mode = this.#mode;
+        console.log('object in build method', obj)
         switch (type) {
             case 'tab':
-                const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
-                // this.setTab(tab);
+                const tab = this.#platformFactory.createTab(obj);
+                this.setTab(tab);
                 this.#elements.push(tab);
                 this.addElementToMap(tab)
                 return tab;
             case 'section':
-                const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
+                const section = this.#platformFactory.createSection(obj);
                 this.addElementToMap(section)
                 return section;
             case 'column':
-                const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
+                const column = this.#platformFactory.createColumn(obj);
                 return column;
-            
-            //new Type
-            case 'file upload':
-                const file = this.#platformFactory.createFileUpload(id, name, customClass, style, this.#mode, isrequired, params[0]);
-                this.addElementToMap(file);
-                return file;
- 
             case 'single line of text':
-                const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                const text = this.#platformFactory.createSingleLineOfText(obj);
                 this.addElementToMap(text);
                 return text;
             case 'option set':
-                // console.log('option set: ', params[0]);
-                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                console.log('params', obj);
+                const optionSet = this.#platformFactory.createOptionSet(obj);
                 this.addElementToMap(optionSet)
                 return optionSet;
             case 'two options':
-                // console.log('two options : ', params[0])
-                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                const twoOptions = this.#platformFactory.createTwoOptions(obj);
                 this.addElementToMap(twoOptions)
                 return twoOptions;
             case 'decimal number':
-                const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                const decimalNumber = this.#platformFactory.createDecimalNumber(obj);
                 this.addElementToMap(decimalNumber)
                 return decimalNumber;
             case 'multiple line of text':
-                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(obj);
                 this.addElementToMap(multipleLineOfText)
                 return multipleLineOfText;
             case 'date and time':
-                const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode, isrequired, params[0]);
+                const dateAndTime = this.#platformFactory.createDateAndTime(obj);
                 this.addElementToMap(dateAndTime)
                 return dateAndTime;
         }
@@ -367,7 +370,7 @@ export default class FormBuilder {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-                            
+
                             const feildFromEntity = this.#entity.fields.find(entityField=> entityField.name === field.Id);
 
                             const mergedObject = {};
@@ -385,7 +388,7 @@ export default class FormBuilder {
                                     if(typeof feildFromEntity[key] === 'boolean' && !excludedFieldKeys.includes(key) && feildFromEntity[key] === true){
                                         mergedObject[key] = feildFromEntity[key];
                                     }
-                                   
+
                                 }
                             }
 
@@ -407,6 +410,27 @@ export default class FormBuilder {
             description: "",
             elements: this.#elements.map(e => e.toSaveSchema(compareResult))
         }
+    }
+
+    addPreviewEvents() {
+        this.#elementsMap.forEach((el) => {
+            let controlElm = document.getElementById(el.Id);
+
+            //required
+            if (el.TypeContent._category == Categories.FormControl) {
+                if (el.Required) {
+                    controlElm.addEventListener('blur', fieldIsRequired);
+                }
+            }
+
+            // if (el.TypeContent._type == Types.Tab){
+            //     console.log(controlElm)
+            //     controlElm.addEventListener('click', rotateIcon)
+            // }
+
+
+        });
+
     }
 
 }

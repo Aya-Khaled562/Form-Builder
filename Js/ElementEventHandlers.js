@@ -9,37 +9,61 @@
 
     }
 
+export function fieldIsRequired(e) {
+    let inputValue = e.target.value;
 
-    export function selectElement(formBuilder) {
-        return function (e) {
-            e.stopPropagation();
-            let curActiveElement = formBuilder.getActiveElement();
-            if (curActiveElement != null) {
-                document.getElementById(curActiveElement.Id).classList.remove('border-danger');
-            }
-            e.currentTarget.classList.toggle('border-danger');
-            formBuilder.setActiveElement(e.currentTarget.id);
+    let requiredFeedbackElm = e.target.parentElement.querySelector('.required');
+    if (inputValue.trim().length == 0) {
+        if (!requiredFeedbackElm)
+            $(`<div class="required text-danger" >This field is required</div>`).insertAfter(e.target)
+        e.target.focus();
+    } else {
+        if (requiredFeedbackElm)
+            e.target.parentElement.querySelector('.required').remove();
+    }
+}
+
+
+export function selectElement(formBuilder) {
+
+    return function (e) {
+        e.stopPropagation();
+        let curActiveElement = formBuilder.getActiveElement();
+        if (curActiveElement != null) {
+            document.getElementById(curActiveElement.Id).classList.remove('border-danger');
+            document.getElementById(curActiveElement.Id).classList.remove('border-3');
+
         }
+        e.currentTarget.classList.toggle('border-danger');
+        e.currentTarget.classList.toggle('border-3');
+
+        formBuilder.setActiveElement(e.currentTarget.id);
+
 
     }
 
-    let events = new Map();
+}
 
-    let dbleClickHandlers = [showModal];
-    events.set('dblclick', dbleClickHandlers);
+let events = new Map();
 
-    //let clickHandlers = [selectElement];
-    //events.set('click', clickHandlers);
-    export default events;
 
-    export function addAllEventsToElement(elementIdSelector, builder) {
-        events.forEach((handlersArr, eventType) => {
-            handlersArr.forEach((handler) => {
-                $(`#${elementIdSelector}`).on(eventType, handler);
-            });
+let dbleClickHandlers = [showModal];
+events.set('dblclick', dbleClickHandlers);
+
+//let clickHandlers = [selectElement];
+//events.set('click', clickHandlers);
+
+
+export default events;
+
+export function addAllEventsToElement(elementIdSelector, builder) {
+    events.forEach((handlersArr, eventType) => {
+        handlersArr.forEach((handler) => {
+            $(`#${elementIdSelector}`).on(eventType, handler);
         });
+    });
 
-        $(`#${elementIdSelector}`).on('click', selectElement(builder));
+    $(`#${elementIdSelector}`).on('click', selectElement(builder));
 
         // handleDragAndDrop(builder);
     }
@@ -82,12 +106,12 @@
         formContainer.addEventListener('dragover', (e) => {
             e.preventDefault();
             if ((e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) ||
-                (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) ) 
+                (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) )
             {
                 e.target.style.borderBottom = '3px solid blue';
                 console.log('dragover');
             }
-            
+
         });
 
         formContainer.addEventListener('dragleave', (e) => {
@@ -104,7 +128,7 @@
         formContainer.addEventListener('drop', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+
             let targetColId = e.target.id;
             let newColBeforRender = formBuilder.ColumnsBeforRender.find(col => col.Id === targetColId);
             let oldParentColAfterRender = formBuilder.dragAfterRender.parentNode;
@@ -114,7 +138,7 @@
                 oldParentColBeforeRender = formBuilder.ColumnsBeforRender.find(col => col.Id === oldParentColAfterRender.id);
                 oldParentColBeforeRender.removeElement(formBuilder.dragBeforeRender);
             }
-                
+
             if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid orange';
@@ -124,7 +148,7 @@
 
             else if (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
-                
+
                 e.target.style.borderBottom = '1px solid blue';
 
                 if(formBuilder.dragAfterRender.classList.contains('newField')) {
@@ -136,15 +160,15 @@
                     e.target.append(div.firstChild);
                     addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
                 }else{
-                    
+
                     e.target.style.borderBottom = '1px solid blue';
                     e.target.append(formBuilder.dragAfterRender);
 
                 }
 
             }
-            
+
         });
 
-        
+
     }
