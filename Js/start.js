@@ -3,10 +3,8 @@
     import FormApp from "./form_app.js";
     import {download, getJson} from "./Utils.js";
 
-
     let jsonData = sessionStorage.getItem('jsonDataForm');
     let mode = sessionStorage.getItem('formMode');
-
 
     if (mode == null)
         mode = 'create';

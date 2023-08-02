@@ -5,7 +5,7 @@ import { Types } from "./element.js";
 import { addAllEventsToElement, handleDragAndDrop } from "./ElementEventHandlers.js";
 import { download, getJson } from "./Utils.js";
 
-export default class FormCreation {
+export default class CreateForm {
     jsonData;
     mode;
     builder;

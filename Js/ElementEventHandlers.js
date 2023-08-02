@@ -25,14 +25,11 @@
 
     let events = new Map();
 
-
     let dbleClickHandlers = [showModal];
     events.set('dblclick', dbleClickHandlers);
 
     //let clickHandlers = [selectElement];
     //events.set('click', clickHandlers);
-
-
     export default events;
 
     export function addAllEventsToElement(elementIdSelector, builder) {
