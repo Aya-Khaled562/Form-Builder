@@ -1,0 +1,61 @@
+{
+  "logicalName": "employee",
+  "displayName": "Employee",
+  "columns": [
+    {
+      "fieldName": "employee_id",
+      "displayName": "Employee ID",
+      "values": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "fieldName": "name",
+      "displayName": "Name",
+      "type": "nvarchar",
+      "maxLen": 100,
+      "minLen": 8,
+      "required": true,
+      "values": [
+        "ahmed",
+        "mohamed",
+        "Nasr"
+      ]
+    },
+    {
+      "fieldName": "email",
+      "displayName": "Email",
+      "type": "nvarchar",
+      "required": true,
+      "values": [
+        "ahmed@email.com",
+        "mohamed@email.com",
+        "Nasr@email.com"
+      ]
+    },
+    {
+      "fieldName": "city",
+      "displayName": "City",
+      "type": "nvarchar",
+      "required": true,
+      "values": [
+        "kafre",
+        "mansoura",
+        "cairo"
+      ]
+    },
+    {
+      "fieldName": "address",
+      "displayName": "Address",
+      "type": "text",
+      "required": false,
+      "values": [
+        "kafre dddd",
+        "mansoura aaaa",
+        "cairo bbbbbbbb"
+      ]
+    }
+  ]
+}

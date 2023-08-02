@@ -87,6 +87,14 @@ export default class FormBuilder {
             column.removeElement(elementId);
         }
 
+        if (element.TypeContent._category == Categories.FormControl) {
+            console.log(this.#entity.fields)
+            let field = this.#entity.fields.find(field => field.name == element.Id);
+            if (field) {
+                document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+            }
+        }
+
     }
 
     setPlatform(platform) {
