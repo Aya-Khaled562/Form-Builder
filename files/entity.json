@@ -5,7 +5,7 @@
             "displayName":"First Name",
             "name":"firstname",
             "type":"single line of text",
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         },
@@ -13,7 +13,7 @@
             "displayName":"Last Name",
             "name":"lastname",
             "type":"single line of text",
-            "required": true,
+            "isrequired": false,
             "searchable": true,
             "active": true
         },
@@ -26,7 +26,7 @@
                 "Married": "1",
                 "Divorced": "2"
             },
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         },
@@ -38,7 +38,7 @@
                 "Male": "0",
                 "Female": "1"
             },
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         },
@@ -46,7 +46,7 @@
             "displayName":"Salary",
             "name":"salary",
             "type":"decimal number",
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         },
@@ -54,7 +54,7 @@
             "displayName":"Notes",
             "name":"notes",
             "type":"multiple line of text",
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         },
@@ -62,7 +62,7 @@
             "displayName":"Start Date",
             "name":"startdate",
             "type":"date and time",
-            "required": true,
+            "isrequired": true,
             "searchable": true,
             "active": true
         }

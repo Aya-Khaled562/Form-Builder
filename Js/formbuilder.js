@@ -19,9 +19,10 @@ export default class FormBuilder {
     dragAfterRender = null;
     newField = null;
     #json;
-
-    constructor(json, mode, parentId) {
+    #fields 
+    constructor(json,mode, parentId) {
         this.#platform = json.platform;
+        // this.#mode = mode;
         this.#mode = mode;
         this.#elementsMap = new Map();
         this.#elements = [];
@@ -31,8 +32,11 @@ export default class FormBuilder {
         this.#activeElement = null;
         this.#entity = null;
         this.#json = json;
+        this.#fields = [];
         this.#platformFactory = this.createPlatformFactory(this.#platform);
         this.ElementContent();
+        console.log('mode: ', this.#mode)
+        
     }
 
     get Entity(){
@@ -41,7 +45,7 @@ export default class FormBuilder {
     get ParentId() {
         return this.#parentId;
     }
-
+    
     getPlatformFactory() {
         return this.#platformFactory;
     }
@@ -49,7 +53,7 @@ export default class FormBuilder {
     getElements() {
         return this.#elements;
     }
-
+    
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
     }
@@ -61,7 +65,9 @@ export default class FormBuilder {
     addElement(element) {
         this.#elements.push(element);
     }
-
+    get Fields(){
+        return this.#fields;
+    }
     removeElement(elementId) {
         let element = this.#elementsMap.get(elementId);
 
@@ -180,16 +186,16 @@ export default class FormBuilder {
     }
 
     getFeildBeforeRender(id){
-        let oldFeilds = [];
+        let oldfields = [];
         this.#sectionsBeforRender.forEach(sec => {
             sec.getElements().forEach(col => {
                 col.getElements().forEach(feild => {
-                    oldFeilds.push(feild);
+                    oldfields.push(feild);
                 })
             })
         });
-        console.log('oldFeilds func', oldFeilds);
-        return oldFeilds.find(field => field.Id === id);
+        console.log('oldfields func', oldfields);
+        return oldfields.find(field => field.Id === id);
     }
 
    async ElementContent(){
@@ -221,14 +227,13 @@ export default class FormBuilder {
                     const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
                     section.elements.forEach((column) => {
                         const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode);
-
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            console.log('control: ' , control)
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.value);
+                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.isrequired ,control.value);
+                            this.#fields.push(formControl);
+
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
-
                         });
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
@@ -267,12 +272,12 @@ export default class FormBuilder {
     }
 
 
-    build(type, id, name, customClass, style, ...params) {
+    build(type, id, name, customClass, style,isrequired = false ,...params) {
 
         switch (type) {
             case 'tab':
                 const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
-                this.setTab(tab);
+                // this.setTab(tab);
                 this.#elements.push(tab);
                 this.addElementToMap(tab)
                 return tab;
@@ -286,34 +291,34 @@ export default class FormBuilder {
             
             //new Type
             case 'file upload':
-                const file = this.#platformFactory.createFileUpload(id, name, customClass, style, this.#mode);
+                const file = this.#platformFactory.createFileUpload(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(file);
                 return file;
  
             case 'single line of text':
-                const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
+                const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(text);
                 return text;
             case 'option set':
-                console.log('option set: ', params[0]);
-                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, params[0]);
+                // console.log('option set: ', params[0]);
+                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(optionSet)
                 return optionSet;
             case 'two options':
-                console.log('two options : ', params[0])
-                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, params[0]);
+                // console.log('two options : ', params[0])
+                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(twoOptions)
                 return twoOptions;
             case 'decimal number':
-                const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode);
+                const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(decimalNumber)
                 return decimalNumber;
             case 'multiple line of text':
-                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode);
+                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(multipleLineOfText)
                 return multipleLineOfText;
             case 'date and time':
-                const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode);
+                const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode, isrequired, params[0]);
                 this.addElementToMap(dateAndTime)
                 return dateAndTime;
         }
@@ -355,14 +360,52 @@ export default class FormBuilder {
 
     }
 
+    compareEntityWithForm(){
+        let compareResult = []
+        this.#elements.forEach(tab => {
+            tab.getElements().forEach(colTab => {
+                colTab.getElements().forEach(sec=>{
+                    sec.getElements().forEach(colSec=>{
+                        colSec.getElements().forEach(field=>{
+                            
+                            const feildFromEntity = this.#entity.fields.find(entityField=> entityField.name === field.Id);
+
+                            const mergedObject = {};
+                            const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
+
+                            for(let key in field){
+                                if(!mergedObject.hasOwnProperty(key) && !excludedFieldKeys.includes(key)){
+                                    mergedObject[key] = field[key];
+                                }
+                            }
+                            for(let key in feildFromEntity){
+                                if(!mergedObject.hasOwnProperty(key) && !excludedFieldKeys.includes(key)){
+                                    mergedObject[key] = feildFromEntity[key];
+                                }else{
+                                    if(typeof feildFromEntity[key] === 'boolean' && !excludedFieldKeys.includes(key) && feildFromEntity[key] === true){
+                                        mergedObject[key] = feildFromEntity[key];
+                                    }
+                                   
+                                }
+                            }
+
+                            compareResult.push(mergedObject);
+                        })
+                    })
+                })
+            })
+        });
+
+        return compareResult;
+    }
     toSaveSchema() {
-        console.log("aksdfj: ", this.#elements.map(e => e.toSaveSchema()))
+        const compareResult =  this.compareEntityWithForm();
         return {
             platform: this.#platform,
             mode: this.#mode,
             entity: "",
             description: "",
-            elements: this.#elements.map(e => e.toSaveSchema())
+            elements: this.#elements.map(e => e.toSaveSchema(compareResult))
         }
     }
 

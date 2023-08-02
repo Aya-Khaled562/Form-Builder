@@ -2,6 +2,7 @@ import '/node_modules/jquery/dist/jquery.min.js'
 import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import FormBuilder from "./formbuilder.js";
+import { download } from './Utils.js';
 
 const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
 
@@ -16,11 +17,18 @@ copyHtmlBtn.addEventListener('click', function (e) {
     navigator.clipboard.writeText(formContainer.innerHTML);
 });
 
-    let editFromBtn = document.getElementById('EditForm');
-    // console.log(editFromBtn)
-    editFromBtn.addEventListener('click', function () {
-        window.open('/index.html', '_self');
-    })
+let editFromBtn = document.getElementById('EditForm');
+// console.log(editFromBtn)
+editFromBtn.addEventListener('click', function () {
+    window.open('/index.html', '_self');
+})
+
+
+// let saveBtn = document.getElementById('Save');
+// saveBtn.addEventListener('click', function () {
+//     download(builder.toSaveSchema());
+// })
+
 
 
 

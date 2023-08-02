@@ -18,200 +18,186 @@ export const Types = {
 export const Categories = {Layout: "layout", FormControl: "formControl"};
 
 export default class Element {
-    #id;
-    #name;
-    #customClass;
-    #style;
-    #typeContent;
-    #mode;
-    #value;
-    #elements = [];
-    #optionsSetValues = null;
-
-    constructor(id, name, customClass, style, typeContent, mode, ...params) {
-        this.#id = id;
-        this.#name = name;
-        this.#customClass = customClass;
-        this.#style = style;
-        this.#typeContent = typeContent;
-        this.#mode = mode;
-        if (params.length == 1 && params[0] != undefined && [Types.TwoOption, Types.OptionSet].includes(typeContent._type)) {
-            // this.#optionsSetValues = params[0];
-            this.#value = new Value("",this.#typeContent._type, params[0] );
-            console.log('value: ', this.#value.Source);
+    id;
+    name;
+    customClass;
+    style;
+    typeContent;
+    mode;
+    value;
+    elements = [];
+    isrequired;
+    isvisible;
+    islocked;
+    
+    
+    constructor(id, name, customClass, style, typeContent, mode,isrequired = false, ...params) {
+        this.id = id;
+        this.name = name;
+        this.customClass = customClass;
+        this.style = style;
+        this.typeContent = typeContent;
+        this.mode = mode;
+        this.isrequired = isrequired;
+        this.isvisible = true;
+        this.islocked = false;
+        if (params.length == 1 && params[0] != undefined && [Categories.FormControl].includes(typeContent._category)) {
+            this.value = params[0]
+            // console.log('value in element: ',params[0]) 
         }
+
     }
 
-    set Value(value) {
-        this.#value = value;
-    }
+   
     get Value() {
-        return this.#value;
+        return this.value;
     }
 
     get Id() {
-        return this.#id;
+        return this.id;
     }
 
     get Name() {
-        return this.#name;
+        return this.name;
     }
 
     get CustomClass() {
-        return this.#customClass;
+        return this.customClass;
     }
 
     get Style() {
-        return this.#style;
+        return this.style;
     }
 
     get DesignContent() {
-        return this.#typeContent._designContent;
+        return this.typeContent._designContent;
     }
 
     get PreviewContent() {
-        return this.#typeContent._previewContent;
+        return this.typeContent._previewContent;
     }
 
     get Mode() {
-        return this.#mode;
+        return this.mode;
     }
 
     set Id(value) {
-        this.#id = value;
+        this.id = value;
     }
 
+    set Value(value) {
+        this.value = value;
+    }
     set Name(value) {
-        this.#name = value;
+        this.name = value;
     }
 
     set CustomClass(value) {
-        this.#customClass = value;
+        this.customClass = value;
     }
 
     set Style(value) {
-        this.#style = value;
+        this.style = value;
     }
 
     set Mode(value) {
-        this.#mode = value;
+        this.mode = value;
     }
 
     get TypeContent() {
-        return this.#typeContent;
+        return this.typeContent;
     }
 
     set TypeContent(value) {
-        this.#typeContent = value;
+        this.typeContent = value;
     }
 
     getElements() {
-        return this.#elements;
+        return this.elements;
     }
 
     getNumOfElements() {
-        return this.#elements.length;
+        return this.elements.length;
     }
 
     getElementByIndex(index) {
-        return this.#elements[index]
+        return this.elements[index]
     }
 
     addElement(element) {
-        this.#elements.push(element);
-        // console.log("Added element", this.#elements)
+        this.elements.push(element);
+        
     }
 
     clearElements() {
-        this.#elements = [];
-        this.#elements.length = 0;
+        this.elements = [];
+        this.elements.length = 0;
     }
 
     popElement() {
-        return this.#elements.pop();
+        return this.elements.pop();
     }
 
     indexOfElement(id) {
-        return this.#elements.findIndex(ele => ele.Id === id);
+        return this.elements.findIndex(ele => ele.Id === id);
     }
 
     removeElement(element) {
-        this.#elements.splice(this.#elements.indexOf(element), 1);
+        this.elements.splice(this.elements.indexOf(element), 1);
     }
 
     renderDesignContent() {
-        if (this.#typeContent._category == 'layout') {
-            const columns = this.#elements.map((column) => {
+        if (this.typeContent._category == 'layout') {
+            const columns = this.elements.map((column) => {
                 return column.renderDesignContent();
             });
-            const design = this.#typeContent._designContent.replace('<!--content-->', columns.join(''));
+            const design = this.typeContent._designContent.replace('<!--content-->', columns.join(''));
             return design;
         } else {
 
-            return this.#typeContent._designContent;
+            return this.typeContent._designContent;
         }
     }
 
    
     renderPreviewContent() {
-        if (this.#typeContent._category == 'layout') {
-            const columns = this.#elements.map((column) => {
+        if (this.typeContent._category == 'layout') {
+            const columns = this.elements.map((column) => {
                 return column.renderPreviewContent();
             });
-            const preview = this.#typeContent._previewContent.replace('<!--content-->', columns.join(''));
+            const preview = this.typeContent._previewContent.replace('<!--content-->', columns.join(''));
             return preview;
         } else {
-            return this.#typeContent._previewContent;
+            return this.typeContent._previewContent;
         }
     }
 
     render() {
-        if (this.#mode === 'create' || this.#mode === 'update') {
+        if (this.mode === 'create' || this.mode === 'update') {
             return this.renderDesignContent();
         } else {
             return this.renderPreviewContent();
         }
     }
 
-    toSaveSchema() {
-
-        // let objectSchema = {
-        //     id: this.Id,
-        //     name: this.#name,
-        //     customClass: this.#customClass,
-        //     style: this.#style,
-        //     type: this.#typeContent._type,
-        //     category: this.#typeContent._category,
-        //     elements: this.#elements.map(e => e.toSaveSchema())
-        // };
-
-
-        // if (this.#optionsSetValues != null) {
-        //     objectSchema.optionsSetValues = this.#optionsSetValues;
-        //     console.log()
-
-        // }
-        // return objectSchema;
-        let objectSchema = {
-            id: this.Id,
-            name: this.#name,
-            customClass: this.#customClass,
-            style: this.#style,
-            type: this.#typeContent._type,
-            category: this.#typeContent._category,
-            // elements: this.#elements.map(e => e.toSaveSchema())
-        };
-
-        if(this.#typeContent._category === 'layout'){
-            objectSchema.elements = this.#elements.map(e => e.toSaveSchema())
+    
+    toSaveSchema(mapObject) {
+        let objectSchema = {};
+        let target = mapObject.find(obj => obj.id === this.id)
+        if(this.typeContent._category === Categories.Layout){
+            objectSchema = {
+                id: this.Id,
+                name: this.name,
+                customClass: this.customClass,
+                style: this.style,
+                type: this.typeContent._type,
+                category: this.typeContent._category,
+                elements: this.elements.map(e => e.toSaveSchema(mapObject))
+            };
         }else{
-            if(this.#typeContent._type === 'option set' || this.#typeContent._type === 'two options')
-            {
-                objectSchema.value = this.#value;
-            }
+            objectSchema = target;
         }
 
-        console.log('objectSchema', objectSchema.value)
         return objectSchema;
     }
 
