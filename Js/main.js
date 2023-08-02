@@ -4,7 +4,7 @@ import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "./element.js";
 
 import {addAllEventsToElement} from "./ElementEventHandlers.js";
-import {download, getJson} from "./Utils.js";
+import {createElementFactoryPropertiesObj, download, getJson} from "./Utils.js";
 
 
 let jsonData = sessionStorage.getItem('jsonDataForm');
@@ -32,15 +32,15 @@ const builder = new FormBuilder(jsonData, mode, 'form');
 function addTab(numOfCols){
     
     tabConter++
-    const tab = builder.build('tab',`tab_${tabConter}`,"Tab", "col py-2", "border: 1px solid green" );
-    for(let i=0; i<numOfCols; i++){
+    const tab = builder.build('tab', createElementFactoryPropertiesObj(`tab_${tabConter}`, "Tab", "col py-2", "border: 1px solid green"));
+    for(let i=0; i<numOfCols; i++) {
         secCounter++
         coltabCounter++
         colsecCounter++
-        let col = builder.build('column',`tab${tabConter}_col_${coltabCounter}`,'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange');
-        let sec = builder.build('section',`tab${coltabCounter}_sec_${secCounter}`,`Section`,' section','border: 1px dashed green;');
-        let colSec = builder.build('column',`sec${secCounter}_col_${colsecCounter}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
-        
+        let col = builder.build('column', createElementFactoryPropertiesObj(`tab${tabConter}_col_${coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange'));
+        let sec = builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
+        let colSec = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
+
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
         builder.setColumnsBeforeRender(colSec);
@@ -55,11 +55,11 @@ function addTab(numOfCols){
 
 function addSection(numOfCols){
 
-    let sec = builder.build('section',`sec_${secCounter}`,`Section`,'section','border: 1px dashed green;');
+    let sec = builder.build('section', createElementFactoryPropertiesObj(`sec_${secCounter}`, `Section`, 'section', 'border: 1px dashed green;'));
     for(let i=0; i<numOfCols; i++){
         secCounter++
         colsecCounter++
-        let col = builder.build('column',`sec${secCounter}_col_${colsecCounter}`,'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue');
+        let col = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
@@ -85,11 +85,13 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
     console.log(elementId)
     let element = builder.getElementFromMap(elementId)
 
+    // display name input
     $('#exampleModal .modal-body').html(`<div class="mb-3">
             <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Display Name</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
         </div>`);
 
+    // number of columns input
         if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
             $('#exampleModal .modal-body').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
 <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
@@ -105,18 +107,48 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 </div>`);
         }
 
+    // required property input
+    $('#exampleModal .modal-body').append(`<div class="mb-3">
+            <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
+            <select class="form-select" name="required" id="requiredPropertyControl">
+  <option value="0" ${!element.Required ? `selected` : ''}>Optional</option>
+  <option value="1" ${element.Required ? `selected` : ''}>Required</option>
+</select>
+        </div>`);
 
-    });
+
+    // read only property input
+    $('#exampleModal .modal-body').append(`<div class="mb-3">
+            <label htmlFor="readonlyPropertyControl" id="readOnlyLabel" class="form-label">Read only</label>
+            <select class="form-select" name="readOnly" id="readonlyPropertyControl">
+  <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
+  <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
+</select>
+        </div>`);
+
+
+    // visible property input
+    $('#exampleModal .modal-body').append(`<div class="mb-3">
+            <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
+            <select class="form-select" name="visible" id="visiblePropertyControl">
+  <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
+  <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
+</select>
+        </div>`);
+
+});
 
     $('#exampleModal #modalSave').on('click', function (e) {
         let elementId = $('#exampleModal').attr('data-id');
         let element = builder.getElementFromMap(elementId)
 
+        // display name
         let displayName = $('#exampleModal #exampleFormControlInput1').val();
         if (displayName != undefined && displayName != null && displayName != "") {
             element.Name = displayName;
         }
 
+        // number of columns
         let columnsAdded = [];
         if (element.TypeContent._type == Types.Tab || element.TypeContent._type == Types.Section) {
             let checkedColumnsValue = $('#exampleModal input[name=numberOfColumnsOptions]:checked').val();
@@ -131,23 +163,20 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = builder.getPlatformFactory()
-                            .createColumn(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;')
-                        let section = builder.build(Types.Section, crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;');
+                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
+                        let section = builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = builder.build(Types.Column, crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;');
+                        let sectionCol = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
-
 
                         col.addElement(section);
                         builder.addElementToMap(section);
                         builder.setSectionBeforRender(section);
                         builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = builder.getPlatformFactory()
-                            .createColumn(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;');
+                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
                     }
 
                     element.addElement(col);
@@ -158,11 +187,32 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
             }
         }
 
+        // required property
+        let requiredSelectElm = document.getElementById('requiredPropertyControl');
+        if (requiredSelectElm) {
+            element.Required = requiredSelectElm.value == '0' ? false : true;
+        }
+
+
+        // readonly property
+        let readonlySelectElm = document.getElementById('readonlyPropertyControl');
+        if (readonlySelectElm) {
+            element.ReadOnly = readonlySelectElm.value == '0' ? false : true;
+        }
+
+        // visible property
+        let visibleSelectElm = document.getElementById('visiblePropertyControl');
+        if (visibleSelectElm) {
+            element.Visible = visibleSelectElm.value == '0' ? false : true;
+            console.log('element visible', element)
+        }
+
         if (element.TypeContent._type == Types.Tab) {
-            element.TypeContent = builder.getPlatformFactory().createTab(element.Id, element.Name, element.CustomClass, element.Style, element.Mode)
+            element.TypeContent = builder.build(Types.Tab, createElementFactoryPropertiesObj(element.Id, element.Name, element.CustomClass, element.Style, element.Mode))
                 .TypeContent;
         } else {
-            element.TypeContent = builder.build(element.TypeContent._type, element.Id, element.Name, element.CustomClass, element.Style)
+            console.log('options on save model', element)
+            element.TypeContent = builder.build(element.TypeContent._type, createElementFactoryPropertiesObj(element))
                 .TypeContent;
         }
 
@@ -171,10 +221,6 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
         $(`#${elementId}`).remove();
 
         addAllEventsToElement(elementId, builder);
-        // if (element.TypeContent._type == Types.Tab) {
-        //     console.log('handle click on tab>>>>>>>>>>>>>>>')
-        //     //builder.addClickOnTab();
-        // }
 
         element.getElements().forEach((lev1) => {
             if (lev1.TypeContent._type == Types.Column) {
@@ -204,7 +250,6 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(builder.toSaveSchema()));
         sessionStorage.setItem('formMode', builder.getMode());
-
     });
 
     let updateModeBtn = document.getElementById('updateMode');

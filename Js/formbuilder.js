@@ -1,7 +1,8 @@
 import AndroidElementFactory from "./android_element_factory.js";
 import {Categories, Types} from "./element.js";
 import HtmlElementFactory from "./html_element_factory.js";
-import {addAllEventsToElement} from "./ElementEventHandlers.js";
+import {addAllEventsToElement, fieldIsRequired} from "./ElementEventHandlers.js";
+import {createElementFactoryPropertiesObj} from "./Utils.js";
 
 
 export default class FormBuilder {
@@ -27,6 +28,7 @@ export default class FormBuilder {
     constructor(json, mode, parentId) {
         this.#platform = json.platform;
         this.#mode = mode;
+        console.log(this.#mode)
         this.#elementsMap = new Map();
         this.#elements = [];
         this.#parentId = parentId;
@@ -216,9 +218,20 @@ export default class FormBuilder {
                 e.target.style.opacity = '0.5';
             }
             else if(e.target.classList.contains('field')){
-                if(e.target.classList.contains('newField')){
+                if(e.target.classList.contains('newField')) {
                     this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
-                    this.dragBeforeRender = this.build(this.targetField.type, `${this.targetField.name}`, `${this.targetField.displayName}`, 'py-3', 'border: 1px solid green', this.targetField.options);
+
+                    let obj = {
+                        customClass: 'py-3',
+                        style: 'border: 1px solid green',
+                        id: this.targetField.name,
+                        name: this.targetField.displayName,
+                        type: this.targetField.type,
+                        optionsSetValues: this.targetField.options
+                    }
+
+                    this.dragBeforeRender = this.build(this.targetField.type, obj);
+                    console.log('drag before render', this.dragBeforeRender)
                     this.addElementToMap(this.dragBeforeRender);
                 }else{
                     this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
@@ -313,14 +326,17 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
+
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
+
                 this.getEntity();
                 break;
             case 'preview':
                 this.load();
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+                this.addPreviewEvents();
                 break;
             default:
                 throw new Error(`Invalid mode ${this.#mode}`);
@@ -330,14 +346,18 @@ export default class FormBuilder {
     load() {
         const formTabs = this.#json.elements;
         formTabs.forEach((tab) => {
-            const newTab = this.#platformFactory.createTab(tab.id, tab.name, tab.customClass, tab.style, this.#mode);
+            tab.mode = this.#mode;
+            const newTab = this.#platformFactory.createTab(tab);
             tab.elements.forEach((tabColumn) => {
-                const newTabCol = this.#platformFactory.createColumn(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode);
+                tabColumn.mode = this.#mode;
+                const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode));
                 tabColumn.elements.forEach((section) => {
-                    const newSection = this.#platformFactory.createSection(section.id, section.name, section.customClass, section.style, this.#mode);
+                    section.mode = this.#mode;
+                    const newSection = this.#platformFactory.createSection(section);
                     section.elements.forEach((column) => {
-                        const newSectionCol = this.#platformFactory.createColumn(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode);
-
+                        column.mode = column;
+                        const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
+                        console.log('new section col', newSectionCol)
                         column.elements.forEach((control) => {
                             let formControl = null;
                             // switch (control.type) {
@@ -347,7 +367,7 @@ export default class FormBuilder {
                             //         break;
                             // }
 
-                            formControl = this.build(control.type, control.id, control.name, control.customClass, control.style, control.optionsSetValues);
+                            formControl = this.build(control.type, control);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
 
@@ -378,61 +398,52 @@ export default class FormBuilder {
             if (Object.values(Types).includes(el.TypeContent._type)) {
                 addAllEventsToElement(el.Id, this);
             }
+
         });
 
-        //this.addClickOnTab()
     }
 
 
-    addClickOnTab(){
-        this.#Tabs.forEach(t => {
-            const target = document.getElementById(`${t.Id}`);
-            target.addEventListener('click', ()=> {
-                this.handleTabClick(t.Id)
-            });
-        });
-    }
-
-
-    build(type, id, name, customClass, style, ...params) {
-
+    build(type, obj) {
+        obj.mode = this.#mode;
+        console.log('object in build method', obj)
         switch (type) {
             case 'tab':
-                const tab = this.#platformFactory.createTab(id, name, customClass, style, this.#mode);
+                const tab = this.#platformFactory.createTab(obj);
                 this.setTab(tab);
                 this.#elements.push(tab);
                 this.addElementToMap(tab)
                 return tab;
             case 'section':
-                const section = this.#platformFactory.createSection(id, name, customClass, style, this.#mode);
+                const section = this.#platformFactory.createSection(obj);
                 this.addElementToMap(section)
                 return section;
             case 'column':
-                const column = this.#platformFactory.createColumn(id, name, customClass, style, this.#mode);
+                const column = this.#platformFactory.createColumn(obj);
                 return column;
             case 'single line of text':
-                const text = this.#platformFactory.createSingleLineOfText(id, name, customClass, style, this.#mode);
+                const text = this.#platformFactory.createSingleLineOfText(obj);
                 this.addElementToMap(text);
                 return text;
             case 'option set':
-                console.log('params', params);
-                const optionSet = this.#platformFactory.createOptionSet(id, name, customClass, style, this.#mode, params[0]);
+                console.log('params', obj);
+                const optionSet = this.#platformFactory.createOptionSet(obj);
                 this.addElementToMap(optionSet)
                 return optionSet;
             case 'two options':
-                const twoOptions = this.#platformFactory.createTwoOptions(id, name, customClass, style, this.#mode, params[0]);
+                const twoOptions = this.#platformFactory.createTwoOptions(obj);
                 this.addElementToMap(twoOptions)
                 return twoOptions;
             case 'decimal number':
-                const decimalNumber = this.#platformFactory.createDecimalNumber(id, name, customClass, style, this.#mode);
+                const decimalNumber = this.#platformFactory.createDecimalNumber(obj);
                 this.addElementToMap(decimalNumber)
                 return decimalNumber;
             case 'multiple line of text':
-                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(id, name, customClass, style, this.#mode);
+                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(obj);
                 this.addElementToMap(multipleLineOfText)
                 return multipleLineOfText;
             case 'date and time':
-                const dateAndTime = this.#platformFactory.createDateAndTime(id, name, customClass, style, this.#mode);
+                const dateAndTime = this.#platformFactory.createDateAndTime(obj);
                 this.addElementToMap(dateAndTime)
                 return dateAndTime;
         }
@@ -482,6 +493,24 @@ export default class FormBuilder {
             description: "",
             elements: this.#elements.map(e => e.toSaveSchema())
         }
+    }
+
+    addPreviewEvents() {
+        this.#elementsMap.forEach((el) => {
+            let controlElm = document.getElementById(el.Id);
+
+            //required
+            if (el.TypeContent._category == Categories.FormControl) {
+                if (el.Required) {
+                    controlElm.addEventListener('blur', fieldIsRequired);
+                }
+
+
+            }
+
+
+        });
+
     }
 
 }

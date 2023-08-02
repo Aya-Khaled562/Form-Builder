@@ -14,3 +14,28 @@ export function download(jsonData, type_of = "text/plain", filename = "data.txt"
     a.click();
     body.removeChild(a);
 }
+
+
+export function createElementFactoryPropertiesObj(id, name, customClass, style, mode) {
+
+    if (arguments.length == 1) {
+        return {
+            id: arguments[0].Id,
+            name: arguments[0].Name,
+            customClass: arguments[0].CustomClass,
+            style: arguments[0].Style,
+            mode: arguments[0].Mode,
+            required: arguments[0].Required,
+            optionsSetValues: arguments[0].OptionsSetValues,
+            visible: arguments[0].Visible,
+            readOnly: arguments[0].ReadOnly
+        }
+    }
+    return {
+        id: id,
+        name: name,
+        customClass: customClass,
+        style: style,
+        mode: mode
+    }
+}

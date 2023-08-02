@@ -7,6 +7,20 @@ function showModal(e) {
 
 }
 
+export function fieldIsRequired(e) {
+    let inputValue = e.target.value;
+
+    let requiredFeedbackElm = e.target.parentElement.querySelector('.required');
+    if (inputValue.trim().length == 0) {
+        if (!requiredFeedbackElm)
+            $(`<div class="required text-danger" >This field is required</div>`).insertAfter(e.target)
+        e.target.focus();
+    } else {
+        if (requiredFeedbackElm)
+            e.target.parentElement.querySelector('.required').remove();
+    }
+}
+
 
 export function selectElement(formBuilder) {
 
@@ -15,8 +29,12 @@ export function selectElement(formBuilder) {
         let curActiveElement = formBuilder.getActiveElement();
         if (curActiveElement != null) {
             document.getElementById(curActiveElement.Id).classList.remove('border-danger');
+            document.getElementById(curActiveElement.Id).classList.remove('border-3');
+
         }
         e.currentTarget.classList.toggle('border-danger');
+        e.currentTarget.classList.toggle('border-3');
+
         formBuilder.setActiveElement(e.currentTarget.id);
 
 

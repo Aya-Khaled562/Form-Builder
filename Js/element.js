@@ -19,19 +19,51 @@ export default class Element {
     #style;
     #typeContent;
     #mode;
+    #required;
+    #readOnly;
+    #visible;
     #elements = [];
     #optionsSetValues = null;
 
-    constructor(id, name, customClass, style, typeContent, mode, ...params) {
-        this.#id = id;
-        this.#name = name;
-        this.#customClass = customClass;
-        this.#style = style;
-        this.#typeContent = typeContent;
-        this.#mode = mode;
-        if (params.length == 1 && params[0] != undefined && [Types.TwoOption, Types.OptionSet].includes(typeContent._type)) {
-            this.#optionsSetValues = params[0];
-        }
+    constructor(obj) {
+        this.#id = obj.id ?? null;
+        this.#name = obj.name ?? null;
+        this.#customClass = obj.customClass ?? null;
+        this.#style = obj.style ?? null;
+        this.#typeContent = obj.typeContent ?? null;
+        this.#mode = obj.mode ?? null;
+        this.#required = obj.required ?? false;
+        this.#readOnly = obj.readOnly ?? false;
+        this.#visible = obj.visible ?? true;
+        this.#optionsSetValues = obj.optionsSetValues ?? null;
+    }
+
+    get OptionsSetValues() {
+        return this.#optionsSetValues;
+    }
+
+    get Required() {
+        return this.#required;
+    }
+
+    set Required(value) {
+        this.#required = value;
+    }
+
+    get ReadOnly() {
+        return this.#readOnly;
+    }
+
+    set ReadOnly(value) {
+        this.#readOnly = value;
+    }
+
+    get Visible() {
+        return this.#visible;
+    }
+
+    set Visible(value) {
+        this.#visible = value;
     }
 
     get Id() {
@@ -165,6 +197,9 @@ export default class Element {
             style: this.#style,
             type: this.#typeContent._type,
             category: this.#typeContent._category,
+            required: this.#required,
+            readOnly: this.#readOnly,
+            visible: this.#visible,
             elements: this.#elements.map(e => e.toSaveSchema())
         };
 
