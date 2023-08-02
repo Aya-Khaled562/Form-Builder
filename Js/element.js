@@ -24,6 +24,7 @@ export default class Element {
     #visible;
     #elements = [];
     #optionsSetValues = null;
+    #collapse;
 
     constructor(obj) {
         this.#id = obj.id ?? null;
@@ -35,7 +36,16 @@ export default class Element {
         this.#required = obj.required ?? false;
         this.#readOnly = obj.readOnly ?? false;
         this.#visible = obj.visible ?? true;
+        this.#collapse = obj.collapse ?? false;
         this.#optionsSetValues = obj.optionsSetValues ?? null;
+    }
+
+    get Collapse() {
+        return this.#collapse;
+    }
+
+    set Collapse(value) {
+        this.#collapse = value;
     }
 
     get OptionsSetValues() {

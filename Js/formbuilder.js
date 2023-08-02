@@ -504,9 +504,12 @@ export default class FormBuilder {
                 if (el.Required) {
                     controlElm.addEventListener('blur', fieldIsRequired);
                 }
-
-
             }
+
+            // if (el.TypeContent._type == Types.Tab){
+            //     console.log(controlElm)
+            //     controlElm.addEventListener('click', rotateIcon)
+            // }
 
 
         });

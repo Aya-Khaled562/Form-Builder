@@ -120,6 +120,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
     createTab(obj) {
 
+        obj.collapse = true;
         obj.typeContent = new TypeContent(
             'tab',
             'layout',
@@ -129,8 +130,11 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                     <!--content-->
                 </div>
             </div>`,
-            `<label>${name}</label>
-            <div class="${obj.customClass}" style="${obj.style}" style="margin:10px;"> <!--content--></div>`
+            `<div id="${obj.id}">
+                    <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed" style="width:fit-content" aria-expanded="true">
+                         <i class="fas fa-caret-right" ></i><label class="ms-2">${obj.name}</label>
+                    </div>
+            <div class="${obj.customClass} collapse show" style="${obj.style}" id="areaCollapsed" style="margin:10px;"> <!--content--></div></div>`
         );
 
         return new Element(obj);

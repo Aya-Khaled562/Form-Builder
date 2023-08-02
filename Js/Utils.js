@@ -15,6 +15,11 @@ export function download(jsonData, type_of = "text/plain", filename = "data.txt"
     body.removeChild(a);
 }
 
+export function rotateIcon(e) {
+    console.log(document.querySelector('.fa-caret-right'))
+    document.querySelector('.fa-caret-right').transform = 'rotate(20deg)';
+}
+
 
 export function createElementFactoryPropertiesObj(id, name, customClass, style, mode) {
 
