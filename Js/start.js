@@ -1,24 +1,22 @@
+import FormApp from "./form_app.js";
+import {getJson} from "./Utils.js";
 
+let jsonData = null;
+let mode = localStorage.getItem('formMode');
 
-    import FormApp from "./form_app.js";
-    import {getJson} from "./Utils.js";
+if (mode == null)
+    mode = 'create';
 
-    let jsonData = sessionStorage.getItem('jsonDataForm');
-    let mode = sessionStorage.getItem('formMode');
+if (jsonData != null) {
+    jsonData = JSON.parse(jsonData);
+} else if (mode == 'update') {
+    jsonData = await getJson('../files/schema.json');
+} else {
+    console.log('hereeeeeeeee>>>>>>>')
+    jsonData = await getJson('../files/defaultSchema.json');
+}
 
-    if (mode == null)
-        mode = 'create';
-
-    if (jsonData != null) {
-        jsonData = JSON.parse(jsonData);
-
-    } else if ( mode == 'update') {
-        jsonData = await getJson('/files/schema.json');
-    }else {
-        jsonData = await getJson('/files/defaultSchema.json');
-    }
-
-    const formApp = new FormApp(jsonData, mode);
+const formApp = new FormApp(jsonData, mode);
 
 
 

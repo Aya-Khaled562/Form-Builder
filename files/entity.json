@@ -2,26 +2,29 @@
     "entity_name":"Employee",
     "fields":[
         {
-            "displayName":"First Name",
-            "name":"firstname",
-            "type":"single line of text",
+            "id": "firstname",
+            "displayName": "First Name",
+            "name": "firstname",
+            "type": "single line of text",
             "isrequired": true,
             "searchable": true,
             "active": true
         },
         {
-            "displayName":"Last Name",
-            "name":"lastname",
-            "type":"single line of text",
+            "id": "lastname",
+            "displayName": "Last Name",
+            "name": "lastname",
+            "type": "single line of text",
             "isrequired": false,
             "searchable": true,
             "active": true
         },
         {
-            "displayName":"Social Status",
-            "name":"socialstatus",
-            "type":"option set",
-            "options":{
+            "id": "socialstatus",
+            "displayName": "Social Status",
+            "name": "socialstatus",
+            "type": "option set",
+            "options": {
                 "Single": "0",
                 "Married": "1",
                 "Divorced": "2"
@@ -31,10 +34,11 @@
             "active": true
         },
         {
-            "displayName":"Gender",
-            "name":"gender",
-            "type":"two options",
-            "options":{
+            "id": "gender",
+            "displayName": "Gender",
+            "name": "gender",
+            "type": "two options",
+            "options": {
                 "Male": "0",
                 "Female": "1"
             },
@@ -43,25 +47,28 @@
             "active": true
         },
         {
-            "displayName":"Salary",
-            "name":"salary",
-            "type":"decimal number",
+            "id": "salary",
+            "displayName": "Salary",
+            "name": "salary",
+            "type": "decimal number",
             "isrequired": true,
             "searchable": true,
             "active": true
         },
         {
-            "displayName":"Notes",
-            "name":"notes",
-            "type":"multiple line of text",
+            "id": "notes",
+            "displayName": "Notes",
+            "name": "notes",
+            "type": "multiple line of text",
             "isrequired": true,
             "searchable": true,
             "active": true
         },
         {
-            "displayName":"Start Date",
-            "name":"startdate",
-            "type":"date and time",
+            "id": "startdate",
+            "displayName": "Start Date",
+            "name": "startdate",
+            "type": "date and time",
             "isrequired": true,
             "searchable": true,
             "active": true

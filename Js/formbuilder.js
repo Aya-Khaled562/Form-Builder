@@ -54,7 +54,6 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
-        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -64,10 +63,11 @@ export default class FormBuilder {
     addElement(element) {
         this.#elements.push(element);
     }
-    get Fields(){
+    get Fields() {
         return this.#fields;
     }
-    removeElement(elementId) {
+
+    removeElement(elementId) {  // this method should be refactored.
         let element = this.#elementsMap.get(elementId);
 
         if (element == null)
@@ -77,20 +77,45 @@ export default class FormBuilder {
 
         if (element.TypeContent._type == Types.Tab) {
             this.#elements = this.#elements.filter((el) => el.Id != elementId);
-            //this.#elements = this.#elements.filter((el) => el.Id != elementId);
+            element.getElements().forEach(tabCol => {
+                tabCol.getElements().forEach(sec => {
+                    sec.getElements().forEach(secCol => {
+                        secCol.getElements().forEach(control => {
+                            console.log(this.#entity.fields)
+                            console.log(element.Id)
+                            let field = this.#entity.fields.find(field => field.id == control.Id);
+                            if (field) {
+                                document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                            }
+                        });
+                    })
+                });
+            });
+
         } else if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl) {
             let colId = document.getElementById(elementId).parentElement.id;
             let column = this.#columnsBeforRender.find(col => col.Id == colId);
             column.removeElement(elementId);
-        }
 
-        if (element.TypeContent._category == Categories.FormControl) {
-            console.log(this.#entity.fields)
-            let field = this.#entity.fields.find(field => field.name == element.Id);
-            if (field) {
-                document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+            if (element.TypeContent._type == Types.Section) {
+                element.getElements().forEach(secCol => {
+                    secCol.getElements().forEach(control => {
+                        console.log(this.#entity.fields)
+                        console.log(element.Id)
+                        let field = this.#entity.fields.find(field => field.id == control.Id);
+                        if (field) {
+                            document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                        }
+                    });
+                });
+            } else {
+                let field = this.#entity.fields.find(field => field.name == element.Id);
+                if (field) {
+                    document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                }
             }
         }
+
 
     }
 
@@ -109,11 +134,6 @@ export default class FormBuilder {
     getElementByIndex(index) {
         return this.#elements[index];
     }
-
-    setTab(tab) {
-        this.#elements.push(tab);
-    }
-
     getTabById(tabId) {
         return this.#elements.find(tab => tab.Id == tabId);
     }
@@ -245,14 +265,7 @@ export default class FormBuilder {
                         // console.log('new section col', newSectionCol)
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            // switch (control.type) {
-                            //     case Types.Text:
-                            //         formControl = this.#platformFactory.createSingleLineOfText(control.id, control.name, control.customClass, control.style, this.#mode);
-                            //         console.log('formControl', formControl)
-                            //         break;
-                            // }
-
-                            // console.log('control', control)
+                            console.log('control', control)
                             formControl = this.build(control.type, control);
                             this.#fields.push(formControl);
                             newSectionCol.addElement(formControl);
@@ -284,7 +297,6 @@ export default class FormBuilder {
 
     }
 
-
     build(type, obj) {
         // console.log("mode in build", this.#mode)
         // console.log('obj: ', obj);
@@ -293,7 +305,7 @@ export default class FormBuilder {
         switch (type) {
             case 'tab':
                 const tab = this.#platformFactory.createTab(obj);
-                this.setTab(tab);
+               // this.setTab(tab);
                 this.#elements.push(tab);
                 this.addElementToMap(tab)
                 return tab;

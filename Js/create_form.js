@@ -1,9 +1,9 @@
 import FormBuilder from "./formbuilder.js";
 import '/node_modules/jquery/dist/jquery.min.js'
 import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Types } from "./element.js";
-import { addAllEventsToElement, handleDragAndDrop } from "./ElementEventHandlers.js";
-import { download, getJson ,createElementFactoryPropertiesObj} from "./Utils.js";
+import {Types} from "./element.js";
+import {addAllEventsToElement, handleDragAndDrop} from "./ElementEventHandlers.js";
+import {createElementFactoryPropertiesObj, download, getJson} from "./Utils.js";
 
 export default class CreateForm {
     jsonData;
@@ -48,13 +48,14 @@ export default class CreateForm {
     }
 
     addTab(numOfCols) {
+        console.log('call add tab method >>>>>>>>>>>>')
         this.tabCounter++
-        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabConter}`, "Tab", "col py-2", "border: 1px solid green"));
+        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px solid green"));
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.coltabCounter++
             this.colsecCounter++
-            let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${this.tabConter}_col_${this.coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange'));
+            let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${this.tabCounter}_col_${this.coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange'));
             let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${this.coltabCounter}_sec_${this.secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
             let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
             
@@ -68,7 +69,7 @@ export default class CreateForm {
 
         document.getElementById('form').innerHTML += tab.render();
         this.builder.addDesignContent();
-        console.log(this.builder.getElements())
+        console.log('elements add tab method', this.builder.getElements())
     }
 
     addSection(numOfCols) {
@@ -257,15 +258,18 @@ export default class CreateForm {
     handleSaveFormClick(e) {
         console.log("builder.tosave: ", this.builder.toSaveSchema());
         download(this.builder.toSaveSchema());
-        // this.mode = 'preview'
-        this.mode = 'custom';
-        // window.open('/pages/preview.html', '_self');
-        window.open('/pages/customForm.html', '_self');
+        this.mode = 'preview';
 
-        sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        console.log('mode hh: ', this.builder.getMode())
+        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+
+        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        window.open('../pages/preview.html', 'preview', params);
+
+
+        // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        // console.log('mode hh: ', this.builder.getMode())
         // sessionStorage.setItem('formMode', 'preview');
-        sessionStorage.setItem('formMode', 'custom');
     }
 
     handleRemoveBtnClick(e){
@@ -282,14 +286,17 @@ export default class CreateForm {
         }
     }
 
-    handleUpdateModeBtnClick(e){
-        window.open('/index.html', '_self');
-        sessionStorage.setItem('formMode', 'update');
+    handleUpdateModeBtnClick(e) {
+        localStorage.setItem('formMode', 'update');
+        window.open('../Form-Builder/index.html', '_self');
+
     }
 
-    handleCreateModeBtnClick(e){
-        window.open('/index.html', '_self');
-        sessionStorage.setItem('formMode', 'create');
+    async handleCreateModeBtnClick(e) {
+        let jsonData = await getJson('../Form-Builder/files/defaultSchema.json');
+        localStorage.setItem('jsonDataForm', JSON.stringify(jsonData));
+        localStorage.setItem('formMode', 'create');
+        window.open('../Form-Builder/index.html', '_self');
     }
 }
 
