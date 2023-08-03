@@ -257,13 +257,15 @@ export default class CreateForm {
     handleSaveFormClick(e) {
         console.log("builder.tosave: ", this.builder.toSaveSchema());
         download(this.builder.toSaveSchema());
-        this.mode = 'preview'
-        window.open('/pages/preview.html', '_self');
-        // window.open('/pages/customForm.html', '_self');
+        // this.mode = 'preview'
+        this.mode = 'custom';
+        // window.open('/pages/preview.html', '_self');
+        window.open('/pages/customForm.html', '_self');
 
         sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         console.log('mode hh: ', this.builder.getMode())
-        sessionStorage.setItem('formMode', 'preview');
+        // sessionStorage.setItem('formMode', 'preview');
+        sessionStorage.setItem('formMode', 'custom');
     }
 
     handleRemoveBtnClick(e){

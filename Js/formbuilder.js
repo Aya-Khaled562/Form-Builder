@@ -218,6 +218,7 @@ export default class FormBuilder {
                 this.getEntity();
                 break;
             case 'preview':
+            case 'custom':
                 this.load();
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
                 this.addPreviewEvents();
@@ -241,7 +242,7 @@ export default class FormBuilder {
                     section.elements.forEach((column) => {
                         column.mode = column;
                         const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
-                        console.log('new section col', newSectionCol)
+                        // console.log('new section col', newSectionCol)
                         column.elements.forEach((control) => {
                             let formControl = null;
                             // switch (control.type) {
@@ -251,8 +252,9 @@ export default class FormBuilder {
                             //         break;
                             // }
 
-                            console.log('control', control)
+                            // console.log('control', control)
                             formControl = this.build(control.type, control);
+                            this.#fields.push(formControl);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
                         });
@@ -284,10 +286,10 @@ export default class FormBuilder {
 
 
     build(type, obj) {
-        console.log("mode in build", this.#mode)
-        console.log('obj: ', obj);
+        // console.log("mode in build", this.#mode)
+        // console.log('obj: ', obj);
         obj.mode = this.#mode;
-        console.log('object in build method', obj)
+        // console.log('object in build method', obj)
         switch (type) {
             case 'tab':
                 const tab = this.#platformFactory.createTab(obj);
@@ -307,7 +309,7 @@ export default class FormBuilder {
                 this.addElementToMap(text);
                 return text;
             case 'option set':
-                console.log('params', obj);
+                // console.log('params', obj);
                 const optionSet = this.#platformFactory.createOptionSet(obj);
                 this.addElementToMap(optionSet)
                 return optionSet;

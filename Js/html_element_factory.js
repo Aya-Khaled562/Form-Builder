@@ -26,7 +26,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     createOptionSet(obj) {
 
         let setOptions = ``;
-        // console.log('option set values', obj.value.source)
 
         for (let key in obj.value.source) {
             let option = `<option value="${obj.value.source[key]}">${key}</option>`;
@@ -39,9 +38,9 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
             <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="" draggable="true" id="${obj.id}">
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="" draggable="true" >
              <label class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-            <select class="form-select" aria-label="Default select example" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
+            <select class="form-select" id="${obj.id}" aria-label="Default select example" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
             </div>`
         );
 
@@ -49,7 +48,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createTwoOptions(obj) {
-        console.log('html factory ooptions>>>', obj.optionsSetValues)
 
         let twoOptions = ``;
 
@@ -65,9 +63,9 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <label class="col" style="width: 50%;">${obj.name}</label>
             <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="width: 50%;" draggable="true" id="${obj.id}">
+            `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="width: 50%;" draggable="true" >
             <label class="form-label me-5">${obj.name}</label>
-            <select class="form-select" ${obj.readOnly ? `disabled` : ""} aria-label="Default select example">${twoOptions}</select> 
+            <select class="form-select" id="${obj.id}" ${obj.readOnly ? `disabled` : ""} aria-label="Default select example">${twoOptions}</select> 
             </div>`
         );
 
