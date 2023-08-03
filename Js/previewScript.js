@@ -17,7 +17,7 @@ copyHtmlBtn.addEventListener('click', function (e) {
 let editFromBtn = document.getElementById('EditForm');
 console.log(editFromBtn)
 editFromBtn.addEventListener('click', function () {
-    window.open('/Form-Builder/index.html', '_self');
+    window.open('/index.html', '_self');
 });
 
 

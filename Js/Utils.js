@@ -33,6 +33,7 @@ export function createElementFactoryPropertiesObj(id, name, customClass, style, 
             style: arguments[0].Style,
             mode: arguments[0].Mode,
             required: arguments[0].Required,
+            value: arguments[0].Value,
             optionsSetValues: arguments[0].OptionsSetValues,
             visible: arguments[0].Visible,
             readOnly: arguments[0].ReadOnly

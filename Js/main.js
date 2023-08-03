@@ -139,6 +139,9 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
 
 });
 
+
+
+
     $('#exampleModal #modalSave').on('click', function (e) {
         let elementId = $('#exampleModal').attr('data-id');
         let element = builder.getElementFromMap(elementId)

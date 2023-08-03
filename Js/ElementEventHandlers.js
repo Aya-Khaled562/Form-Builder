@@ -1,5 +1,4 @@
     import Value from "./value.js";
-
     function showModal(e) {
         e.stopPropagation();
         $('#exampleModal').attr('data-id', e.currentTarget.id);
@@ -80,8 +79,23 @@ export function addAllEventsToElement(elementIdSelector, builder) {
             else if(e.target.classList.contains('field')){
                 if(e.target.classList.contains('newField')){
                     formBuilder.targetField = formBuilder.Entity.fields.find(field => field.name === formBuilder.dragAfterRender.id);
+                    console.log('targetField: ',formBuilder.targetField )
+                    ///let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
+                    // formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px solid green',formBuilder.targetField.required, value);
                     let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
-                    formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px solid green',formBuilder.targetField.required, value);
+                    let obj = {
+                        customClass: 'py-3',
+                        style: 'border: 1px solid green',
+                        id: formBuilder.targetField.name,
+                        name: formBuilder.targetField.displayName,
+                        type: formBuilder.targetField.type,
+                        // optionsSetValues: this.targetField.options
+                        value: value,
+                        required: formBuilder.targetField.isrequired
+                    }
+
+                    formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);
+                    console.log('drag element: ', formBuilder.dragBeforeRender)
                     formBuilder.addElementToMap(formBuilder.dragBeforeRender);
                 }else{
                     formBuilder.dragBeforeRender = formBuilder.getFeildBeforeRender(e.target.id);
@@ -92,6 +106,53 @@ export function addAllEventsToElement(elementIdSelector, builder) {
 
             console.log('dragstart' , e.target);
         });
+
+
+        // formContainer.addEventListener('dragstart', (e) => {
+        //     this.dragAfterRender = e.target;
+        //     if (e.target.classList.contains('section')) {
+        //         this.dragBeforeRender = this.getSectionBeforeRenderById(e.target.id);
+        //         e.target.style.opacity = '0.5';
+        //     }
+        //     else if(e.target.classList.contains('field')){
+        //         if(e.target.classList.contains('newField')) {
+        //             this.targetField = this.#entity.fields.find(field => field.name === this.dragAfterRender.id);
+        //             let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
+        //             let obj = {
+        //                 customClass: 'py-3',
+        //                 style: 'border: 1px solid green',
+        //                 id: this.targetField.name,
+        //                 name: this.targetField.displayName,
+        //                 type: this.targetField.type,
+        //                 // optionsSetValues: this.targetField.options
+        //                 value: value,
+        //                 required: this.targetField.isrequired
+        //             }
+
+        //             this.dragBeforeRender = this.build(this.targetField.type, obj);
+        //             console.log('drag before render', this.dragBeforeRender)
+        //             this.addElementToMap(this.dragBeforeRender);
+        //         }else{
+        //             this.dragBeforeRender = this.getFeildBeforeRender(e.target.id);
+        //             console.log('oldField' , this.dragBeforeRender);
+        //         }
+        //         e.target.style.opacity = '0.5';
+        //     }
+
+        //     console.log('dragstart' , e.target);
+        // });
+
+
+
+
+
+
+
+
+
+
+
+
 
         formContainer.addEventListener('dragend', (e) => {
             if (e.target.classList.contains('section') || e.target.classList.contains('field') || e.target.classList.contains('tab')) {
@@ -148,6 +209,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
 
             else if (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
+                console.log('drop newColBeforRender', newColBeforRender)
 
                 e.target.style.borderBottom = '1px solid blue';
 

@@ -251,6 +251,7 @@ export default class FormBuilder {
                             //         break;
                             // }
 
+                            console.log('control', control)
                             formControl = this.build(control.type, control);
                             newSectionCol.addElement(formControl);
                             this.addElementToMap(formControl);
@@ -284,6 +285,7 @@ export default class FormBuilder {
 
     build(type, obj) {
         console.log("mode in build", this.#mode)
+        console.log('obj: ', obj);
         obj.mode = this.#mode;
         console.log('object in build method', obj)
         switch (type) {
@@ -371,9 +373,9 @@ export default class FormBuilder {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-
+                            console.log('field', field)
                             const feildFromEntity = this.#entity.fields.find(entityField=> entityField.name === field.Id);
-
+                            console.log('feildFromEntity', feildFromEntity)
                             const mergedObject = {};
                             const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
 
@@ -392,7 +394,7 @@ export default class FormBuilder {
 
                                 }
                             }
-
+                            console.log('mergedObject: ', mergedObject);
                             compareResult.push(mergedObject);
                         })
                     })
@@ -402,8 +404,11 @@ export default class FormBuilder {
 
         return compareResult;
     }
+
     toSaveSchema() {
         const compareResult =  this.compareEntityWithForm();
+        console.log('compareResult: ',compareResult)
+
         return {
             platform: this.#platform,
             mode: this.#mode,

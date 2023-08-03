@@ -26,10 +26,10 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     createOptionSet(obj) {
 
         let setOptions = ``;
-        // console.log('option set values', options.source)
+        // console.log('option set values', obj.value.source)
 
-        for (let key in options.source) {
-            let option = `<option value="${options.source[key]}">${key}</option>`;
+        for (let key in obj.value.source) {
+            let option = `<option value="${obj.value.source[key]}">${key}</option>`;
             setOptions += option;
         }
         obj.typeContent = new TypeContent(
@@ -53,8 +53,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
         let twoOptions = ``;
 
-        for (let key in options.source) {
-            let option = `<option value="${options.source[key]}">${key}</option>`;
+        for (let key in obj.value.source) {
+            let option = `<option value="${obj.value.source[key]}">${key}</option>`;
             twoOptions += option;
         }
 
