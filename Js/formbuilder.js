@@ -54,7 +54,6 @@ export default class FormBuilder {
 
     addElementToMap(element) {
         this.#elementsMap.set(element.Id, element);
-        // console.log('elements map', this.#elementsMap)
     }
 
     getElementFromMap(id) {
@@ -109,11 +108,6 @@ export default class FormBuilder {
     getElementByIndex(index) {
         return this.#elements[index];
     }
-
-    setTab(tab) {
-        this.#elements.push(tab);
-    }
-
     getTabById(tabId) {
         return this.#elements.find(tab => tab.Id == tabId);
     }
@@ -291,7 +285,7 @@ export default class FormBuilder {
         switch (type) {
             case 'tab':
                 const tab = this.#platformFactory.createTab(obj);
-                this.setTab(tab);
+               // this.setTab(tab);
                 this.#elements.push(tab);
                 this.addElementToMap(tab)
                 return tab;
@@ -333,7 +327,7 @@ export default class FormBuilder {
 
     async readJson() {
         try{
-            const response = await fetch('../files/entity.json');
+            const response = await fetch('../Form-Builder/files/entity.json');
             if(!response)
                 throw new Error("Can't read entity");
             const entity = await response.json();

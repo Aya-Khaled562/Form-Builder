@@ -1,4 +1,3 @@
-
 import FormBuilder from "./formbuilder.js";
 
 export default class PreviewFrom {
@@ -29,7 +28,7 @@ export default class PreviewFrom {
     
     handleEditForm(e){
         sessionStorage.setItem('formMode', 'update');
-        window.open('/index.html', '_self');
+        window.open('/Form-Builder/index.html', '_self');
     }
 
 }

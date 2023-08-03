@@ -1,7 +1,3 @@
-
-
-import Value from "./value.js";
-
 export const Types = {
     Tab: "tab",
     Section: "section",
@@ -44,7 +40,7 @@ export default class Element {
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? false;
         this.value = obj.value;
-        this.islocked = false;
+        this.islocked = obj.isLocked ?? false;
 
     }
 
