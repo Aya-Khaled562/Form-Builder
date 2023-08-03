@@ -8,13 +8,16 @@ export default class PreviewFrom {
 
     initialize(){
         console.log("Initializing in Preview")
-        const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
-        this.#builder = new FormBuilder(jsonData, 'preview' ,'form');
+        const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
+        console.log('prevew dasta >>', jsonData);
+        this.#builder = new FormBuilder(jsonData, 'preview', 'form');
+
         let copyHtmlBtn = document.getElementById('copyFormHtml');
-        copyHtmlBtn.addEventListener('click',  this.handleCopyHtml(this));
-        let editFromBtn = document.getElementById('EditForm');
-        editFromBtn.addEventListener('click',this.handleEditForm );
-        console.log('builder', this.#builder)
+        copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));
+
+        // let editFromBtn = document.getElementById('EditForm');
+        // editFromBtn.addEventListener('click',this.handleEditForm );
+        // console.log('builder', this.#builder)
     }
 
     

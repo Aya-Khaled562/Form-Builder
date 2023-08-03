@@ -1,18 +1,18 @@
 import FormApp from "./form_app.js";
 import {getJson} from "./Utils.js";
 
-let jsonData = sessionStorage.getItem('jsonDataForm');
-let mode = sessionStorage.getItem('formMode');
+let jsonData = null;
+let mode = localStorage.getItem('formMode');
 
 if (mode == null)
     mode = 'create';
 
 if (jsonData != null) {
     jsonData = JSON.parse(jsonData);
-
 } else if (mode == 'update') {
     jsonData = await getJson('../Form-Builder/files/schema.json');
 } else {
+    console.log('hereeeeeeeee>>>>>>>')
     jsonData = await getJson('../Form-Builder/files/defaultSchema.json');
 }
 

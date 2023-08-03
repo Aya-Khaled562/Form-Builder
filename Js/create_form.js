@@ -258,13 +258,18 @@ export default class CreateForm {
     handleSaveFormClick(e) {
         console.log("builder.tosave: ", this.builder.toSaveSchema());
         download(this.builder.toSaveSchema());
-        this.mode = 'preview'
-        window.open('../Form-Builder/pages/preview.html', '_self');
-        // window.open('/pages/customForm.html', '_self');
+        this.mode = 'preview';
 
-        sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        console.log('mode hh: ', this.builder.getMode())
-        sessionStorage.setItem('formMode', 'preview');
+        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+
+        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        window.open('../Form-Builder/pages/preview.html', 'preview', params);
+
+
+        // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        // console.log('mode hh: ', this.builder.getMode())
+        // sessionStorage.setItem('formMode', 'preview');
     }
 
     handleRemoveBtnClick(e){
@@ -282,14 +287,15 @@ export default class CreateForm {
     }
 
     handleUpdateModeBtnClick(e) {
+        localStorage.setItem('formMode', 'update');
         window.open('../Form-Builder/index.html', '_self');
-        sessionStorage.setItem('formMode', 'update');
+
     }
 
     async handleCreateModeBtnClick(e) {
         let jsonData = await getJson('../Form-Builder/files/defaultSchema.json');
-        sessionStorage.setItem('jsonDataForm', JSON.stringify(jsonData));
-        sessionStorage.setItem('formMode', 'create');
+        localStorage.setItem('jsonDataForm', JSON.stringify(jsonData));
+        localStorage.setItem('formMode', 'create');
         window.open('../Form-Builder/index.html', '_self');
     }
 }
