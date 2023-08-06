@@ -190,13 +190,13 @@ a, .nav-link {
     overflow: hidden;
 }
 #updateMode i {
-    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -187px -1px;
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -580px 0px;
     width: 32px;
     height: 32px;
     overflow: hidden;
 }
 #createMode i {
-    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -187px -1px;
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -580px -36px;
     width: 32px;
     height: 32px;
     overflow: hidden;

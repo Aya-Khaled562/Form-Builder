@@ -17,56 +17,77 @@
     <div id="h1">Form Builder</div>
   </div>
   <div class="w-100">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="addTabMenu" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="i-icons"></i>
+                    Add Tab
+                  </a>
+                  <ul class="dropdown-menu dd-icons">
+                    <li><a class="dropdown-item" id="addTabWith1Col"><i class="i-icons"></i>On Column</a></li>
+                    <li><a class="dropdown-item" id="addTabWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                    <li><a class="dropdown-item" id="addTabWith3Col"><i class="i-icons"></i>Three Columns</a></li>
     
-    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="addTabMenu" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="i-icons"></i>
-                Add Tab
-              </a>
-              <ul class="dropdown-menu dd-icons">
-                <li><a class="dropdown-item" id="addTabWith1Col"><i class="i-icons"></i>On Column</a></li>
-                <li><a class="dropdown-item" id="addTabWith2Col"><i class="i-icons"></i>Two Columns</a></li>
-                <li><a class="dropdown-item" id="addTabWith3Col"><i class="i-icons"></i>Three Columns</a></li>
-
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="addSectionMenu"  href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="i-icons"></i>
+                    Add Section
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" id="addSectionWith1Col"><i class="i-icons"></i>On Column</a></li>
+                    <li><a class="dropdown-item" id="addSectionWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                    <li><a class="dropdown-item" id="addSectionWith3Col"><i class="i-icons"></i>Three Columns</a></li>
+    
+                  </ul>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link active" id="saveJsonForm"><i class="i-icons"></i>Preview</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="save"><i class="i-icons"></i>Save</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="removeBtn"><i class="i-icons"></i>Remove</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="updateMode"><i class="i-icons"></i>Update mode</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="createMode"><i class="i-icons"></i>Create mode</a>
+                </li>
               </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="addSectionMenu"  href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false"><i class="i-icons"></i>
-                Add Section
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" id="addSectionWith1Col"><i class="i-icons"></i>On Column</a></li>
-                <li><a class="dropdown-item" id="addSectionWith2Col"><i class="i-icons"></i>Two Columns</a></li>
-                <li><a class="dropdown-item" id="addSectionWith3Col"><i class="i-icons"></i>Three Columns</a></li>
-
-              </ul>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" id="saveJsonForm"><i class="i-icons"></i>Preview</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" id="save"><i class="i-icons"></i>Save</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" id="removeBtn"><i class="i-icons"></i>Remove</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="updateMode"><i class="i-icons"></i>Update mode</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="createMode"><i class="i-icons"></i>Create mode</a>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </div>
+        </nav>
       </div>
-    </nav>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
+      <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+      <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+    </div>
+    
     <div class="Notifications">
       <div role="alert" aria-live="polite" class="Notification">
         <img alt="" src="img/msgbar_icn_info.png" class="ms-crm-ImageStrip-msgbar_icn_info">
