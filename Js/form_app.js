@@ -49,16 +49,22 @@ export default class FormApp{
     targetFrom
     jsonData
     mode
-
-    constructor(jsonData, mode){
+    entity;
+    constructor(mode){
         this.forms = [];
         this.targetFrom =  null;
-        this.jsonData = jsonData;
+        this.jsonData = null;
         this.mode = mode;
         this.factory();
     }
 
+
     async factory(){
+        this.entity = await this.getEntity();
+        console.log('entity' , this.entity)
+        let formasJson = await this.getJsonform(this.mode ,this.entity.entitySchemaId);
+        this.jsonData = JSON.parse(formasJson.formJson)
+        console.log('jsonData' , this.jsonData )
         switch(this.mode){
             case 'create':
             case 'update':
@@ -73,8 +79,35 @@ export default class FormApp{
         }
     }
 
+  
+    async getEntity(){
+        const response = await fetch('http://localhost:5032/api/EntitySchemas/1');
+
+        return response.json();
+    }
+
+    async getJsonform(mode , enitityId){
+        let response = null;
+        switch(mode){
+            case 'create':
+                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/default`);
+                break;
+            case 'update':
+                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/update`);
+                break;
+            case 'preview':
+                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);
+                break;
+            case 'custom':
+                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/custom`);
+                break;
+        }
+
+        return response.json();
+    }
+
     createForm(){
-        this.targetFrom = new CreateForm(this.jsonData, this.mode);
+        this.targetFrom = new CreateForm(this.jsonData, this.mode , this.entity);
         let form = this.targetFrom.initialize();
         this.forms.push(form);
     }

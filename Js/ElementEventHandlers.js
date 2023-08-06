@@ -197,7 +197,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
         }
         else if(e.target.classList.contains('field')){
             if(e.target.classList.contains('newField')){
-                formBuilder.targetField = formBuilder.Entity.fields.find(field => field.name === formBuilder.dragAfterRender.id);
+                formBuilder.targetField = formBuilder.Entity.attributeSchemas.find(field => field.name === formBuilder.dragAfterRender.id);
                 let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
                 let obj = {
                     customClass: 'py-3',

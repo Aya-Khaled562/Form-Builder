@@ -9,8 +9,8 @@ export default class CreateForm {
     jsonData;
     mode;
     builder;
-    
-    constructor(jsonData, mode) {
+    entity
+    constructor(jsonData, mode, entity) {
         this.tabCounter = 0;
         this.secCounter = 2;
         this.coltabCounter = 0;
@@ -18,10 +18,11 @@ export default class CreateForm {
         this.jsonData = jsonData;
         this.mode = mode; 
         this.builder = null;  
+        this.entity = entity;
     }
 
     initialize(){
-        this.builder = new FormBuilder(this.jsonData,this.mode,'form');
+        this.builder = new FormBuilder(this.jsonData,this.mode,'form', this.entity);
         this.initializeUI();
         return this.jsonData;
     }
@@ -255,17 +256,35 @@ export default class CreateForm {
 
 
 
+    async pushForm(jsonForm){
+        let data = {
+            entityFromsName: 'new',
+            entitySchemaId: this.entity.entitySchemaId,
+            fromJson: JSON.stringify(jsonForm)
+        }
 
-    handleSaveFormClick(e) {
+        console.log('data: ', data)
+
+        let response = await fetch('http://localhost:5032/api/EntityFroms', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }
+
+    async handleSaveFormClick(e) {
         // console.log("builder.tosave: ", this.builder.toSaveSchema());
-        // download(this.builder.toSaveSchema());
-        this.mode = 'preview';
+        download(this.builder.toSaveSchema());
+        await this.pushForm(this.builder.toSaveSchema());
+//         this.mode = 'preview';
 
-        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
-width=0,height=0,left=-1000,top=-1000`;
+//         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+// width=0,height=0,left=-1000,top=-1000`;
 
-        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        window.open('../pages/preview.html', 'preview', params);
+//         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+//         window.open('../pages/preview.html', 'preview', params);
 
 
         // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));

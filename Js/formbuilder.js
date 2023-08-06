@@ -21,7 +21,7 @@ export default class FormBuilder {
     newField = null;
     #json;
     #fields
-    constructor(json,mode, parentId) {
+    constructor(json,mode, parentId , entity = null) {
         this.#platform = json.platform;
         this.#mode = mode;
         this.#elementsMap = new Map();
@@ -30,7 +30,7 @@ export default class FormBuilder {
         this.#sectionsBeforRender= [];
         this.#columnsBeforRender = [];
         this.#activeElement = null;
-        this.#entity = null;
+        this.#entity = entity;
         this.#json = json;
         this.#fields = [];
         this.#platformFactory = this.createPlatformFactory(this.#platform);
@@ -422,8 +422,8 @@ export default class FormBuilder {
     }
 
     async getEntity() {
-        this.#entity = await this.readJson();
-        let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
+        // this.#entity = await this.readJson();
+        let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entityName}</h5>`
 
         this.#elementsMap.forEach(element => {
             if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
@@ -432,8 +432,9 @@ export default class FormBuilder {
             }
         })
 
-        this.#entity.fields.forEach(field => {
-            if (field.active === true)
+        this.#entity.attributeSchemas.forEach(field => {
+            console.log('field', field)
+            // if (field.active === true)
                 entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
         });
         entityDesign += `</div>`;
@@ -451,7 +452,7 @@ export default class FormBuilder {
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
                             // console.log('field', field)
-                            const feildFromEntity = this.#entity.fields.find(entityField=> entityField.name === field.Id);
+                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.name === field.Id);
                             // console.log('feildFromEntity', feildFromEntity)
                             const mergedObject = {};
                             const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
