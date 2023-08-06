@@ -256,8 +256,8 @@ export default class CreateForm {
 
 
     handleSaveFormClick(e) {
-        console.log("builder.tosave: ", this.builder.toSaveSchema());
-        download(this.builder.toSaveSchema());
+        // console.log("builder.tosave: ", this.builder.toSaveSchema());
+        // download(this.builder.toSaveSchema());
         this.mode = 'preview';
 
         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
@@ -288,15 +288,15 @@ width=0,height=0,left=-1000,top=-1000`;
 
     handleUpdateModeBtnClick(e) {
         localStorage.setItem('formMode', 'update');
-        window.open('../Form-Builder/index.html', '_self');
+        window.open('../index.html', '_self');
 
     }
 
     async handleCreateModeBtnClick(e) {
-        let jsonData = await getJson('../Form-Builder/files/defaultSchema.json');
+        let jsonData = await getJson('../files/defaultSchema.json');
         localStorage.setItem('jsonDataForm', JSON.stringify(jsonData));
         localStorage.setItem('formMode', 'create');
-        window.open('../Form-Builder/index.html', '_self');
+        window.open('../index.html', '_self');
     }
 }
 

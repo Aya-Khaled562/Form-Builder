@@ -79,7 +79,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
             else if(e.target.classList.contains('field')){
                 if(e.target.classList.contains('newField')){
                     formBuilder.targetField = formBuilder.Entity.fields.find(field => field.name === formBuilder.dragAfterRender.id);
-                    console.log('targetField: ',formBuilder.targetField )
+                    // console.log('targetField: ',formBuilder.targetField )
                     ///let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
                     // formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px solid green',formBuilder.targetField.required, value);
                     let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
@@ -95,16 +95,16 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                     }
 
                     formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);
-                    console.log('drag element: ', formBuilder.dragBeforeRender)
+                    // console.log('drag element: ', formBuilder.dragBeforeRender)
                     formBuilder.addElementToMap(formBuilder.dragBeforeRender);
                 }else{
                     formBuilder.dragBeforeRender = formBuilder.getFeildBeforeRender(e.target.id);
-                    console.log('oldField' , formBuilder.dragBeforeRender);
+                    // console.log('oldField' , formBuilder.dragBeforeRender);
                 }
                 e.target.style.opacity = '0.5';
             }
 
-            console.log('dragstart' , e.target);
+            // console.log('dragstart' , e.target);
         });
 
 
@@ -143,23 +143,12 @@ export function addAllEventsToElement(elementIdSelector, builder) {
         // });
 
 
-
-
-
-
-
-
-
-
-
-
-
         formContainer.addEventListener('dragend', (e) => {
             if (e.target.classList.contains('section') || e.target.classList.contains('field') || e.target.classList.contains('tab')) {
                 if (formBuilder.dragAfterRender) {
                     formBuilder.dragAfterRender.style.opacity = '1';
                     formBuilder.dragAfterRender = null;
-                    console.log('dragend');
+                    // console.log('dragend');
                 }
             }
         });
@@ -170,7 +159,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                 (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) )
             {
                 e.target.style.borderBottom = '3px solid blue';
-                console.log('dragover');
+                // console.log('dragover');
             }
 
         });
@@ -178,11 +167,11 @@ export function addAllEventsToElement(elementIdSelector, builder) {
         formContainer.addEventListener('dragleave', (e) => {
             if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
                 e.target.style.borderBottom = '1px solid orange';
-                console.log('dragleave');
+                // console.log('dragleave');
             }
             else if (e.target.classList.contains('colsec') && formBuilder.dragAfterRender.classList.contains('field')) {
                 e.target.style.borderBottom = '1px solid blue';
-                console.log('dragleave field');
+                // console.log('dragleave field');
             }
         });
 
@@ -204,12 +193,12 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
                 e.target.style.borderBottom = '1px solid orange';
                 e.target.append(formBuilder.dragAfterRender);
-                console.log('drop');
+                // console.log('drop');
             }
 
             else if (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
-                console.log('drop newColBeforRender', newColBeforRender)
+                // console.log('drop newColBeforRender', newColBeforRender)
 
                 e.target.style.borderBottom = '1px solid blue';
 

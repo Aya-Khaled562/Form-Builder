@@ -212,9 +212,9 @@ export default class Element {
 
     toSaveSchema(mapObject) {
         let objectSchema = {};
-        console.log('mapObject', mapObject)
+        // console.log('mapObject', mapObject)
         let target = mapObject.find(obj => obj.id === this.id)
-        console.log('target in to Schema:', target);
+        // console.log('target in to Schema:', target);
         if(this.TypeContent._category === Categories.Layout){
             objectSchema = {
                 id: this.Id,

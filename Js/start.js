@@ -1,4 +1,5 @@
 import FormApp from "./form_app.js";
+import formAppSingleton from "./singleton.js";
 import {getJson} from "./Utils.js";
 
 let jsonData = null;
@@ -16,7 +17,9 @@ if (jsonData != null) {
     jsonData = await getJson('../files/defaultSchema.json');
 }
 
-const formApp = new FormApp(jsonData, mode);
+// const formApp = new FormApp(jsonData, mode);
+const start = formAppSingleton.getInstance(jsonData , mode);
+// start.factory();
 
 
 

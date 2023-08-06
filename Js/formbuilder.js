@@ -387,9 +387,9 @@ export default class FormBuilder {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-                            console.log('field', field)
+                            // console.log('field', field)
                             const feildFromEntity = this.#entity.fields.find(entityField=> entityField.name === field.Id);
-                            console.log('feildFromEntity', feildFromEntity)
+                            // console.log('feildFromEntity', feildFromEntity)
                             const mergedObject = {};
                             const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
 
@@ -408,7 +408,7 @@ export default class FormBuilder {
 
                                 }
                             }
-                            console.log('mergedObject: ', mergedObject);
+                            // console.log('mergedObject: ', mergedObject);
                             compareResult.push(mergedObject);
                         })
                     })
@@ -421,7 +421,7 @@ export default class FormBuilder {
 
     toSaveSchema() {
         const compareResult =  this.compareEntityWithForm();
-        console.log('compareResult: ',compareResult)
+        // console.log('compareResult: ',compareResult)
 
         return {
             platform: this.#platform,
