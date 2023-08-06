@@ -1,96 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Layout Example</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/formbuilder.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Layout Example</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/formbuilder.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Form Builder</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Add Tab
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" id="addTabWith1Col">On Column</a></li>
-                      <li><a class="dropdown-item" id="addTabWith2Col">Two Columns</a></li>
-                      <li><a class="dropdown-item" id="addTabWith3Col">Three Columns</a></li>
-                      
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Add Section
-                    </a>
-                      <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" id="addSectionWith1Col">On Column</a></li>
-                          <li><a class="dropdown-item" id="addSectionWith2Col">Two Columns</a></li>
-                          <li><a class="dropdown-item" id="addSectionWith3Col">Three Columns</a></li>
+  <div id="form-builder-header"><span class="icon"></span>
+    <div id="h1">Form Builder</div>
+  </div>
+  <div class="w-100">
+    
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="addTabMenu" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="i-icons"></i>
+                Add Tab
+              </a>
+              <ul class="dropdown-menu dd-icons">
+                <li><a class="dropdown-item" id="addTabWith1Col"><i class="i-icons"></i>On Column</a></li>
+                <li><a class="dropdown-item" id="addTabWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                <li><a class="dropdown-item" id="addTabWith3Col"><i class="i-icons"></i>Three Columns</a></li>
 
-                      </ul>
-                  </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" id="saveJsonForm">Save</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" id="removeBtn">Remove</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="updateMode">Update mode</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="createMode">Create mode</a>
-                    </li>
-                </ul>
-              </div>
-            </div>
-        </nav>
-        <div class="container">
-            <!-- Modal -->
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
-                 tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                        </div>
-                        <div class="modal-body">
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="addSectionMenu"  href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false"><i class="i-icons"></i>
+                Add Section
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" id="addSectionWith1Col"><i class="i-icons"></i>On Column</a></li>
+                <li><a class="dropdown-item" id="addSectionWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                <li><a class="dropdown-item" id="addSectionWith3Col"><i class="i-icons"></i>Three Columns</a></li>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                            <button class="btn btn-primary" id="modalSave" type="button">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </ul>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link active" id="saveJsonForm"><i class="i-icons"></i>Preview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id="save"><i class="i-icons"></i>Save</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id="removeBtn"><i class="i-icons"></i>Remove</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="updateMode"><i class="i-icons"></i>Update mode</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="createMode"><i class="i-icons"></i>Create mode</a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav>
+    <div class="Notifications">
+      <div role="alert" aria-live="polite" class="Notification">
+        <img alt="" src="img/msgbar_icn_info.png" class="ms-crm-ImageStrip-msgbar_icn_info">
+        <span>
+          Form headers now default to high density to display more data. Use the new form designer to edit
+          header density.
+          <a id="crmNotificationsForHeaderDensityDefault_learnMoreLink" href="https://aka.ms/paformheaderdensity"
+            target="_blank" class="ms-crm-FormEditor-learnMoreLink" title="Learn more">
+            Learn more
+          </a>
+        </span>
 
-        <div class="container-fluid mt-5">
-          <div class="row px-2" id="formContainer">
-            <div id="form" class="col-10">
+      </div>
+    </div>
+    <div class="w-100">
+      <!-- Modal -->
+      <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
 
             </div>
-            <div class="col-2 my-3 sidebar px-0" style="border: 1px solid rgb(245, 241, 241);"  id="entity"></div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button class="btn btn-primary" id="modalSave" type="button">Save changes</button>
+            </div>
           </div>
         </div>
-
+      </div>
     </div>
 
-    <script src="../Js/start.js" type="module"></script>
-</body>
-</html>
+    <div class="w-100">
+      <div class="d-flex" id="formContainer">
+        <div class="sidebar-left px-0"></div>
+        <div id="form" class=""></div>
+        <div class="sidebar-right px-0" style="border: 1px solid rgb(245, 241, 241);" id="entity"></div>
+      </div>
+    </div>
 
+  </div>
+
+  <script src="../Js/start.js" type="module"></script>
+</body>
+
+</html>
