@@ -150,7 +150,8 @@ export default class CreateForm {
 
     handleModalSave(e) {
         let elementId = $('#exampleModal').attr('data-id');
-        let element = this.builde.getElementFromMap(elementId)
+        console.log('elementId: ' , elementId)
+        let element = this.builder.getElementFromMap(elementId)
 
         // display name
         let displayName = $('#exampleModal #exampleFormControlInput1').val();
@@ -173,25 +174,25 @@ export default class CreateForm {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
-                        let section = this.builde.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
+                        let section = this.builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
                         col.addElement(section);
-                        this.builde.addElementToMap(section);
-                        this.builde.setSectionBeforRender(section);
-                        this.builde.setColumnsBeforeRender(sectionCol);
+                        this.builder.addElementToMap(section);
+                        this.builder.setSectionBeforRender(section);
+                        this.builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
                     }
 
                     element.addElement(col);
                     columnsAdded.push(col);
-                    this.builde.setColumnsBeforeRender(col);  // needs to handle
+                    this.builder.setColumnsBeforeRender(col);  // needs to handle
                     currentNumberOfCols++;
                 }
             }
@@ -218,11 +219,11 @@ export default class CreateForm {
         }
 
         if (element.TypeContent._type == Types.Tab) {
-            element.TypeContent = this.builde.build(Types.Tab, createElementFactoryPropertiesObj(element.Id, element.Name, element.CustomClass, element.Style, element.Mode))
+            element.TypeContent = this.builder.build(Types.Tab, createElementFactoryPropertiesObj(element.Id, element.Name, element.CustomClass, element.Style, element.Mode))
                 .TypeContent;
         } else {
             console.log('options on save model', element)
-            element.TypeContent = this.builde.build(element.TypeContent._type, createElementFactoryPropertiesObj(element))
+            element.TypeContent = this.builder.build(element.TypeContent._type, createElementFactoryPropertiesObj(element))
                 .TypeContent;
         }
 
@@ -230,18 +231,18 @@ export default class CreateForm {
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
 
-        addAllEventsToElement(elementId, this.builde);
+        addAllEventsToElement(elementId, this.builder);
 
         element.getElements().forEach((lev1) => {
             if (lev1.TypeContent._type == Types.Column) {
                 lev1.getElements().forEach(lev2 => {
                     if (lev2.TypeContent._type != Types.Column)
-                        addAllEventsToElement(lev2.Id, this.builde);
+                        addAllEventsToElement(lev2.Id, this.builder);
                     lev2.getElements().forEach(lev3 => {
                         if (lev3.TypeContent._type != Types.Column)
-                            addAllEventsToElement(lev3.Id, this.builde)
+                            addAllEventsToElement(lev3.Id, this.builder)
                         else {
-                            lev3.getElements().forEach(lev4 => addAllEventsToElement(lev4.Id, this.builde))
+                            lev3.getElements().forEach(lev4 => addAllEventsToElement(lev4.Id, this.builder))
                         }
                     })
                 });

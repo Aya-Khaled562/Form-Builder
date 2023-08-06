@@ -3,7 +3,7 @@ import {Categories, Types} from "./element.js";
 import HtmlElementFactory from "./html_element_factory.js";
 import {addAllEventsToElement, fieldIsRequired} from "./ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj} from "./Utils.js";
-
+import Element from "./element.js";
 
 export default class FormBuilder {
     #platform;
@@ -230,7 +230,7 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
-
+                console.log('elements: ', this.#elements);
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
@@ -250,16 +250,17 @@ export default class FormBuilder {
 
     load() {
         const formTabs = this.#json.elements;
+        console.log('form tab: ', this.#json.elements)
         formTabs.forEach((tab) => {
+            console.log('tab in load', tab);
             tab.mode = this.#mode;
-            const newTab = this.#platformFactory.createTab(tab);
+            const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
                 const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode));
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
-                    const newSection = this.#platformFactory.createSection(section);
-                    section.elements.forEach((column) => {
+                    const newSection = this.build(Types.Section,section);                    section.elements.forEach((column) => {
                         column.mode = column;
                         const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
                         // console.log('new section col', newSectionCol)
@@ -269,20 +270,20 @@ export default class FormBuilder {
                             formControl = this.build(control.type, control);
                             this.#fields.push(formControl);
                             newSectionCol.addElement(formControl);
-                            this.addElementToMap(formControl);
+                            // this.addElementToMap(formControl);
                         });
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
                     });
                     this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
-                    this.addElementToMap(newSection);
+                    // this.addElementToMap(newSection);
                 });
                 this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
             });
-            this.#elements.push(newTab);
-            this.addElementToMap(newTab);
+            // this.#elements.push(newTab);
+            // this.addElementToMap(newTab);
         });
     }
 
@@ -304,41 +305,103 @@ export default class FormBuilder {
         // console.log('object in build method', obj)
         switch (type) {
             case 'tab':
-                const tab = this.#platformFactory.createTab(obj);
-               // this.setTab(tab);
+                // const tab = this.#platformFactory.createTab(obj);
+                // console.log('type content: ', obj)
+                // this.#elements.push(tab);
+                // this.addElementToMap(tab)
+                // return tab;
+
+                const tabTypeContent = this.#platformFactory.createTab(obj);
+                obj.typeContent = tabTypeContent;
+                obj.collapse = true;
+                const tab = new Element(obj);
                 this.#elements.push(tab);
-                this.addElementToMap(tab)
+                this.addElementToMap(tab);
                 return tab;
+
             case 'section':
-                const section = this.#platformFactory.createSection(obj);
+                // const section = this.#platformFactory.createSection(obj);
+                // this.addElementToMap(section)
+                // return section;
+
+                const sectionTypeContent = this.#platformFactory.createSection(obj);
+                obj.typeContent = sectionTypeContent;
+                const section = new Element(obj);
                 this.addElementToMap(section)
                 return section;
+
             case 'column':
-                const column = this.#platformFactory.createColumn(obj);
+                // const column = this.#platformFactory.createColumn(obj);
+                // return column;
+                const columnTypeContent = this.#platformFactory.createColumn(obj);
+                obj.typeContent = columnTypeContent;
+                const column = new Element(obj);
                 return column;
+
             case 'single line of text':
-                const text = this.#platformFactory.createSingleLineOfText(obj);
+                // const text = this.#platformFactory.createSingleLineOfText(obj);
+                // this.addElementToMap(text);
+                // return text;
+
+                const textTypeContent = this.#platformFactory.createSingleLineOfText(obj);
+                obj.typeContent = textTypeContent;
+                const text = new Element(obj);
                 this.addElementToMap(text);
                 return text;
+
             case 'option set':
                 // console.log('params', obj);
-                const optionSet = this.#platformFactory.createOptionSet(obj);
+                // const optionSet = this.#platformFactory.createOptionSet(obj);
+                // this.addElementToMap(optionSet)
+                // return optionSet;
+
+                const optionSetTypeContent = this.#platformFactory.createOptionSet(obj);
+                obj.typeContent = optionSetTypeContent;
+                const optionSet = new Element(obj);
                 this.addElementToMap(optionSet)
                 return optionSet;
+
             case 'two options':
-                const twoOptions = this.#platformFactory.createTwoOptions(obj);
+                // const twoOptions = this.#platformFactory.createTwoOptions(obj);
+                // this.addElementToMap(twoOptions)
+                // return twoOptions;
+
+                const twoOptionsTypeContent = this.#platformFactory.createTwoOptions(obj);
+                obj.typeContent = twoOptionsTypeContent;
+                const twoOptions = new Element(obj);
                 this.addElementToMap(twoOptions)
                 return twoOptions;
+
             case 'decimal number':
-                const decimalNumber = this.#platformFactory.createDecimalNumber(obj);
+                // const decimalNumber = this.#platformFactory.createDecimalNumber(obj);
+                // this.addElementToMap(decimalNumber)
+                // return decimalNumber;
+
+                const decimalNumberTypeContent = this.#platformFactory.createDecimalNumber(obj);
+                obj.typeContent = decimalNumberTypeContent;
+                const decimalNumber = new Element(obj);
                 this.addElementToMap(decimalNumber)
                 return decimalNumber;
+
             case 'multiple line of text':
-                const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(obj);
+                // const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(obj);
+                // this.addElementToMap(multipleLineOfText)
+                // return multipleLineOfText;
+
+                const multipleLineOfTextTypeContent = this.#platformFactory.createMultipleLineOfText(obj);
+                obj.typeContent = multipleLineOfTextTypeContent;
+                const multipleLineOfText = new Element(obj);
                 this.addElementToMap(multipleLineOfText)
                 return multipleLineOfText;
+
             case 'date and time':
-                const dateAndTime = this.#platformFactory.createDateAndTime(obj);
+                // const dateAndTime = this.#platformFactory.createDateAndTime(obj);
+                // this.addElementToMap(dateAndTime)
+                // return dateAndTime;
+
+                const dateAndTimeTypeContent = this.#platformFactory.createDateAndTime(obj);
+                obj.typeContent = dateAndTimeTypeContent;
+                const dateAndTime = new Element(obj);
                 this.addElementToMap(dateAndTime)
                 return dateAndTime;
         }
