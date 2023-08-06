@@ -59,14 +59,13 @@ a, .nav-link {
     padding: 0 1rem;
 }
 
-.sidebar {
-    height: calc(100vh - 150px);
+.sidebar-left,.sidebar-right {
+    height: calc(100vh - 200px);
     overflow-y: auto;
 }
 
 #form {
-    max-height: calc(100vh - 150px);
-    /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 #MenuTabs {

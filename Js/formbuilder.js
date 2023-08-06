@@ -371,7 +371,7 @@ export default class FormBuilder {
 
         this.#entity.fields.forEach(field => {
             if (field.active === true)
-                entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
         });
         entityDesign += `</div>`;
 
