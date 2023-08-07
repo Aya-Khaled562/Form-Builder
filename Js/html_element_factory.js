@@ -128,8 +128,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         obj.typeContent = new TypeContent(
             'tab',
             'layout',
-            `<div class="container my-3 tab" style="${obj.style}" id="${obj.id}"  >
-                <div class="row">
+            `<div id="tabArea"><div class=" my-3 tabArea1" style="${obj.style}" id="${obj.id}"  >
+                <div class="tabArea2">
                     <h5>${obj.name}</h5>
                     <!--content-->
                 </div>

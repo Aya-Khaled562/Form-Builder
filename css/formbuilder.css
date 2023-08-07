@@ -64,10 +64,7 @@ a, .nav-link {
     overflow-y: auto;
 }
 
-#form {
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-}
+
 #MenuTabs {
     margin-top: 1rem;
 }
@@ -301,3 +298,31 @@ display: flex;
         width: 100%;
         height: 100%;
         overflow-y: auto;}
+        .section-dropdown-menu.show {
+            display: flex;
+        }
+        .section-dropdown-menu li {
+            width: 50px;
+        }
+        .section-dropdown-menu li a{
+            display:flex;
+            flex-direction: column;
+            white-space: normal;
+            justify-content: center;
+            width: 50px;
+            text-align: center;
+            line-height: 10.6667px;
+            padding: 0;
+            align-items: center;
+            font-size: 10.667px;
+            gap:4px;padding: 2px 0;
+        }.section-dropdown-menu li a:hover{background-color: #D7EBF9;}
+
+
+        #form {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .tabArea{margin: 4px;background-color: #f00;padding: 4px;}
+        .tabArea1{margin: 4px;background-color: #ff0;padding: 4px;}
+        .tabArea2{margin: 4px;background-color: #f0f;padding: 4px;}
