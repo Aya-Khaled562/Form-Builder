@@ -77,7 +77,7 @@
                 let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
                 let obj = {
                     customClass: 'py-3',
-                    style: 'border: 1px solid green',
+                    style: 'border: 1px dashed #6d6e70',
                     id: formBuilder.targetField.name,
                     name: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
