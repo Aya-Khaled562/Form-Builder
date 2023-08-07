@@ -32,6 +32,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Segoe UI Regular;
 
 }
 
@@ -67,6 +68,19 @@ a, .nav-link {
     max-height: calc(100vh - 150px);
     /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
     overflow-y: auto;
+}
+#MenuTabs {
+    margin-top: 1rem;
+}
+
+#MenuTabs .nav-link {
+    font-size: 10.66667px;
+    color: #666666;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 1px;
+}
+#MenuTabs .nav-link.active {color: #0072C6 !important;
 }
 
 .nav-link {
@@ -128,7 +142,7 @@ a, .nav-link {
 }
 
 #addTabWith1Col i {
-    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -239px -443px;
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll  -239px -443px;
     width: 32px;
     height: 32px;
     overflow: hidden;
@@ -141,13 +155,36 @@ a, .nav-link {
     overflow: hidden;
 }
 
-#addTabWith3Col i {
+#addTabWith3Col1 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -187px -1px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith3Col2 i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -103px -443px;
     width: 32px;
     height: 32px;
     overflow: hidden;
 }
-
+#addTabWith2Col1 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -205px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith2Col2 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -103px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith2Col3 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
 #addSectionMenu i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -69px;
     width: 32px;
@@ -201,13 +238,15 @@ a, .nav-link {
     height: 32px;
     overflow: hidden;
 }
+#MenuTabsContent .nav-link{padding-top: 6px;padding-bottom: 6px;}
+#MenuTabsContent .nav-link:hover{background-color: #D7EBF9;}
 .has-childs{
 display: flex;
     position: relative;
     border: 1px solid #eee;
     border-bottom: 0;
     border-top: 0;
-    padding-bottom: .75rem;
+    padding-bottom: 1.125rem;
 }
 
 
@@ -226,7 +265,8 @@ display: flex;
         right: 0;
     }
     .has-childs>a {
-        width: 60px;
+        width: 54px;
         text-align: center;
-        line-height: 1;
+        line-height: 10.6667px;
+        padding: 0;
     }
