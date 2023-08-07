@@ -30,8 +30,11 @@ export default class CreateForm {
 
     initializeUI() {
         document.getElementById("addTabWith1Col").addEventListener("click", () => this.addTab(1));
-        document.getElementById("addTabWith2Col").addEventListener("click", () => this.addTab(2));
-        document.getElementById("addTabWith3Col").addEventListener("click", () => this.addTab(3));
+        document.getElementById("addTabWith2Col1").addEventListener("click", () => this.addTab(2));
+        document.getElementById("addTabWith2Col2").addEventListener("click", () => this.addTab(2));
+        document.getElementById("addTabWith2Col3").addEventListener("click", () => this.addTab(2));
+        document.getElementById("addTabWith3Col1").addEventListener("click", () => this.addTab(3));
+        document.getElementById("addTabWith3Col2").addEventListener("click", () => this.addTab(3));
         document.getElementById("addSectionWith1Col").addEventListener("click", () => this.addSection(1));
         document.getElementById("addSectionWith2Col").addEventListener("click", () => this.addSection(2));
         document.getElementById("addSectionWith3Col").addEventListener("click", () => this.addSection(3));
