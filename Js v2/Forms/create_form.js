@@ -35,11 +35,12 @@ export default class CreateForm {
         document.getElementById("addSectionWith1Col").addEventListener("click", () => this.addSection(1));
         document.getElementById("addSectionWith2Col").addEventListener("click", () => this.addSection(2));
         document.getElementById("addSectionWith3Col").addEventListener("click", () => this.addSection(3));
+        document.getElementById('save').addEventListener('click', () => this.handleSave())
 
         $('#exampleModal').on('shown.bs.modal', (e) => this.handleModalShown(e));
         $('#exampleModal #modalSave').on('click', (e) => this.handleModalSave(e));
-        let saveFromElm = document.getElementById('saveJsonForm');
-        saveFromElm.addEventListener('click', (e) => this.handleSaveFormClick(e));
+        let preview = document.getElementById('preview');
+        preview.addEventListener('click', (e) => this.handlePreview(e));
         let removeBtn = document.getElementById('removeBtn');
         removeBtn.addEventListener('click', (e) => this.handleRemoveBtnClick(e));
         let updateModeBtn = document.getElementById('updateMode');
@@ -277,39 +278,25 @@ export default class CreateForm {
 
 
 
-    async handleSaveFormClick(e) {
-        // console.log("builder.tosave: ", this.builder.toSaveSchema());
-        // download(this.builder.toSaveSchema());
-        // await this.pushForm(this.builder.toSaveSchema());
-        this.mode = 'preview';
-        this.builder.setMode('preview');
-
-
+    handlePreview(e) {
         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
                     width=0,height=0,left=-1000,top=-1000`;
 
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        // localStorage.setItem('formMode', 'preview');
-
-
-        // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        // sessionStorage.setItem('formMode', 'preview');
-
-        // console.log('mode in handle save click', this.builder.getMode())
         
         window.open('../pages/preview.html', 'preview', params);
     }
 
+    async handleSave(){
+        await this.pushForm(this.builder.toSaveSchema()); 
+    }
+    
     handleRemoveBtnClick(e){
         let curActiveElement = this.builder.getActiveElement();
-
         if (curActiveElement != null) {
-
             this.builder.removeElement(curActiveElement.Id);
             this.builder.getActiveElement().clearElements();
-
             document.getElementById(curActiveElement.Id).remove();
-
             this.builder.setActiveElement('notID');
         }
     }

@@ -113,7 +113,7 @@ a, .nav-link {
     display: flex !important;
 }
 .nav-link{font-size: 11px;}
-#addTabMenu ,#addSectionMenu,#saveJsonForm,#removeBtn,#updateMode,#createMode,#save {
+#addTabMenu ,#addSectionMenu,#preview,#removeBtn,#updateMode,#createMode,#save {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -171,7 +171,7 @@ a, .nav-link {
 }
 
 
-#saveJsonForm i {
+#preview i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -273px -443px;
     width: 32px;
     height: 32px;
