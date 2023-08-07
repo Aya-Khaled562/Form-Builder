@@ -29,12 +29,12 @@ export default class CreateForm {
     }
 
     initializeUI() {
-        document.getElementById("addTabWith1Col").addEventListener("click", () => this.addTab(1));
-        document.getElementById("addTabWith2Col1").addEventListener("click", () => this.addTab(2));
-        document.getElementById("addTabWith2Col2").addEventListener("click", () => this.addTab(2));
-        document.getElementById("addTabWith2Col3").addEventListener("click", () => this.addTab(2));
-        document.getElementById("addTabWith3Col1").addEventListener("click", () => this.addTab(3));
-        document.getElementById("addTabWith3Col2").addEventListener("click", () => this.addTab(3));
+        document.getElementById("addTabWith1Col").addEventListener("click", () => this.addTab('col'));
+        document.getElementById("addTabWith2Col1").addEventListener("click", () => this.addTab('col-7', 'col-4'));
+        document.getElementById("addTabWith2Col2").addEventListener("click", () => this.addTab('col-4','col-7'));
+        document.getElementById("addTabWith2Col3").addEventListener("click", () => this.addTab('col','col'));
+        document.getElementById("addTabWith3Col1").addEventListener("click", () => this.addTab('col', 'col', 'col'));
+        document.getElementById("addTabWith3Col2").addEventListener("click", () => this.addTab('col-3', 'col-5', 'col-3'));
         document.getElementById("addSectionWith1Col").addEventListener("click", () => this.addSection(1));
         document.getElementById("addSectionWith2Col").addEventListener("click", () => this.addSection(2));
         document.getElementById("addSectionWith3Col").addEventListener("click", () => this.addSection(3));
@@ -53,33 +53,45 @@ export default class CreateForm {
         handleDragAndDrop(this.builder);
     }
 
-    addTab(numOfCols) {
+
+    createColumnAndSection(builder ,tabCounter , coltabCounter, secCounter, colsecCounter , colTabclass){
+
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass} py-1 my-1 mx-1 `, 'border: 0px solid orange'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
+       
+        builder.setSectionBeforRender(sec);
+        sec.addElement(colSec);
+        builder.setColumnsBeforeRender(colSec);
+        col.addElement(sec);
+        builder.setColumnsBeforeRender(col);
+
+        return col;
+        
+    }
+
+    addTab(colClass1='' , colClass2='' , colClass3='') {
         console.log('call add tab method >>>>>>>>>>>>')
         this.tabCounter++
-        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px dashed #6d6e70"));
-        for(let i=0; i<numOfCols; i++){
-            this.secCounter++
-            this.coltabCounter++
-            this.colsecCounter++
-            let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${this.tabCounter}_col_${this.coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 0px solid orange'));
-            let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${this.coltabCounter}_sec_${this.secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-            let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
-            
-            this.builder.setSectionBeforRender(sec);
-            sec.addElement(colSec);
-            this.builder.setColumnsBeforeRender(colSec);
-            col.addElement(sec);
-            this.builder.setColumnsBeforeRender(col);
-            tab.addElement(col);
+        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px solid green"));
+        if(colClass1!= ''){
+            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass1} ms-2`)
+            tab.addElement(col1);
         }
-
+        if(colClass2 != ''){
+            const col2 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass2} `)
+            tab.addElement(col2);
+        }
+        if(colClass3 != ''){
+            const col3 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass3} `)
+            tab.addElement(col3);
+        }
         document.getElementById('form').innerHTML += tab.render();
         this.builder.addDesignContent();
-        console.log('elements add tab method', this.builder.getElements())
     }
 
     addSection(numOfCols) {
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`sec_${this.secCounter}`, `Section`, 'section', 'border: 1px dashed green;'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`sec_${this.secCounter}`, `Section`, 'section my-2', 'border: 1px dashed green;'));
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
@@ -264,9 +276,9 @@ export default class CreateForm {
 
     async pushForm(jsonForm){
         let data = {
-            entityFromsName: 'new',
-            entitySchemaId: this.entity.entitySchemaId,
-            fromJson: JSON.stringify(jsonForm)
+            formName: 'new',
+            entityId: this.entity.entitySchemaId,
+            formJson: JSON.stringify(jsonForm)
         }
 
         console.log('data: ', data)

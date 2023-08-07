@@ -155,7 +155,7 @@
             newColBeforRender.addElement(formBuilder.dragBeforeRender);
             // console.log('drop newColBeforRender', newColBeforRender)
 
-            e.target.style.borderBottom = '1px solid blue';
+            e.target.style.borderBottom = '1px dashed #6d6e70';
 
             if(formBuilder.dragAfterRender.classList.contains('newField')) {
                 formBuilder.dragAfterRender.classList.remove('newField');
