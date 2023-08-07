@@ -255,7 +255,7 @@ export default class FormBuilder {
             const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
-                const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1 ', tabColumn.style, this.#mode));
+                const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
                     const newSection = this.build(Types.Section,section);                    section.elements.forEach((column) => {

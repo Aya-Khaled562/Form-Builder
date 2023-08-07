@@ -26,7 +26,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             let option = `<option value="${obj.value.source[key]}">${key}</option>`;
             setOptions += option;
         }
-        return new TypeContent(
+        return  new TypeContent(
             'option set',
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
@@ -49,7 +49,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             twoOptions += option;
         }
 
-        return  new TypeContent(
+        return   new TypeContent(
             'two options',
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
