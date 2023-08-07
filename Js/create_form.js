@@ -50,14 +50,14 @@ export default class CreateForm {
     addTab(numOfCols) {
         console.log('call add tab method >>>>>>>>>>>>')
         this.tabCounter++
-        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px solid green"));
+        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px dashed #6d6e70"));
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.coltabCounter++
             this.colsecCounter++
-            let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${this.tabCounter}_col_${this.coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange'));
+            let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${this.tabCounter}_col_${this.coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 0px solid orange'));
             let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${this.coltabCounter}_sec_${this.secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-            let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
+            let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
             
             this.builder.setSectionBeforRender(sec);
             sec.addElement(colSec);
@@ -77,7 +77,7 @@ export default class CreateForm {
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
-            let col = this. builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
+            let col = this. builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
             sec.addElement(col);
             this.builder.setColumnsBeforeRender(col);
         }
@@ -173,11 +173,11 @@ export default class CreateForm {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
+                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
                         let section = this.builde.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        let sectionCol = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
@@ -186,7 +186,7 @@ export default class CreateForm {
                         this.builde.setSectionBeforRender(section);
                         this.builde.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        col = this.builde.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                     }
 
                     element.addElement(col);

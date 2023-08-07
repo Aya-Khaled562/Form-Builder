@@ -29,12 +29,12 @@ export function selectElement(formBuilder) {
         e.stopPropagation();
         let curActiveElement = formBuilder.getActiveElement();
         if (curActiveElement != null) {
-            document.getElementById(curActiveElement.Id).classList.remove('border-danger');
-            document.getElementById(curActiveElement.Id).classList.remove('border-3');
+            document.getElementById(curActiveElement.Id).classList.remove('selectedElement');
+            // document.getElementById(curActiveElement.Id).classList.remove('border-3');
 
         }
-        e.currentTarget.classList.toggle('border-danger');
-        e.currentTarget.classList.toggle('border-3');
+        e.currentTarget.classList.toggle('selectedElement');
+        // e.currentTarget.classList.toggle('border-3');
 
         formBuilder.setActiveElement(e.currentTarget.id);
 
@@ -81,11 +81,11 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                     formBuilder.targetField = formBuilder.Entity.fields.find(field => field.name === formBuilder.dragAfterRender.id);
                     // console.log('targetField: ',formBuilder.targetField )
                     ///let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
-                    // formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px solid green',formBuilder.targetField.required, value);
+                    // formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, `${formBuilder.targetField.name}`, `${formBuilder.targetField.displayName}`, 'py-3', 'border: 1px dashed #6d6e70',formBuilder.targetField.required, value);
                     let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
                     let obj = {
                         customClass: 'py-3',
-                        style: 'border: 1px solid green',
+                        style: 'border: 1px dashed #6d6e70',
                         id: formBuilder.targetField.name,
                         name: formBuilder.targetField.displayName,
                         type: formBuilder.targetField.type,
@@ -120,7 +120,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
         //             let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
         //             let obj = {
         //                 customClass: 'py-3',
-        //                 style: 'border: 1px solid green',
+        //                 style: 'border: 1px dashed #6d6e70',
         //                 id: this.targetField.name,
         //                 name: this.targetField.displayName,
         //                 type: this.targetField.type,
@@ -170,7 +170,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                 // console.log('dragleave');
             }
             else if (e.target.classList.contains('colsec') && formBuilder.dragAfterRender.classList.contains('field')) {
-                e.target.style.borderBottom = '1px solid blue';
+                e.target.style.borderBottom = '1px dashed #6d6e70';
                 // console.log('dragleave field');
             }
         });
@@ -191,7 +191,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
 
             if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
-                e.target.style.borderBottom = '1px solid orange';
+                e.target.style.borderBottom = '0px solid orange';
                 e.target.append(formBuilder.dragAfterRender);
                 // console.log('drop');
             }
@@ -200,7 +200,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                 newColBeforRender.addElement(formBuilder.dragBeforeRender);
                 // console.log('drop newColBeforRender', newColBeforRender)
 
-                e.target.style.borderBottom = '1px solid blue';
+                e.target.style.borderBottom = '1px dashed #6d6e70';
 
                 if(formBuilder.dragAfterRender.classList.contains('newField')) {
                     formBuilder.dragAfterRender.classList.remove('newField');
@@ -212,7 +212,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                     addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
                 }else{
 
-                    e.target.style.borderBottom = '1px solid blue';
+                    e.target.style.borderBottom = '1px dashed #6d6e70';
                     e.target.append(formBuilder.dragAfterRender);
 
                 }
