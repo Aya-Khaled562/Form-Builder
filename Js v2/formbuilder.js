@@ -231,7 +231,7 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
-                document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+                document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
 
@@ -240,7 +240,7 @@ export default class FormBuilder {
             case 'preview':
             case 'custom':
                 this.load();
-                document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
+                document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
                 this.addPreviewEvents();
                 break;
             default:
@@ -258,30 +258,26 @@ export default class FormBuilder {
                 const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
-                    const newSection = this.build(Types.Section,section);                    section.elements.forEach((column) => {
+                    const newSection = this.build(Types.Section,section);                    
+                    section.elements.forEach((column) => {
                         column.mode = column;
                         const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
-                        // console.log('new section col', newSectionCol)
                         column.elements.forEach((control) => {
                             let formControl = null;
                             console.log('control', control)
                             formControl = this.build(control.type, control);
                             this.#fields.push(formControl);
                             newSectionCol.addElement(formControl);
-                            // this.addElementToMap(formControl);
                         });
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
                     });
                     this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
-                    // this.addElementToMap(newSection);
                 });
                 this.#columnsBeforRender.push(newTabCol);
                 newTab.addElement(newTabCol);
             });
-            // this.#elements.push(newTab);
-            // this.addElementToMap(newTab);
         });
     }
 
@@ -379,28 +375,6 @@ export default class FormBuilder {
         }
     }
 
-    // async getEntity() {
-    //     // this.#entity = await this.readJson();
-    //     let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entityName}</h5>`
-
-    //     this.#elementsMap.forEach(element => {
-    //         if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
-    //             let field = this.#entity.fields.find(field => field.name === element.Id);
-    //             field.active = false;
-    //         }
-    //     })
-
-    //     this.#entity.attributeSchemas.forEach(field => {
-    //         // if (field.active === true)
-    //             entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
-    //     });
-    //     entityDesign += `</div>`;
-
-    //     document.getElementById('entity').innerHTML = entityDesign;
-
-    // }
-
-
     async getEntity() {
         let entityDesign = `<div id="rightSideTitle"><h5>${this.#entity.entityName}<img src="img/ico_form_assistexpanded.png"/></h5><div id="FieldList">`
         this.#elementsMap.forEach(element => {
@@ -416,7 +390,7 @@ export default class FormBuilder {
         entityDesign += `</div></div>`;
 
         document.getElementById('entity').innerHTML = entityDesign;
-
+       
 
     }
 

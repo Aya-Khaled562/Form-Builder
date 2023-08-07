@@ -50,7 +50,9 @@ export default class CreateForm {
         updateModeBtn.addEventListener('click', (e) => this.handleUpdateModeBtnClick(e));
         let createModeBtn = document.getElementById('createMode');
         createModeBtn.addEventListener('click', (e) => this.handleCreateModeBtnClick(e));
+        document.getElementById('entityName').innerText = this.entity.entityName;
         handleDragAndDrop(this.builder);
+        
     }
 
 
@@ -272,8 +274,6 @@ export default class CreateForm {
 
     }
 
-
-
     async pushForm(jsonForm){
         let data = {
             formName: 'new',
@@ -291,8 +291,6 @@ export default class CreateForm {
             body: JSON.stringify(data)
         })
     }
-
-
 
     handlePreview(e) {
         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
@@ -329,6 +327,7 @@ export default class CreateForm {
         localStorage.setItem('formMode', 'create');
         window.open('../index.html', '_self');
     }
+
 }
 
 

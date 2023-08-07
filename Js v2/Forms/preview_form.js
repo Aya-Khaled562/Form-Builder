@@ -11,6 +11,7 @@ export default class PreviewFrom {
         this.#builder = new FormBuilder(jsonData, 'preview', 'form');
         let copyHtmlBtn = document.getElementById('copyFormHtml');
         copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));
+        
     }
 
     handleCopyHtml(prev){
@@ -24,5 +25,9 @@ export default class PreviewFrom {
         sessionStorage.setItem('formMode', 'update');
         window.open('/index.html', '_self');
     }
+
+
+    
+
 
 }
