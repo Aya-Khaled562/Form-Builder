@@ -33,14 +33,14 @@ const builder = new FormBuilder(jsonData, mode, 'form');
 function addTab(numOfCols){
     
     tabConter++
-    const tab = builder.build('tab', createElementFactoryPropertiesObj(`tab_${tabConter}`, "Tab", "col py-2", "border: 1px solid green"));
+    const tab = builder.build('tab', createElementFactoryPropertiesObj(`tab_${tabConter}`, "Tab", "col py-2", "border: 1px dashed #6d6e70"));
     for(let i=0; i<numOfCols; i++) {
         secCounter++
         coltabCounter++
         colsecCounter++
-        let col = builder.build('column', createElementFactoryPropertiesObj(`tab${tabConter}_col_${coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 1px solid orange'));
+        let col = builder.build('column', createElementFactoryPropertiesObj(`tab${tabConter}_col_${coltabCounter}`, 'Column', 'coltab col py-1 my-1 mx-1 ', 'border: 0px solid orange'));
         let sec = builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
+        let colSec = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
 
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -60,7 +60,7 @@ function addSection(numOfCols){
     for(let i=0; i<numOfCols; i++){
         secCounter++
         colsecCounter++
-        let col = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px solid blue'));
+        let col = builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
         sec.addElement(col);
         builder.setColumnsBeforeRender(col);
     }
@@ -167,11 +167,11 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
+                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
                         let section = builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        let sectionCol = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
@@ -180,7 +180,7 @@ $('#exampleModal').on('shown.bs.modal', function (e) {
                         builder.setSectionBeforRender(section);
                         builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        col = builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                     }
 
                     element.addElement(col);

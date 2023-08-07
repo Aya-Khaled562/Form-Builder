@@ -9,7 +9,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
                 <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-                <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+                <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
                         <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
@@ -31,7 +31,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
             <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="" draggable="true" >
              <label class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
@@ -54,7 +54,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
             <label class="col" style="width: 50%;">${obj.name}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" style="width: 50%;" draggable="true" >
             <label class="form-label me-5">${obj.name}</label>
@@ -69,7 +69,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
             <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
                         <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
@@ -84,7 +84,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
             <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" >
                         <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
@@ -99,7 +99,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
             <label class="col" style="width: 50%;">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field  ${!obj.visible ? 'd-none ' : ''}">
                         <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
@@ -112,8 +112,9 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return  new TypeContent(
             'tab',
             'layout',
-            `<div id="tabArea"><div class=" my-3 tabArea1" style="${obj.style}" id="${obj.id}"  >
-                <div class="tabArea2">
+            `<div class="tabArea">
+                <div class="tabArea1" style="${obj.style}" id="${obj.id}"  >
+                <div class="row tabArea2">
                     <h5>${obj.name}</h5>
                     <!--content-->
                 </div>
@@ -131,15 +132,15 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'section',
             'layout',
-            `<div class="container section my-2 py-1 ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
-                <div class="row">
+            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
+                <div class="row row-section">
                     <h6>${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`,
-            `<div class="container section my-2 py-1 ${obj.customClass}" style="${obj.style}" id="${obj.id}" >
+            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" >
                    <h6>${obj.name}</h6>
-                <div class="row justify-content-between">
+                <div class="row row-section justify-content-between">
                     <!--content-->
                 </div>
             </div>`

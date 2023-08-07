@@ -8,7 +8,7 @@
       "id": "tab01",
       "name": "General tab 01",
       "customClass": "col py-2",
-      "style": "border: 1px solid green",
+      "style": "border: 1px dashed #6d6e70",
       "type": "tab",
       "category": "layout",
       "elements": [
@@ -16,7 +16,7 @@
           "id": "col01",
           "name": "col in tab",
           "customClass": "col py-1 my-1 mx-1",
-          "style": "border: 1px solid orange",
+          "style": "border: 0px solid orange",
           "type": "column",
           "category": "layout",
           "elements": [
@@ -32,7 +32,7 @@
                   "id": "col16",
                   "name": "Col in section",
                   "customClass": "col py-3 px-1 my-1 mx-1",
-                  "style": "border: 1px solid blue;",
+                  "style": "border: 1px dashed #6d6e70;",
                   "type": "column",
                   "category": "layout",
                   "elements": [
@@ -40,7 +40,7 @@
                       "id": "firstname",
                       "name": "First Name",
                       "customClass": "py-3",
-                      "style": "border: 1px solid green",
+                      "style": "border: 1px dashed #6d6e70",
                       "type": "single line of text",
                       "category": "formControl",
                       "value": {
@@ -53,7 +53,7 @@
                       "id": "lastname",
                       "name": "Last Name",
                       "customClass": "py-3",
-                      "style": "border: 1px solid green",
+                      "style": "border: 1px dashed #6d6e70",
                       "type": "single line of text",
                       "category": "formControl",
                       "value": {
