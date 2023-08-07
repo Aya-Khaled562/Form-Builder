@@ -360,7 +360,7 @@ export default class FormBuilder {
 
     async getEntity() {
         this.#entity = await this.readJson();
-        let entityDesign = `<div style="background-color: gray;"><h5 class="py-2">${this.#entity.entity_name}</h5>`
+        let entityDesign = `<div id="rightSideTitle"><h5>${this.#entity.entity_name}<img src="img/ico_form_assistexpanded.png"/></h5><div id="FieldList">`
 
         this.#elementsMap.forEach(element => {
             if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
@@ -371,9 +371,9 @@ export default class FormBuilder {
 
         this.#entity.fields.forEach(field => {
             if (field.active === true)
-                entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
+                entityDesign += `<div class="field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
         });
-        entityDesign += `</div>`;
+        entityDesign += `</div></div>`;
 
         document.getElementById('entity').innerHTML = entityDesign;
 
