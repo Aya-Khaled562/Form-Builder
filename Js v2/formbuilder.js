@@ -403,7 +403,7 @@ export default class FormBuilder {
 
     async getEntity() {
         // this.#entity = await this.readJson();
-        let entityDesign = `<div id="rightSideTitle"><h5>${this.#entity.entity_name}<img src="img/ico_form_assistexpanded.png"/></h5><div id="FieldList">`
+        let entityDesign = `<div id="rightSideTitle"><h5>${this.#entity.entityName}<img src="img/ico_form_assistexpanded.png"/></h5><div id="FieldList">`
 
         this.#elementsMap.forEach(element => {
             if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {

@@ -12,9 +12,9 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
-                <input type="text" class="form-control" ${obj.readOnly ? `readonly` : ""}  style=" width: 50%;" id="${obj.id}">
-            </div>`
+                        <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.required ? "<span style='color: red'>*</span>" : ""}</label>
+                         <input type="text" class="form-control" ${obj.readOnly ? `readonly` : ""}  style=" width: 50%;" id="${obj.id}">
+                        </div>`
         );
     }
 
@@ -49,7 +49,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             twoOptions += option;
         }
 
-        return new TypeContent(
+        return  new TypeContent(
             'two options',
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
@@ -79,7 +79,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createMultipleLineOfText(obj) {
-        return new TypeContent(
+        return  new TypeContent(
             'multiple line of text',
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
@@ -110,23 +110,21 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
     createTab(obj) {
         return  new TypeContent(
-                'tab',
-                'layout',
-                `<div class="container my-3 tab" style="${obj.style}" id="${obj.id}"  >
-                    <div class="row">
-                        <h5>${obj.name}</h5>
-                        <!--content-->
+            'tab',
+            'layout',
+            `<div id="tabArea"><div class=" my-3 tabArea1" style="${obj.style}" id="${obj.id}"  >
+                <div class="tabArea2">
+                    <h5>${obj.name}</h5>
+                    <!--content-->
+                </div>
+            </div>`,
+            `<div id="${obj.id}">
+                    <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed" style="width:fit-content" aria-expanded="true">
+                         <i class="fas fa-caret-right" ></i><label class="ms-2">${obj.name}</label>
                     </div>
-                </div>`,
-                `<div id="${obj.id}">
-                        <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed" style="width:fit-content" aria-expanded="true">
-                            <i class="fas fa-caret-right" ></i><label class="ms-2">${obj.name}</label>
-                        </div>
-                <div class="${obj.customClass} collapse show" style="${obj.style}" id="areaCollapsed" style="margin:10px;"> <!--content--></div></div>`
-                );
-                
-           
-        
+            <div class="${obj.customClass} collapse show" style="${obj.style}" id="areaCollapsed" style="margin:10px;"> <!--content--></div></div>`
+        );
+  
     }
 
     createSection(obj) {
