@@ -130,7 +130,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'layout',
             `<div class="tabArea">
                 <div class="tabArea1" style="${obj.style}" id="${obj.id}"  >
-                <div class="tabArea2">
+                <div class="row tabArea2">
                     <h5>${obj.name}</h5>
                     <!--content-->
                 </div>
@@ -149,15 +149,15 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         obj.typeContent = new TypeContent(
             'section',
             'layout',
-            `<div class="container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
-                <div class="row-section">
+            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
+                <div class="row row-section">
                     <h6>${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`,
-            `<div class="container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" >
+            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" >
                    <h6>${obj.name}</h6>
-                <div class="row-section justify-content-between">
+                <div class="row row-section justify-content-between">
                     <!--content-->
                 </div>
             </div>`

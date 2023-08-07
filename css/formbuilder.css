@@ -333,8 +333,12 @@ display: flex;
             font-weight: 700;
             padding: 0.5rem 0 0 0.5rem;
         }
-        .container-section {
+        /* .container-section {
             background: #e9edf1;
             padding: 4px;
             margin: 0!important;
-        }
+        } */
+        #text{background: #ffffff;
+            color: #cccccc;
+            border: 1px solid #cccccc!important;
+            padding-left: 2px;}
