@@ -63,9 +63,11 @@ export default class FormApp{
     async factory(){
         this.entity = await this.getEntity();
         console.log('entity' , this.entity)
-        let formJson = await this.getJsonform(this.mode ,this.entity.entitySchemaId);
-        if(formJson)
-            this.jsonData = JSON.parse(formJson?.formJson)
+        let formJson = await this.getJsonform(this.mode);
+        if(formJson){
+            const formDefault = formJson[0]
+            this.jsonData = JSON.parse(formDefault.fromJson)
+        }
         
         switch(this.mode){
             case 'create':
@@ -89,11 +91,10 @@ export default class FormApp{
     }
 
     async getJsonform(mode , enitityId){
-        console.log('mode in getJsonform function', mode)
         let response = null;
         switch(mode){
             case 'create':
-                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/default`);
+                response = await fetch(`http://localhost:5032/api/EntityFroms?default`);
                 break;
             case 'update':
                 response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/update`);
@@ -101,9 +102,9 @@ export default class FormApp{
             // case 'preview':
             //     response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);
             //     break;
-            case 'custom':
-                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/custom`);
-                break;
+            // case 'custom':
+            //     response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/custom`);
+            //     break;
         }
 
         return response?.json();
@@ -123,17 +124,17 @@ export default class FormApp{
     async customFrom(){
         this.targetFrom = new CustomForm();
         await this.targetFrom.initialize();
-        let values = this.targetFrom.Values;
-        console.log('values in form app:', values);
+        // let values = this.targetFrom.Values;
+        // console.log('values in form app:', values);
 
-        for (let i = 0; i < values.length; i++){
-            for (let key of  entityValues.fields) {
-                if(key.displayName === values[i].key){
-                    key.values.push(values[i].value)
-                }
-            }
-        }
-        console.log('entityValues: ', entityValues)
+        // for (let i = 0; i < values.length; i++){
+        //     for (let key of  entityValues.fields) {
+        //         if(key.displayName === values[i].key){
+        //             key.values.push(values[i].value)
+        //         }
+        //     }
+        // }
+        // console.log('entityValues: ', entityValues)
     }
 
 

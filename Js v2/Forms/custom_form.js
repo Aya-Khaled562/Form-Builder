@@ -5,19 +5,16 @@ export default class CustomForm {
     builder;
     values;
     resolvePromise;
-    jsonData;
-    constructor(jsonData){
+    constructor(){
         this.builder = null;
         this.values = [];
         this.resolvePromise = null;
-        this.jsonData = jsonData;
     }
 
     initialize(){
-        // console.log("Initializing in Preview")
-        // const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
-        this.builder = new FormBuilder(this.jsonData, 'custom' ,'form');
-        let saveBtn = document.getElementById('Save');
+        const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
+        this.builder = new FormBuilder(jsonData, 'custom' ,'form');
+        let saveBtn = document.getElementById('save');
         return new Promise((resolve)=>{
             this.resolvePromise = resolve;
             saveBtn.addEventListener('click', this.handleSaveBtn(this))
@@ -30,16 +27,25 @@ export default class CustomForm {
 
     handleSaveBtn(param){
         return function handler(e){
-            console.log('read data: ')
+            let dataObject = {}
             for(let i=0; i< param.builder.Fields.length; i++){
-                param.values.push({key: param.builder.Fields[i].name , value: document.getElementById(param.builder.Fields[i].id).value});
+                let key = param.builder.Fields[i].id;
+                let value = document.getElementById(param.builder.Fields[i].id).value
+                dataObject[key]  = value 
             }
-            console.log('values: ',param.values);
-
-            if(param.resolvePromise){
-                param.resolvePromise(param.values);
-            }
+            param.pushDataIntoDB(dataObject);
         }
+    }
+
+    pushDataIntoDB(data){
+        data.departmentId = 3;
+        const response = fetch('http://localhost:5032/api/Employees',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
     }
 
 

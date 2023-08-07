@@ -248,7 +248,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
             console.log('dragleave');
         }
         else if (e.target.classList.contains('colsec') && formBuilder.dragAfterRender.classList.contains('field')) {
-            e.target.style.borderBottom = '1px solid blue';
+            e.target.style.borderBottom = '1px dashed #6d6e70';
             console.log('dragleave field');
         }
         
@@ -279,7 +279,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
             newColBeforRender.addElement(formBuilder.dragBeforeRender);
             // console.log('drop newColBeforRender', newColBeforRender)
 
-            e.target.style.borderBottom = '1px solid blue';
+            e.target.style.borderBottom = '1px dashed #6d6e70';
 
             if(formBuilder.dragAfterRender.classList.contains('newField')) {
                 formBuilder.dragAfterRender.classList.remove('newField');
@@ -291,7 +291,7 @@ export function addAllEventsToElement(elementIdSelector, builder) {
                 addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
             }else{
 
-                e.target.style.borderBottom = '1px solid blue';
+                e.target.style.borderBottom = '1px dashed #6d6e70';
                 e.target.append(formBuilder.dragAfterRender);
 
             }

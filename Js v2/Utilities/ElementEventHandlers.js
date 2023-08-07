@@ -124,7 +124,7 @@
             console.log('dragleave');
         }
         else if (e.target.classList.contains('colsec') && formBuilder.dragAfterRender.classList.contains('field')) {
-            e.target.style.borderBottom = '1px solid blue';
+            e.target.style.borderBottom = '1px dashed #6d6e70';
             console.log('dragleave field');
         }
         

@@ -4,7 +4,7 @@ import '../../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 import {Types} from "../Element/element.js";
 import {addAllEventsToElement, handleDragAndDrop} from "../Utilities/ElementEventHandlers.js";
-import {createElementFactoryPropertiesObj,getJson} from "../Utilities/Utils.js";
+import {createElementFactoryPropertiesObj,download,getJson} from "../Utilities/Utils.js";
 
 export default class CreateForm {
     jsonData;
@@ -58,9 +58,9 @@ export default class CreateForm {
 
     createColumnAndSection(builder ,tabCounter , coltabCounter, secCounter, colsecCounter , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass} py-1 my-1 mx-1 `, 'border: 0px solid orange'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass} py-1 my-1 `, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -75,21 +75,22 @@ export default class CreateForm {
     addTab(colClass1='' , colClass2='' , colClass3='') {
         console.log('call add tab method >>>>>>>>>>>>')
         this.tabCounter++
-        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "col py-2", "border: 1px solid green"));
+        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "py-2", "border: 1px dashed #6d6e70"));
         if(colClass1!= ''){
-            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass1} ms-2`)
+            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass1} ms-2`)
             tab.addElement(col1);
         }
         if(colClass2 != ''){
-            const col2 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass2} `)
+            const col2 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass2} `)
             tab.addElement(col2);
         }
         if(colClass3 != ''){
-            const col3 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter , this.secCounter , this.colsecCounter , `${colClass3} `)
+            const col3 = this.createColumnAndSection(this.builder , this.tabCounter ,  this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass3} `)
             tab.addElement(col3);
         }
         document.getElementById('form').innerHTML += tab.render();
         this.builder.addDesignContent();
+        console.log('elements : ' , this.builder.getElements());
     }
 
     addSection(numOfCols) {
@@ -302,7 +303,11 @@ export default class CreateForm {
     }
 
     async handleSave(){
+        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         await this.pushForm(this.builder.toSaveSchema()); 
+        // download(this.builder.toSaveSchema());
+
+        window.open('../../pages/customForm.html', '_blank');
     }
     
     handleRemoveBtnClick(e){

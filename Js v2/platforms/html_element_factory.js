@@ -132,14 +132,13 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'section',
             'layout',
-            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
+            `<div class="container-fluid container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
                 <div class="row row-section">
                     <h6>${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`,
-            `<div class="container container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" >
-                   <h6>${obj.name}</h6>
+            `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" >
                 <div class="row row-section justify-content-between">
                     <!--content-->
                 </div>

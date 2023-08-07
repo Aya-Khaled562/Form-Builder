@@ -264,7 +264,6 @@ export default class FormBuilder {
                         const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            console.log('control', control)
                             formControl = this.build(control.type, control);
                             this.#fields.push(formControl);
                             newSectionCol.addElement(formControl);
@@ -435,7 +434,7 @@ export default class FormBuilder {
 
     toSaveSchema() {
         const compareResult =  this.compareEntityWithForm();
-        // console.log('compareResult: ',compareResult)
+        console.log('compareResult: ',compareResult)
 
         return {
             platform: this.#platform,
