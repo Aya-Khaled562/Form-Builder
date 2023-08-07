@@ -63,8 +63,9 @@ export default class FormApp{
     async factory(){
         this.entity = await this.getEntity();
         console.log('entity' , this.entity)
-        let formasJson = await this.getJsonform(this.mode ,this.entity.entitySchemaId);
-        this.jsonData = JSON.parse(formasJson.formJson)
+        let formJson = await this.getJsonform(this.mode ,this.entity.entitySchemaId);
+        if(formJson)
+            this.jsonData = JSON.parse(formJson?.formJson)
         
         switch(this.mode){
             case 'create':
@@ -97,15 +98,15 @@ export default class FormApp{
             case 'update':
                 response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/update`);
                 break;
-            case 'preview':
-                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);
-                break;
+            // case 'preview':
+            //     response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);
+            //     break;
             case 'custom':
                 response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/custom`);
                 break;
         }
 
-        return response.json();
+        return response?.json();
     }
 
     createForm(){

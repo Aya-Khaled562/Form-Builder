@@ -2,17 +2,15 @@ import FormBuilder from "../formbuilder.js";
 
 export default class PreviewFrom {
     #builder;
-    jsonData;
-    constructor(jsonData){
+    constructor(){
         this.#builder = null;
-        this.jsonData = jsonData;
     }
 
     initialize(){
         // console.log("Initializing in Preview")
-        // const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
+        const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
         // console.log('prevew dasta >>', jsonData);
-        this.#builder = new FormBuilder(this.jsonData, 'preview', 'form');
+        this.#builder = new FormBuilder(jsonData, 'preview', 'form');
 
         let copyHtmlBtn = document.getElementById('copyFormHtml');
         copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));

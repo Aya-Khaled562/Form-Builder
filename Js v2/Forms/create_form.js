@@ -280,7 +280,7 @@ export default class CreateForm {
     async handleSaveFormClick(e) {
         // console.log("builder.tosave: ", this.builder.toSaveSchema());
         // download(this.builder.toSaveSchema());
-        await this.pushForm(this.builder.toSaveSchema());
+        // await this.pushForm(this.builder.toSaveSchema());
         this.mode = 'preview';
         this.builder.setMode('preview');
 
@@ -288,14 +288,14 @@ export default class CreateForm {
         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
                     width=0,height=0,left=-1000,top=-1000`;
 
-        // localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        localStorage.setItem('formMode', 'preview');
+        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        // localStorage.setItem('formMode', 'preview');
 
 
         // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        sessionStorage.setItem('formMode', 'preview');
+        // sessionStorage.setItem('formMode', 'preview');
 
-        console.log('mode in handle save click', this.builder.getMode())
+        // console.log('mode in handle save click', this.builder.getMode())
         
         window.open('../pages/preview.html', 'preview', params);
     }
