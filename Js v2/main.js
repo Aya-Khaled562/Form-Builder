@@ -1,6 +1,6 @@
 import FormApp from "./form_app.js";
-import formAppSingleton from "./singleton.js";
-import {getJson} from "./Utils.js";
+// import formAppSingleton from "./Utilities/singleton.js";
+// import {getJson} from "./Utilities/Utils.js";
 
 // let jsonData = null;
 let mode = localStorage.getItem('formMode');
@@ -18,7 +18,8 @@ if (mode == null)
 // }
 
 const formApp = new FormApp(mode);
-// const start = formAppSingleton.getInstance(jsonData , mode);
+console.log('mode in start: ', mode);
+// const start = formAppSingleton.getInstance(mode);
 // start.factory();
 
 

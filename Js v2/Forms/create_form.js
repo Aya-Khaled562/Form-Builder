@@ -1,9 +1,10 @@
-import FormBuilder from "./formbuilder.js";
-import '/node_modules/jquery/dist/jquery.min.js'
-import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
-import {Types} from "./element.js";
-import {addAllEventsToElement, handleDragAndDrop} from "./ElementEventHandlers.js";
-import {createElementFactoryPropertiesObj, download, getJson} from "./Utils.js";
+import FormBuilder from "../formbuilder.js";
+// import '.../node_modules/jquery/dist/jquery.min.js';
+import '../../node_modules/jquery/dist/jquery.min.js';
+import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import {Types} from "../Element/element.js";
+import {addAllEventsToElement, handleDragAndDrop} from "../Utilities/ElementEventHandlers.js";
+import {createElementFactoryPropertiesObj,getJson} from "../Utilities/Utils.js";
 
 export default class CreateForm {
     jsonData;
@@ -274,22 +275,29 @@ export default class CreateForm {
         })
     }
 
+
+
     async handleSaveFormClick(e) {
         // console.log("builder.tosave: ", this.builder.toSaveSchema());
-        download(this.builder.toSaveSchema());
+        // download(this.builder.toSaveSchema());
         await this.pushForm(this.builder.toSaveSchema());
-//         this.mode = 'preview';
+        this.mode = 'preview';
+        this.builder.setMode('preview');
 
-//         let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
-// width=0,height=0,left=-1000,top=-1000`;
 
-//         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-//         window.open('../pages/preview.html', 'preview', params);
+        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+                    width=0,height=0,left=-1000,top=-1000`;
+
+        // localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        localStorage.setItem('formMode', 'preview');
 
 
         // sessionStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        // console.log('mode hh: ', this.builder.getMode())
-        // sessionStorage.setItem('formMode', 'preview');
+        sessionStorage.setItem('formMode', 'preview');
+
+        console.log('mode in handle save click', this.builder.getMode())
+        
+        window.open('../pages/preview.html', 'preview', params);
     }
 
     handleRemoveBtnClick(e){

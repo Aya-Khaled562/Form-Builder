@@ -33,6 +33,7 @@ export default class FormBuilder {
         this.#entity = entity;
         this.#json = json;
         this.#fields = [];
+        console.log('mode: formbuilder: ',mode );
         this.#platformFactory = this.createPlatformFactory(this.#platform);
         this.ElementContent();
     }
@@ -230,7 +231,6 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
-                console.log('elements: ', this.#elements);
                 document.getElementById(this.#parentId).innerHTML = this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
@@ -250,9 +250,7 @@ export default class FormBuilder {
 
     load() {
         const formTabs = this.#json.elements;
-        console.log('form tab: ', this.#json.elements)
         formTabs.forEach((tab) => {
-            console.log('tab in load', tab);
             tab.mode = this.#mode;
             const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
             tab.elements.forEach((tabColumn) => {
@@ -299,18 +297,9 @@ export default class FormBuilder {
     }
 
     build(type, obj) {
-        // console.log("mode in build", this.#mode)
-        // console.log('obj: ', obj);
         obj.mode = this.#mode;
-        // console.log('object in build method', obj)
         switch (type) {
             case 'tab':
-                // const tab = this.#platformFactory.createTab(obj);
-                // console.log('type content: ', obj)
-                // this.#elements.push(tab);
-                // this.addElementToMap(tab)
-                // return tab;
-
                 const tabTypeContent = this.#platformFactory.createTab(obj);
                 obj.typeContent = tabTypeContent;
                 obj.collapse = true;
@@ -320,10 +309,6 @@ export default class FormBuilder {
                 return tab;
 
             case 'section':
-                // const section = this.#platformFactory.createSection(obj);
-                // this.addElementToMap(section)
-                // return section;
-
                 const sectionTypeContent = this.#platformFactory.createSection(obj);
                 obj.typeContent = sectionTypeContent;
                 const section = new Element(obj);
@@ -331,18 +316,12 @@ export default class FormBuilder {
                 return section;
 
             case 'column':
-                // const column = this.#platformFactory.createColumn(obj);
-                // return column;
                 const columnTypeContent = this.#platformFactory.createColumn(obj);
                 obj.typeContent = columnTypeContent;
                 const column = new Element(obj);
                 return column;
 
             case 'single line of text':
-                // const text = this.#platformFactory.createSingleLineOfText(obj);
-                // this.addElementToMap(text);
-                // return text;
-
                 const textTypeContent = this.#platformFactory.createSingleLineOfText(obj);
                 obj.typeContent = textTypeContent;
                 const text = new Element(obj);
@@ -350,11 +329,6 @@ export default class FormBuilder {
                 return text;
 
             case 'option set':
-                // console.log('params', obj);
-                // const optionSet = this.#platformFactory.createOptionSet(obj);
-                // this.addElementToMap(optionSet)
-                // return optionSet;
-
                 const optionSetTypeContent = this.#platformFactory.createOptionSet(obj);
                 obj.typeContent = optionSetTypeContent;
                 const optionSet = new Element(obj);
@@ -362,10 +336,6 @@ export default class FormBuilder {
                 return optionSet;
 
             case 'two options':
-                // const twoOptions = this.#platformFactory.createTwoOptions(obj);
-                // this.addElementToMap(twoOptions)
-                // return twoOptions;
-
                 const twoOptionsTypeContent = this.#platformFactory.createTwoOptions(obj);
                 obj.typeContent = twoOptionsTypeContent;
                 const twoOptions = new Element(obj);
@@ -373,10 +343,6 @@ export default class FormBuilder {
                 return twoOptions;
 
             case 'decimal number':
-                // const decimalNumber = this.#platformFactory.createDecimalNumber(obj);
-                // this.addElementToMap(decimalNumber)
-                // return decimalNumber;
-
                 const decimalNumberTypeContent = this.#platformFactory.createDecimalNumber(obj);
                 obj.typeContent = decimalNumberTypeContent;
                 const decimalNumber = new Element(obj);
@@ -384,10 +350,6 @@ export default class FormBuilder {
                 return decimalNumber;
 
             case 'multiple line of text':
-                // const multipleLineOfText = this.#platformFactory.createMultipleLineOfText(obj);
-                // this.addElementToMap(multipleLineOfText)
-                // return multipleLineOfText;
-
                 const multipleLineOfTextTypeContent = this.#platformFactory.createMultipleLineOfText(obj);
                 obj.typeContent = multipleLineOfTextTypeContent;
                 const multipleLineOfText = new Element(obj);
@@ -395,10 +357,6 @@ export default class FormBuilder {
                 return multipleLineOfText;
 
             case 'date and time':
-                // const dateAndTime = this.#platformFactory.createDateAndTime(obj);
-                // this.addElementToMap(dateAndTime)
-                // return dateAndTime;
-
                 const dateAndTimeTypeContent = this.#platformFactory.createDateAndTime(obj);
                 obj.typeContent = dateAndTimeTypeContent;
                 const dateAndTime = new Element(obj);
@@ -433,7 +391,6 @@ export default class FormBuilder {
         })
 
         this.#entity.attributeSchemas.forEach(field => {
-            console.log('field', field)
             // if (field.active === true)
                 entityDesign += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
         });

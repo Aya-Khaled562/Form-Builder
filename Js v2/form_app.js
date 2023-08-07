@@ -1,7 +1,7 @@
 
-import CreateForm from "./create_form.js";
-import PreviewFrom from "./preview_form.js";
-import CustomForm from "./custom_form.js";
+import CreateForm from "./Forms/create_form.js";
+import PreviewFrom from "./Forms/preview_form.js";
+import CustomForm from "./Forms/custom_form.js";
 
 export let entityValues = {
     entity_name:"Employee",
@@ -51,6 +51,7 @@ export default class FormApp{
     mode
     entity;
     constructor(mode){
+        console.log('mode in form app constructor', mode);
         this.forms = [];
         this.targetFrom =  null;
         this.jsonData = null;
@@ -64,7 +65,7 @@ export default class FormApp{
         console.log('entity' , this.entity)
         let formasJson = await this.getJsonform(this.mode ,this.entity.entitySchemaId);
         this.jsonData = JSON.parse(formasJson.formJson)
-        console.log('jsonData' , this.jsonData )
+        
         switch(this.mode){
             case 'create':
             case 'update':
@@ -87,6 +88,7 @@ export default class FormApp{
     }
 
     async getJsonform(mode , enitityId){
+        console.log('mode in getJsonform function', mode)
         let response = null;
         switch(mode){
             case 'create':

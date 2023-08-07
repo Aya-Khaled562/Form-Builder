@@ -3,14 +3,14 @@ import FormApp from './form_app.js';
 const formAppSingleton = (function (){
 
     let instance ;
-    function createInstance(jsonData , mode){
-        return new FormApp(jsonData, mode);
+    function createInstance(mode){
+        return new FormApp(mode);
     }
     return {
-        getInstance: function(jsonData , mode){
+        getInstance: function(mode){
            
             if(!instance){
-                instance = createInstance(jsonData, mode);
+                instance = createInstance(mode);
             }
             return instance;
         }
