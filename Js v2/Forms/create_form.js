@@ -2,7 +2,7 @@ import FormBuilder from "../formbuilder.js";
 // import '.../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
-import {Types} from "../Element/element.js";
+import {Types , Categories} from "../Element/element.js";
 import {addAllEventsToElement, handleDragAndDrop} from "../Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj,download,getJson} from "../Utilities/Utils.js";
 
@@ -113,7 +113,7 @@ export default class CreateForm {
     handleModalShown(e) {
         console.log("modal is fired>>>>>>");
         let elementId = $('#exampleModal').attr('data-id');
-        console.log(elementId)
+        console.log('elementId in handleModal: ' , elementId);
         let element = this.builder.getElementFromMap(elementId)
     
         // display name input
@@ -121,58 +121,72 @@ export default class CreateForm {
                 <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Display Name</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
             </div>`);
-    
+
+        // display name of section in preview | custom 
+        if(element.TypeContent._type === Types.Section){
+            $('#exampleModal .modal-body').append(`<div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="checkboxId">
+            <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
+            </label>
+        </div>`);
+
+        }
         // number of columns input
-            if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
-                $('#exampleModal .modal-body').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
-    <label class="form-check-label" for="inlineRadio1">1</label>
-    </div>
-    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio2" value="2" ${element.getElements().length == 2 ? "checked" : ""}>
-    <label class="form-check-label" for="inlineRadio2">2</label>
-    </div>
-    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio3" value="3" ${element.getElements().length == 3 ? "checked" : ""}>
-    <label class="form-check-label" for="inlineRadio3">3</label>
-    </div>`);
-            }
-    
-        // required property input
-        $('#exampleModal .modal-body').append(`<div class="mb-3">
+        if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
+            $('#exampleModal .modal-body').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
+            <label class="form-check-label" for="inlineRadio1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio2" value="2" ${element.getElements().length == 2 ? "checked" : ""}>
+            <label class="form-check-label" for="inlineRadio2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio3" value="3" ${element.getElements().length == 3 ? "checked" : ""}>
+            <label class="form-check-label" for="inlineRadio3">3</label>
+            </div>`);
+        }
+
+        if(element.TypeContent._category === Categories.FormControl){
+        
+            // required property input
+            $('#exampleModal .modal-body').append(`<div class="mb-3">
                 <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
                 <select class="form-select" name="required" id="requiredPropertyControl">
-      <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
-      <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
-    </select>
+                    <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
+                    <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
+                </select>
             </div>`);
-    
-    
-        // read only property input
-        $('#exampleModal .modal-body').append(`<div class="mb-3">
+        
+        
+            // read only property input
+            $('#exampleModal .modal-body').append(`<div class="mb-3">
                 <label htmlFor="readonlyPropertyControl" id="readOnlyLabel" class="form-label">Read only</label>
                 <select class="form-select" name="readOnly" id="readonlyPropertyControl">
-      <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
-      <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
-    </select>
+                    <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
+                    <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
+                </select>
             </div>`);
-    
-    
-        // visible property input
-        $('#exampleModal .modal-body').append(`<div class="mb-3">
-                <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
-                <select class="form-select" name="visible" id="visiblePropertyControl">
-      <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
-      <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
-    </select>
+        
+        
+            // visible property input
+            $('#exampleModal .modal-body').append(`<div class="mb-3">
+                    <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
+                    <select class="form-select" name="visible" id="visiblePropertyControl">
+                    <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
+                    <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
+                </select>
             </div>`);
 
+        }
+    
+    
     }
 
 
     handleModalSave(e) {
         let elementId = $('#exampleModal').attr('data-id');
-        console.log('elementId: ' , elementId)
+        console.log('elementId skdjfk: ' , elementId)
         let element = this.builder.getElementFromMap(elementId)
 
         // display name
@@ -180,7 +194,17 @@ export default class CreateForm {
         if (displayName != undefined && displayName != null && displayName != "") {
             element.Name = displayName;
         }
+        if(element.TypeContent._type === Types.Section){
+            let isNameOfSectionChecked = $('#checkboxId').prop('checked')
+            console.log('isNameOfSectionChecked: ' , isNameOfSectionChecked)
+            if(isNameOfSectionChecked){
+                element.Visible = true
+            }else{
+                element.Visible = false 
+            }
 
+            console.log('section: ', element)
+        }
         // number of columns
         let columnsAdded = [];
         if (element.TypeContent._type == Types.Tab || element.TypeContent._type == Types.Section) {
@@ -304,8 +328,8 @@ export default class CreateForm {
 
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        // await this.pushForm(this.builder.toSaveSchema()); 
-        download(this.builder.toSaveSchema());
+        await this.pushForm(this.builder.toSaveSchema()); 
+        // download(this.builder.toSaveSchema());
 
         window.open('../../pages/customForm.html', '_blank');
     }

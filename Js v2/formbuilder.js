@@ -379,7 +379,7 @@ export default class FormBuilder {
         this.#elementsMap.forEach(element => {
             if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
                 let field = this.#entity.attributeSchemas.find(field => field.name === element.Id);
-                field.active = false;
+                // field.active = false;
             }
         })
         this.#entity.attributeSchemas.forEach(field => {

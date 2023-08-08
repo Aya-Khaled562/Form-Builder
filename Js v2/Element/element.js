@@ -39,7 +39,11 @@ export default class Element {
         this.mode = obj.mode ?? null;
         this.isRequired = obj.isRequired ?? false;
         this.readOnly = obj.readOnly ?? false;
-        this.visible = obj.visible ?? true;
+        if(this.typeContent._type === Types.Section){
+            this.visible = obj.visible ?? false;
+        }else{
+            this.visible = obj.visible ?? true;
+        }
         this.collapse = obj.collapse ?? false;
         this.value = obj.value;
         this.islocked = obj.isLocked ?? false;

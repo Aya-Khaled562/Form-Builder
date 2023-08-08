@@ -25,7 +25,7 @@ export default class CustomForm {
         return this.values;
     }
 
-    handleSaveBtn(param){
+     handleSaveBtn(param){
         return function handler(e){
             let dataObject = {}
             for(let i=0; i< param.builder.Fields.length; i++){
@@ -39,13 +39,20 @@ export default class CustomForm {
 
     pushDataIntoDB(data){
         data.departmentId = 3;
+        console.log('data: ', data);
         const response = fetch('http://localhost:5032/api/Employees',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        }).then(res => {
+            console.log('res : ' , res)
+        }).catch(err => {
+            console.log('err: ' , err)
         });
+        
+        
     }
 
 

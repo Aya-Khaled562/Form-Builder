@@ -2,6 +2,7 @@
 import CreateForm from "./Forms/create_form.js";
 import PreviewFrom from "./Forms/preview_form.js";
 import CustomForm from "./Forms/custom_form.js";
+import { download } from "./Utilities/Utils.js";
 
 export let entityValues = {
     entity_name:"Employee",
@@ -64,6 +65,7 @@ export default class FormApp{
         this.entity = await this.getEntity();
         console.log('entity' , this.entity)
         let formJson = await this.getJsonform(this.mode);
+        
         if(formJson){
             const formDefault = formJson[0]
             this.jsonData = JSON.parse(formDefault.fromJson)
@@ -94,10 +96,10 @@ export default class FormApp{
         let response = null;
         switch(mode){
             case 'create':
-                response = await fetch(`http://localhost:5032/api/EntityFroms?default`);
+                response = await fetch(`http://localhost:5032/api/EntityFroms?formName=default`);
                 break;
             case 'update':
-                response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/update`);
+                response = await fetch(`http://localhost:5032/api/EntityFroms?formName=update`);
                 break;
             // case 'preview':
             //     response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);

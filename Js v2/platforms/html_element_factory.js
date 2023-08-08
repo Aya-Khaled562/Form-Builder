@@ -27,7 +27,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} col" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                <label for="${obj.id}" class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <label for="${obj.id}" class="form-label col-2 " style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <input type="text" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
             </div>`
         );
@@ -167,6 +167,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
             `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" draggable="true" >
                 <div class="row row-section">
+                <h6 class="${!obj.visible ? 'd-none ' : ''}">${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`
