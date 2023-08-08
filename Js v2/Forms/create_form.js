@@ -58,9 +58,9 @@ export default class CreateForm {
 
     createColumnAndSection(builder ,tabCounter , coltabCounter, secCounter, colsecCounter , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass} py-1 my-1 `, 'border: 0px solid orange'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass}`, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1', 'border: 1px dashed #6d6e70'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -142,8 +142,8 @@ export default class CreateForm {
         $('#exampleModal .modal-body').append(`<div class="mb-3">
                 <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
                 <select class="form-select" name="required" id="requiredPropertyControl">
-      <option value="0" ${!element.Required ? `selected` : ''}>Optional</option>
-      <option value="1" ${element.Required ? `selected` : ''}>Required</option>
+      <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
+      <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
     </select>
             </div>`);
     
@@ -223,7 +223,7 @@ export default class CreateForm {
         // required property
         let requiredSelectElm = document.getElementById('requiredPropertyControl');
         if (requiredSelectElm) {
-            element.Required = requiredSelectElm.value == '0' ? false : true;
+            element.isRequired = requiredSelectElm.value == '0' ? false : true;
         }
 
 
@@ -304,8 +304,8 @@ export default class CreateForm {
 
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        await this.pushForm(this.builder.toSaveSchema()); 
-        // download(this.builder.toSaveSchema());
+        // await this.pushForm(this.builder.toSaveSchema()); 
+        download(this.builder.toSaveSchema());
 
         window.open('../../pages/customForm.html', '_blank');
     }

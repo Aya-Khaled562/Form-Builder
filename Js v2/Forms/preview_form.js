@@ -9,7 +9,7 @@ export default class PreviewFrom {
     initialize(){
         const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
         this.#builder = new FormBuilder(jsonData, 'preview', 'form');
-        let copyHtmlBtn = document.getElementById('copyFormHtml');
+        let copyHtmlBtn = document.getElementById('save');
         copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));
         
     }

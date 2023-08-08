@@ -400,9 +400,10 @@ export default class FormBuilder {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-                            // console.log('field', field)
+                            console.log('field in compare', field)
                             const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.name === field.Id);
-                            // console.log('feildFromEntity', feildFromEntity)
+                            console.log('feildFromEntity in compare', feildFromEntity)
+
                             const mergedObject = {};
                             const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
 
@@ -433,6 +434,7 @@ export default class FormBuilder {
     }
 
     toSaveSchema() {
+        console.log('elements: ', this.#elements)
         const compareResult =  this.compareEntityWithForm();
         console.log('compareResult: ',compareResult)
 
@@ -448,10 +450,10 @@ export default class FormBuilder {
     addPreviewEvents() {
         this.#elementsMap.forEach((el) => {
             let controlElm = document.getElementById(el.Id);
-
+            console.log('required element: ', el)
             //required
             if (el.TypeContent._category == Categories.FormControl) {
-                if (el.Required) {
+                if (el.isRequired) {
                     controlElm.addEventListener('blur', fieldIsRequired);
                 }
             }

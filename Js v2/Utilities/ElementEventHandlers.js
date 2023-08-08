@@ -82,7 +82,7 @@
                     name: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
                     value: value,
-                    required: formBuilder.targetField.isrequired
+                    isRequired: formBuilder.targetField.isRequired
                 }
 
                 formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);

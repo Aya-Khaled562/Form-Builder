@@ -125,8 +125,8 @@ export default class CreateForm {
         $('#exampleModal .modal-body').append(`<div class="mb-3">
                 <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
                 <select class="form-select" name="required" id="requiredPropertyControl">
-      <option value="0" ${!element.Required ? `selected` : ''}>Optional</option>
-      <option value="1" ${element.Required ? `selected` : ''}>Required</option>
+      <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
+      <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
     </select>
             </div>`);
     
@@ -206,7 +206,7 @@ export default class CreateForm {
         // required property
         let requiredSelectElm = document.getElementById('requiredPropertyControl');
         if (requiredSelectElm) {
-            element.Required = requiredSelectElm.value == '0' ? false : true;
+            element.isRequired = requiredSelectElm.value == '0' ? false : true;
         }
 
 

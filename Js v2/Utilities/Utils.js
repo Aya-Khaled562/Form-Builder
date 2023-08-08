@@ -34,7 +34,7 @@
                 customClass: arguments[0].CustomClass,
                 style: arguments[0].Style,
                 mode: arguments[0].Mode,
-                required: arguments[0].Required,
+                isRequired: arguments[0].isRequired,
                 value: arguments[0].Value,
                 optionsSetValues: arguments[0].OptionsSetValues,
                 visible: arguments[0].Visible,

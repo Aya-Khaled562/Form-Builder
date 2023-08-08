@@ -459,7 +459,8 @@ export default class FormBuilder {
 
             //required
             if (el.TypeContent._category == Categories.FormControl) {
-                if (el.Required) {
+                if (el.isRequired) {
+                    console.log('required element: ', el.name);
                     controlElm.addEventListener('blur', fieldIsRequired);
                 }
             }

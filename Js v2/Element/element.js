@@ -22,7 +22,7 @@ export default class Element {
     typeContent;
     mode;
     value;
-    required;
+    isRequired;
     readOnly;
     visible;
     elements = [];
@@ -37,7 +37,7 @@ export default class Element {
         this.style = obj.style ?? null;
         this.typeContent = obj.typeContent ?? null;
         this.mode = obj.mode ?? null;
-        this.required = obj.required ?? false;
+        this.isRequired = obj.isRequired ?? false;
         this.readOnly = obj.readOnly ?? false;
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? false;
@@ -59,11 +59,11 @@ export default class Element {
     }
 
     get Required() {
-        return this.required;
+        return this.isRequired;
     }
 
     set Required(value) {
-        this.required = value;
+        this.isRequired = value;
     }
 
     get ReadOnly() {
@@ -222,7 +222,7 @@ export default class Element {
                 style: this.style,
                 type: this.typeContent._type,
                 category: this.typeContent._category,
-                required: this.required,
+                isRequired: this.isRequired,
                 readOnly: this.readOnly,
                 visible: this.visible,
                 elements:  this.elements.map(e => e.toSaveSchema(mapObject))

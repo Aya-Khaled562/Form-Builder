@@ -7,7 +7,7 @@
       {
         "id": "tab_def",
         "name": "Tab",
-        "customClass": "col py-2",
+        "customClass": "py-2",
         "style": "border: 1px dashed #6d6e70",
         "type": "tab",
         "category": "layout",
@@ -23,7 +23,7 @@
               {
                 "id": "sec_def0",
                 "name": "Section1",
-                "customClass": "section",
+                "customClass": "section ms-2",
                 "style": "border: 1px dashed green;",
                 "type": "section",
                 "category": "layout",
