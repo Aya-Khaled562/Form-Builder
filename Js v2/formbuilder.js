@@ -254,7 +254,9 @@ export default class FormBuilder {
         const formTabs = this.#json.elements;
         formTabs.forEach((tab) => {
             tab.mode = this.#mode;
-            const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
+            // const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
+            const newTab = this.build(Types.Tab, tab); // need to be handled
+
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
                 const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));

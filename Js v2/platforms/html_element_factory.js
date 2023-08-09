@@ -27,7 +27,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} col" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                <label for="${obj.id}" class="form-label col-2 " style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <input type="text" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
             </div>`
         );
@@ -50,7 +50,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} col flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}"  draggable="true" >
-                <label class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <label class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
             </div>`
         );
@@ -73,7 +73,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} col flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" draggable="true" >
-                <label class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
+                <label class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
                 <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
             </div>`
         );
@@ -88,7 +88,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                        <label for="${obj.id}" class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                          <input type="number" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
                         </div>`
         );
@@ -103,7 +103,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" >
-                        <label for="${obj.id}" class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                          <textarea class="form-control " style=" width: 100%;" id="${obj.id}" rows="3"></textarea>
                         </div>`
         );
@@ -118,13 +118,14 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             `<div class="mb-3 d-flex flex-row align-items-center px-2 py-1 my-1 field  ${!obj.visible ? 'd-none ' : ''}">
-                        <label for="${obj.id}" class="form-label col-2" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                          <input type="date" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
                         </div>`
         );
     }
 
     createTab(obj) {
+        console.log('tab object', obj.showLabel);
         return  new TypeContent(
             'tab',
             'layout',
@@ -145,7 +146,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>
             `,
             `<div id="${obj.id}" class="tabArea1 mb-5">
-                <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
+                <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>
                 <div class="row tabArea2 my-2 ${obj.customClass} collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
@@ -167,7 +168,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
             `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" draggable="true" >
                 <div class="row row-section">
-                <h6 class="${!obj.visible ? 'd-none ' : ''}">${obj.name}</h6>
+                <h6 class="${!obj.showLabel ? 'd-none ' : ''}">${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`

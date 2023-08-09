@@ -29,6 +29,7 @@ export default class Element {
     optionsSetValues = null;
     collapse;
     islocked;
+    showLabel;
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -47,6 +48,8 @@ export default class Element {
         this.collapse = obj.collapse ?? false;
         this.value = obj.value;
         this.islocked = obj.isLocked ?? false;
+
+        this.showLabel = obj.showLabel ?? true;
     }
 
     get Collapse() {
@@ -228,6 +231,7 @@ export default class Element {
                 isRequired: this.isRequired,
                 readOnly: this.readOnly,
                 visible: this.visible,
+                showLabel: this.showLabel,
                 elements:  this.elements.map(e => e.toSaveSchema(mapObject))
             };
         }else{

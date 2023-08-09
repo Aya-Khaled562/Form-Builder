@@ -112,27 +112,74 @@ export default class CreateForm {
 
     handleModalShown(e) {
 
+
         console.log("modal is fired>>>>>>");
         let elementId = $('#exampleModal').attr('data-id');
         console.log('elementId in handleModal: ' , elementId);
         let element = this.builder.getElementFromMap(elementId)
     
-        // display name input
-        $('#exampleModal .modal-body #display').html(`<div class="mb-3">
-                <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Display Name</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
-            </div>`);
-    
-        // display name of section in preview | custom 
-        if(element.TypeContent._type === Types.Section){
-            $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="checkboxId">
-            <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
-            </label>
-        </div>`);
+        //#region display tab content
 
+            // label name input
+            $('#exampleModal .modal-body #display').html(`<div class="mb-3">
+            <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Label</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
+            </div>`);
+
+            // display name of section in preview | custom 
+            if(element.TypeContent._type === Types.Section)
+            {
+                $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="checkboxId">
+                <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
+                </label>
+                </div>`); 
+            }
+
+            // label show or not.
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" ${element.showLabel? 'checked': ''} id="labelShowCheckElm">
+                <label class="form-check-label" for="labelShowCheckElm">Display label on the form</label>
+            </div>`); 
+
+
+            
+        if(element.TypeContent._category === Categories.FormControl){
+            // required property input
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                    <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
+                    <select class="form-select" name="required" id="requiredPropertyControl">
+          <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
+          <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
+        </select>
+                </div>`);
+        
+        
+            // read only property input
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                    <label htmlFor="readonlyPropertyControl" id="readOnlyLabel" class="form-label">Read only</label>
+                    <select class="form-select" name="readOnly" id="readonlyPropertyControl">
+          <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
+          <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
+        </select>
+                </div>`);
+        
+        
+            // visible property input
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                    <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
+                    <select class="form-select" name="visible" id="visiblePropertyControl">
+          <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
+          <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
+        </select>
+                </div>`);
+    
         }
-        // number of columns input
+
+        //#endregion
+
+        //#region formating tab content
+                 // number of columns input
             if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
                 $('#exampleModal .modal-body #display').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
@@ -145,41 +192,12 @@ export default class CreateForm {
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio3" value="3" ${element.getElements().length == 3 ? "checked" : ""}>
     <label class="form-check-label" for="inlineRadio3">3</label>
-    </div>`);
-            }
+    </div>`); }
 
-        if(element.TypeContent._category === Categories.FormControl){
-    
-        // required property input
-        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
-                <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
-                <select class="form-select" name="required" id="requiredPropertyControl">
-      <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
-      <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
-    </select>
-            </div>`);
-    
-    
-        // read only property input
-        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
-                <label htmlFor="readonlyPropertyControl" id="readOnlyLabel" class="form-label">Read only</label>
-                <select class="form-select" name="readOnly" id="readonlyPropertyControl">
-      <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
-      <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
-    </select>
-            </div>`);
-    
-    
-        // visible property input
-        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
-                <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
-                <select class="form-select" name="visible" id="visiblePropertyControl">
-      <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
-      <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
-    </select>
-            </div>`);
+        //#endregion
 
-    }
+       
+
 
     /// hhere
     }
@@ -197,6 +215,15 @@ export default class CreateForm {
         if (displayName != undefined && displayName != null && displayName != "") {
             element.Name = displayName;
         }
+
+        // label show
+        let labelShowCheckElm = $('#labelShowCheckElm');
+        if (labelShowCheckElm.prop('checked')){
+            element.showLabel = true;
+        }else {
+            element.showLabel = false;
+        }
+
         if(element.TypeContent._type === Types.Section){
             let isNameOfSectionChecked = $('#checkboxId').prop('checked')
             console.log('isNameOfSectionChecked: ' , isNameOfSectionChecked)
