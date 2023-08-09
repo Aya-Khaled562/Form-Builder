@@ -159,4 +159,5 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             `<div id="${obj.id}" class="${obj.customClass}"> <!--content--></div>`
         );
     }
+
 }

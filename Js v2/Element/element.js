@@ -47,7 +47,6 @@ export default class Element {
         this.collapse = obj.collapse ?? false;
         this.value = obj.value;
         this.islocked = obj.isLocked ?? false;
-
     }
 
     get Collapse() {

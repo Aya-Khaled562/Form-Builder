@@ -12,4 +12,6 @@ export default class AbstractElementFactory {
 
     //new type
     createFileUpload(id, name, customClass, style, mode,isrequired , value) { throw new Error("Method not implemented"); }
+
+    buildContent(type, element){ throw new Error("Method not implemented"); }
 }

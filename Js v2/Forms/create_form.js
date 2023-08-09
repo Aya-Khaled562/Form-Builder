@@ -111,20 +111,21 @@ export default class CreateForm {
 
 
     handleModalShown(e) {
+
         console.log("modal is fired>>>>>>");
         let elementId = $('#exampleModal').attr('data-id');
         console.log('elementId in handleModal: ' , elementId);
         let element = this.builder.getElementFromMap(elementId)
     
         // display name input
-        $('#exampleModal .modal-body').html(`<div class="mb-3">
+        $('#exampleModal .modal-body #display').html(`<div class="mb-3">
                 <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Display Name</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
             </div>`);
-
+    
         // display name of section in preview | custom 
         if(element.TypeContent._type === Types.Section){
-            $('#exampleModal .modal-body').append(`<div class="mb-3 form-check">
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="checkboxId">
             <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
             </label>
@@ -132,61 +133,63 @@ export default class CreateForm {
 
         }
         // number of columns input
-        if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
-            $('#exampleModal .modal-body').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
-            <label class="form-check-label" for="inlineRadio1">1</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio2" value="2" ${element.getElements().length == 2 ? "checked" : ""}>
-            <label class="form-check-label" for="inlineRadio2">2</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio3" value="3" ${element.getElements().length == 3 ? "checked" : ""}>
-            <label class="form-check-label" for="inlineRadio3">3</label>
-            </div>`);
-        }
+            if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
+                $('#exampleModal .modal-body #display').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
+    <label class="form-check-label" for="inlineRadio1">1</label>
+    </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio2" value="2" ${element.getElements().length == 2 ? "checked" : ""}>
+    <label class="form-check-label" for="inlineRadio2">2</label>
+    </div>
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio3" value="3" ${element.getElements().length == 3 ? "checked" : ""}>
+    <label class="form-check-label" for="inlineRadio3">3</label>
+    </div>`);
+            }
 
         if(element.TypeContent._category === Categories.FormControl){
-        
-            // required property input
-            $('#exampleModal .modal-body').append(`<div class="mb-3">
+    
+        // required property input
+        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
                 <label htmlFor="requiredPropertyControl" id="requiredLabel" class="form-label">Required level</label>
                 <select class="form-select" name="required" id="requiredPropertyControl">
-                    <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
-                    <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
-                </select>
+      <option value="0" ${!element.isRequired ? `selected` : ''}>Optional</option>
+      <option value="1" ${element.isRequired ? `selected` : ''}>Required</option>
+    </select>
             </div>`);
-        
-        
-            // read only property input
-            $('#exampleModal .modal-body').append(`<div class="mb-3">
+    
+    
+        // read only property input
+        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
                 <label htmlFor="readonlyPropertyControl" id="readOnlyLabel" class="form-label">Read only</label>
                 <select class="form-select" name="readOnly" id="readonlyPropertyControl">
-                    <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
-                    <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
-                </select>
+      <option value="0" ${!element.ReadOnly ? `selected` : ''}>NO</option>
+      <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
+    </select>
             </div>`);
-        
-        
-            // visible property input
-            $('#exampleModal .modal-body').append(`<div class="mb-3">
-                    <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
-                    <select class="form-select" name="visible" id="visiblePropertyControl">
-                    <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
-                    <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
-                </select>
+    
+    
+        // visible property input
+        $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
+                <select class="form-select" name="visible" id="visiblePropertyControl">
+      <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
+      <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
+    </select>
             </div>`);
 
-        }
-    
-    
     }
+
+    /// hhere
+    }
+
+
 
 
     handleModalSave(e) {
         let elementId = $('#exampleModal').attr('data-id');
-        console.log('elementId skdjfk: ' , elementId)
+        //console.log('elementId skdjfk: ' , elementId)
         let element = this.builder.getElementFromMap(elementId)
 
         // display name
@@ -220,11 +223,11 @@ export default class CreateForm {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 1px solid orange;'))
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
                         let section = this.builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
@@ -233,7 +236,7 @@ export default class CreateForm {
                         this.builder.setSectionBeforRender(section);
                         this.builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px solid blue;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                     }
 
                     element.addElement(col);
@@ -264,14 +267,10 @@ export default class CreateForm {
             console.log('element visible', element)
         }
 
-        if (element.TypeContent._type == Types.Tab) {
-            element.TypeContent = this.builder.build(Types.Tab, createElementFactoryPropertiesObj(element.Id, element.Name, element.CustomClass, element.Style, element.Mode))
-                .TypeContent;
-        } else {
-            console.log('options on save model', element)
-            element.TypeContent = this.builder.build(element.TypeContent._type, createElementFactoryPropertiesObj(element))
-                .TypeContent;
-        }
+       
+        console.log('options on save model', element)
+        element.TypeContent = this.builder.getPlatformFactory().buildContent(element.TypeContent._type, element);
+       
 
 
         $(element.render()).insertAfter(`#${elementId}`);
@@ -328,7 +327,7 @@ export default class CreateForm {
 
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-        await this.pushForm(this.builder.toSaveSchema()); 
+         await this.pushForm(this.builder.toSaveSchema()); 
         // download(this.builder.toSaveSchema());
 
         window.open('../../pages/customForm.html', '_blank');

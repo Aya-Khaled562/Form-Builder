@@ -189,4 +189,33 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         );
     }
 
+    buildContent(type, element){
+        switch (type) {
+            case 'tab':
+                return this.createTab(element);
+
+            case 'section':
+                return this.createSection(element);
+             
+            case 'column':
+                return this.createColumn(element);
+            case 'single line of text':
+                return this.createSingleLineOfText(element);
+               
+            case 'option set':
+                return this.createOptionSet(element);
+
+            case 'two options':
+                return this.createTwoOptions(element);
+            case 'decimal number':
+                return this.createDecimalNumber(element);
+               
+            case 'multiple line of text':
+                return this.createMultipleLineOfText(element);
+              
+            case 'date and time':
+               return this.createDateAndTime(element);
+        }
+    }
+
 }
