@@ -113,11 +113,15 @@ export default class CreateForm {
     handleModalShown(e) {
 
 
+        //$(this).find('.nav a:first').tab('show');
+
+
         console.log("modal is fired>>>>>>");
         let elementId = $('#exampleModal').attr('data-id');
         console.log('elementId in handleModal: ' , elementId);
         let element = this.builder.getElementFromMap(elementId)
     
+
         //#region display tab content
 
             // label name input
@@ -126,21 +130,48 @@ export default class CreateForm {
             <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
             </div>`);
 
-            // display name of section in preview | custom 
-            if(element.TypeContent._type === Types.Section)
-            {
-                $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="checkboxId">
-                <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
-                </label>
-                </div>`); 
-            }
+            // // display name of section in preview | custom 
+            // if(element.TypeContent._type === Types.Section)
+            // {
+            //     $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
+            //     <input type="checkbox" class="form-check-input" id="checkboxId">
+            //     <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
+            //     </label>
+            //     </div>`); 
+            // }
 
             // label show or not.
             $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" ${element.showLabel? 'checked': ''} id="labelShowCheckElm">
                 <label class="form-check-label" for="labelShowCheckElm">Display label on the form</label>
             </div>`); 
+
+            // tab is expanded or not
+            if (element.TypeContent._type == Types.Tab){
+                $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" ${element.collapse? 'checked': ''} id="expandTabCheckElm">
+                    <label class="form-check-label" for="expandTabCheckElm">Expand this tab by default</label>
+                </div>`); 
+            }
+
+
+            // visible property input
+            $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+            <div>
+                 Specify the default visibility of this ${element.TypeContent._type == Types.Tab? 'tab': element.TypeContent._type == Types.Section? 'section' : 'control'}
+            </div>
+            <input type="checkbox" class="form-check-input" ${element.Visible? 'checked': ''} id="visiblePropertycheckElm">
+            <label class="form-check-label" for="visiblePropertycheckElm">Visible by default</label>
+            </div>`);
+
+    //         $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+    //             <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
+    //             <select class="form-select" name="visible" id="visiblePropertyControl">
+    //   <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
+    //   <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
+    // </select>
+    //         </div>`);
+           
 
 
             
@@ -164,16 +195,7 @@ export default class CreateForm {
         </select>
                 </div>`);
         
-        
-            // visible property input
-            $('#exampleModal .modal-body #display').append(`<div class="mb-3">
-                    <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
-                    <select class="form-select" name="visible" id="visiblePropertyControl">
-          <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
-          <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
-        </select>
-                </div>`);
-    
+               
         }
 
         //#endregion
@@ -181,7 +203,7 @@ export default class CreateForm {
         //#region formating tab content
                  // number of columns input
             if ([Types.Section, Types.Tab].includes(element.TypeContent._type)) {
-                $('#exampleModal .modal-body #display').append(`<div>Number of Columns:</div><div class="form-check form-check-inline">
+                $('#exampleModal .modal-body #formating').html(`<div>Number of Columns:</div><div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="numberOfColumnsOptions" id="inlineRadio1" value="1" ${element.getElements().length == 1 ? "checked" : ""}>
     <label class="form-check-label" for="inlineRadio1">1</label>
     </div>
@@ -194,6 +216,23 @@ export default class CreateForm {
     <label class="form-check-label" for="inlineRadio3">3</label>
     </div>`); }
 
+    if (element.TypeContent._type == Types.Section){
+        $('#exampleModal .modal-body #formating').append(`<div class="mt-3">Select field label position</div><div class="form-check">
+        <input class="form-check-input" type="radio" name="labelPositionSectionProp" value="side"  id="sidePosition" ${!element.labelPosition? 'checked': ''}>
+        <label class="form-check-label" for="sidePosition">
+        Side
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio"  name="labelPositionSectionProp" value="top" id="topPosition"  ${element.labelPosition? 'checked': ''}>
+        <label class="form-check-label" for="topPosition">
+        Top
+        </label>
+    </div>`);
+    }
+       
+
+                
         //#endregion
 
        
@@ -224,17 +263,30 @@ export default class CreateForm {
             element.showLabel = false;
         }
 
-        if(element.TypeContent._type === Types.Section){
-            let isNameOfSectionChecked = $('#checkboxId').prop('checked')
-            console.log('isNameOfSectionChecked: ' , isNameOfSectionChecked)
-            if(isNameOfSectionChecked){
-                element.Visible = true
-            }else{
-                element.Visible = false 
-            }
-
-            console.log('section: ', element)
+        // tab expand or not
+        let expandTabCheckElm = $('#expandTabCheckElm');
+        if (expandTabCheckElm){
+            element.collapse = expandTabCheckElm.prop('checked') ? true : false;
         }
+
+        // element visible or not
+        let visiblePropertycheckElm = $('#visiblePropertycheckElm');
+        console.log('visible chekc elment: ',visiblePropertycheckElm);
+        if (visiblePropertycheckElm){
+            element.Visible = visiblePropertycheckElm.prop('checked') ? true : false;
+        }
+
+        // if(element.TypeContent._type === Types.Section){
+        //     let isNameOfSectionChecked = $('#checkboxId').prop('checked')
+        //     console.log('isNameOfSectionChecked: ' , isNameOfSectionChecked)
+        //     if(isNameOfSectionChecked){
+        //         element.Visible = true
+        //     }else{
+        //         element.Visible = false 
+        //     }
+
+        //     console.log('section: ', element)
+        // }
         // number of columns
         let columnsAdded = [];
         if (element.TypeContent._type == Types.Tab || element.TypeContent._type == Types.Section) {
@@ -274,6 +326,22 @@ export default class CreateForm {
             }
         }
 
+        if (element.TypeContent._type == Types.Section){
+            let labelPositionSectionPropElm = $('input[name="labelPositionSectionProp"]:checked');
+            if (labelPositionSectionPropElm){
+                console.log('label position value',labelPositionSectionPropElm.val());
+                element.labelPosition = labelPositionSectionPropElm.val() == "side"? false : true;
+
+                element.getElements().forEach(col => {
+                    col.getElements().forEach(control => {
+                        console.log('control insde section pos', control);
+                        control.labelPosition = element.labelPosition;
+                        control.TypeContent = this.builder.getPlatformFactory().buildContent(control.TypeContent._type, control);
+                    })
+                })
+            }
+        }
+
         // required property
         let requiredSelectElm = document.getElementById('requiredPropertyControl');
         if (requiredSelectElm) {
@@ -287,18 +355,9 @@ export default class CreateForm {
             element.ReadOnly = readonlySelectElm.value == '0' ? false : true;
         }
 
-        // visible property
-        let visibleSelectElm = document.getElementById('visiblePropertyControl');
-        if (visibleSelectElm) {
-            element.Visible = visibleSelectElm.value == '0' ? false : true;
-            console.log('element visible', element)
-        }
-
-       
         console.log('options on save model', element)
         element.TypeContent = this.builder.getPlatformFactory().buildContent(element.TypeContent._type, element);
-       
-
+    
 
         $(element.render()).insertAfter(`#${elementId}`);
         $(`#${elementId}`).remove();
@@ -322,6 +381,7 @@ export default class CreateForm {
         });
 
         $('#exampleModal').modal('hide');
+       
 
     }
 

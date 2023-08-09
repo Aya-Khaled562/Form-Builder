@@ -30,6 +30,7 @@ export default class Element {
     collapse;
     islocked;
     showLabel;
+    labelPosition;
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -40,16 +41,18 @@ export default class Element {
         this.mode = obj.mode ?? null;
         this.isRequired = obj.isRequired ?? false;
         this.readOnly = obj.readOnly ?? false;
-        if(this.typeContent._type === Types.Section){
-            this.visible = obj.visible ?? false;
-        }else{
-            this.visible = obj.visible ?? true;
-        }
-        this.collapse = obj.collapse ?? false;
+        // if(this.typeContent._type === Types.Section){
+        //     this.visible = obj.visible ?? false;
+        // }else{
+        //     this.visible = obj.visible ?? true;
+        // }
+        this.visible = obj.visible ?? true;
+        this.collapse = obj.collapse ?? true;
         this.value = obj.value;
         this.islocked = obj.isLocked ?? false;
 
         this.showLabel = obj.showLabel ?? true;
+        this.labelPosition = obj.labelPosition ?? false;
     }
 
     get Collapse() {
@@ -232,6 +235,7 @@ export default class Element {
                 readOnly: this.readOnly,
                 visible: this.visible,
                 showLabel: this.showLabel,
+                labelPosition: this.labelPosition,
                 elements:  this.elements.map(e => e.toSaveSchema(mapObject))
             };
         }else{

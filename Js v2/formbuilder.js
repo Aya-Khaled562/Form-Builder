@@ -268,8 +268,12 @@ export default class FormBuilder {
                         const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
                         column.elements.forEach((control) => {
                             let formControl = null;
+                            control.labelPosition = section.labelPosition;
+
                             formControl = this.build(control.type, control);
+
                             this.#fields.push(formControl);
+                            
                             newSectionCol.addElement(formControl);
                         });
                         this.#columnsBeforRender.push(newSectionCol);
