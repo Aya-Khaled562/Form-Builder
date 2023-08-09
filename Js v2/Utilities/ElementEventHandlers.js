@@ -6,6 +6,10 @@
         
         $('button[id="display-tab"]').tab('show');
 
+        $('#formating').html('');
+        $('#display').html('');
+
+
         $('#exampleModal').attr('data-id', e.currentTarget.id);
 
         console.log('id modal fired', e.currentTarget.id)

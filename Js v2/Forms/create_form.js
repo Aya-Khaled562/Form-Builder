@@ -245,6 +245,7 @@ export default class CreateForm {
 
 
     handleModalSave(e) {
+
         let elementId = $('#exampleModal').attr('data-id');
         //console.log('elementId skdjfk: ' , elementId)
         let element = this.builder.getElementFromMap(elementId)
