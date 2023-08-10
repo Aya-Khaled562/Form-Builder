@@ -10,8 +10,8 @@ export default class AbstractElementFactory {
     createSection(obj) { throw new Error("Method not implemented"); }
     createColumn(obj) { throw new Error("Method not implemented"); }
 
-    //new type
     createFileUpload(obj) { throw new Error("Method not implemented"); }
+    createImage(obj) { throw new Error("Method not implemented"); }
 
     createEmail(obj) { throw new Error("Method not implemented"); }
     createPassword(obj){ throw new Error("Method not implemented"); }

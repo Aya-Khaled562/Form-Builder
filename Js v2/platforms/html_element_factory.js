@@ -18,6 +18,40 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     //     );
     // }
 
+    createFileUpload(obj) {
+        return new TypeContent(
+            'file upload',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div>
+                <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="file" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
+            </div>`
+        );
+    }
+
+    createImage(obj) {
+        return new TypeContent(
+            'image',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div>
+                <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="file" accept="image/*" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
+            </div>`
+        );
+    }
+
     createPhoneNumber(obj){
         return new TypeContent(
             'phone number',
@@ -70,11 +104,12 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createSingleLineOfText(obj) {
+        console.log('object in text', obj);
         return new TypeContent(
             'single line of text',
             'formControl',
             `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div>
@@ -222,7 +257,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'layout',
             `<div class="container-fluid container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
                 <div class="row row-section">
-                    <h6>${obj.name}</h6>
+                    <h6>${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""}${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`,
@@ -252,6 +287,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     buildContent(type, element){
+        console.log('element at build contet', element);
         switch (type) {
             case 'tab':
                 return this.createTab(element);
@@ -285,6 +321,12 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 return this.createPhoneNumber(element);
             case 'password':
                 return this.createPassword(element);
+
+            case 'file upload':
+                return this.createFileUpload(element);
+
+            case 'image':
+                return this.createImage(element);
         }
     }
 

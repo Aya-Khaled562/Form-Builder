@@ -381,6 +381,18 @@ export default class FormBuilder {
                 const phone = new Element(obj);
                 this.addElementToMap(phone);
                 return phone;
+
+            case 'file upload':
+                obj.typeContent = this.#platformFactory.createFileUpload(obj);
+                const file = new Element(obj);
+                this.addElementToMap(file);
+                return file;
+
+            case 'image':
+                obj.typeContent = this.#platformFactory.createImage(obj);
+                const image = new Element(obj);
+                this.addElementToMap(image);
+                return image;
         }
 
     }
@@ -485,7 +497,7 @@ export default class FormBuilder {
                 if (el.pattern){
                     controlElm.addEventListener('blur', validatePattern(el));
                 }
-                controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
+                //controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
                 
 
             }

@@ -340,3 +340,7 @@ display: flex;
             color: #cccccc;
             border: 1px solid #cccccc!important;
             padding-left: 2px;}
+
+.imgLock {
+    width: fit-content; 
+}

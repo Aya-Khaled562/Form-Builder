@@ -164,17 +164,20 @@ export default class CreateForm {
             <label class="form-check-label" for="visiblePropertycheckElm">Visible by default</label>
             </div>`);
 
-    //         $('#exampleModal .modal-body #display').append(`<div class="mb-3">
-    //             <label htmlFor="readonlyPropertyControl" id="visibleLabel" class="form-label">Visible Control</label>
-    //             <select class="form-select" name="visible" id="visiblePropertyControl">
-    //   <option value="0" ${!element.Visible ? `selected` : ''}>NO</option>
-    //   <option value="1" ${element.Visible ? `selected` : ''}>YES</option>
-    // </select>
-    //         </div>`);
+            if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl){
+                    // locked property
+                    $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                    <div>
+                        lock the ${element.TypeContent._type == Types.Section? 'section' : 'control'} on the form
+                    </div>
+                    <input type="checkbox" class="form-check-input" ${element.isLocked? 'checked': ''} id="isLockedPropertycheckElm">
+                    <label class="form-check-label" for="isLockedPropertycheckElm">Not locked by default</label>
+                    </div>`);
+
+            }
+           
            
 
-
-            
         if(element.TypeContent._category === Categories.FormControl){
             // required property input
             $('#exampleModal .modal-body #display').append(`<div class="mb-3">
@@ -288,17 +291,14 @@ export default class CreateForm {
             element.Visible = visiblePropertycheckElm.prop('checked') ? true : false;
         }
 
-        // if(element.TypeContent._type === Types.Section){
-        //     let isNameOfSectionChecked = $('#checkboxId').prop('checked')
-        //     console.log('isNameOfSectionChecked: ' , isNameOfSectionChecked)
-        //     if(isNameOfSectionChecked){
-        //         element.Visible = true
-        //     }else{
-        //         element.Visible = false 
-        //     }
 
-        //     console.log('section: ', element)
-        // }
+        let isLockedPropertycheckElm = $('#isLockedPropertycheckElm');
+        if (isLockedPropertycheckElm){
+            console.log('locked chekc elment: ',isLockedPropertycheckElm.prop('checked'));
+            element.isLocked = isLockedPropertycheckElm.prop('checked')? true : false ;
+        }
+
+        
         // number of columns
         let columnsAdded = [];
         if (element.TypeContent._type == Types.Tab || element.TypeContent._type == Types.Section) {
@@ -350,7 +350,7 @@ export default class CreateForm {
                 console.log('label position value',labelAlignmentSectionProp.val());
                 element.labelAlignment = labelAlignmentSectionProp.val() == "left"? false : true;
             }
-            
+
             element.getElements().forEach(col => {
                 col.getElements().forEach(control => {
                     console.log('control insde section pos', control);
@@ -442,6 +442,18 @@ export default class CreateForm {
     handleRemoveBtnClick(e){
         let curActiveElement = this.builder.getActiveElement();
         if (curActiveElement != null) {
+
+            if (curActiveElement.isRequired){
+                alert("This field is required on the form, you can't remove it.");
+                return;
+            }
+
+            if (curActiveElement.isLocked){
+                alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);
+                return;
+            }
+ 
+
             this.builder.removeElement(curActiveElement.Id);
             this.builder.getActiveElement().clearElements();
             document.getElementById(curActiveElement.Id).remove();

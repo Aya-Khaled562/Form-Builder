@@ -36,7 +36,7 @@ export default class Element {
     elements = [];
     optionsSetValues = null;
     collapse;
-    islocked;
+    isLocked;
     showLabel;
     labelPosition;
     labelAlignment;
@@ -60,7 +60,7 @@ export default class Element {
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? true;
         this.value = obj.value;
-        this.islocked = obj.isLocked ?? false;
+        this.isLocked = obj.isLocked ?? false;
 
         this.showLabel = obj.showLabel ?? true;
         this.labelPosition = obj.labelPosition ?? false;
