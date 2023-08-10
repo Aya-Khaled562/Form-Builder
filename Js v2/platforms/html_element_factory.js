@@ -7,28 +7,81 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     //     return new TypeContent(
     //         'single line of text',
     //         'formControl',
-    //         `<div class="${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+    //         `<div class="${obj.labelPosition? '' : ' flex-row '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
     //             <label class="col" style="width: 50%;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
     //             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
     //         </div>`,
-    //         `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+    //         `<div class="mb-3 ${obj.labelPosition? '' : ' flex-row '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
     //                     <label for="${obj.id}" class="form-label me-5">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
     //                      <input type="text" class="form-control" ${obj.readOnly ? `readonly` : ""}  style=" width: 50%;" id="${obj.id}">
     //                     </div>`
     //     );
     // }
 
+    createPhoneNumber(obj){
+        return new TypeContent(
+            'phone number',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="tel" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
+            </div>
+            `
+        );
+    }
+
+    createPassword(obj){
+        return new TypeContent(
+            'password',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="password" class="form-control col" style=" width: 100%; display:block;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
+            </div>`
+        );
+    }
+    createEmail(obj){
+        return new TypeContent(
+            'email',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': 'align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="email" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
+            </div>`
+        );
+    }
+
     createSingleLineOfText(obj) {
         return new TypeContent(
             'single line of text',
             'formControl',
-            `<div class=" ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-                <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                <div class="${obj.customClass} col" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
-            `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '}  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                <input type="text" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+            `<div>
+                <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="text" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                </div>
             </div>`
         );
     }
@@ -45,12 +98,12 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'option set',
             'formControl',
-            `<div class="${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-                <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                <div class="${obj.customClass} col flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            `<div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'} flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
-            `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}"  draggable="true" >
-                <label class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            `<div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}"  draggable="true" >
+                <label class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
             </div>`
         );
@@ -68,14 +121,16 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'two options',
             'formControl',
-            `<div class="${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-                <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
-                <div class="${obj.customClass} col flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            `<div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
-            `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" draggable="true" >
-                <label class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
-                <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
-            </div>`
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" draggable="true" >
+                    <label class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
+                    <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
+                </div>
+            <div>`
         );
     }
 
@@ -83,14 +138,16 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'decimal number',
             'formControl',
-            `<div class="${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-            <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
+            `<div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+            <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                         <input type="number" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
-                        </div>`
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="*-" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
+                </div>
+            </div>`
         );
     }
 
@@ -98,14 +155,16 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return  new TypeContent(
             'multiple line of text',
             'formControl',
-            `<div class=" ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-            <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-            <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+            <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="mb-3  ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" >
-                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                         <textarea class="form-control " style=" width: 100%;" id="${obj.id}" rows="3"></textarea>
-                        </div>`
+            `<div>
+                <div class="mb-3  d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" >
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <textarea class="form-control " style=" width: 100%;" id="${obj.id}" rows="3"></textarea>
+                </div>
+            </div>`
         );
     }
 
@@ -113,14 +172,16 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return new TypeContent(
             'date and time',
             'formControl',
-            `<div class="${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-            <label class="col-4" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            `<div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+            <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
-            `<div class="mb-3 ${obj.labelPosition? '' : ' d-flex align-items-center '} px-2 py-1 my-1 field  ${!obj.visible ? 'd-none ' : ''}">
-                        <label for="${obj.id}" class="form-label col-2 ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                         <input type="date" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
-                        </div>`
+            `<div>
+                <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field  ${!obj.visible ? 'd-none ' : ''}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="date" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
+                </div>
+            </div>`
         );
     }
 
@@ -149,7 +210,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>
-                <div class="row tabArea2 my-2 ${obj.customClass} collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
+                <div class="row tabArea2 my-2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
             `
         );
   
@@ -216,6 +277,14 @@ export default class HtmlElementFactory extends AbstractElementFactory {
               
             case 'date and time':
                return this.createDateAndTime(element);
+            
+            case 'email':
+                return this.createEmail(element);
+
+            case 'phone number':
+                return this.createPhoneNumber(element);
+            case 'password':
+                return this.createPassword(element);
         }
     }
 

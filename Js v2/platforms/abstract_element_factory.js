@@ -1,17 +1,21 @@
 
 export default class AbstractElementFactory {
-    createSingleLineOfText(id, name, customClass, style, mode,isrequired , value) { throw new Error("Method not implemented"); }
-    createOptionSet(id, name, customClass, style, mode,isrequired, options) { throw new Error("Method not implemented"); }
-    createTwoOptions(id, name, customClass, style, mode,isrequired, options) { throw new Error("Method not implemented"); }
-    createDecimalNumber(id, name, customClass, style, mode,isrequired , value) { throw new Error ("Method not implemented"); }
-    createMultipleLineOfText(id, name, customClass, style, mode,isrequired , value) { throw new Error("Method not implemented"); }
-    createDateAndTime(id, name, customClass, style, mode,isrequired , value) { throw new Error ("Method not implemented"); }
-    createTab(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
-    createSection(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
-    createColumn(id, name, customClass, style, mode, numOfCols) { throw new Error("Method not implemented"); }
+    createSingleLineOfText(obj) { throw new Error("Method not implemented"); }
+    createOptionSet(obj) { throw new Error("Method not implemented"); }
+    createTwoOptions(obj) { throw new Error("Method not implemented"); }
+    createDecimalNumber(obj) { throw new Error ("Method not implemented"); }
+    createMultipleLineOfText(obj) { throw new Error("Method not implemented"); }
+    createDateAndTime(obj) { throw new Error ("Method not implemented"); }
+    createTab(obj) { throw new Error("Method not implemented"); }
+    createSection(obj) { throw new Error("Method not implemented"); }
+    createColumn(obj) { throw new Error("Method not implemented"); }
 
     //new type
-    createFileUpload(id, name, customClass, style, mode,isrequired , value) { throw new Error("Method not implemented"); }
+    createFileUpload(obj) { throw new Error("Method not implemented"); }
+
+    createEmail(obj) { throw new Error("Method not implemented"); }
+    createPassword(obj){ throw new Error("Method not implemented"); }
+    createPhoneNumber(obj) { throw new Error("Method not implemented"); }
 
     buildContent(type, element){ throw new Error("Method not implemented"); }
 }

@@ -20,16 +20,66 @@
     export function fieldIsRequired(e) {
         let inputValue = e.target.value;
 
-        let requiredFeedbackElm = e.target.parentElement.querySelector('.required');
+        let requiredFeedbackElm = e.target.parentElement.parentElement.querySelector('.required');
         if (inputValue.trim().length == 0) {
             if (!requiredFeedbackElm)
-                $(`<div class="required text-danger" >This field is required</div>`).insertAfter(e.target)
+                $(`<div class="required ms-5 text-danger" >This field is required</div>`).insertAfter(e.target.parentElement)
             e.target.focus();
         } else {
             if (requiredFeedbackElm)
-                e.target.parentElement.querySelector('.required').remove();
+                e.target.parentElement.parentElement.querySelector('.required').remove();
         }
     }
+
+    export function fieldMaxAndMinLen(element) {
+        return function (e){
+
+            let minLen = 3;
+            let maxLen = 10000;
+
+            if (element.minLen != null){
+                minLen = element.minLen;
+            }
+
+            if (element.maxLen != null){
+                maxLen = element.maxLen;
+            }
+
+            console.log('element at handler', element);
+            console.log('max and min', maxLen, minLen);
+            let inputValue = e.target.value;
+    
+            let lengthFeedbackElm = e.target.parentElement.parentElement.querySelector('.length-feedback');
+            if (inputValue.trim().length < minLen || inputValue.trim().length > maxLen) {
+                if (!lengthFeedbackElm)
+                    $(`<div class="length-feedback ms-5 text-danger" >This field length must between ${minLen} and ${maxLen}</div>`).insertAfter(e.target.parentElement)
+                e.target.focus();
+            } else {
+                if (lengthFeedbackElm)
+                    e.target.parentElement.parentElement.querySelector('.length-feedback').remove();
+            }
+        }
+    }
+
+    export function validatePattern(element) {
+        return function (e){
+
+            let pattern = element.pattern;
+
+            let inputValue = e.target.value;
+    
+            let patternFeebackElm = e.target.parentElement.querySelector('.pattern-feedback');
+            if (!pattern.test(inputValue)) {
+                if (!patternFeebackElm)
+                    $(`<div class="pattern-feedback text-danger" >pattern feedback</div>`).insertAfter(e.target)
+                e.target.focus();
+            } else {
+                if (patternFeebackElm)
+                    e.target.parentElement.querySelector('.pattern-feedback').remove();
+            }
+        }
+    }
+    
 
     export function selectElement(formBuilder) {
         return function (e) {
@@ -89,7 +139,10 @@
                     name: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
                     value: value,
-                    isRequired: formBuilder.targetField.isRequired
+                    isRequired: formBuilder.targetField.isRequired,
+                    minLen: formBuilder.targetField.minLen,
+                    maxLen: formBuilder.targetField.maxLen,
+                    pattern: formBuilder.targetField.pattern
                 }
 
                 formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);

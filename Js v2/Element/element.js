@@ -9,7 +9,15 @@ export const Types = {
     DecimalNumber: 'decimal number',
     MultipleLineOfText: 'multiple line of text',
     DateAndTime: 'date and time',
-    FileUpload: 'file upload'
+    FileUpload: 'file upload',
+    Password: 'password',
+    Radio: 'radio button',
+    Checkbox: 'checkbox button',
+    Email: 'email',
+    PhoneNumber: 'phone number',
+    Image: 'image',
+    Currency: 'currency',
+    WholeNumber: 'whole number'
 };
 
 export const Categories = {Layout: "layout", FormControl: "formControl"};
@@ -31,6 +39,9 @@ export default class Element {
     islocked;
     showLabel;
     labelPosition;
+    labelAlignment;
+    maxLen;
+    minLen;
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -53,6 +64,11 @@ export default class Element {
 
         this.showLabel = obj.showLabel ?? true;
         this.labelPosition = obj.labelPosition ?? false;
+        this.minLen = obj.minLen ?? null;
+        this.maxLen = obj.maxLen ?? null;
+
+        this.pattern = obj.pattern ?? null;
+        this.labelAlignment = obj.labelAlignment ?? null;
     }
 
     get Collapse() {
@@ -236,9 +252,13 @@ export default class Element {
                 visible: this.visible,
                 showLabel: this.showLabel,
                 labelPosition: this.labelPosition,
-                elements:  this.elements.map(e => e.toSaveSchema(mapObject))
+                minLen: this.minLen,
+                maxLen: this.maxLen,
+                pattern: this.pattern,
+                elements: this.elements.map(e => e.toSaveSchema(mapObject))
             };
         }else{
+            console.log('to schema elment', this);
             objectSchema = target;
         }
 

@@ -1,7 +1,7 @@
 import AndroidElementFactory from "./platforms/android_element_factory.js";
 import {Categories, Types} from "./Element/element.js";
 import HtmlElementFactory from "./platforms/html_element_factory.js";
-import {addAllEventsToElement, fieldIsRequired} from "./Utilities/ElementEventHandlers.js";
+import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern} from "./Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj} from "./Utilities/Utils.js";
 import Element from "./Element/element.js";
 
@@ -365,6 +365,22 @@ export default class FormBuilder {
                 const dateAndTime = new Element(obj);
                 this.addElementToMap(dateAndTime)
                 return dateAndTime;
+            case 'email': 
+                obj.typeContent =  this.#platformFactory.createEmail(obj);;
+                const email = new Element(obj);
+                this.addElementToMap(email)
+                 return email;
+            case 'password':
+                obj.typeContent = this.#platformFactory.createPassword(obj);
+                const password = new Element(obj);
+                this.addElementToMap(password);
+                return password;
+
+            case 'phone number':
+                obj.typeContent = this.#platformFactory.createPhoneNumber(obj);
+                const phone = new Element(obj);
+                this.addElementToMap(phone);
+                return phone;
         }
 
     }
@@ -459,11 +475,19 @@ export default class FormBuilder {
         this.#elementsMap.forEach((el) => {
             let controlElm = document.getElementById(el.Id);
             console.log('required element: ', el)
-            //required
+
+           
             if (el.TypeContent._category == Categories.FormControl) {
                 if (el.isRequired) {
                     controlElm.addEventListener('blur', fieldIsRequired);
                 }
+
+                if (el.pattern){
+                    controlElm.addEventListener('blur', validatePattern(el));
+                }
+                controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
+                
+
             }
 
             // if (el.TypeContent._type == Types.Tab){

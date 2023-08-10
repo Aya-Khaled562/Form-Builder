@@ -217,6 +217,8 @@ export default class CreateForm {
     </div>`); }
 
     if (element.TypeContent._type == Types.Section){
+
+        // control positon
         $('#exampleModal .modal-body #formating').append(`<div class="mt-3">Select field label position</div><div class="form-check">
         <input class="form-check-input" type="radio" name="labelPositionSectionProp" value="side"  id="sidePosition" ${!element.labelPosition? 'checked': ''}>
         <label class="form-check-label" for="sidePosition">
@@ -229,16 +231,25 @@ export default class CreateForm {
         Top
         </label>
     </div>`);
-    }
-       
 
-                
+        // label alignment
+        $('#exampleModal .modal-body #formating').append(`<div class="mt-3">Select field label alignment</div><div class="form-check">
+        <input class="form-check-input" type="radio" name="labelAlignmentSectionProp" value="left"  id="leftAlignment" ${!element.labelAlignment? 'checked': ''}>
+        <label class="form-check-label" for="leftAlignment">
+        Left
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio"  name="labelAlignmentSectionProp" value="right" id="rightAlignment"  ${element.labelAlignment? 'checked': ''}>
+        <label class="form-check-label" for="rightAlignment">
+        Right
+        </label>
+    </div>`);
+
+    }
+    
         //#endregion
 
-       
-
-
-    /// hhere
     }
 
 
@@ -332,15 +343,22 @@ export default class CreateForm {
             if (labelPositionSectionPropElm){
                 console.log('label position value',labelPositionSectionPropElm.val());
                 element.labelPosition = labelPositionSectionPropElm.val() == "side"? false : true;
-
-                element.getElements().forEach(col => {
-                    col.getElements().forEach(control => {
-                        console.log('control insde section pos', control);
-                        control.labelPosition = element.labelPosition;
-                        control.TypeContent = this.builder.getPlatformFactory().buildContent(control.TypeContent._type, control);
-                    })
-                })
             }
+
+            let labelAlignmentSectionProp = $('input[name="labelAlignmentSectionProp"]:checked');
+            if (labelAlignmentSectionProp){
+                console.log('label position value',labelAlignmentSectionProp.val());
+                element.labelAlignment = labelAlignmentSectionProp.val() == "left"? false : true;
+            }
+            
+            element.getElements().forEach(col => {
+                col.getElements().forEach(control => {
+                    console.log('control insde section pos', control);
+                    control.labelPosition = element.labelPosition;
+                    control.labelAlignment = element.labelAlignment;
+                    control.TypeContent = this.builder.getPlatformFactory().buildContent(control.TypeContent._type, control);
+                });
+            });
         }
 
         // required property
