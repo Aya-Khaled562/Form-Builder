@@ -262,8 +262,8 @@ export default class FormBuilder {
             case 'preview':
             case 'custom':
                 this.load();
-                console.log('after loading at prievew');
-                console.log(this.#elements);
+                // console.log('after loading at prievew');
+                // console.log(this.#elements);
                 document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
                 this.addPreviewEvents();
                 break;
@@ -304,6 +304,7 @@ export default class FormBuilder {
 
     load() {
         const formTabs = this.#json.elements;
+        console.log('formTabs', formTabs);
         formTabs.forEach((tab) => {
             tab.mode = this.#mode;
             // const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
@@ -315,28 +316,39 @@ export default class FormBuilder {
                 // tabColumn.customClass = 'coltab col py-1 my-1 mx-1';
                 // const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
                 const newTabCol = this.build(Types.Column, tabColumn);
-
+                console.log('2) colTab : ' , newTab);
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
-                    const newSection = this.build(Types.Section,section);                    
+                    const newSection = this.build(Types.Section,section); 
+                    console.log('3) section: ' , newSection);                   
                     section.elements.forEach((column) => {
-                        column.mode = column;
-                        const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
+                        // column.mode = column;
+                        column.mode =  this.#mode;
+                        // const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
+                        const newSectionCol = this.build(Types.Column,column);
+                        console.log('4) columnSection : ' , newSectionCol);
+                        
+
+
                         column.elements.forEach((control) => {
                             let formControl = null;
-                            control.labelPosition = section.labelPosition;
-                            
-                            console.log('control to create', control);
-
+                            // control.labelPosition = section.labelPosition;
                             formControl = this.build(control.type, control);
-                            console.log('form control', formControl);
+                            console.log('5) control ', formControl);
+                            // console.log('form control', formControl);
                             this.#fields.push(formControl);
                             
                             newSectionCol.addElement(formControl);
+                            console.log('------------------------');
+                        
                         });
+
+
+
                         this.#columnsBeforRender.push(newSectionCol);
                         newSection.addElement(newSectionCol);
                     });
+                    
                     this.#sectionsBeforRender.push(newSection);
                     newTabCol.addElement(newSection);
                 });
@@ -344,6 +356,7 @@ export default class FormBuilder {
                 newTab.addElement(newTabCol);
             });
         });
+        console.log('elements after loading', this.#elements);
     }
 
     addDesignContent() {

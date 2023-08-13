@@ -129,7 +129,7 @@
         ]
       },
       {
-        "id": "2610f2df-704a-4756-9aee-bc93c03bd2d2",
+        "id": "c3eeb26e-5e8d-442e-9693-78c7c22e0b9c",
         "name": "Tab",
         "customClass": "py-2",
         "style": "border: 1px dashed #6d6e70",
@@ -145,9 +145,9 @@
         "pattern": null,
         "elements": [
           {
-            "id": "cf8d5c5c-2c8e-4c19-9300-afeb592113ae",
+            "id": "db227285-06c3-461f-827b-e4e1ce3482bf",
             "name": "Column_Tab",
-            "customClass": "coltab col col-3",
+            "customClass": "coltab col-4",
             "style": "border: 0px solid orange",
             "type": "column",
             "category": "layout",
@@ -161,7 +161,7 @@
             "pattern": null,
             "elements": [
               {
-                "id": "7ddd4d83-13fa-4295-a0c2-718b27976a19",
+                "id": "8f2202f6-6662-4025-9f0e-705f0d3b1f62",
                 "name": "Section",
                 "customClass": " section",
                 "style": "border: 1px dashed green;",
@@ -177,7 +177,7 @@
                 "pattern": null,
                 "elements": [
                   {
-                    "id": "0f5ec05f-e5e0-41fe-986a-608db838de1b",
+                    "id": "ab2e7fab-4536-4eec-8da1-8d884ff47ebb",
                     "name": "Column_Section",
                     "customClass": "colsec col py-2 my-1",
                     "style": "border: 1px dashed #6d6e70",
@@ -228,9 +228,9 @@
             ]
           },
           {
-            "id": "27bb78cf-2abc-4604-94c3-00f814218482",
+            "id": "f60a85b5-d789-47db-9df6-79aa07addecb",
             "name": "Column_Tab",
-            "customClass": "coltab col col-5 ",
+            "customClass": "coltab col-7 ",
             "style": "border: 0px solid orange",
             "type": "column",
             "category": "layout",
@@ -244,7 +244,7 @@
             "pattern": null,
             "elements": [
               {
-                "id": "26136b60-3dac-4d83-8448-34f04f1944ac",
+                "id": "e9c1ed5b-6035-42c5-b429-000decf26f22",
                 "name": "Section",
                 "customClass": " section",
                 "style": "border: 1px dashed green;",
@@ -260,7 +260,7 @@
                 "pattern": null,
                 "elements": [
                   {
-                    "id": "2a28f05c-073c-4d45-9f9c-479bf4cdf7c0",
+                    "id": "a1c91078-c92e-4b47-92fc-a8b233cae251",
                     "name": "Column_Section",
                     "customClass": "colsec col py-2 my-1",
                     "style": "border: 1px dashed #6d6e70",
@@ -300,90 +300,6 @@
                         "displayName": "Last Name",
                         "searchable": false,
                         "type": "single line of text"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "6d164935-ffaa-4ae6-bf6b-06bbca713843",
-            "name": "Column_Tab",
-            "customClass": "coltab col col-3 ",
-            "style": "border: 0px solid orange",
-            "type": "column",
-            "category": "layout",
-            "isRequired": false,
-            "readOnly": false,
-            "visible": true,
-            "showLabel": true,
-            "labelPosition": false,
-            "minLen": null,
-            "maxLen": null,
-            "pattern": null,
-            "elements": [
-              {
-                "id": "eff512a1-d67b-4d39-948f-ecbf8ed591f4",
-                "name": "Section",
-                "customClass": " section",
-                "style": "border: 1px dashed green;",
-                "type": "section",
-                "category": "layout",
-                "isRequired": false,
-                "readOnly": false,
-                "visible": true,
-                "showLabel": true,
-                "labelPosition": false,
-                "minLen": null,
-                "maxLen": null,
-                "pattern": null,
-                "elements": [
-                  {
-                    "id": "87c9239f-6c64-4bb7-9080-422a5899607a",
-                    "name": "Column_Section",
-                    "customClass": "colsec col py-2 my-1",
-                    "style": "border: 1px dashed #6d6e70",
-                    "type": "column",
-                    "category": "layout",
-                    "isRequired": false,
-                    "readOnly": false,
-                    "visible": true,
-                    "showLabel": true,
-                    "labelPosition": false,
-                    "minLen": null,
-                    "maxLen": null,
-                    "pattern": null,
-                    "elements": [
-                      {
-                        "id": "b8e677b6-39bd-11ee-be56-0242ac120002",
-                        "name": "Social Status",
-                        "customClass": "py-3",
-                        "style": "border: 1px dashed #6d6e70",
-                        "value": {
-                          "id": "",
-                          "type": "option set",
-                          "source": {
-                            "Divorced": "2",
-                            "Married": "3",
-                            "Single": "1"
-                          }
-                        },
-                        "isRequired": false,
-                        "readOnly": false,
-                        "visible": true,
-                        "optionsSetValues": null,
-                        "collapse": true,
-                        "isLocked": false,
-                        "showLabel": true,
-                        "labelPosition": false,
-                        "labelAlignment": null,
-                        "maxLen": null,
-                        "minLen": null,
-                        "pattern": null,
-                        "displayName": "Social Status",
-                        "searchable": false,
-                        "type": "option set"
                       }
                     ]
                   }

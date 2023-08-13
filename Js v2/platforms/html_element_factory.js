@@ -104,7 +104,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createSingleLineOfText(obj) {
-        console.log('object in text', obj);
+        // console.log('object in text', obj);
         return new TypeContent(
             'single line of text',
             'formControl',
@@ -220,7 +220,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     }
 
     createTab(obj) {
-        console.log('tab object', obj.showLabel);
         return  new TypeContent(
             'tab',
             'layout',
