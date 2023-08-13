@@ -433,19 +433,21 @@ export default class CreateForm {
     }
 
     async handleSave(){
-        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        // localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         if(this.toggler === false){
             // await this.pushForm(this.builder.toSaveSchema());
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
-            download(this.builder.toSaveSchema());
+            // download(this.builder.toSaveSchema());
+        this.toggler = !this.toggler;
+
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
             let targetFormId = form[form.length-1].id;
             await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT');
         }
-        this.toggler = !this.toggler;
-        window.open('../../pages/customForm.html', '_blank');
+        // this.toggler = !this.toggler;
+        // window.open('../../pages/customForm.html', '_blank');
 
     }
     
@@ -483,7 +485,7 @@ export default class CreateForm {
 
             if (isThereElementRequired){
                 alert("This field is required on the form, you can't remove it.");
-                 return;
+                return;
             }
 
 

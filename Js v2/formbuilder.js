@@ -35,7 +35,7 @@ export default class FormBuilder {
         this.#entity = entity;
         this.#json = json;
         this.#fields = [];
-        console.log('mode: formbuilder: ',mode );
+        // console.log('mode: formbuilder: ',mode );
         this.#platformFactory = this.createPlatformFactory(this.#platform);
         this.ElementContent();
     }
@@ -186,9 +186,9 @@ export default class FormBuilder {
             targetId = target.Id;
         } else {
             const targetTab = this.#elements[this.#elements.length - 1];
-            console.log('target tab: ', targetTab)
+            // console.log('target tab: ', targetTab)
             const targetCol = targetTab.getElementByIndex(0);
-            console.log('target col: ', targetCol);
+            // console.log('target col: ', targetCol);
             targetCol.addElement(section);
             targetId = targetCol.Id;
         }
@@ -220,7 +220,7 @@ export default class FormBuilder {
               tabElement.style.borderColor = 'green';
           }
         });
-        console.log('active', this.#activeElement);
+        // console.log('active', this.#activeElement);
     }
 
     getFeildBeforeRender(id){
@@ -232,7 +232,7 @@ export default class FormBuilder {
                 })
             })
         });
-        console.log('oldfields func', oldfields);
+        // console.log('oldfields func', oldfields);
         return oldfields.find(field => field.Id === id);
     }
 
@@ -251,7 +251,7 @@ export default class FormBuilder {
                     this.drawRequiredFields();
                 }
 
-                console.log('elements after push required fields: ', this.#elements);
+                // console.log('elements after push required fields: ', this.#elements);
 
                 document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
 
@@ -295,7 +295,7 @@ export default class FormBuilder {
                             colsec.addElement(fieldElement);
                             this.addElementToMap(fieldElement)
                         });
-                        console.log('colsec', colsec);
+                        // console.log('colsec', colsec);
                     });
                 });
             });
@@ -304,29 +304,29 @@ export default class FormBuilder {
 
     load() {
         const formTabs = this.#json.elements;
-        console.log('formTabs', formTabs);
+        // console.log('formTabs', formTabs);
         formTabs.forEach((tab) => {
             tab.mode = this.#mode;
             // const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
             const newTab = this.build(Types.Tab, tab); // need to be handled
-            console.log('1 tab: ', newTab);
+            // console.log('1 tab: ', newTab);
 
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
                 // tabColumn.customClass = 'coltab col py-1 my-1 mx-1';
                 // const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
                 const newTabCol = this.build(Types.Column, tabColumn);
-                console.log('2) colTab : ' , newTab);
+                // console.log('2) colTab : ' , newTab);
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
                     const newSection = this.build(Types.Section,section); 
-                    console.log('3) section: ' , newSection);                   
+                    // console.log('3) section: ' , newSection);                   
                     section.elements.forEach((column) => {
                         // column.mode = column;
                         column.mode =  this.#mode;
                         // const newSectionCol = this.build(Types.Column, createElementFactoryPropertiesObj(column.id, column.name, 'colsec col py-2 px-1 my-1 mx-1 ', column.style, this.#mode));
                         const newSectionCol = this.build(Types.Column,column);
-                        console.log('4) columnSection : ' , newSectionCol);
+                        // console.log('4) columnSection : ' , newSectionCol);
                         
 
 
@@ -334,12 +334,12 @@ export default class FormBuilder {
                             let formControl = null;
                             // control.labelPosition = section.labelPosition;
                             formControl = this.build(control.type, control);
-                            console.log('5) control ', formControl);
+                            // console.log('5) control ', formControl);
                             // console.log('form control', formControl);
                             this.#fields.push(formControl);
                             
                             newSectionCol.addElement(formControl);
-                            console.log('------------------------');
+                            // console.log('------------------------');
                         
                         });
 
@@ -356,7 +356,7 @@ export default class FormBuilder {
                 newTab.addElement(newTabCol);
             });
         });
-        console.log('elements after loading', this.#elements);
+        // console.log('elements after loading', this.#elements);
     }
 
     addDesignContent() {
@@ -509,9 +509,9 @@ export default class FormBuilder {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-                            console.log('field in compare', field)
+                            // console.log('field in compare', field)
                             const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.id === field.Id);
-                            console.log('feildFromEntity in compare', feildFromEntity)
+                            // console.log('feildFromEntity in compare', feildFromEntity)
 
                             const mergedObject = {};
                             const excludedFieldKeys = ['typeContent', 'mode','options', 'elements']
