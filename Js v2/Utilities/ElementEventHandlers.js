@@ -155,7 +155,8 @@
             }
             e.target.style.opacity = '0.5';
         }
-        console.log('drag start');
+        console.log('drag start',formBuilder.dragBeforeRender );
+
         
     }
 
@@ -230,7 +231,7 @@
                 addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
             }else{
 
-                e.target.style.borderBottom = '1px solid blue';
+                e.target.style.borderBottom = '1px dashed #6d6e70';
                 e.target.append(formBuilder.dragAfterRender);
 
             }

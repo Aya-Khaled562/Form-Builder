@@ -28,8 +28,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="file" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="file" class="form-control ${obj.labelPosition ? '' : 'col'} " style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>`
         );
@@ -45,8 +45,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="file" accept="image/*" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="file" accept="image/*" class="form-control ${obj.labelPosition ? '' : 'col'} " style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>`
         );
@@ -62,8 +62,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="tel" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="tel" class="form-control ${obj.labelPosition ? '' : 'col'} "  ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>
             `
@@ -80,8 +80,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="password" class="form-control col" style=" width: 100%; display:block;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="password" class="form-control ${obj.labelPosition ? '' : 'col'} " display:block;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>`
         );
@@ -96,8 +96,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="email" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="email" class="form-control ${obj.labelPosition ? '' : 'col'} "  ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>`
         );
@@ -112,15 +112,14 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
-            `<div>
-                <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="text" class="form-control col" style=" width: 100%;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
-                </div>
-            </div>`
+            `<div class="d-flex ${obj.labelPosition ? 'flex-column' : 'flex-row'} ${obj.labelAlignment ? 'align-items-end' : 'align-items-start'} px-2 py-1 my-1 field ${!obj.visible ? 'd-none' : ''}">
+            <label for="${obj.id}" class="col form-label ${obj.labelPosition ? '' : 'col-2'} ${!obj.showLabel ? 'd-none' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            <input type="text" class="form-control ${obj.labelPosition ? '' : 'col'}"  ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+           
+        </div>
+        `
         );
     }
-    
     
     createOptionSet(obj) {
 
@@ -138,8 +137,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'} flex-grow-1" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}"  draggable="true" >
-                <label class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
+                <label class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <select class="form-select ${obj.labelPosition ? '': 'col'}"  id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${setOptions}</select> 
             </div>`
         );
     }
@@ -157,13 +156,13 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'two options',
             'formControl',
             `<div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" draggable="true" >
-                    <label class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
-                    <select class="form-select col" style="width: 100%;" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
+                    <label class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}</label>
+                    <select class="form-select ${obj.labelPosition ? '': 'col'}" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
                 </div>
             <div>`
         );
@@ -179,8 +178,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="*-" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="*-" class="form-control ${obj.labelPosition ? '' : 'col'} "  id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
                 </div>
             </div>`
         );
@@ -196,8 +195,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3  d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" >
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <textarea class="form-control " style=" width: 100%;" id="${obj.id}" rows="3"></textarea>
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <textarea class="form-control ${obj.labelPosition ? '' : 'col'}  " id="${obj.id}" rows="3"></textarea>
                 </div>
             </div>`
         );
@@ -213,8 +212,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field  ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'w-auto'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="date" class="form-control " style=" width: 100%;" id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <input type="date" class="form-control ${obj.labelPosition ? '' : 'col'}  " id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
                 </div>
             </div>`
         );

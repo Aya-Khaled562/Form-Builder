@@ -10,7 +10,8 @@ export default class CreateForm {
     jsonData;
     mode;
     builder;
-    entity
+    entity;
+    toggler;
     constructor(jsonData, mode, entity) {
         this.tabCounter = 0;
         this.secCounter = 2;
@@ -20,6 +21,7 @@ export default class CreateForm {
         this.mode = mode; 
         this.builder = null;  
         this.entity = entity;
+        this.toggler = false;
     }
 
     initialize(){
@@ -58,7 +60,7 @@ export default class CreateForm {
 
     createColumnAndSection(builder ,tabCounter , coltabCounter, secCounter, colsecCounter , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass}`, 'border: 0px solid orange'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
         let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
        
@@ -77,7 +79,7 @@ export default class CreateForm {
         this.tabCounter++
         const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "py-2", "border: 1px dashed #6d6e70"));
         if(colClass1!= ''){
-            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass1} ms-2`)
+            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass1}`)
             tab.addElement(col1);
         }
         if(colClass2 != ''){
@@ -108,7 +110,6 @@ export default class CreateForm {
         document.getElementById(`${targetId}`).innerHTML += sec.render();
         this.builder.addDesignContent();
     }
-
 
     handleModalShown(e) {
 
@@ -255,9 +256,6 @@ export default class CreateForm {
 
     }
 
-
-
-
     handleModalSave(e) {
 
         let elementId = $('#exampleModal').attr('data-id');
@@ -314,11 +312,11 @@ export default class CreateForm {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
                         let section = this.builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
+                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
@@ -327,7 +325,7 @@ export default class CreateForm {
                         this.builder.setSectionBeforRender(section);
                         this.builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'col', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                     }
 
                     element.addElement(col);
@@ -404,22 +402,25 @@ export default class CreateForm {
 
     }
 
-    async pushForm(jsonForm){
+    async pushForm(jsonForm , uri , method){
         let data = {
             formName: 'new',
             entityId: this.entity.entitySchemaId,
             formJson: JSON.stringify(jsonForm)
         }
 
-        console.log('data: ', data)
+        if(method === 'PUT'){
+            data.formName = 'update';
+        }
 
-        let response = await fetch('http://localhost:5032/api/EntityFroms', {
-            method: 'POST',
+        let response = await fetch(uri, {
+            method: method,
             headers:{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        })
+        });
+
     }
 
     handlePreview(e) {
@@ -433,10 +434,19 @@ export default class CreateForm {
 
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-         await this.pushForm(this.builder.toSaveSchema()); 
-        // download(this.builder.toSaveSchema());
-
+        if(this.toggler === false){
+            // await this.pushForm(this.builder.toSaveSchema());
+            await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
+            download(this.builder.toSaveSchema());
+        }else{
+            let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
+            let form = await response.json();
+            let targetFormId = form[form.length-1].id;
+            await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT');
+        }
+        this.toggler = !this.toggler;
         window.open('../../pages/customForm.html', '_blank');
+
     }
     
     handleRemoveBtnClick(e){
@@ -448,7 +458,7 @@ export default class CreateForm {
                 if (curActiveElement.isRequired){
                     isThereElementRequired = true;
                 }
-               
+
             }else if (curActiveElement.TypeContent._type == Types.Tab){
                 curActiveElement.getElements().forEach(col => {
                     col.getElements().forEach(section => {
@@ -467,7 +477,7 @@ export default class CreateForm {
                                 if (el.isRequired){
                                     isThereElementRequired = true;
                                 }
-                            });   
+                            });
                 });
             }
 
@@ -475,19 +485,19 @@ export default class CreateForm {
                 alert("This field is required on the form, you can't remove it.");
                  return;
             }
-            
+
 
             if (curActiveElement.isLocked){
                 alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);
                 return;
             }
- 
 
             this.builder.removeElement(curActiveElement.Id);
             this.builder.getActiveElement().clearElements();
             document.getElementById(curActiveElement.Id).remove();
             this.builder.setActiveElement('notID');
         }
+
     }
 
     handleUpdateModeBtnClick(e) {

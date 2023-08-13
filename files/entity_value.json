@@ -1,40 +1,319 @@
 {
-    "entity_name":"Employee",
-    "fields":[
-        {
-            "displayName":"First Name",
-            "name":"firstname",
-            "values":[]
-        },
-        {
-            "displayName":"Last Name",
-            "name":"lastname",
-            "values":[]
-        },
-        {
-            "displayName":"Social Status",
-            "name":"socialstatus",
-            "values":[]
-        },
-        {
-            "displayName":"Gender",
-            "name":"gender",
-            "values":[]
-        },
-        {
-            "displayName":"Salary",
-            "name":"salary",
-            "values":[]
-        },
-        {
-            "displayName":"Notes",
-            "name":"notes",
-            "values":[]
-        },
-        {
-            "displayName":"Start Date",
-            "name":"startdate",
-            "values":[]
-        }
+    "platform": "html",
+    "mode": "create",
+    "entity": "",
+    "description": "",
+    "elements": [
+      {
+        "id": "tab_def",
+        "name": "Tab",
+        "customClass": "py-2",
+        "style": "border: 1px dashed #6d6e70",
+        "type": "tab",
+        "category": "layout",
+        "isRequired": false,
+        "readOnly": false,
+        "visible": true,
+        "showLabel": true,
+        "labelPosition": false,
+        "minLen": null,
+        "maxLen": null,
+        "pattern": null,
+        "elements": [
+          {
+            "id": "tab_col_def0",
+            "name": "Column",
+            "customClass": "coltab col py-1 my-1 mx-1",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "sec_def0",
+                "name": "Section1",
+                "customClass": "section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "sec_col_def0",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "firstName",
+                        "name": "First Name",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "single line of text",
+                          "source": {}
+                        },
+                        "isRequired": true,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "First Name",
+                        "searchable": false,
+                        "type": "single line of text"
+                      },
+                      {
+                        "id": "salary",
+                        "name": "Salary",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "decimal number",
+                          "source": {}
+                        },
+                        "isRequired": true,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Salary",
+                        "searchable": false,
+                        "type": "decimal number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tab_1",
+        "name": "Tab",
+        "customClass": "py-2",
+        "style": "border: 1px dashed #6d6e70",
+        "type": "tab",
+        "category": "layout",
+        "isRequired": false,
+        "readOnly": false,
+        "visible": true,
+        "showLabel": true,
+        "labelPosition": false,
+        "minLen": null,
+        "maxLen": null,
+        "pattern": null,
+        "elements": [
+          {
+            "id": "tab1_col_0",
+            "name": "Column",
+            "customClass": "coltab col col-7",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "tab0_sec_2",
+                "name": "Section",
+                "customClass": " section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "sec2_col_0",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 my-1",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "gender",
+                        "name": "Gender",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "two options",
+                          "source": {
+                            "Female": "1",
+                            "Male": "0"
+                          }
+                        },
+                        "isRequired": false,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Gender",
+                        "searchable": false,
+                        "type": "two options",
+                        "active": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tab1_col_1",
+            "name": "Column",
+            "customClass": "coltab col col-4 ",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "tab1_sec_3",
+                "name": "Section",
+                "customClass": " section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "sec3_col_1",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 my-1",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "social status",
+                        "name": "Social Status",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "option set",
+                          "source": {
+                            "Divorced": "2",
+                            "Married": "3",
+                            "Single": "1"
+                          }
+                        },
+                        "isRequired": false,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Social Status",
+                        "searchable": false,
+                        "type": "option set",
+                        "active": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     ]
-}
+  }
