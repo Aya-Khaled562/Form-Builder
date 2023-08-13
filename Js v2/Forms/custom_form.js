@@ -13,6 +13,7 @@ export default class CustomForm {
 
     initialize(){
         const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
+        console.log('jsonData: ', jsonData);
         this.builder = new FormBuilder(jsonData, 'custom' ,'form');
         let saveBtn = document.getElementById('save');
         return new Promise((resolve)=>{

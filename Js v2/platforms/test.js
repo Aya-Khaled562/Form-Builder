@@ -128,14 +128,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return  new TypeContent(
             'tab',
             'layout',
-            // `<div class="tabArea">
-            //     <div class="tabArea1" style="${obj.style}" id="${obj.id}"  >
-            //     <div class="row tabArea2">
-            //         <h5>${obj.name}</h5>
-            //         <!--content-->
-            //     </div>
-            // </div>`,
-            
             `<div class="tabArea">
                 <div class="tabArea1" style="${obj.style}" id="${obj.id}">
                 <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
@@ -165,17 +157,12 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 </div>
             </div>`,
 
-            `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" draggable="true" >
+            `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" >
                 <div class="row row-section">
                 <h6 class="${!obj.visible ? 'd-none ' : ''}">${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`
-            // `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" >
-            //     <div class="row row-section justify-content-between">
-            //         <!--content-->
-            //     </div>
-            // </div>`
         );
     }
 

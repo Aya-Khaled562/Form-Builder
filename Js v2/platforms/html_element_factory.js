@@ -224,14 +224,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
         return  new TypeContent(
             'tab',
             'layout',
-            // `<div class="tabArea">
-            //     <div class="tabArea1" style="${obj.style}" id="${obj.id}"  >
-            //     <div class="row tabArea2">
-            //         <h5>${obj.name}</h5>
-            //         <!--content-->
-            //     </div>
-            // </div>`,
-            
             `<div class="tabArea">
                 <div class="tabArea1" style="${obj.style}" id="${obj.id}">
                 <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
@@ -240,11 +232,11 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="row tabArea2 collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
             </div>
             `,
-            `<div id="${obj.id}" class="tabArea1 mb-5 ${obj.visible ? '' : ' d-none '}">
+            `<div id="${obj.id}" class="tabArea1 mb-5 ${obj.visible ? '' : 'd-none'}">
                 <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>
-                <div class="row tabArea2 my-2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
+                <div class="row tabArea2 my-2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"><!--content--></div></div>
             `
         );
   
@@ -256,22 +248,19 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'layout',
             `<div class="container-fluid container-section section  ${obj.customClass}" style="${obj.style}" id="${obj.id}" draggable="true" >
                 <div class="row row-section">
-                    <h6>${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""}${obj.name}</h6>
+                    <h6>
+                    ${obj.isLocked ? "<span style ='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""}
+                    ${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`,
 
-            `<div class="container-fluid container-section section ${obj.customClass} ${obj.visible ? '' : ' d-none '}" id="${obj.id}" draggable="true" >
+            `<div class="container-fluid container-section section ${obj.customClass} ${obj.visible ? '' : ' d-none '}" id="${obj.id}">
                 <div class="row row-section">
                 <h6 class="${!obj.showLabel ? 'd-none ' : ''}">${obj.name}</h6>
                     <!--content-->
                 </div>
             </div>`
-            // `<div class="container-fluid container-section section  ${obj.customClass}" id="${obj.id}" >
-            //     <div class="row row-section justify-content-between">
-            //         <!--content-->
-            //     </div>
-            // </div>`
         );
     }
 
@@ -281,7 +270,6 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'layout',
             `<div id="${obj.id}" class="${obj.customClass}" style = "${obj.style}"> <!--content--></div>`,
             `<div id="${obj.id}" class="${obj.customClass}" > <!--content--></div>`
-            // `<div id="${obj.id}" class="${obj.customClass}"> <!--content--></div>`
         );
     }
 

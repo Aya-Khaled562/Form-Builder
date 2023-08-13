@@ -2,7 +2,7 @@ import AndroidElementFactory from "./platforms/android_element_factory.js";
 import {Categories, Types} from "./Element/element.js";
 import HtmlElementFactory from "./platforms/html_element_factory.js";
 import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern} from "./Utilities/ElementEventHandlers.js";
-import {createElementFactoryPropertiesObj} from "./Utilities/Utils.js";
+import {createElementFactoryPropertiesObj, download} from "./Utilities/Utils.js";
 import Element from "./Element/element.js";
 import Value from "./Element/value.js";
 
@@ -308,10 +308,11 @@ export default class FormBuilder {
             tab.mode = this.#mode;
             // const newTab = this.build(Types.Tab, createElementFactoryPropertiesObj(tab.id, tab.name, "col py-2", tab.style,this.#mode)); 
             const newTab = this.build(Types.Tab, tab); // need to be handled
+            console.log('1 tab: ', newTab);
 
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
-                tabColumn.customClass = 'coltab col py-1 my-1 mx-1';
+                // tabColumn.customClass = 'coltab col py-1 my-1 mx-1';
                 // const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
                 const newTabCol = this.build(Types.Column, tabColumn);
 
@@ -545,8 +546,6 @@ export default class FormBuilder {
     addPreviewEvents() {
         this.#elementsMap.forEach((el) => {
             let controlElm = document.getElementById(el.Id);
-            console.log('required element: ', el)
-
            
             if (el.TypeContent._category == Categories.FormControl) {
                 if (el.isRequired) {

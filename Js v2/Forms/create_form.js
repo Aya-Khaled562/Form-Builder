@@ -60,7 +60,7 @@ export default class CreateForm {
 
     createColumnAndSection(builder , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab ${colTabclass}`, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section', 'border: 1px dashed green;'));
         let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
        
@@ -437,7 +437,7 @@ export default class CreateForm {
         if(this.toggler === false){
             // await this.pushForm(this.builder.toSaveSchema());
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
-            //download(this.builder.toSaveSchema());
+            download(this.builder.toSaveSchema());
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
