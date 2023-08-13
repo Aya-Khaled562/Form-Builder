@@ -280,7 +280,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'column',
             'layout',
             `<div id="${obj.id}" class="${obj.customClass}" style = "${obj.style}"> <!--content--></div>`,
-            `<div id="${obj.id}" class="${obj.customClass} col" > <!--content--></div>`
+            `<div id="${obj.id}" class="${obj.customClass}" > <!--content--></div>`
             // `<div id="${obj.id}" class="${obj.customClass}"> <!--content--></div>`
         );
     }
