@@ -60,7 +60,6 @@ export default class FormApp{
         this.factory();
     }
 
-
     async factory(){
         this.entity = await this.getEntity();
         console.log('entity' , this.entity)
@@ -85,14 +84,13 @@ export default class FormApp{
         }
     }
 
-  
     async getEntity(){
-        const response = await fetch('http://localhost:5032/api/EntitySchemas/1');
+        const response = await fetch('http://localhost:5032/api/EntitySchemas/6e080d98-a290-402c-1858-08db9b2e1c04');
 
         return response.json();
     }
 
-    async getJsonform(mode , enitityId){
+    async getJsonform(mode ){
         let response = null;
         switch(mode){
             case 'create':

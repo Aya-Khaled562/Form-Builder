@@ -10,7 +10,8 @@ export default class CreateForm {
     jsonData;
     mode;
     builder;
-    entity
+    entity;
+    toggler;
     constructor(jsonData, mode, entity) {
         this.tabCounter = 0;
         this.secCounter = 2;
@@ -20,6 +21,7 @@ export default class CreateForm {
         this.mode = mode; 
         this.builder = null;  
         this.entity = entity;
+        this.toggler = false;
     }
 
     initialize(){
@@ -400,22 +402,33 @@ export default class CreateForm {
 
     }
 
-    async pushForm(jsonForm){
+    async pushForm(jsonForm , uri , method){
         let data = {
             formName: 'new',
             entityId: this.entity.entitySchemaId,
             formJson: JSON.stringify(jsonForm)
         }
 
-        console.log('data: ', data)
+        if(method === 'PUT'){
+            data.formName = 'update';
+        }
 
-        let response = await fetch('http://localhost:5032/api/EntityFroms', {
-            method: 'POST',
+        // let response = await fetch('http://localhost:5032/api/EntityFroms', {
+        //     method: 'POST',
+        //     headers:{
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+
+        let response = await fetch(uri, {
+            method: method,
             headers:{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        })
+        });
+        
     }
 
     handlePreview(e) {
@@ -429,10 +442,19 @@ export default class CreateForm {
 
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
-         await this.pushForm(this.builder.toSaveSchema()); 
-        download(this.builder.toSaveSchema());
-
-        // window.open('../../pages/customForm.html', '_blank');
+        if(this.toggler === false){
+            // await this.pushForm(this.builder.toSaveSchema()); 
+            await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST'); 
+            // download(this.builder.toSaveSchema());
+            // window.open('../../pages/customForm.html', '_blank');
+        }else{
+            let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
+            let form = await response.json();
+            let targetFormId = form[form.length-1].id;
+            await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT'); 
+        }
+        this.toggler = !this.toggler;
+         
     }
     
     handleRemoveBtnClick(e){
@@ -443,13 +465,10 @@ export default class CreateForm {
                 alert("This field is required on the form, you can't remove it.");
                 return;
             }
-
             if (curActiveElement.isLocked){
                 alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);
                 return;
             }
- 
-
             this.builder.removeElement(curActiveElement.Id);
             this.builder.getActiveElement().clearElements();
             document.getElementById(curActiveElement.Id).remove();

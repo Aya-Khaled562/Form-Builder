@@ -227,7 +227,7 @@
                 addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
             }else{
 
-                e.target.style.borderBottom = '1px solid blue';
+                e.target.style.borderBottom = '1px dashed #6d6e70';
                 e.target.append(formBuilder.dragAfterRender);
 
             }
