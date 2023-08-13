@@ -285,8 +285,8 @@ export default class FormBuilder {
                             }
                             let fieldElement = this.build(field.type , obj)
                             colsec.addElement(fieldElement);
+                            this.addElementToMap(fieldElement)
                         });
-                        
                         console.log('colsec', colsec);
                     });
                 });

@@ -23,7 +23,7 @@
               {
                 "id": "sec_def0",
                 "name": "Section1",
-                "customClass": "section ms-2",
+                "customClass": "section",
                 "style": "border: 1px dashed green;",
                 "type": "section",
                 "category": "layout",

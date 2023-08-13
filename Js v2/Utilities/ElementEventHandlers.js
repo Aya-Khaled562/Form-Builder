@@ -152,7 +152,8 @@
             }
             e.target.style.opacity = '0.5';
         }
-        console.log('drag start');
+        console.log('drag start',formBuilder.dragBeforeRender );
+
         
     }
 

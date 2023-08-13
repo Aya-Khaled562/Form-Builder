@@ -413,14 +413,6 @@ export default class CreateForm {
             data.formName = 'update';
         }
 
-        // let response = await fetch('http://localhost:5032/api/EntityFroms', {
-        //     method: 'POST',
-        //     headers:{
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-
         let response = await fetch(uri, {
             method: method,
             headers:{
@@ -446,7 +438,6 @@ export default class CreateForm {
             // await this.pushForm(this.builder.toSaveSchema()); 
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST'); 
             // download(this.builder.toSaveSchema());
-            // window.open('../../pages/customForm.html', '_blank');
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
@@ -454,6 +445,7 @@ export default class CreateForm {
             await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT'); 
         }
         this.toggler = !this.toggler;
+        window.open('../../pages/customForm.html', '_blank');
          
     }
     
@@ -465,15 +457,18 @@ export default class CreateForm {
                 alert("This field is required on the form, you can't remove it.");
                 return;
             }
+            
             if (curActiveElement.isLocked){
                 alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);
                 return;
             }
+
             this.builder.removeElement(curActiveElement.Id);
             this.builder.getActiveElement().clearElements();
             document.getElementById(curActiveElement.Id).remove();
             this.builder.setActiveElement('notID');
         }
+
     }
 
     handleUpdateModeBtnClick(e) {
