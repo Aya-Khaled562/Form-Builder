@@ -60,9 +60,9 @@ export default class CreateForm {
 
     createColumnAndSection(builder , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -92,7 +92,7 @@ export default class CreateForm {
         }
         document.getElementById('form').innerHTML += tab.render();
         this.builder.addDesignContent();
-        console.log('elements : ' , this.builder.getElements());
+        console.log('elements from tab: ' , this.builder.getElements());
     }
 
     addSection(numOfCols) {
@@ -100,7 +100,7 @@ export default class CreateForm {
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
-            let col = this. builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
+            let col = this. builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
             sec.addElement(col);
             this.builder.setColumnsBeforeRender(col);
         }

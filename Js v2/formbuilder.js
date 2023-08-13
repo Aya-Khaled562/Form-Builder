@@ -282,7 +282,7 @@ export default class FormBuilder {
                             let obj = {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
-                                id: field.name,
+                                id: field.id,
                                 name: field.displayName,
                                 type: field.type,
                                 value: value,
