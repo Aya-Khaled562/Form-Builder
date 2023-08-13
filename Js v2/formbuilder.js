@@ -282,7 +282,7 @@ export default class FormBuilder {
                             let obj = {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
-                                id: field.name,
+                                id: field.id,
                                 name: field.displayName,
                                 type: field.type,
                                 value: value,
@@ -496,7 +496,7 @@ export default class FormBuilder {
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
                             console.log('field in compare', field)
-                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.name === field.Id);
+                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.id === field.Id);
                             console.log('feildFromEntity in compare', feildFromEntity)
 
                             const mergedObject = {};
