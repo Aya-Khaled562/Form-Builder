@@ -147,7 +147,7 @@
           {
             "id": "tab1_col_0",
             "name": "Column",
-            "customClass": "coltab col col-7",
+            "customClass": "coltab col col",
             "style": "border: 0px solid orange",
             "type": "column",
             "category": "layout",
@@ -231,7 +231,7 @@
           {
             "id": "tab1_col_1",
             "name": "Column",
-            "customClass": "coltab col col-4 ",
+            "customClass": "coltab col col ",
             "style": "border: 0px solid orange",
             "type": "column",
             "category": "layout",
@@ -262,6 +262,87 @@
                 "elements": [
                   {
                     "id": "sec3_col_1",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 my-1",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "lastName",
+                        "name": "Last Name",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "single line of text",
+                          "source": {}
+                        },
+                        "isRequired": false,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Last Name",
+                        "searchable": false,
+                        "type": "single line of text",
+                        "active": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "tab1_col_2",
+            "name": "Column",
+            "customClass": "coltab col col ",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "tab2_sec_4",
+                "name": "Section",
+                "customClass": " section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "sec4_col_2",
                     "name": "Column",
                     "customClass": "colsec col py-2 my-1",
                     "style": "border: 1px dashed #6d6e70",

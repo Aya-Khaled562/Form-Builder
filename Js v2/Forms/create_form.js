@@ -58,11 +58,11 @@ export default class CreateForm {
     }
 
 
-    createColumnAndSection(builder ,tabCounter , coltabCounter, secCounter, colsecCounter , colTabclass){
+    createColumnAndSection(builder , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', `coltab col ${colTabclass}`, 'border: 0px solid orange'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section', 'border: 1px dashed green;'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -77,17 +77,17 @@ export default class CreateForm {
     addTab(colClass1='' , colClass2='' , colClass3='') {
         console.log('call add tab method >>>>>>>>>>>>')
         this.tabCounter++
-        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`tab_${this.tabCounter}`, "Tab", "py-2", "border: 1px dashed #6d6e70"));
+        const tab = this.builder.build('tab', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, "Tab", "py-2", "border: 1px dashed #6d6e70"));
         if(colClass1!= ''){
-            const col1 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass1}`)
+            const col1 = this.createColumnAndSection(this.builder , `${colClass1}`)
             tab.addElement(col1);
         }
         if(colClass2 != ''){
-            const col2 = this.createColumnAndSection(this.builder , this.tabCounter , this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass2} `)
+            const col2 = this.createColumnAndSection(this.builder , `${colClass2} `)
             tab.addElement(col2);
         }
         if(colClass3 != ''){
-            const col3 = this.createColumnAndSection(this.builder , this.tabCounter ,  this.coltabCounter++ , this.secCounter++ , this.colsecCounter++ , `${colClass3} `)
+            const col3 = this.createColumnAndSection(this.builder ,  `${colClass3} `)
             tab.addElement(col3);
         }
         document.getElementById('form').innerHTML += tab.render();
@@ -96,11 +96,11 @@ export default class CreateForm {
     }
 
     addSection(numOfCols) {
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`sec_${this.secCounter}`, `Section`, 'section my-2', 'border: 1px dashed green;'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, 'section my-2', 'border: 1px dashed green;'));
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
-            let col = this. builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
+            let col = this. builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
             sec.addElement(col);
             this.builder.setColumnsBeforeRender(col);
         }
