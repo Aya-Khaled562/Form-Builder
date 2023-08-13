@@ -496,7 +496,7 @@ export default class FormBuilder {
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
                             console.log('field in compare', field)
-                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.name === field.Id);
+                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.id === field.Id);
                             console.log('feildFromEntity in compare', feildFromEntity)
 
                             const mergedObject = {};

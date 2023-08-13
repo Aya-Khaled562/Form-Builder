@@ -226,11 +226,14 @@ export default class Element {
     }
 
     render() {
+        console.log('this element', this);
+
         if (this.mode === 'create' || this.mode === 'update') {
             return this.renderDesignContent();
         } else {
             return this.renderPreviewContent();
         }
+
     }
 
 

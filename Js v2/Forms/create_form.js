@@ -437,7 +437,7 @@ export default class CreateForm {
         if(this.toggler === false){
             // await this.pushForm(this.builder.toSaveSchema());
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
-            download(this.builder.toSaveSchema());
+            //download(this.builder.toSaveSchema());
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
