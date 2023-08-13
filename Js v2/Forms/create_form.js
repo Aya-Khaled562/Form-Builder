@@ -420,7 +420,7 @@ export default class CreateForm {
             },
             body: JSON.stringify(data)
         });
-        
+
     }
 
     handlePreview(e) {
@@ -435,29 +435,58 @@ export default class CreateForm {
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         if(this.toggler === false){
-            // await this.pushForm(this.builder.toSaveSchema()); 
-            await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST'); 
+            // await this.pushForm(this.builder.toSaveSchema());
+            await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
             download(this.builder.toSaveSchema());
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
             let targetFormId = form[form.length-1].id;
-            await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT'); 
+            await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT');
         }
         this.toggler = !this.toggler;
         window.open('../../pages/customForm.html', '_blank');
-         
+
     }
     
     handleRemoveBtnClick(e){
         let curActiveElement = this.builder.getActiveElement();
         if (curActiveElement != null) {
 
-            if (curActiveElement.isRequired){
-                alert("This field is required on the form, you can't remove it.");
-                return;
+            let isThereElementRequired = false;
+            if (curActiveElement.TypeContent._category == Categories.FormControl){
+                if (curActiveElement.isRequired){
+                    isThereElementRequired = true;
+                }
+
+            }else if (curActiveElement.TypeContent._type == Types.Tab){
+                curActiveElement.getElements().forEach(col => {
+                    col.getElements().forEach(section => {
+                        section.getElements().forEach(col => {
+                            col.getElements().forEach(el => {
+                                if (el.isRequired){
+                                    isThereElementRequired = true;
+                                }
+                            });
+                        });
+                    });
+                });
+            }else if (curActiveElement.TypeContent._type == Types.Section){
+                curActiveElement.getElements().forEach(col => {
+                            col.getElements().forEach(el => {
+                                if (el.isRequired){
+                                    isThereElementRequired = true;
+                                }
+                            });
+                });
             }
-            
+
+            if (isThereElementRequired){
+                alert("This field is required on the form, you can't remove it.");
+                 return;
+            }
+
+
             if (curActiveElement.isLocked){
                 alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);
                 return;
