@@ -62,7 +62,7 @@ export default class CreateForm {
 
         let col = this.builder.build('column', createElementFactoryPropertiesObj(`tab${tabCounter}_col_${coltabCounter}`, 'Column', `coltab ${colTabclass}`, 'border: 0px solid orange'));
         let sec = this.builder.build('section', createElementFactoryPropertiesObj(`tab${coltabCounter}_sec_${secCounter}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`sec${secCounter}_col_${colsecCounter}`, 'Column', 'colsec py-2 my-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -100,7 +100,7 @@ export default class CreateForm {
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
-            let col = this. builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec col py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
+            let col = this. builder.build('column', createElementFactoryPropertiesObj(`sec${this.secCounter}_col_${this.colsecCounter}`, 'Column', 'colsec py-2 px-1 my-1 mx-1 ', 'border: 1px dashed #6d6e70'));
             sec.addElement(col);
             this.builder.setColumnsBeforeRender(col);
         }
@@ -437,7 +437,7 @@ export default class CreateForm {
         if(this.toggler === false){
             // await this.pushForm(this.builder.toSaveSchema()); 
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST'); 
-            // download(this.builder.toSaveSchema());
+            download(this.builder.toSaveSchema());
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
