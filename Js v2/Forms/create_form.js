@@ -443,10 +443,39 @@ export default class CreateForm {
         let curActiveElement = this.builder.getActiveElement();
         if (curActiveElement != null) {
 
-            if (curActiveElement.isRequired){
-                alert("This field is required on the form, you can't remove it.");
-                return;
+            let isThereElementRequired = false;
+            if (curActiveElement.TypeContent._category == Categories.FormControl){
+                if (curActiveElement.isRequired){
+                    isThereElementRequired = true;
+                }
+               
+            }else if (curActiveElement.TypeContent._type == Types.Tab){
+                curActiveElement.getElements().forEach(col => {
+                    col.getElements().forEach(section => {
+                        section.getElements().forEach(col => {
+                            col.getElements().forEach(el => {
+                                if (el.isRequired){
+                                    isThereElementRequired = true;
+                                }
+                            });
+                        });
+                    });
+                });
+            }else if (curActiveElement.TypeContent._type == Types.Section){
+                curActiveElement.getElements().forEach(col => {
+                            col.getElements().forEach(el => {
+                                if (el.isRequired){
+                                    isThereElementRequired = true;
+                                }
+                            });   
+                });
             }
+
+            if (isThereElementRequired){
+                alert("This field is required on the form, you can't remove it.");
+                 return;
+            }
+            
 
             if (curActiveElement.isLocked){
                 alert(`This ${curActiveElement.TypeContent._type == Types.Section? 'section' : 'field'} is locked on the form, you can't remove it.`);

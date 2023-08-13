@@ -130,12 +130,14 @@
         }
         else if(e.target.classList.contains('field')){
             if(e.target.classList.contains('newField')){
-                formBuilder.targetField = formBuilder.Entity.attributeSchemas.find(field => field.name === formBuilder.dragAfterRender.id);
+                console.log('drag after render', formBuilder.dragAfterRender);
+                formBuilder.targetField = formBuilder.Entity.attributeSchemas.find(field => field.id === formBuilder.dragAfterRender.id);
+                console.log('target field', formBuilder.targetField);
                 let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
                 let obj = {
                     customClass: 'py-3',
                     style: 'border: 1px dashed #6d6e70',
-                    id: formBuilder.targetField.name,
+                    id: formBuilder.targetField.id,
                     name: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
                     value: value,
@@ -146,7 +148,8 @@
                 }
 
                 formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);
-                formBuilder.addElementToMap(formBuilder.dragBeforeRender);
+                console.log('drag befor render', formBuilder.dragBeforeRender);
+                //formBuilder.addElementToMap(formBuilder.dragBeforeRender);
             }else{
                 formBuilder.dragBeforeRender = formBuilder.getFeildBeforeRender(e.target.id);
             }
@@ -222,7 +225,7 @@
                 const div = document.createElement('div');
                 div.innerHTML = formBuilder.dragBeforeRender.render()
                 oldParentColAfterRender.removeChild(formBuilder.dragAfterRender);
-                formBuilder.targetField.active = false;
+                //formBuilder.targetField.active = false;
                 e.target.append(div.firstChild);
                 addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
             }else{

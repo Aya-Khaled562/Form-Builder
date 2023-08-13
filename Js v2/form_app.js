@@ -87,7 +87,7 @@ export default class FormApp{
 
   
     async getEntity(){
-        const response = await fetch('http://localhost:5032/api/EntitySchemas/1');
+        const response = await fetch('http://localhost:5032/api/EntitySchemas/6e080d98-a290-402c-1858-08db9b2e1c04');
 
         return response.json();
     }

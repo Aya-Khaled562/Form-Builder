@@ -73,6 +73,7 @@ export default class FormBuilder {
     removeElement(elementId) {  // this method should be refactored.
         let element = this.#elementsMap.get(elementId);
 
+        console.log('element to be removed', element);
         if (element == null)
             return;
 
@@ -88,7 +89,7 @@ export default class FormBuilder {
                             console.log(element.Id)
                             let field = this.#entity.attributeSchemas.find(field => field.id == control.Id);
                             if (field) {
-                                document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                                document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
                             }
                         });
                     })
@@ -98,6 +99,8 @@ export default class FormBuilder {
         } else if (element.TypeContent._type == Types.Section || element.TypeContent._category == Categories.FormControl) {
             let colId = document.getElementById(elementId).parentElement.id;
             let column = this.#columnsBeforRender.find(col => col.Id == colId);
+            console.log('columns to be removed', column);
+
             column.removeElement(elementId);
 
             if (element.TypeContent._type == Types.Section) {
@@ -107,14 +110,17 @@ export default class FormBuilder {
                         console.log(element.Id)
                         let field = this.#entity.attributeSchemas.find(field => field.id == control.Id);
                         if (field) {
-                            document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                            document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
                         }
                     });
                 });
             } else {
-                let field = this.#entity.attributeSchemas.find(field => field.name == element.Id);
+                let field = this.#entity.attributeSchemas.find(field => field.id == element.Id);
                 if (field) {
-                    document.getElementById('entity').children[0].innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'> ${field.displayName}</div>`;
+                    console.log('field to be removed', field);
+
+                    document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.id}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
+                    console.log('entity to insert field',  document.getElementById('FieldList'));
                 }
             }
         }
@@ -414,13 +420,13 @@ export default class FormBuilder {
         let entityDesign = `<div id="rightSideTitle"><h5>${this.#entity.entityName}<img src="img/ico_form_assistexpanded.png"/></h5><div id="FieldList">`
         this.#elementsMap.forEach(element => {
             if (Object.values(Types).includes(element.TypeContent._type) && element.TypeContent._category == Categories.FormControl) {
-                let field = this.#entity.attributeSchemas.find(field => field.name === element.Id);
+                let field = this.#entity.attributeSchemas.find(field => field.id === element.Id);
                 // field.active = false;
             }
         })
         this.#entity.attributeSchemas.forEach(field => {
             // if (field.active === true)
-                entityDesign += `<div class="field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
+                entityDesign += `<div class="field newField" style="background-color: white;" draggable="true" id='${field.id}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
         });
         entityDesign += `</div></div>`;
 
