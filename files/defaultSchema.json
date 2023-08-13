@@ -37,15 +37,6 @@
                     "category": "layout",
                     "elements": []
 
-                  },
-                  {
-                    "id": "sec_col_def1",
-                    "name": "Column",
-                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
-                    "style": "border: 1px dashed #6d6e70",
-                    "type": "column",
-                    "category": "layout",
-                    "elements": []
                   }
                 ]
               }

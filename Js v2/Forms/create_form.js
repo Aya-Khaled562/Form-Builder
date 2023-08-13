@@ -109,7 +109,6 @@ export default class CreateForm {
         this.builder.addDesignContent();
     }
 
-
     handleModalShown(e) {
 
 
@@ -254,9 +253,6 @@ export default class CreateForm {
         //#endregion
 
     }
-
-
-
 
     handleModalSave(e) {
 
@@ -434,9 +430,9 @@ export default class CreateForm {
     async handleSave(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
          await this.pushForm(this.builder.toSaveSchema()); 
-        // download(this.builder.toSaveSchema());
+        download(this.builder.toSaveSchema());
 
-        window.open('../../pages/customForm.html', '_blank');
+        // window.open('../../pages/customForm.html', '_blank');
     }
     
     handleRemoveBtnClick(e){

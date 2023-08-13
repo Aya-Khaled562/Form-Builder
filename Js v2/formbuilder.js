@@ -4,6 +4,7 @@ import HtmlElementFactory from "./platforms/html_element_factory.js";
 import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern} from "./Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj} from "./Utilities/Utils.js";
 import Element from "./Element/element.js";
+import Value from "./Element/value.js";
 
 export default class FormBuilder {
     #platform;
@@ -21,6 +22,7 @@ export default class FormBuilder {
     newField = null;
     #json;
     #fields
+    requiredFields = [];
     constructor(json,mode, parentId , entity = null) {
         this.#platform = json.platform;
         this.#mode = mode;
@@ -233,6 +235,18 @@ export default class FormBuilder {
             case 'create':
             case 'update':
                 this.load();
+                this.#entity.attributeSchemas.forEach(field =>{
+                    if(field.isRequired){
+                        this.requiredFields.push(field);
+                    }
+                }); 
+
+                if(this.requiredFields.length > 0){
+                    this.drawRequiredFields();
+                }
+
+                console.log('elements after push required fields: ', this.#elements);
+
                 document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
 
                 this.addDesignContent();
@@ -248,6 +262,36 @@ export default class FormBuilder {
             default:
                 throw new Error(`Invalid mode ${this.#mode}`);
         }
+    }
+
+    drawRequiredFields(){
+        this.getElements().forEach(tab => {
+            tab.getElements().forEach(coltab=>{
+                coltab.getElements().forEach(sec=>{
+                    sec.getElements().forEach(colsec=>{
+                        this.requiredFields.forEach(field=>{
+                            let value = new Value('', field.type, field.options || {})
+                            let obj = {
+                                customClass: 'py-3',
+                                style: 'border: 1px dashed #6d6e70',
+                                id: field.name,
+                                name: field.displayName,
+                                type: field.type,
+                                value: value,
+                                isRequired: field.isRequired,
+                                minLen: field.minLen,
+                                maxLen: field.maxLen,
+                                pattern: field.pattern
+                            }
+                            let fieldElement = this.build(field.type , obj)
+                            colsec.addElement(fieldElement);
+                        });
+                        
+                        console.log('colsec', colsec);
+                    });
+                });
+            });
+        });
     }
 
     load() {
@@ -419,11 +463,11 @@ export default class FormBuilder {
             }
         })
         this.#entity.attributeSchemas.forEach(field => {
-            // if (field.active === true)
+            if (field.isRequired === false)
                 entityDesign += `<div class="field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"/> ${field.displayName}</div>`;
         });
-        entityDesign += `</div></div>`;
 
+        entityDesign += `</div></div>`;
         document.getElementById('entity').innerHTML = entityDesign;
        
 
