@@ -248,6 +248,8 @@ export default class FormBuilder {
             case 'preview':
             case 'custom':
                 this.load();
+                console.log('after loading at prievew');
+                console.log(this.#elements);
                 document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
                 this.addPreviewEvents();
                 break;
@@ -265,7 +267,10 @@ export default class FormBuilder {
 
             tab.elements.forEach((tabColumn) => {
                 tabColumn.mode = this.#mode;
-                const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
+                tabColumn.customClass = 'coltab col py-1 my-1 mx-1';
+                // const newTabCol = this.build(Types.Column, createElementFactoryPropertiesObj(tabColumn.id, tabColumn.name, 'coltab col py-1 my-1 mx-1', tabColumn.style, this.#mode));
+                const newTabCol = this.build(Types.Column, tabColumn);
+
                 tabColumn.elements.forEach((section) => {
                     section.mode = this.#mode;
                     const newSection = this.build(Types.Section,section);                    
@@ -275,9 +280,11 @@ export default class FormBuilder {
                         column.elements.forEach((control) => {
                             let formControl = null;
                             control.labelPosition = section.labelPosition;
+                            
+                            console.log('control to create', control);
 
                             formControl = this.build(control.type, control);
-
+                            console.log('form control', formControl);
                             this.#fields.push(formControl);
                             
                             newSectionCol.addElement(formControl);
@@ -443,7 +450,7 @@ export default class FormBuilder {
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
                             console.log('field in compare', field)
-                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.name === field.Id);
+                            const feildFromEntity = this.#entity.attributeSchemas.find(entityField=> entityField.id === field.Id);
                             console.log('feildFromEntity in compare', feildFromEntity)
 
                             const mergedObject = {};

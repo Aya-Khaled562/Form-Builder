@@ -260,6 +260,7 @@ export default class Element {
         }else{
             console.log('to schema elment', this);
             objectSchema = target;
+            //objectSchema.type = this.TypeContent._type;
         }
 
         return objectSchema;

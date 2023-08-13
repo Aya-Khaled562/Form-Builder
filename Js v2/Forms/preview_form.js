@@ -11,7 +11,6 @@ export default class PreviewFrom {
         this.#builder = new FormBuilder(jsonData, 'preview', 'form');
         let copyHtmlBtn = document.getElementById('save');
         copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));
-        
     }
 
     handleCopyHtml(prev){
