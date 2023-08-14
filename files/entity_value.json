@@ -1,0 +1,313 @@
+{
+    "platform": "html",
+    "mode": "create",
+    "entity": "",
+    "description": "",
+    "elements": [
+      {
+        "id": "tab_def",
+        "name": "Tab",
+        "customClass": "py-2",
+        "style": "border: 1px dashed #6d6e70",
+        "type": "tab",
+        "category": "layout",
+        "isRequired": false,
+        "readOnly": false,
+        "visible": true,
+        "showLabel": true,
+        "labelPosition": false,
+        "minLen": null,
+        "maxLen": null,
+        "pattern": null,
+        "elements": [
+          {
+            "id": "tab_col_def0",
+            "name": "Column",
+            "customClass": "coltab col py-1 my-1 mx-1",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "sec_def0",
+                "name": "Section1",
+                "customClass": "section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "sec_col_def0",
+                    "name": "Column",
+                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "8efe37d0-392d-11ee-be56-0242ac120002",
+                        "name": "First Name",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "single line of text",
+                          "source": {}
+                        },
+                        "isRequired": true,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "First Name",
+                        "searchable": false,
+                        "type": "single line of text"
+                      },
+                      {
+                        "id": "a9a8a468-39bd-11ee-be56-0242ac120002",
+                        "name": "Salary",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "decimal number",
+                          "source": {}
+                        },
+                        "isRequired": true,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Salary",
+                        "searchable": false,
+                        "type": "decimal number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c3eeb26e-5e8d-442e-9693-78c7c22e0b9c",
+        "name": "Tab",
+        "customClass": "py-2",
+        "style": "border: 1px dashed #6d6e70",
+        "type": "tab",
+        "category": "layout",
+        "isRequired": false,
+        "readOnly": false,
+        "visible": true,
+        "showLabel": true,
+        "labelPosition": false,
+        "minLen": null,
+        "maxLen": null,
+        "pattern": null,
+        "elements": [
+          {
+            "id": "db227285-06c3-461f-827b-e4e1ce3482bf",
+            "name": "Column_Tab",
+            "customClass": "coltab col-4",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "8f2202f6-6662-4025-9f0e-705f0d3b1f62",
+                "name": "Section",
+                "customClass": " section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "ab2e7fab-4536-4eec-8da1-8d884ff47ebb",
+                    "name": "Column_Section",
+                    "customClass": "colsec col py-2 my-1",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "b11c9916-39bd-11ee-be56-0242ac120002",
+                        "name": "Gender",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "two options",
+                          "source": {
+                            "Female": "1",
+                            "Male": "0"
+                          }
+                        },
+                        "isRequired": false,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Gender",
+                        "searchable": false,
+                        "type": "two options"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "f60a85b5-d789-47db-9df6-79aa07addecb",
+            "name": "Column_Tab",
+            "customClass": "coltab col-7 ",
+            "style": "border: 0px solid orange",
+            "type": "column",
+            "category": "layout",
+            "isRequired": false,
+            "readOnly": false,
+            "visible": true,
+            "showLabel": true,
+            "labelPosition": false,
+            "minLen": null,
+            "maxLen": null,
+            "pattern": null,
+            "elements": [
+              {
+                "id": "e9c1ed5b-6035-42c5-b429-000decf26f22",
+                "name": "Section",
+                "customClass": " section",
+                "style": "border: 1px dashed green;",
+                "type": "section",
+                "category": "layout",
+                "isRequired": false,
+                "readOnly": false,
+                "visible": true,
+                "showLabel": true,
+                "labelPosition": false,
+                "minLen": null,
+                "maxLen": null,
+                "pattern": null,
+                "elements": [
+                  {
+                    "id": "a1c91078-c92e-4b47-92fc-a8b233cae251",
+                    "name": "Column_Section",
+                    "customClass": "colsec col py-2 my-1",
+                    "style": "border: 1px dashed #6d6e70",
+                    "type": "column",
+                    "category": "layout",
+                    "isRequired": false,
+                    "readOnly": false,
+                    "visible": true,
+                    "showLabel": true,
+                    "labelPosition": false,
+                    "minLen": null,
+                    "maxLen": null,
+                    "pattern": null,
+                    "elements": [
+                      {
+                        "id": "61c0b4d6-392e-11ee-be56-0242ac120002",
+                        "name": "Last Name",
+                        "customClass": "py-3",
+                        "style": "border: 1px dashed #6d6e70",
+                        "value": {
+                          "id": "",
+                          "type": "single line of text",
+                          "source": {}
+                        },
+                        "isRequired": false,
+                        "readOnly": false,
+                        "visible": true,
+                        "optionsSetValues": null,
+                        "collapse": true,
+                        "isLocked": false,
+                        "showLabel": true,
+                        "labelPosition": false,
+                        "labelAlignment": null,
+                        "maxLen": null,
+                        "minLen": null,
+                        "pattern": null,
+                        "displayName": "Last Name",
+                        "searchable": false,
+                        "type": "single line of text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

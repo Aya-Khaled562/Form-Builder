@@ -11,7 +11,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
                 <label class="col" style="width: 50%;">${name}</label>
-                <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+                <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -25,7 +25,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
-            <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -39,7 +39,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
-            <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -53,7 +53,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
-            <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -67,7 +67,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
-            <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -81,7 +81,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             'formControl',
             `<div class="d-flex flex-row align-items-center px-2 py-1 my-1 field" style="${style}" draggable="true" id="${id}">
             <label class="col" style="width: 50%;">${name}</label>
-            <div class="${customClass}" id="text" style="border: 1px solid blue; flex: 1; width: 50%;"></div> 
+            <div class="${customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
             </div>`,
             'Text input preview'
         );
@@ -97,7 +97,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             `<div class="container my-3" style="${style}" id="${id}">
                 <div class="row">
                     <h5>${name}</h5>
-                    <div class="py-3" style="border: 1px solid blue;"></div>
+                    <div class="py-3" style="border: 1px dashed #6d6e70;"></div>
                 </div>
             </div>`,
             `<label>${name}</label>
@@ -114,7 +114,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
             `<div class="container my-2 py-1 ${customClass}" style="${style}" id="${id}" draggable="true" >
                 <div class="row">
                     <h6>${name}</h6>
-                    <div class="py-3" style="border: 1px solid blue;"></div>
+                    <div class="py-3" style="border: 1px dashed #6d6e70;"></div>
                 </div>
             </div>`,
             `<label>${name}</label>
@@ -128,7 +128,7 @@ export default class AndroidElementFactory extends AbstractElementFactory {
         const typeContentColumn = new TypeContent(
             'column',
             'layout',
-            `<div id="${id}" class="${customClass}" style = "${style}"> <div class="py-3" style="border: 1px solid blue;"></div></div>`,
+            `<div id="${id}" class="${customClass}" style = "${style}"> <div class="py-3" style="border: 1px dashed #6d6e70;"></div></div>`,
             `<div id="${id}" class="col py-1 my-1 mx-1"> <!--content--> </div>`
         );
         return new Element(id, name, customClass, style, typeContentColumn, mode);

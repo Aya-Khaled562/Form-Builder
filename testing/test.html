@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Input Example</title>
+</head>
+<body>
+    <label for="currencyInput">Enter Amount:</label>
+    <input type="number" id="currencyInput" name="currencyInput" step="0.01" min="0">
+    
+    <button id="submitBtn">Submit</button>
+    
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        const currencyInput = document.getElementById('currencyInput');
+        
+        submitBtn.addEventListener('click', () => {
+            const currencyValue = currencyInput.value;
+            alert(`Currency Value: $${currencyValue}`);
+        });
+    </script>
+</body>
+</html>

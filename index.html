@@ -1,103 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Layout Example</title>
-    <link href="../Form-Builder/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../Form-Builder/css/formbuilder.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Builder</title>
+  <link rel="shortcut icon" href="../img/pa_favicon.ico" />
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/formbuilder.css" rel="stylesheet">
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg sticky-top" style="background-color: white;">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Form Builder</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Add Tab
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" id="addTabWith1Col">On Column</a></li>
-                      <li><a class="dropdown-item" id="addTabWith2Col">Two Columns</a></li>
-                      <li><a class="dropdown-item" id="addTabWith3Col">Three Columns</a></li>
-                      
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Add Section
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" id="addSectionWith1Col">On Column</a></li>
-                        <li><a class="dropdown-item" id="addSectionWith2Col">Two Columns</a></li>
-                        <li><a class="dropdown-item" id="addSectionWith3Col">Three Columns</a></li>
+  <div id="form-builder-header"><span class="icon"></span>
+    <div id="h1">Form Builder</div>
+  </div>
+  <div class="w-100">
+    <ul class="nav nav-tabs" id="MenuTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+          role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="insert-tab" data-bs-toggle="tab" data-bs-target="#insert-tab-pane" type="button"
+          role="tab" aria-controls="insert-tab-pane" aria-selected="false">insert</button>
+      </li>
+      <li class="nav-item" role="presentation">
 
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" id="saveJsonForm">Save</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="updateMode">Update mode</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="createMode">Create mode</a>
-                  </li>
-                </ul>
-              </div>
+    </ul>
+    <div class="tab-content" id="MenuTabsContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <nav class="navbar navbar-expand-lg sticky-top my-0 py-0 pt-1" style="background-color: white;">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <li class="nav-item">
+                  <a class="nav-link active" id="preview"><i class="i-icons"></i>Preview</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="save"><i class="i-icons"></i>Save</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="removeBtn"><i class="i-icons"></i>Remove</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="updateMode"><i class="i-icons"></i>Update mode</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="createMode"><i class="i-icons"></i>Create mode</a>
+                </li>
+              </ul>
             </div>
-        </nav>
-        <div class="container">
-            <!-- Button trigger modal
-            <button class="btn btn-primary" id="saveJsonForm" type="button">
-                Save
-            </button>
-            <button class="btn btn-primary" id="updateMode" type="button">
-              update mode
-          </button>
-          <button class="btn btn-primary" id="createMode" type="button">
-            create mode
-        </button> -->
-
-            <!-- Modal -->
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
-                 tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                        </div>
-                        <div class="modal-body">
-
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                            <button class="btn btn-primary" id="modalSave" type="button">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid mt-5">
-          <div class="row px-2" id="formContainer">
-            <div id="form" class="col-10">
-
-            </div>
-            <div class="col-2 my-3 sidebar px-0" style="border: 1px solid rgb(245, 241, 241);"  id="entity"></div>
           </div>
-        </div>
+        </nav>
+      </div>
+      <div class="tab-pane fade" id="insert-tab-pane" role="tabpanel" aria-labelledby="insert-tab" tabindex="0">
+        <nav class="navbar navbar-expand-lg sticky-top my-0 py-0 pt-1" style="background-color: white;">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="addSectionMenu" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false"><i class="i-icons"></i>Section</a>
+                  <ul class="dropdown-menu section-dropdown-menu ">
+                    <li><a class="dropdown-item" id="addSectionWith1Col"><i class="i-icons"></i>On Column</a></li>
+                    <li><a class="dropdown-item" id="addSectionWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                    <li><a class="dropdown-item" id="addSectionWith3Col"><i class="i-icons"></i>Three Columns</a></li>
+
+                  </ul>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="addTabMenu" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="i-icons"></i>
+                    Add Tab
+                  </a>
+                  <ul class="dropdown-menu dd-icons">
+                    <li><a class="dropdown-item" id="addSectionWith1Col"><i class="i-icons"></i>On Column</a></li>
+                    <li><a class="dropdown-item" id="addTabWith2Col"><i class="i-icons"></i>Two Columns</a></li>
+                    <li><a class="dropdown-item" id="addTabWith3Col"><i class="i-icons"></i>Three Columns</a></li>
+
+                  </ul>
+                </li> -->
+                <li class="nav-item has-childs">
+                  <a class="nav-link active" id="addTabWith3Col1"><i class="i-icons"></i>Three Columns</a>
+                  <a class="nav-link active" id="addTabWith3Col2"><i class="i-icons"></i>Three Columns</a>
+                  <span class="span-title">3 Tabs</span>
+                </li>
+
+                <li class="nav-item has-childs">
+                  <a class="nav-link active" id="addTabWith2Col1"><i class="i-icons"></i>Two Columns</a>
+                  <a class="nav-link active" id="addTabWith2Col2"><i class="i-icons"></i>Two Columns</a>
+                  <a class="nav-link active" id="addTabWith2Col3"><i class="i-icons"></i>Two Columns</a>
+                  <span class="span-title">2 Tabs</span>
+                </li>
+                <li class="nav-item has-childs">
+                  <a class="nav-link active" id="addTabWith1Col"><i class="i-icons"></i>One Column</a>
+                  <span class="span-title">1 Tab</span>
+                </li>
+                <!-- <li class="nav-item"><a class="nav-link active" id="saveJsonForm"><i class="i-icons"></i>Two Columns</a>
+                </li>
+                <li class="nav-item"><a class="nav-link active" id="saveJsonForm"><i class="i-icons"></i>Three
+                    Columns</a></li> -->
+
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 
     </div>
 
-    <script src="../Form-Builder/Js/main.js" type="module"></script>
-</body>
-</html>
+    <div class="Notifications">
+      <div role="alert" aria-live="polite" class="Notification">
+        <img alt="" src="img/msgbar_icn_info.png" class="ms-crm-ImageStrip-msgbar_icn_info">
+        <span>
+          Form headers now default to high density to display more data. Use the new form designer to edit
+          header density.
+          <a id="crmNotificationsForHeaderDensityDefault_learnMoreLink" href="https://aka.ms/paformheaderdensity"
+            target="_blank" class="ms-crm-FormEditor-learnMoreLink" title="Learn more">
+            Learn more
+          </a>
+        </span>
 
+      </div>
+    </div>
+    <div class="w-100">
+      <!-- Modal -->
+      <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="display-tab" data-bs-toggle="tab" data-bs-target="#display" type="button" role="tab" aria-controls="display" aria-selected="true">Display</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="formating-tab" data-bs-toggle="tab" data-bs-target="#formating" type="button" role="tab" aria-controls="formating" aria-selected="false">formating</button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                </li> -->
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="display" role="tabpanel" aria-labelledby="display-tab"></div>
+                <div class="tab-pane fade" id="formating" role="tabpanel" aria-labelledby="formating"></div>
+                <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">..ggg.</div> -->
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button class="btn btn-primary" id="modalSave" type="button">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100">
+      <div class="d-flex" id="formContainer">
+        <div class="sidebar-left px-0"></div>
+
+        <div id="form" class="py-3">
+          <div class="d-flex align-item-center">
+            <h6 class="px-1 py-1">Form:</h6> 
+            <span id="entityName" style="font-weight: bold;" class="py-1"></span>
+          </div>
+        </div>
+        <div class="sidebar-right px-0"  id="entity"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/Js v2/main.js" type="module"></script>
+</body>
+
+</html>

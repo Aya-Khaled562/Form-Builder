@@ -5,11 +5,8 @@ import FormBuilder from "./formbuilder.js";
 
 const jsonData = JSON.parse(sessionStorage.getItem('jsonDataForm'));
 
-console.log(jsonData);
-//window.onload =  function () {
 const builder = new FormBuilder(jsonData, 'preview', 'form');
 
-// Save form
 console.log("preview window loading>>>>>>>>>");
 let copyHtmlBtn = document.getElementById('copyFormHtml');
 copyHtmlBtn.addEventListener('click', function (e) {
@@ -17,13 +14,12 @@ copyHtmlBtn.addEventListener('click', function (e) {
     navigator.clipboard.writeText(formContainer.innerHTML);
 });
 
-    let editFromBtn = document.getElementById('EditForm');
-    console.log(editFromBtn)
-    editFromBtn.addEventListener('click', function () {
-        window.open('/Form-Builder/index.html', '_self');
+let editFromBtn = document.getElementById('EditForm');
+console.log(editFromBtn)
+editFromBtn.addEventListener('click', function () {
+    window.open('/index.html', '_self');
+});
 
-    })
-//};
 
 
 

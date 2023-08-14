@@ -1,18 +1,346 @@
-*{
-    margin: 0;
-    padding: 0;
-    
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('Segoe UI.woff') format('woff');
 }
 
-.sidebar{
-    height: calc(100vh - 150px); 
+
+@font-face {
+    font-family: 'Segoe UI Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Italic'), url('Segoe UI Italic.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Segoe UI Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold'), url('Segoe UI Bold.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Segoe UI Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold Italic'), url('Segoe UI Bold Italic.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI Regular;
+
+}
+
+a, .nav-link {
+    color: #505050;
+}
+
+#form-builder-header {
+    display: flex;
+    background: #000;
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 48px;
+    color: #fff;
+}
+
+#form-builder-header>.icon {
+    display: inline-block;
+    width: 48px;
+    background: #742774 url(../img/NavBarAppSwitcher.png) no-repeat center center;
+}
+
+#form-builder-header #h1 {
+    padding: 0 1rem;
+}
+
+.sidebar-left,.sidebar-right {
+    height: calc(100vh - 200px);
     overflow-y: auto;
+}
+
+
+#MenuTabs {
+    margin-top: 1rem;
+}
+
+#MenuTabs .nav-link {
+    font-size: 10.66667px;
+    color: #666666;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 1px;
+}
+#MenuTabs .nav-link.active {color: #0072C6 !important;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.sidebar-left {
+    background: #742774;
+    width: 180px;
+    flex: 0 0 180px;
+}
+
+.sidebar-right {
+    width: 230px;
+    background: #f1f3f5;
+    flex: 0 0 230px;
+    border: 1px solid #898c95;
 }
 
 #form {
-    max-height: calc(100vh - 150px); /* 100vh - height of navbar (assuming it's 60px) and some extra padding */
-    overflow-y: auto;
+    width: 100%;
 }
-.nav-link{
-    cursor: pointer;
+
+.Notification {
+    padding: .5rem;
+    background-color: #FFF19D;
+    border: 1px solid #DDDDDD;
+    overflow: auto;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.i-icons {
+    display: inline-block;
+}
+
+.dd-icons {
+    margin: 0;
+    padding: 0;
+}
+
+.dd-icons.show {
+    display: flex !important;
+}
+.nav-link{font-size: 11px;}
+#addTabMenu ,#addSectionMenu,#preview,#removeBtn,#updateMode,#createMode,#save {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#addTabMenu i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -239px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+
+#addTabWith1Col i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll  -239px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+
+#addTabWith2Col i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+
+#addTabWith3Col1 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -187px -1px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith3Col2 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -103px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith2Col1 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -205px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith2Col2 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -103px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addTabWith2Col3 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addSectionMenu i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -69px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addSectionWith1Col i{ background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -137px -69px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addSectionWith2Col i{ background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -103px -137px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#addSectionWith3Col i{ background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -35px -137px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+
+
+#preview i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -273px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#save i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#removeBtn i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -35px -103px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#updateMode i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -580px 0px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#createMode i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -580px -36px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#MenuTabsContent .nav-link{padding-top: 6px;padding-bottom: 6px;}
+#MenuTabsContent .nav-link:hover{background-color: #D7EBF9;}
+.has-childs{
+display: flex;
+    position: relative;
+    border: 1px solid #eee;
+    border-bottom: 0;
+    border-top: 0;
+    padding-bottom: 1.125rem;
+}
+
+.has-childs .span-title {
+        position: absolute;
+        bottom: 0;
+        font-size: 10.7px;
+        display: block;
+        text-align: center;
+        color: #5b626c;
+        cursor: default;
+        white-space: nowrap;
+        padding: 0px 6px 0px 3px;
+        left: 0;
+        right: 0;
+    }
+    .has-childs>a {
+        width: 54px;
+        text-align: center;
+        line-height: 10.6667px;
+        padding: 0;
+    }
+    #rightSideTitle {
+        height: 100%;
+    }
+    #rightSideTitle h5{
+        font-size: 12px;
+        font-weight: bold;
+        color: #666666;
+        padding-bottom: 3px;
+        outline: none;
+        margin-left: 0.5rem;
+        border-bottom: 1px solid #666666;
+        display: flex;
+        padding: 8px 4px 8px 8px;
+        justify-content: space-between;
+        margin-bottom: 3px
+    }
+    .newField {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: 1px solid #C4DDFF;
+        height: auto;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 0.5em;
+        font-size: 11px;
+    }
+    #FieldList{border-width: 1px;
+        background-color: #FFFFFF;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;}
+        .section-dropdown-menu.show {
+            display: flex;
+        }
+        .section-dropdown-menu li {
+            width: 50px;
+        }
+        .section-dropdown-menu li a{
+            display:flex;
+            flex-direction: column;
+            white-space: normal;
+            justify-content: center;
+            width: 50px;
+            text-align: center;
+            line-height: 10.6667px;
+            padding: 0;
+            align-items: center;
+            font-size: 10.667px;
+            gap:4px;padding: 2px 0;
+        }.section-dropdown-menu li a:hover{background-color: #D7EBF9;}
+
+
+        #form {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .tabArea{margin: 0 4px ;background-color: #e9edf1;padding: 8px;}
+        .tabArea1{background-color: #fff;padding: 4px;border: 1px dashed #6d6e70!important;}
+        .tabArea2{}
+        .tabArea1.border-danger{border: 1px solid rgb(0, 118, 163)!important;}
+        .selectedElement{border: 1px solid rgb(0, 118, 163)!important;}
+        .tabArea2 h5 {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 0.5rem 0 0 0.5rem;
+        }
+        /* .container-section {
+            background: #e9edf1;
+            padding: 4px;
+            margin: 0!important;
+        } */
+        #text{background: #ffffff;
+            color: #cccccc;
+            border: 1px solid #cccccc!important;
+            padding-left: 2px;}
+
+.imgLock {
+    width: fit-content; 
 }
