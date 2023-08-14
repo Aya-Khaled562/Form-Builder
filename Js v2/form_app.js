@@ -52,7 +52,7 @@ export default class FormApp{
     mode
     entity;
     constructor(mode){
-        console.log('mode in form app constructor', mode);
+        // console.log('mode in form app constructor', mode);
         this.forms = [];
         this.targetFrom =  null;
         this.jsonData = null;
@@ -90,7 +90,7 @@ export default class FormApp{
         return response.json();
     }
 
-    async getJsonform(mode ){
+    async getJsonform(mode){
         let response = null;
         switch(mode){
             case 'create':

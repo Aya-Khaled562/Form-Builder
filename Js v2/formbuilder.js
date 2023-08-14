@@ -589,4 +589,28 @@ export default class FormBuilder {
 
     }
 
+
+    mapData(data){
+        this.#elements.forEach(tab => {
+            tab.getElements().forEach(colTab => {
+                colTab.getElements().forEach(sec=>{
+                    sec.getElements().forEach(colSec=>{
+                        colSec.getElements().forEach(field=>{
+                            if(data.hasOwnProperty(field.name)){
+                                let value = data[field.name];
+                                field.Value = value;
+                                document.getElementById(`${field.id}`).value = value;
+                                if(field.name === 'startDate'){
+                                    let dateFromBackend = value.split('T')[0];
+                                    document.getElementById(`${field.id}`).value = dateFromBackend;
+
+                                }
+                            }
+                        })
+                    })
+                })
+            })
+        });
+    }
+
 }

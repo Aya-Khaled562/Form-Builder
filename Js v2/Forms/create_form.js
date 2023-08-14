@@ -2,6 +2,7 @@ import FormBuilder from "../formbuilder.js";
 // import '.../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+// import {Types , Categories} from "../Element/element.js";
 import {Types , Categories} from "../Element/element.js";
 import {addAllEventsToElement, handleDragAndDrop} from "../Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj,download,getJson} from "../Utilities/Utils.js";
@@ -12,6 +13,7 @@ export default class CreateForm {
     builder;
     entity;
     toggler;
+
     constructor(jsonData, mode, entity) {
         this.tabCounter = 0;
         this.secCounter = 2;
@@ -426,14 +428,14 @@ export default class CreateForm {
 
     async pushForm(jsonForm , uri , method){
         let data = {
-            formName: 'new',
+            formName: 'main',
             entityId: this.entity.entitySchemaId,
             formJson: JSON.stringify(jsonForm)
         }
 
-        if(method === 'PUT'){
-            data.formName = 'update';
-        }
+        // if(method === 'PUT'){
+        //     data.formName = 'main_update';
+        // }
 
         let response = await fetch(uri, {
             method: method,
@@ -468,6 +470,7 @@ export default class CreateForm {
         
 
     }
+    
     handleCustom(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         // download(this.builder.toSaveSchema());

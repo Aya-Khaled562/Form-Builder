@@ -3,20 +3,6 @@ import AbstractElementFactory from "./abstract_element_factory.js";
 
 export default class HtmlElementFactory extends AbstractElementFactory {
 
-    // createSingleLineOfText(obj) {
-    //     return new TypeContent(
-    //         'single line of text',
-    //         'formControl',
-    //         `<div class="${obj.labelPosition? '' : ' flex-row '} px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
-    //             <label class="col" style="width: 50%;">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-    //             <div class="${obj.customClass}" id="text" style="border: 1px dashed #6d6e70; flex: 1; width: 50%;"></div> 
-    //         </div>`,
-    //         `<div class="mb-3 ${obj.labelPosition? '' : ' flex-row '} px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-    //                     <label for="${obj.id}" class="form-label me-5">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-    //                      <input type="text" class="form-control" ${obj.readOnly ? `readonly` : ""}  style=" width: 50%;" id="${obj.id}">
-    //                     </div>`
-    //     );
-    // }
 
     createFileUpload(obj) {
         return new TypeContent(
