@@ -50,7 +50,8 @@ export default class ShowSavedRecords{
     async handleRowClick(id){
         const data = await this.getTargetRow(id);
         localStorage.setItem('targetData', JSON.stringify(data));
-        window.open('../../pages/customForm.html', '_blank');
+        // window.open('../../pages/customForm.html', '_blank');
+        window.location.href = '../../pages/customForm.html';
     }
     async getTargetRow(id){
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`);
