@@ -123,11 +123,13 @@
 
 
     function handleDragStart(formBuilder, e){
+        console.log('dragStart , ', e.target);
         formBuilder.dragAfterRender = e.target;
         if (e.target.classList.contains('section')) {
             formBuilder.dragBeforeRender = formBuilder.getSectionBeforeRenderById(e.target.id);
             e.target.style.opacity = '0.5';
         }
+
         else if(e.target.classList.contains('field')){
             if(e.target.classList.contains('newField')){
                 console.log('drag after render', formBuilder.dragAfterRender);
@@ -155,12 +157,14 @@
             }
             e.target.style.opacity = '0.5';
         }
+        
         console.log('drag start',formBuilder.dragBeforeRender );
 
         
     }
 
     function handleDragEnd(formBuilder, e ){
+        console.log('dragEnd , ', e.target);
         if (e.target.classList.contains('section') || e.target.classList.contains('field') || e.target.classList.contains('tab')) {
             if (formBuilder.dragAfterRender) {
                 formBuilder.dragAfterRender.style.opacity = '1';
@@ -172,6 +176,8 @@
     }
 
     function handleDragOver(formBuilder , e){
+        console.log('dragOver , ', e.target);
+        
         e.preventDefault();
         if ((e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) ||
             (e.target.classList.contains('colsec')&& formBuilder.dragAfterRender.classList.contains('field')) )
@@ -183,6 +189,8 @@
     }
 
     function handleDragLeave(formBuilder, e ){
+        console.log('dragleave', e.target);
+
         if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
             e.target.style.borderBottom = '1px solid orange';
             console.log('dragleave');
@@ -195,6 +203,8 @@
     }
 
     function handleDrop(formBuilder, e ){
+        console.log('dragleave', e.target);
+        
         e.preventDefault();
         e.stopPropagation();
         console.log('drop');

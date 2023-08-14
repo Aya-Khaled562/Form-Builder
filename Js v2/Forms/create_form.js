@@ -433,12 +433,18 @@ export default class CreateForm {
     }
 
     async handleSave(){
+        let toastBox = document.getElementById("toastBox");
+        let successMessage = '<i class="fa-solid fa-circle-check"></i> Successfully submitted';
+        let ErrorMessage = '<i class="fa-solid fa-circle-xmark"></i> Please fix the error!';
+        let InvalidMessage = '<i class="fa-solid fa-circle-exclamation"></i> Invalid input, check again';
         // localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         if(this.toggler === false){
             // await this.pushForm(this.builder.toSaveSchema());
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
             // download(this.builder.toSaveSchema());
-        this.toggler = !this.toggler;
+            this.toggler = !this.toggler;
+            this.showToast(successMessage, toastBox)
+            
 
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
@@ -449,6 +455,24 @@ export default class CreateForm {
         // this.toggler = !this.toggler;
         // window.open('../../pages/customForm.html', '_blank');
 
+    }
+    showToast(msg,toastBox ){
+        console.log('skdfj');
+        let toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.innerHTML = msg;
+        toastBox.appendChild(toast);
+
+        if(msg.includes('error')){
+            toast.classList.add('error');
+        }
+        if(msg.includes('Invalid')){
+            toast.classList.add('invalid');
+        }
+
+        setTimeout(() => {
+            toast.remove()
+        }, 6000);
     }
     
     handleRemoveBtnClick(e){
