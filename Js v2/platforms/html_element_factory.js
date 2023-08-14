@@ -201,7 +201,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
                     <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.name}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
-                    <input type="*-" class="form-control ${obj.labelPosition ? '' : 'col'} "  id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
+                    <input type="number" class="form-control ${obj.labelPosition ? '' : 'col'} "  id="${obj.id}" ${obj.readOnly ? `readonly` : ""}>
                 </div>
             </div>`
         );
