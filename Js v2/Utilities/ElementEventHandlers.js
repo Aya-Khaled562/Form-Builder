@@ -138,6 +138,7 @@
                     style: 'border: 1px dashed #6d6e70',
                     id: formBuilder.targetField.id,
                     name: formBuilder.targetField.name,
+                    displayName: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
                     value: value,
                     isRequired: formBuilder.targetField.isRequired,

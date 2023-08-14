@@ -42,6 +42,7 @@ export default class Element {
     labelAlignment;
     maxLen;
     minLen;
+    displayName
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -69,6 +70,8 @@ export default class Element {
 
         this.pattern = obj.pattern ?? null;
         this.labelAlignment = obj.labelAlignment ?? null;
+
+        this.displayName = obj.displayName ?? null;
     }
 
     get Collapse() {
@@ -97,6 +100,14 @@ export default class Element {
 
     set ReadOnly(value) {
         this.readOnly = value;
+    }
+
+    set DisplayName(value){
+        this.displayName = value;
+    }
+    
+    get DisplayName(){
+        return this.displayName;
     }
 
     get Visible() {

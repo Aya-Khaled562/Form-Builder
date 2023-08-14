@@ -289,6 +289,7 @@ export default class FormBuilder {
                                 style: 'border: 1px dashed #6d6e70',
                                 id: field.id,
                                 name: field.name,
+                                displayName: field.displayName,
                                 type: field.type,
                                 value: value,
                                 isRequired: field.isRequired,
