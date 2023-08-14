@@ -41,8 +41,10 @@ export default class CreateForm {
         document.getElementById("addSectionWith2Col").addEventListener("click", () => this.addSection(2));
         document.getElementById("addSectionWith3Col").addEventListener("click", () => this.addSection(3));
         document.getElementById('save').addEventListener('click', () => this.handleSave())
+        document.getElementById('custom').addEventListener('click', () => this.handleCustom());
 
         $('#exampleModal').on('shown.bs.modal', (e) => this.handleModalShown(e));
+        $('#exampleModal').on('hidden.bs.modal', (e) => this.handleModelClose(e));
         $('#exampleModal #modalSave').on('click', (e) => this.handleModalSave(e));
         let preview = document.getElementById('preview');
         preview.addEventListener('click', (e) => this.handlePreview(e));
@@ -60,9 +62,9 @@ export default class CreateForm {
 
     createColumnAndSection(builder , colTabclass){
 
-        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab ${colTabclass}`, 'border: 0px solid orange'));
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section', 'border: 1px dashed green;'));
-        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 my-1', 'border: 1px dashed #6d6e70'));
+        let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab py-1 my-1 mx-1 ${colTabclass}`, 'border: 0px solid orange'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section my-2', 'border: 1px dashed green;'));
+        let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 px-1 my-1 mx-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
         sec.addElement(colSec);
@@ -111,8 +113,11 @@ export default class CreateForm {
         this.builder.addDesignContent();
     }
 
-    handleModalShown(e) {
+    handleModelClose(e){
+        this.builder.setActiveElement('none');
+    }
 
+    handleModalShown(e) {
 
         //$(this).find('.nav a:first').tab('show');
 
@@ -450,46 +455,23 @@ export default class CreateForm {
     }
 
     async handleSave(){
-        let toastBox = document.getElementById("toastBox");
-        let successMessage = '<i class="fa-solid fa-circle-check"></i> Successfully submitted';
-        let ErrorMessage = '<i class="fa-solid fa-circle-xmark"></i> Please fix the error!';
-        let InvalidMessage = '<i class="fa-solid fa-circle-exclamation"></i> Invalid input, check again';
-        // localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         if(this.toggler === false){
-            // await this.pushForm(this.builder.toSaveSchema());
             await this.pushForm(this.builder.toSaveSchema(), 'http://localhost:5032/api/EntityFroms' , 'POST');
-            // download(this.builder.toSaveSchema());
             this.toggler = !this.toggler;
-            this.showToast(successMessage, toastBox)
-            
-
+    
         }else{
             let response = await fetch(`http://localhost:5032/api/EntitySchemas/${this.entity.entitySchemaId}/forms`);
             let form = await response.json();
             let targetFormId = form[form.length-1].id;
             await this.pushForm(this.builder.toSaveSchema(), `http://localhost:5032/api/EntityFroms/${targetFormId}` , 'PUT');
         }
-        // this.toggler = !this.toggler;
-        // window.open('../../pages/customForm.html', '_blank');
+        
 
     }
-    showToast(msg,toastBox ){
-        console.log('skdfj');
-        let toast = document.createElement('div');
-        toast.classList.add('toast');
-        toast.innerHTML = msg;
-        toastBox.appendChild(toast);
-
-        if(msg.includes('error')){
-            toast.classList.add('error');
-        }
-        if(msg.includes('Invalid')){
-            toast.classList.add('invalid');
-        }
-
-        setTimeout(() => {
-            toast.remove()
-        }, 6000);
+    handleCustom(){
+        localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
+        // download(this.builder.toSaveSchema());
+        window.open('../../pages/customForm.html', '_blank');
     }
     
     handleRemoveBtnClick(e){

@@ -288,7 +288,7 @@ export default class FormBuilder {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
                                 id: field.id,
-                                name: field.displayName,
+                                name: field.name,
                                 type: field.type,
                                 value: value,
                                 isRequired: field.isRequired,

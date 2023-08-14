@@ -80,7 +80,6 @@
         }
     }
     
-
     export function selectElement(formBuilder) {
         return function (e) {
             e.stopPropagation();
@@ -121,7 +120,6 @@
 
     }
 
-
     function handleDragStart(formBuilder, e){
         console.log('dragStart , ', e.target);
         formBuilder.dragAfterRender = e.target;
@@ -129,7 +127,6 @@
             formBuilder.dragBeforeRender = formBuilder.getSectionBeforeRenderById(e.target.id);
             e.target.style.opacity = '0.5';
         }
-
         else if(e.target.classList.contains('field')){
             if(e.target.classList.contains('newField')){
                 console.log('drag after render', formBuilder.dragAfterRender);
@@ -140,7 +137,7 @@
                     customClass: 'py-3',
                     style: 'border: 1px dashed #6d6e70',
                     id: formBuilder.targetField.id,
-                    name: formBuilder.targetField.displayName,
+                    name: formBuilder.targetField.name,
                     type: formBuilder.targetField.type,
                     value: value,
                     isRequired: formBuilder.targetField.isRequired,
@@ -157,7 +154,6 @@
             }
             e.target.style.opacity = '0.5';
         }
-        
         console.log('drag start',formBuilder.dragBeforeRender );
 
         
@@ -203,7 +199,7 @@
     }
 
     function handleDrop(formBuilder, e ){
-        console.log('dragleave', e.target);
+       
         
         e.preventDefault();
         e.stopPropagation();
@@ -249,7 +245,6 @@
         }
         
     }
-
 
     export function handleDragAndDrop(formBuilder) {
         const formContainer = document.getElementById('formContainer');

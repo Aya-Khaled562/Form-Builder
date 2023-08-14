@@ -30,7 +30,7 @@ export default class CustomForm {
         return function handler(e){
             let dataObject = {}
             for(let i=0; i< param.builder.Fields.length; i++){
-                let key = param.builder.Fields[i].id;
+                let key = param.builder.Fields[i].name;
                 let value = document.getElementById(param.builder.Fields[i].id).value
                 dataObject[key]  = value 
             }
@@ -39,7 +39,7 @@ export default class CustomForm {
     }
 
     pushDataIntoDB(data){
-        data.departmentId = 3;
+        data.departmentId = 1;
         console.log('data: ', data);
         const response = fetch('http://localhost:5032/api/Employees',{
             method: 'POST',

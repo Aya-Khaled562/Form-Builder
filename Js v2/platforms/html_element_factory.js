@@ -246,7 +246,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'tab',
             'layout',
             `<div class="tabArea" id="${obj.id}">
-                <div class="tabArea1" style="${obj.style}" >
+                <div class="tabArea1" style="${obj.style}; user-select:none;" >
                 <div data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>
