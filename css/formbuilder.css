@@ -322,6 +322,8 @@ display: flex;
             overflow-y: auto;
         }
         .tabArea{margin: 0 4px ;background-color: #e9edf1;padding: 8px;}
+        .tabArea.border-danger .tabArea1{border: 1px solid rgb(0, 118, 163)!important;}
+
         .tabArea1{background-color: #fff;padding: 4px;border: 1px dashed #6d6e70!important;}
         .tabArea2{}
         .tabArea1.border-danger{border: 1px solid rgb(0, 118, 163)!important;}

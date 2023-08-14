@@ -353,10 +353,6 @@ export default class CreateForm {
             }
         }
 
-        console.log('column before redner >>', this.builder.getColumnsBeforeRender());
-        console.log('sections before redner >>', this.builder.getSectionBeforRender());
-
-
         if (element.TypeContent._type == Types.Section){
             let labelPositionSectionPropElm = $('input[name="labelPositionSectionProp"]:checked');
             if (labelPositionSectionPropElm){
