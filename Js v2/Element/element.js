@@ -261,7 +261,7 @@ export default class Element {
                 elements: this.elements.map(e => e.toSaveSchema(mapObject))
             };
         }else{
-            console.log('to schema elment', this);
+            // console.log('to schema elment', this);
             objectSchema = target;
             //objectSchema.type = this.TypeContent._type;
         }

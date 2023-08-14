@@ -79,7 +79,7 @@ export default class FormApp{
                 this.previewForm();
                 break;
             case 'custom':
-               await this.customFrom();
+                await this.customFrom();
                 break;
         }
     }
@@ -96,9 +96,9 @@ export default class FormApp{
             case 'create':
                 response = await fetch(`http://localhost:5032/api/EntityFroms?formName=default`);
                 break;
-            case 'update':
-                response = await fetch(`http://localhost:5032/api/EntityFroms?formName=update`);
-                break;
+            // case 'update':
+            //     response = await fetch(`http://localhost:5032/api/EntityFroms?formName=update`);
+            //     break;
             // case 'preview':
             //     response = await fetch(`http://localhost:5032/api/EntitySchemas/${enitityId}/forms/preview`);
             //     break;
@@ -107,7 +107,7 @@ export default class FormApp{
             //     break;
         }
 
-        // console.log('response', response);
+        // console.log('response', response.json());
         return response?.json();
     }
 
