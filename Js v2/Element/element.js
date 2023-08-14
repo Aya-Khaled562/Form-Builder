@@ -42,6 +42,7 @@ export default class Element {
     labelAlignment;
     maxLen;
     minLen;
+    textAreaRows;
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -52,11 +53,7 @@ export default class Element {
         this.mode = obj.mode ?? null;
         this.isRequired = obj.isRequired ?? false;
         this.readOnly = obj.readOnly ?? false;
-        // if(this.typeContent._type === Types.Section){
-        //     this.visible = obj.visible ?? false;
-        // }else{
-        //     this.visible = obj.visible ?? true;
-        // }
+        this.textAreaRows = obj.textAreaRows ?? 3;
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? true;
         this.value = obj.value;

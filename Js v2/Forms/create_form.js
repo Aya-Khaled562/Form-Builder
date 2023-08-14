@@ -255,6 +255,11 @@ export default class CreateForm {
         </label>
     </div>`);
 
+    }else if (element.TypeContent._type == Types.MultipleLineOfText){
+        $('#exampleModal .modal-body #formating').append(`<div>
+        <label class="form-label" for="textAreaRows">Number of rows</label>
+        <input class="form-control" type="text" value="${element.textAreaRows}"  id="textAreaRows">
+    </div>`);
     }
     
         //#endregion
@@ -393,6 +398,13 @@ export default class CreateForm {
         if (readonlySelectElm) {
             element.ReadOnly = readonlySelectElm.value == '0' ? false : true;
         }
+
+        // text area rows
+        let textAreaRowsElm = document.getElementById('textAreaRows'); 
+        if (textAreaRowsElm) {
+            element.textAreaRows = textAreaRowsElm.value;
+        }
+        console.log('text area elment',textAreaRowsElm);
 
         console.log('options on save model', element)
         element.TypeContent = this.builder.getPlatformFactory().buildContent(element.TypeContent._type, element);
