@@ -169,6 +169,10 @@ export default class FormBuilder {
         this.#columnsBeforRender.push(column) ;
     }
 
+    getColumnsBeforeRender(){
+        return this.#columnsBeforRender;
+    }
+
 
     getSectionBeforeRenderById(id) {
         return this.#sectionsBeforRender.find((section) => section.Id === id);
@@ -232,7 +236,8 @@ export default class FormBuilder {
                 })
             })
         });
-        // console.log('oldfields func', oldfields);
+        console.log('oldfields func', oldfields);
+
         return oldfields.find(field => field.Id === id);
     }
 
