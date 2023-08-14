@@ -305,7 +305,24 @@ export default class CreateForm {
             let currentNumberOfCols = element.getElements().length;
             if (checkedColumnsValue < currentNumberOfCols) {
                 while (currentNumberOfCols > checkedColumnsValue) {
-                    element.popElement();
+                   let removedElement = element.popElement();
+                    console.log('removed element', removedElement);
+
+                    removedElement.getElements().forEach(el => {
+                        console.log('el in removed element', el);
+                        if (el.TypeContent._type == Types.Section){
+                            el.getElements().forEach( secCol => {
+                                secCol.getElements().forEach(control => {
+                                     document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${control.Id}'><img src="img/ico_18_attributes.gif"> ${control.Name}</div>`;
+                                });
+                            });
+                        }else if (el.TypeContent._category == Categories.FormControl){
+                            document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${el.Id}'><img src="img/ico_18_attributes.gif"> ${el.Name}</div>`;
+
+                        }
+                    });
+                    
+
                     currentNumberOfCols--;
                 }
             } else if (checkedColumnsValue > currentNumberOfCols) {
@@ -335,6 +352,10 @@ export default class CreateForm {
                 }
             }
         }
+
+        console.log('column before redner >>', this.builder.getColumnsBeforeRender());
+        console.log('sections before redner >>', this.builder.getSectionBeforRender());
+
 
         if (element.TypeContent._type == Types.Section){
             let labelPositionSectionPropElm = $('input[name="labelPositionSectionProp"]:checked');
