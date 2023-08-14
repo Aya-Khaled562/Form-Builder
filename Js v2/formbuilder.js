@@ -91,7 +91,7 @@ export default class FormBuilder {
                             console.log(element.Id)
                             let field = this.#entity.attributeSchemas.find(field => field.id == control.Id);
                             if (field) {
-                                document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
+                                document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.id}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
                             }
                         });
                     })
@@ -112,7 +112,7 @@ export default class FormBuilder {
                         console.log(element.Id)
                         let field = this.#entity.attributeSchemas.find(field => field.id == control.Id);
                         if (field) {
-                            document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.name}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
+                            document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${field.id}'><img src="img/ico_18_attributes.gif"> ${field.displayName}</div>`;
                         }
                     });
                 });
