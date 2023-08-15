@@ -366,7 +366,7 @@ display: flex;
 }
 
 .select {
-    background-color: rgb(65, 172, 243);
+    background-color: rgb(65, 172, 243)!important;
 }
 
 #dataTable tbody tr:hover {

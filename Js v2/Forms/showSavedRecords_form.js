@@ -17,7 +17,6 @@ export default class ShowSavedRecords{
 
         $('#removeBtn').on('click',()=> this.handleRemoveRecord());
         $('#dataTable').on('dblclick', 'tr' , (e)=> this.handleRowdbClick(e));
-
         $('#dataTable').on('click', 'tr',(e)=> this.handleRowClick(e));
     }
 
@@ -31,7 +30,7 @@ export default class ShowSavedRecords{
                 window.location.reload();
             }
         }else{
-            alert('Please select a record');
+            alert('Please select record to delete');
         }
     }
 
@@ -77,10 +76,14 @@ export default class ShowSavedRecords{
     }
 
     handleRowClick(e){
-        $('#dataTable tr').removeClass('selected');
-        $(this).addClass('selected');
+        $('#dataTable tr').removeClass('select');
+        $(e.currentTarget).addClass('select');
+        console.log('selected row', this.selectedRow);
+        console.log('event fired element', this);
+
         this.selectedRow =this.dataTable.row(e.currentTarget).data();
         console.log('selected row', this.selectedRow);
+
     }
 
     async handleRowdbClick(e){
