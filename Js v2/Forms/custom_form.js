@@ -116,7 +116,7 @@ export default class CustomForm {
             if(this.targetData !== null || data !== null){
                 console.log('update');
                 this.targetId = this.targetData?.id || data?.id;
-                console.log('id in localStorage: ' , id);
+                console.log('id in localStorage: ' , this.targetId);
                 response = await this.pushDataIntoDB(dataObject , 'PUT' , this.targetId);
             }
             else{
@@ -126,13 +126,14 @@ export default class CustomForm {
                 console.log('responsesdf', response);
             }
             // console.log('response', response);
-
+            console.log('window.opener' , window.opener);
             if (shouldClose) {
                 localStorage.setItem('targetData', null);
                 localStorage.setItem('newRecordFlag',null);
-                window.close();
-                window.location.reload();
-                window.history.back();
+                
+                // window.close();
+                window.open('../../pages/showSavedRecord.html' , '_self');
+                // window.history.back();
             }
         }catch(error){
             console.error('Error pushing data into DB:', error);

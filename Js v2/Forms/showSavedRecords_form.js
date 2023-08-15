@@ -10,6 +10,7 @@ export default class ShowSavedRecords{
     }
 
     initialize(){
+        
         $('#new').on('click',()=> {
             localStorage.setItem('targetData', null);
             window.open('../../pages/customForm.html', '_self');
@@ -19,7 +20,6 @@ export default class ShowSavedRecords{
         $('#dataTable').on('dblclick', 'tr' , (e)=> this.handleRowdbClick(e));
         $('#dataTable').on('click', 'tr',(e)=> this.handleRowClick(e));
     }
-
 
     handleRemoveRecord(){
         if(this.selectedRow !== null && this.selectedRow !== undefined){
@@ -58,15 +58,12 @@ export default class ShowSavedRecords{
         return rows.json();
     }
 
-    addDataToDataTable(attributes) {
-        $('#dataTable').DataTable().row.add(attributes).draw(false);
-    }
-
     async createDataTable(){
         let attributes = await this.getAttributes();
         this.dataTable = $('#dataTable').DataTable({
             processing: true,
             serverSide: false,
+            pageLength: 50,
             data: [],
             columns: attributes.map(att => ({ data: att.name, title: att.displayName })),
         });
@@ -92,7 +89,8 @@ export default class ShowSavedRecords{
                 let id = rowData.id; 
                 const data = await this.getTargetRow(id);
                 localStorage.setItem('targetData', JSON.stringify(data));
-                window.location.href = '../../pages/customForm.html';
+                // window.location.href = '../../pages/customForm.html';
+                window.open('../../pages/customForm.html', '_self');
             }
     }
 
