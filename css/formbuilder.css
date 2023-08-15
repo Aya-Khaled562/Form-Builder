@@ -364,3 +364,7 @@ display: flex;
 .imgLock {
     width: fit-content; 
 }
+
+.select {
+    background-color: rgb(0, 153, 255);
+}

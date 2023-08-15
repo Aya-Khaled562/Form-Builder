@@ -29,21 +29,29 @@ export default class CustomForm {
         const form = await this.getForm();
         const mainForm = form[0];
         const formAfterParse = JSON.parse(mainForm.fromJson);
+
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
-        console.log('targetData: ', this.targetData);
-        console.log('formAfterParse: ', formAfterParse);
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
-        this.builder.mapData(this.targetData)
+
         let saveBtn = document.getElementById('save');
         let saveandcloseBtn = document.getElementById('saveandclose');
-        if(this.targetData === null){
-            saveBtn.addEventListener('click', this.handleNewSaveBtn(this,'POST', false));
-            saveandcloseBtn.addEventListener('click', this.handleNewCloseBtn(this,'POST', true));
+        let removeBtn = document.getElementById('removeBtn');
+        let newBtn = document.getElementById('new');
+        newBtn.addEventListener('click' ,this.handleNewBtn);
+        
+        if(this.targetData !== null){
+            this.builder.mapData(this.targetData);
+            saveBtn.addEventListener('click',this.handleNewSaveBtn(this,'PUT', false,this.targetData.id))
+            saveandcloseBtn.addEventListener('click',this.handleNewSaveBtn(this,'PUT', true, this.targetData.id))
+            removeBtn.addEventListener('click' , this.handleRemoveBtn);
         }else{
-            saveBtn.addEventListener('click', this.handleNewSaveBtn(this,'PUT', false,this.targetData.id, ))
-            saveandcloseBtn.addEventListener('click', this.handleNewSaveBtn(this,'PUT', true, this.targetData.id))
-
+            saveBtn.addEventListener('click',this.handleNewSaveBtn(this,'POST', false));
+            saveandcloseBtn.addEventListener('click',this.handleNewSaveBtn(this,'POST', true));
         }
+
+        
+        
+
     }
 
     async getForm(){
@@ -57,6 +65,7 @@ export default class CustomForm {
 
     handleNewSaveBtn(param, method,shouldClose = false,id=''){
         return async function handler(e){
+            console.log('skdf');
             let dataObject = {}
             for(let i=0; i< param.builder.Fields.length; i++){
                 let key = param.builder.Fields[i].name;
@@ -65,11 +74,11 @@ export default class CustomForm {
             }
             try{
                 await param.pushDataIntoDB(dataObject , method , id);
-                if(shouldClose){
+                console.log('window opener:', window.opener);
+                if (shouldClose) {
                     window.close();
                     window.location.reload();
                     window.history.back();
-                    
                 }
             }catch(error){
                 console.error('Error pushing data into DB:', error);
@@ -78,8 +87,28 @@ export default class CustomForm {
         }
     }
 
+    handleRemoveBtn(){
+        const id = this.targetData.id;
+        let isDelete = alert('Are you sure you want to Delete this record?');
+        if(isDelete){
+            const response = fetch(`http://localhost:5032/api/Employees/${id}`,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+        
+    }
+
+    handleNewBtn(){
+        localStorage.setItem('targetData', null);
+        window.location.reload();
+    }
+
     async pushDataIntoDB(data , method , id){
         data.departmentId = 1;
+        
         console.log('data: ', data);
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`,{
             method: `${method}`,

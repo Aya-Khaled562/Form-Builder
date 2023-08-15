@@ -1,9 +1,16 @@
 
 export default class ShowSavedRecords{
-
     entityid;
     constructor(entityid){
         this.entityid = entityid;
+        this.initialize();
+    }
+
+    initialize(){
+        $('#new').on('click',()=> {
+            localStorage.setItem('targetData', null);
+            window.open('../../pages/customForm.html', '_self');
+        });
     }
 
     async getEntity(){
@@ -45,12 +52,17 @@ export default class ShowSavedRecords{
                 this.handleRowClick(id);
             }
         });
+
+        $('#dataTable').on('click', 'tr', function(e) {
+            $('#dataTable tr').removeClass('selected');
+            $(this).addClass('selected');
+        });
     }
 
     async handleRowClick(id){
         const data = await this.getTargetRow(id);
         localStorage.setItem('targetData', JSON.stringify(data));
-        // window.open('../../pages/customForm.html', '_blank');
+        // const childpage = window.open('../../pages/customForm.html', '_self');
         window.location.href = '../../pages/customForm.html';
     }
     async getTargetRow(id){
