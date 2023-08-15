@@ -132,7 +132,7 @@
                 console.log('drag after render', formBuilder.dragAfterRender);
                 formBuilder.targetField = formBuilder.Entity.attributeSchemas.find(field => field.id === formBuilder.dragAfterRender.id);
                 console.log('target field', formBuilder.targetField);
-                let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.options || {})
+                let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.lookup || formBuilder.targetField.options || {})
                 let obj = {
                     customClass: 'py-3',
                     style: 'border: 1px dashed #6d6e70',
@@ -146,6 +146,7 @@
                     maxLen: formBuilder.targetField.maxLen,
                     pattern: formBuilder.targetField.pattern
                 }
+
 
                 formBuilder.dragBeforeRender = formBuilder.build(formBuilder.targetField.type, obj);
                 console.log('drag befor render', formBuilder.dragBeforeRender);

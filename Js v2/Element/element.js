@@ -17,7 +17,8 @@ export const Types = {
     PhoneNumber: 'phone number',
     Image: 'image',
     Currency: 'currency',
-    WholeNumber: 'whole number'
+    WholeNumber: 'whole number',
+    Lookup: 'lookup'
 };
 
 export const Categories = {Layout: "layout", FormControl: "formControl"};

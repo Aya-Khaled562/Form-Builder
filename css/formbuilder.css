@@ -364,3 +364,9 @@ display: flex;
 .imgLock {
     width: fit-content; 
 }
+
+#search-btn i {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 10px;
+}

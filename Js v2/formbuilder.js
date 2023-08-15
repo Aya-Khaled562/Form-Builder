@@ -283,7 +283,7 @@ export default class FormBuilder {
                 coltab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colsec=>{
                         this.requiredFields.forEach(field=>{
-                            let value = new Value('', field.type, field.options || {})
+                            let value = new Value('', field.type,  field.lookup || field.options || {})
                             let obj = {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
@@ -297,6 +297,8 @@ export default class FormBuilder {
                                 maxLen: field.maxLen,
                                 pattern: field.pattern
                             }
+                            console.log('object at draw required elements', obj);
+
                             let fieldElement = this.build(field.type , obj)
                             colsec.addElement(fieldElement);
                             this.addElementToMap(fieldElement)
@@ -470,6 +472,11 @@ export default class FormBuilder {
                 const image = new Element(obj);
                 this.addElementToMap(image);
                 return image;
+            case 'lookup':
+                obj.typeContent = this.#platformFactory.createLookup(obj);
+                const lookup = new Element(obj);
+                this.addElementToMap(lookup);
+                return lookup;
         }
 
     }
@@ -562,6 +569,77 @@ export default class FormBuilder {
         }
     }
 
+
+    lookupSearchClicked(lookupElement){
+        return async function(e){
+
+
+            console.log('heree lookup search cliked');
+            // get views from server
+          // console.log(this.getViewData());
+           const form = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${lookupElement.value.source.lookFor}`);
+           let viewData =  await form.json();
+           console.log(viewData);
+
+           let lookupListElm = $(`#${lookupElement.Id}_lookup_list`);
+        
+           if (lookupListElm){
+            lookupListElm.html('');
+            viewData.forEach(viewItem => {
+ 
+                let listItem = `<a href="#" class="list-group-item list-group-item-action"  data-id="${viewItem.id}" data-name="${viewItem.name}" aria-current="true">
+                <p class="mb-1" data-id="${viewItem.id}" data-name="${viewItem.name}">${viewItem.name}</p>
+                <p class="mb-1" data-id="${viewItem.id}" data-name="${viewItem.name}">${viewItem.place}</p>
+            </a>`;
+
+            
+            
+
+            // listItem.addEventListener('click', function(e){
+            //     let lookupFieldElm = document.getElementById(`${lookupElement.Id}`);
+            //     if (lookupFieldElm){
+            //         lookupFieldElm.value = e.target.getAttribute('data-name');
+            //     }
+            // });
+           
+               lookupListElm.append(listItem); 
+               $(listItem).on('click', function(e){
+                // let lookupFieldElm = $(`#${lookupElement.Id}`);
+                // if (lookupFieldElm){
+                //     lookupFieldElm.val( e.target.getAttribute('data-name'));
+                //     console.log(e.target.getAttribute('data-name'));
+                // }
+                console.log('is cliekded aaaaaaaa');
+            });    
+           });
+
+           lookupListElm.append(`<a href="#" class="list-group-item list-group-item-action loadMore" id="${lookupElement.id}_loadMore" aria-current="true">
+           <p class="mb-1">Load More</p>
+       </a>`);
+           } 
+           lookupListElm.children().each(function(index, element){
+            $(element).on('click', function(e){
+                let lookupFieldElm = $(`#${lookupElement.Id}`);
+                if (lookupFieldElm){
+                    console.log(lookupFieldElm);
+                    console.log(e.target.parentElement);
+
+                    lookupFieldElm.val( e.target.getAttribute('data-name'));
+                    console.log(e.target.getAttribute('data-name'));
+                }
+                console.log('is cliekded aaaaaaaa');
+
+                lookupListElm.toggleClass('d-none');
+
+            }); 
+           });
+           
+           if (lookupListElm.has('d-none')){
+            lookupListElm.removeClass('d-none');
+           };
+        }
+    }
+
     addPreviewEvents() {
         this.#elementsMap.forEach((el) => {
             let controlElm = document.getElementById(el.Id);
@@ -576,7 +654,11 @@ export default class FormBuilder {
                 }
                 //controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
                 
-
+                
+                if (el.TypeContent._type == Types.Lookup){
+                    console.log('next element sibling',controlElm.nextElementSibling);
+                    controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
+                }
             }
 
             // if (el.TypeContent._type == Types.Tab){
