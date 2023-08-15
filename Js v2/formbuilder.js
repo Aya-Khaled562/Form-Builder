@@ -570,7 +570,6 @@ export default class FormBuilder {
                 if (el.isRequired) {
                     controlElm.addEventListener('blur', fieldIsRequired);
                 }
-
                 if (el.pattern){
                     controlElm.addEventListener('blur', validatePattern(el));
                 }
