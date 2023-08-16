@@ -271,11 +271,15 @@
   <!-- ============================================================================= -->
 
   <div id="buttons-nav">
-    <button type="button" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
+    <button type="button" id="new" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
         class="icon-xs icon-new-plus" />New</button>
+    <button type="button" id="onlysave" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
+      class="icon-xs icon-new-plus" />Save</button>
+    <button type="button" id="saveandclose" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
+      class="icon-xs icon-new-plus" />Save & Close</button>
     <div class="btn-group">
-      <button type="button" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
-          class="icon-xs icon-delete" />Delete</button>
+      <button type="button" id="removeBtn" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
+        class="icon-xs icon-delete" />Delete</button>
       <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
         data-bs-toggle="dropdown" aria-expanded="false"><span class="visually-hidden">Toggle
           Dropdown</span></button>
@@ -296,8 +300,8 @@
         class="icon-xs" /> عرض معلومات الموظف الأساسية </button>
     <button type="button" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
         class="icon-xs" /> Refresh Employees Vacation Balance </button>
-    <button type="button" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
-        class="icon-xs" /> Emp Utilization Report </button>
+     <!--<button type="button" class="btn btn-primary"><img src="/img/transparent_spacer.gif"
+        class="icon-xs" /> Emp Utilization Report </button> -->
     <div class="dropdown d-inline-block">
       <button class="btn btn-primary dropdown-toggle0" type="button" data-bs-toggle="dropdown"
         aria-expanded="false"><img src="/img/more_16.png"/></button>
@@ -402,10 +406,11 @@
                 </div>
               </nav>
             </div>
-      
           </div>
+
     </div> -->
-    <div class="container-fluid mt-2">
+    
+    <div class="container-fluid mt-3">
         <div class="row px-2" id="formContainer">
             <div class="col-10" id="form">
 

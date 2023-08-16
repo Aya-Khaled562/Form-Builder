@@ -39,9 +39,10 @@ export default class CustomForm {
         console.log('required fields: ', this.requiredFields);
         //Get Data
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
 
-        let saveBtn = document.getElementById('save');
+        let saveBtn = document.getElementById('onlysave');
         let saveandcloseBtn = document.getElementById('saveandclose');
         let removeBtn = document.getElementById('removeBtn');
         let newBtn = document.getElementById('new');
@@ -51,8 +52,8 @@ export default class CustomForm {
             this.builder.mapData(this.targetData);
         }
 
-        saveBtn.addEventListener('click',()=> this.handleNewSaveBtn(false));
-        saveandcloseBtn.addEventListener('click',()=> this.handleNewSaveBtn(true));
+        saveBtn.addEventListener('click',()=> this.handleSaveBtn(false));
+        saveandcloseBtn.addEventListener('click',()=> this.handleSaveBtn(true));
         removeBtn.addEventListener('click' , ()=> this.handleRemoveBtn());
     
     }
@@ -72,12 +73,13 @@ export default class CustomForm {
             })
         });
     }
+
     async getForm(){
         const form = await fetch('http://localhost:5032/api/EntityFroms?formName=main');
         return form.json();
     }
 
-    async handleNewSaveBtn(shouldClose){
+    async handleSaveBtn(shouldClose){
         let dataObject = {}
         let flag = false;
         for(let i=0; i< this.builder.Fields.length; i++){
@@ -126,6 +128,7 @@ export default class CustomForm {
 
     handleRemoveBtn(){
         const id = this.targetId;
+        console.log('id: ' , id)
         if(id !== 0 ){
             let isDelete = confirm('Are you sure you want to Delete this record?');
             if(isDelete){
@@ -135,6 +138,10 @@ export default class CustomForm {
                         'Content-Type': 'application/json'
                     }
                 });
+
+                localStorage.setItem('targetData', null);
+                localStorage.setItem('newRecordFlag',null);
+                window.open('../../pages/showSavedRecord.html' , '_self');
             }
         }else{
             alert('There is no record to delete')
@@ -144,6 +151,7 @@ export default class CustomForm {
     }
 
     handleNewBtn(){
+        console.log('hsjhfajsfh');
         localStorage.setItem('targetData', null);
         localStorage.setItem('newRecordFlag',null);
         window.location.reload();
