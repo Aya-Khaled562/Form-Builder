@@ -588,7 +588,6 @@ export default class FormBuilder {
 
     }
 
-
     mapData(data){
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
@@ -602,7 +601,6 @@ export default class FormBuilder {
                                 if(field.name === 'startDate'){
                                     let dateFromBackend = value.split('T')[0];
                                     document.getElementById(`${field.id}`).value = dateFromBackend;
-
                                 }
                             }
                         })

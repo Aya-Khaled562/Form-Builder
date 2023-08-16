@@ -66,7 +66,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`,
             `<div>
                 <div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
-                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-3'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                    <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                     <input type="password" class="form-control ${obj.labelPosition ? '' : 'col'} " display:block;" ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
                 </div>
             </div>`
@@ -146,7 +146,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
             `<div class="mb-3 d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}" draggable="true" >
-                    <label class="form-label ${obj.labelPosition ? '': 'col-3'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 10px;">${obj.displayName}</label>
+                    <label class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.displayName}</label>
                     <select class="form-select ${obj.labelPosition ? '': 'col'}" id="${obj.id}" ${obj.readOnly ? `disabled` : ""}>${twoOptions}</select> 
             </div>
             `
@@ -239,12 +239,18 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="row tabArea2 collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
             </div>
             `,
-            `<div id="${obj.id}" class="tabArea1 mb-5 ${obj.visible ? '' : 'd-none'}">
+            `<div id="${obj.id}" class="mb-5 ${obj.visible ? '' : 'd-none'}" style="padding:4px;">
                 <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>
-                <div class="row tabArea2 my-2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"><!--content--></div></div>
+                <div class="row tabArea2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"><!--content--></div></div>
             `
+            // `<div id="${obj.id}" class="tabArea1 mb-5 ${obj.visible ? '' : 'd-none'}">
+            //     <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
+            //             <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
+            //     </div>
+            //     <div class="row tabArea2 my-2 ${obj.customClass} w-100 collapse show" id="areaCollapsed-${obj.id}"><!--content--></div></div>
+            // `
         );
   
     }
@@ -262,9 +268,16 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 </div>
             </div>`,
 
-            `<div class="container-fluid container-section section ${obj.customClass} ${obj.visible ? '' : ' d-none '}" id="${obj.id}">
-                <div class="row row-section">
-                <h6 class="${!obj.showLabel ? 'd-none ' : ''}">${obj.name}</h6>
+            `<div class="container-fluid  ${obj.customClass} ${obj.visible ? '' : ' d-none '}" id="${obj.id}" style="border: 1px solid #c3c6cd!important; padding:0">
+            <div style="
+            border-bottom: 2px solid #c3c6cd;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: inline-block; 
+          " class="w-100 ${!obj.showLabel ? 'd-none ' : ''}">
+                <h6 class="mx-2">${obj.name}</h6>   
+            </div>
+            <div class="row row-section mx-2">
                     <!--content-->
                 </div>
             </div>`
@@ -276,7 +289,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             'column',
             'layout',
             `<div id="${obj.id}" class="${obj.customClass}" style = "${obj.style}"> <!--content--></div>`,
-            `<div id="${obj.id}" class="${obj.customClass}" > <!--content--></div>`
+            `<div id="${obj.id}" class="${obj.customClass}"> <!--content--></div>`
         );
     }
 
