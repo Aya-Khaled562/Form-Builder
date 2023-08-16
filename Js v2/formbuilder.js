@@ -572,14 +572,19 @@ export default class FormBuilder {
     lookupSearchClicked(lookupElement){
         return async function(e){
 
-
+            let lookupFieldElm = $(`#${lookupElement.Id}`);
             console.log('heree lookup', lookupElement);
             // get views from server
           // console.log(this.getViewData());
           let viewData = [];
           if (!lookupElement.value.source.selectedData){
               const form = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${lookupElement.value.source.lookFor}`);
-               viewData =  await form.json();   
+               viewData =  await form.json(); 
+               
+               if (lookupFieldElm.val().trim() != ''){
+                    viewData = viewData.filter(item => item.name.toLowerCase().indexOf(lookupFieldElm.val().toLowerCase()) != -1);
+               }
+               
           }else {
             viewData.push(lookupElement.value.source.selectedData);
           }
@@ -622,7 +627,9 @@ export default class FormBuilder {
 
                     lookupFieldElm.val( e.target.getAttribute('data-name'));
                     lookupFieldElm.attr('data-value', e.target.getAttribute('data-id'));
-                    lookupElement.value.source.selectedData =  viewData.find(item => item.id == e.target.getAttribute('data-id'))
+                    lookupElement.value.source.selectedData =  viewData.find(item => item.id == e.target.getAttribute('data-id'));
+
+
                     console.log(e.target.getAttribute('data-name'));
                 }
                 lookupListElm.toggleClass('d-none');
@@ -660,10 +667,6 @@ export default class FormBuilder {
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
             }
-
-
-
-
         });
 
     }
