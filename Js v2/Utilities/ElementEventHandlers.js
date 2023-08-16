@@ -17,6 +17,20 @@
 
     }
 
+  export function showLookupLoadMoreRecordsModal(lookupElement) {
+
+        return function(e){
+            e.stopPropagation();
+            console.log('modeal load more called');
+           // $('button[id="display-tab"]').tab('show');
+    
+            $('#loadMoreRecordsModal').attr('data-id', lookupElement.Id);
+    
+            $('#loadMoreRecordsModal').modal('show');
+        }
+       
+    }
+
     export function fieldIsRequired(e) {
         let inputValue = e.target.value;
 

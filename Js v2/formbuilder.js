@@ -1,7 +1,7 @@
 import AndroidElementFactory from "./platforms/android_element_factory.js";
 import {Categories, Types} from "./Element/element.js";
 import HtmlElementFactory from "./platforms/html_element_factory.js";
-import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern} from "./Utilities/ElementEventHandlers.js";
+import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern, showLookupLoadMoreRecordsModal} from "./Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj, download} from "./Utilities/Utils.js";
 import Element from "./Element/element.js";
 import Value from "./Element/value.js";
@@ -592,25 +592,8 @@ export default class FormBuilder {
                 <p class="mb-1" data-id="${viewItem.id}" data-name="${viewItem.name}">${viewItem.place}</p>
             </a>`;
 
-            
-            
-
-            // listItem.addEventListener('click', function(e){
-            //     let lookupFieldElm = document.getElementById(`${lookupElement.Id}`);
-            //     if (lookupFieldElm){
-            //         lookupFieldElm.value = e.target.getAttribute('data-name');
-            //     }
-            // });
            
                lookupListElm.append(listItem); 
-               $(listItem).on('click', function(e){
-                // let lookupFieldElm = $(`#${lookupElement.Id}`);
-                // if (lookupFieldElm){
-                //     lookupFieldElm.val( e.target.getAttribute('data-name'));
-                //     console.log(e.target.getAttribute('data-name'));
-                // }
-                console.log('is cliekded aaaaaaaa');
-            });    
            });
 
            lookupListElm.append(`<a href="#" class="list-group-item list-group-item-action loadMore" id="${lookupElement.id}_loadMore" aria-current="true">
@@ -618,6 +601,12 @@ export default class FormBuilder {
        </a>`);
            } 
            lookupListElm.children().each(function(index, element){
+
+            if (element.id == `${lookupElement.id}_loadMore`){
+                $(element).on('click', showLookupLoadMoreRecordsModal(lookupElement));
+                return;
+            }
+
             $(element).on('click', function(e){
                 let lookupFieldElm = $(`#${lookupElement.Id}`);
                 if (lookupFieldElm){
@@ -627,8 +616,6 @@ export default class FormBuilder {
                     lookupFieldElm.val( e.target.getAttribute('data-name'));
                     console.log(e.target.getAttribute('data-name'));
                 }
-                console.log('is cliekded aaaaaaaa');
-
                 lookupListElm.toggleClass('d-none');
 
             }); 
