@@ -124,7 +124,7 @@ a, .nav-link {
     display: flex !important;
 }
 .nav-link{font-size: 11px;}
-#addTabMenu ,#addSectionMenu,#saveJsonForm,#removeBtn,#updateMode,#createMode,#save {
+#addTabMenu ,#addSectionMenu,#preview,#saveandclose,#new,#removeBtn,#updateMode,#createMode,#save ,#custom{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -205,13 +205,31 @@ a, .nav-link {
 }
 
 
-#saveJsonForm i {
+#preview i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -273px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#saveandclose i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -273px -443px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#new i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -273px -443px;
     width: 32px;
     height: 32px;
     overflow: hidden;
 }
 #save i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#custom i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
     width: 32px;
     height: 32px;
@@ -245,8 +263,6 @@ display: flex;
     border-top: 0;
     padding-bottom: 1.125rem;
 }
-
-
 
 .has-childs .span-title {
         position: absolute;
@@ -324,6 +340,8 @@ display: flex;
             overflow-y: auto;
         }
         .tabArea{margin: 0 4px ;background-color: #e9edf1;padding: 8px;}
+        .tabArea.border-danger .tabArea1{border: 1px solid rgb(0, 118, 163)!important;}
+
         .tabArea1{background-color: #fff;padding: 4px;border: 1px dashed #6d6e70!important;}
         .tabArea2{}
         .tabArea1.border-danger{border: 1px solid rgb(0, 118, 163)!important;}
@@ -342,3 +360,15 @@ display: flex;
             color: #cccccc;
             border: 1px solid #cccccc!important;
             padding-left: 2px;}
+
+.imgLock {
+    width: fit-content; 
+}
+
+.select {
+    background-color: rgb(65, 172, 243)!important;
+}
+
+#dataTable tbody tr:hover {
+    background-color: rgb(168, 214, 245); 
+  }
