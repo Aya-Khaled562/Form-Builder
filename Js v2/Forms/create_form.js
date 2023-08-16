@@ -312,7 +312,7 @@ export default class CreateForm {
             let currentNumberOfCols = element.getElements().length;
             if (checkedColumnsValue < currentNumberOfCols) {
                 while (currentNumberOfCols > checkedColumnsValue) {
-                   let removedElement = element.popElement();
+                    let removedElement = element.popElement();
                     console.log('removed element', removedElement);
 
                     removedElement.getElements().forEach(el => {
@@ -320,7 +320,7 @@ export default class CreateForm {
                         if (el.TypeContent._type == Types.Section){
                             el.getElements().forEach( secCol => {
                                 secCol.getElements().forEach(control => {
-                                     document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${control.Id}'><img src="img/ico_18_attributes.gif"> ${control.Name}</div>`;
+                                    document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${control.Id}'><img src="img/ico_18_attributes.gif"> ${control.Name}</div>`;
                                 });
                             });
                         }else if (el.TypeContent._category == Categories.FormControl){
