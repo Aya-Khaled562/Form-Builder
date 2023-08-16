@@ -18,9 +18,14 @@
     }
 
   export function showLookupLoadMoreRecordsModal(lookupElement) {
-
+    
         return function(e){
             e.stopPropagation();
+            let lookupListElm = $(`#${lookupElement.Id}_lookup_list`);
+
+             if (lookupListElm){
+                 lookupListElm.addClass('d-none');
+             }
             console.log('modeal load more called');
            // $('button[id="display-tab"]').tab('show');
     

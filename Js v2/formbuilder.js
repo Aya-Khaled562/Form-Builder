@@ -2,7 +2,6 @@ import AndroidElementFactory from "./platforms/android_element_factory.js";
 import {Categories, Types} from "./Element/element.js";
 import HtmlElementFactory from "./platforms/html_element_factory.js";
 import {addAllEventsToElement, fieldIsRequired, fieldMaxAndMinLen, validatePattern, showLookupLoadMoreRecordsModal} from "./Utilities/ElementEventHandlers.js";
-import {createElementFactoryPropertiesObj, download} from "./Utilities/Utils.js";
 import Element from "./Element/element.js";
 import Value from "./Element/value.js";
 
@@ -574,11 +573,17 @@ export default class FormBuilder {
         return async function(e){
 
 
-            console.log('heree lookup search cliked');
+            console.log('heree lookup', lookupElement);
             // get views from server
           // console.log(this.getViewData());
-           const form = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${lookupElement.value.source.lookFor}`);
-           let viewData =  await form.json();
+          let viewData = [];
+          if (!lookupElement.value.source.selectedData){
+              const form = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${lookupElement.value.source.lookFor}`);
+               viewData =  await form.json();   
+          }else {
+            viewData.push(lookupElement.value.source.selectedData);
+          }
+
            console.log(viewData);
 
            let lookupListElm = $(`#${lookupElement.Id}_lookup_list`);
@@ -599,27 +604,36 @@ export default class FormBuilder {
            lookupListElm.append(`<a href="#" class="list-group-item list-group-item-action loadMore" id="${lookupElement.id}_loadMore" aria-current="true">
            <p class="mb-1">Load More</p>
        </a>`);
-           } 
-           lookupListElm.children().each(function(index, element){
 
-            if (element.id == `${lookupElement.id}_loadMore`){
-                $(element).on('click', showLookupLoadMoreRecordsModal(lookupElement));
+     
+           } 
+           lookupListElm.children().each(function(index, listItem){
+
+            if (listItem.id == `${lookupElement.id}_loadMore`){
+                $(listItem).on('click', showLookupLoadMoreRecordsModal(lookupElement));
                 return;
             }
 
-            $(element).on('click', function(e){
+            $(listItem).on('click', function(e){
                 let lookupFieldElm = $(`#${lookupElement.Id}`);
                 if (lookupFieldElm){
                     console.log(lookupFieldElm);
                     console.log(e.target.parentElement);
 
                     lookupFieldElm.val( e.target.getAttribute('data-name'));
+                    lookupFieldElm.attr('data-value', e.target.getAttribute('data-id'));
+                    lookupElement.value.source.selectedData =  viewData.find(item => item.id == e.target.getAttribute('data-id'))
                     console.log(e.target.getAttribute('data-name'));
                 }
                 lookupListElm.toggleClass('d-none');
 
             }); 
            });
+
+           lookupListElm.append(`<a class="d-flex justify-content-between list-group-item list-group-item-action results bg-light" id="${lookupElement.id}_results" aria-current="true">
+           <p class="mb-1">${viewData.length} results</p>
+           <div class="mb-1" id="${lookupElement.Id}_new" style="cursor: pointer;"><i class="fa-solid fa-plus"></i> New</div>
+       </a>`);
            
            if (lookupListElm.has('d-none')){
             lookupListElm.removeClass('d-none');
@@ -641,17 +655,13 @@ export default class FormBuilder {
                 }
                 //controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
                 
-                
                 if (el.TypeContent._type == Types.Lookup){
-                    console.log('next element sibling',controlElm.nextElementSibling);
+                    //console.log('next element sibling',controlElm.nextElementSibling);
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
             }
 
-            // if (el.TypeContent._type == Types.Tab){
-            //     console.log(controlElm)
-            //     controlElm.addEventListener('click', rotateIcon)
-            // }
+
 
 
         });
