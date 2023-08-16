@@ -81,10 +81,15 @@ export default class CustomForm {
 
     async handleSaveBtn(shouldClose){
         let dataObject = {}
+        
         let flag = false;
         for(let i=0; i< this.builder.Fields.length; i++){
             let key = this.builder.Fields[i].name;
             let value = document.getElementById(this.builder.Fields[i].id).value
+            if(key === 'image'){
+                // if()
+                value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
+            }
             dataObject[key]  = value;
         }
 
@@ -114,7 +119,9 @@ export default class CustomForm {
             }
             else{
                 response = await this.pushDataIntoDB(dataObject , 'POST');
-                localStorage.setItem('newRecordFlag', JSON.stringify(response));
+                if(response.status !==400){
+                    localStorage.setItem('newRecordFlag', JSON.stringify(response));
+                }
             }
             if (shouldClose) {
                 localStorage.setItem('targetData', null);
@@ -159,7 +166,7 @@ export default class CustomForm {
 
     async pushDataIntoDB(data , method , id=''){
         data.departmentId = 1;
-        console.log('data: ', data);
+        console.log('data', data);
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`,{
             method: `${method}`,
             headers: {

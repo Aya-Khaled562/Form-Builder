@@ -589,6 +589,7 @@ export default class FormBuilder {
     }
 
     mapData(data){
+        console.log('data that come from database: ', data);
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
                 colTab.getElements().forEach(sec=>{
@@ -596,6 +597,9 @@ export default class FormBuilder {
                         colSec.getElements().forEach(field=>{
                             if(data.hasOwnProperty(field.name)){
                                 let value = data[field.name];
+                                if(field.name === 'image'){
+                                    value = null;
+                                }
                                 field.Value = value;
                                 document.getElementById(`${field.id}`).value = value;
                                 if(field.name === 'startDate'){

@@ -176,6 +176,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
     //         </div>`
     //     );
     // }
+
+    
     createDecimalNumber(obj) {
         return new TypeContent(
             'decimal number',
