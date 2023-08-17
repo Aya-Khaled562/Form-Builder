@@ -11,12 +11,8 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     referrerpolicy="no-referrer" rel="stylesheet"/>
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-
 
     <link rel="stylesheet" href="/css/demo.css">
     <link rel="stylesheet" href="/css/scrolltabs.css">
@@ -397,11 +393,58 @@
         </div>
     </div>
 
+    <div class="w-100">
+      <!-- Modal -->
+      <div aria-hidden="true" aria-labelledby="loadMoreRecordsModalArea" class="modal fade" id="loadMoreRecordsModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loadMoreRecordsModalArea">Look Up Record</h5>
+              <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
 
-  <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
-  <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-  <script defer src="/Js v2/Pages/custom_start.js" type="module"></script>
+              <div class="mb-3">
+                <label for="lookFor" class="form-label">Look for</label>
+                <input disabled type="text" class="form-control" id="lookFor">
+              </div>
+
+              <div class="mb-3">
+                <label for="lookIn" class="form-label">Look In</label>
+                <select class="form-select" id="lookIn">
+                </select>
+              </div>
+
+
+              <div class="container-fluid">
+                <div class="row align-item-center justify-content-center mt-5">
+                    <div class="col-12">
+                        <table id="dataTable" class="table table-striped">
+                            <thead>
+                                <tr id="headerRow"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+        
+            </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+              <button class="btn btn-primary" id="modalSave" type="button">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script defer src="/Js_v3/Pages/custom_start.js" type="module"></script>
 
 </body>
 </html>
