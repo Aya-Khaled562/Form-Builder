@@ -4,6 +4,26 @@ import AbstractElementFactory from "./abstract_element_factory.js";
 export default class HtmlElementFactory extends AbstractElementFactory {
 
 
+    createLookup(obj) {
+        // console.log('object in text', obj);
+        return new TypeContent(
+            'lookup',
+            'formControl',
+            `<div class=" d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' } px-2 py-1 my-1 field" style="${obj.style}" draggable="true" id="${obj.id}">
+                <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+                <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
+            </div>`,
+            `<div class="d-flex ${obj.labelPosition ? 'flex-column' : 'flex-row'} ${obj.labelAlignment ? 'align-items-end' : 'align-items-start'} px-2 py-1 my-1 field ${!obj.visible ? 'd-none' : ''}">
+            <label for="${obj.id}" class="col form-label ${obj.labelPosition ? '' : 'col-2'} ${!obj.showLabel ? 'd-none' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
+            <input type="text" class="form-control ${obj.labelPosition ? '' : 'col'}"  ${obj.readOnly ? `readonly` : ""} id="${obj.id}">
+            <div id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
+        </div><div class="list-group w-75" id="${obj.id}_lookup_list">
+        
+      </div>
+        `
+        );
+    }
+
     createFileUpload(obj) {
         return new TypeContent(
             'file upload',
@@ -340,6 +360,8 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
             case 'image':
                 return this.createImage(element);
+            case 'lookup':
+                return this.createLookup(element);
         }
     }
 

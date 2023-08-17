@@ -17,7 +17,8 @@ export const Types = {
     PhoneNumber: 'phone number',
     Image: 'image',
     Currency: 'currency',
-    WholeNumber: 'whole number'
+    WholeNumber: 'whole number',
+    Lookup: 'lookup'
 };
 
 export const Categories = {Layout: "layout", FormControl: "formControl"};
@@ -64,6 +65,11 @@ export default class Element {
         this.pattern = obj.pattern ?? null;
         this.labelAlignment = obj.labelAlignment ?? null;
         this.displayName = obj.displayName ?? null;
+
+        if (this.typeContent._type == Types.OptionSet){
+            console.log('optin at constoructre',this);
+        }
+
     }
 
     get Collapse() {
@@ -76,6 +82,10 @@ export default class Element {
 
     get Value() {
         return this.value;
+    }
+
+    set Value(value){
+        this.value = value;
     }
 
     get Required() {
