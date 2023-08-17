@@ -43,10 +43,19 @@ export default class CustomForm {
         console.log('required fields: ', this.requiredFields);
         //Get Data
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
-        if(this.targetData !== null){
+        if(this.hasImage){
             console.log('target data: ', this.targetData);
-            var image = document.getElementById('empImage');
-            image.src = this.targetData.image;
+            if(this.targetData.hasOwnProperty('image')){
+                document.getElementById('ImageContainer').style.display = 'block';
+                let image = document.getElementById('empImage');
+
+                if(this.targetData.image !== null){
+                    image.src = this.targetData.image;
+                }
+               
+                
+            }
+            
         }
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
@@ -76,9 +85,9 @@ export default class CustomForm {
                             if(field.isRequired){
                                 this.requiredFields.push(field);
                             }
-                            // if(field.typeContent._type === Types.Image){
-                            //     this.hasImage = true;
-                            // }
+                            if(field.type === Types.FileUpload){
+                                this.hasImage = true;
+                            }
                             
                         })
                     })
