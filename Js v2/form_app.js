@@ -123,6 +123,7 @@ export default class FormApp{
     }
 
     async customFrom(){
+        console.log('customFrom');
         this.targetFrom = new CustomForm(this.entity);
         await this.targetFrom.initialize();
         // let values = this.targetFrom.Values;

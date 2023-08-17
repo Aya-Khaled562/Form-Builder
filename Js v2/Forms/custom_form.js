@@ -47,18 +47,20 @@ export default class CustomForm {
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
         if(this.hasImage){
             console.log('target data: ', this.targetData);
-            if(this.targetData.hasOwnProperty('image')){
-                document.getElementById('ImageContainer').style.display = 'block';
-                let image = document.getElementById('empImage');
-
-                if(this.targetData.image !== null){
-                    image.src = this.targetData.image;
+            if(this.targetData !== null){
+                if(this.targetData.hasOwnProperty('image')){
+                    document.getElementById('ImageContainer').style.display = 'block';
+                    let image = document.getElementById('empImage');
+    
+                    if(this.targetData.image !== null){
+                        image.src = this.targetData.image;
+                    }
+    
+    
                 }
-
-
             }
-
         }
+        
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form', this.entity);
 

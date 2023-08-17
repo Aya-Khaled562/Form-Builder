@@ -669,13 +669,13 @@ export default class FormBuilder {
                 
                 if (el.TypeContent._type == Types.Lookup){
                     console.log(this.#entity);
-                    let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
+                    // let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
                     //console.log('elelement ', el);
-                    console.log('field schema ', fieldSchema);
-                    //console.log('next element sibling',controlElm.nextElementSibling);
-                    let value = new Value('',Types.Lookup ,fieldSchema.lookup);
-                    el.Value = value;
-                    console.log('lookup element dddd',el.Value);
+                    // console.log('field schema ', fieldSchema);
+                    // //console.log('next element sibling',controlElm.nextElementSibling);
+                    // let value = new Value('',Types.Lookup ,fieldSchema.lookup);
+                    // el.Value = value;
+                    // console.log('lookup element dddd',el.Value);
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
             }
