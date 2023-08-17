@@ -1,4 +1,5 @@
 
+import { Types } from "../Element/element.js";
 import FormBuilder from "../formbuilder.js";
 
 export default class CustomForm {
@@ -7,7 +8,8 @@ export default class CustomForm {
     targetData;
     flag;
     targetId;
-    requiredFields
+    requiredFields;
+    hasImage
     constructor(){
         this.builder = null;
         this.resolvePromise = null;
@@ -15,6 +17,7 @@ export default class CustomForm {
         this.flag = false;
         this.targetId = 0;
         this.requiredFields = [];
+        this.hasImage = false
     }
 
     // initialize(){
@@ -34,7 +37,8 @@ export default class CustomForm {
         const form = await this.getForm();
         const mainForm = form[0];
         const formAfterParse = JSON.parse(mainForm.fromJson);
-        // console.log('form: ', formAfterParse);
+        console.log('formAfterParse' , formAfterParse);
+        
         this.setRequiredFields(formAfterParse)
         console.log('required fields: ', this.requiredFields);
         //Get Data
@@ -43,7 +47,6 @@ export default class CustomForm {
             console.log('target data: ', this.targetData);
             var image = document.getElementById('empImage');
             image.src = this.targetData.image;
-            console.log('image: ', image);
         }
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
@@ -73,6 +76,10 @@ export default class CustomForm {
                             if(field.isRequired){
                                 this.requiredFields.push(field);
                             }
+                            // if(field.typeContent._type === Types.Image){
+                            //     this.hasImage = true;
+                            // }
+                            
                         })
                     })
                 })

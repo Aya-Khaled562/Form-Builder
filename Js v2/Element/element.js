@@ -61,12 +61,9 @@ export default class Element {
         this.labelPosition = obj.labelPosition ?? false;
         this.minLen = obj.minLen ?? null;
         this.maxLen = obj.maxLen ?? null;
-
         this.pattern = obj.pattern ?? null;
         this.labelAlignment = obj.labelAlignment ?? null;
-
         this.displayName = obj.displayName ?? null;
-        console.log(this);
     }
 
     get Collapse() {
