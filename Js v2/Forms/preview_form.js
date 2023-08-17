@@ -17,7 +17,7 @@ export default class PreviewFrom {
 
         $('#loadMoreRecordsModal').on('shown.bs.modal', (e) => this.handleModalShown(e));
        // $('#loadMoreRecordsModal').on('hidden.bs.modal', (e) => this.handleModelClose(e));
-        $('#loadMoreRecordsModal #modalSave').on('click', (e) => this.handleModalSave(e));
+        //$('#loadMoreRecordsModal #modalSave').on('click', (e) => this.handleModalSave(e));
 
     }
 

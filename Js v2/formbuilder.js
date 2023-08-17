@@ -266,8 +266,8 @@ export default class FormBuilder {
             case 'preview':
             case 'custom':
                 this.load();
-                // console.log('after loading at prievew');
-                // console.log(this.#elements);
+                 console.log('after loading at prievew');
+                console.log(this.#elements);
                 document.getElementById(this.#parentId).innerHTML += this.#elements.map((tab) => tab.render()).join("");
                 this.addPreviewEvents();
                 break;
@@ -340,6 +340,7 @@ export default class FormBuilder {
                         column.elements.forEach((control) => {
                             let formControl = null;
                             // control.labelPosition = section.labelPosition;
+                            console.log('contorl', control);
                             formControl = this.build(control.type, control);
                             // console.log('5) control ', formControl);
                             // console.log('form control', formControl);
@@ -413,6 +414,7 @@ export default class FormBuilder {
                 const optionSetTypeContent = this.#platformFactory.createOptionSet(obj);
                 obj.typeContent = optionSetTypeContent;
                 const optionSet = new Element(obj);
+                console.log('option set',optionSet);
                 this.addElementToMap(optionSet)
                 return optionSet;
 
@@ -473,7 +475,13 @@ export default class FormBuilder {
                 return image;
             case 'lookup':
                 obj.typeContent = this.#platformFactory.createLookup(obj);
+               
+                console.log('lookup obj at build', obj);
+
                 const lookup = new Element(obj);
+                console.log('lookup element at build', lookup);
+                console.log('lookup element value at build', lookup.value);
+
                 this.addElementToMap(lookup);
                 return lookup;
         }
@@ -571,7 +579,7 @@ export default class FormBuilder {
 
     lookupSearchClicked(lookupElement){
         return async function(e){
-
+           
             let lookupFieldElm = $(`#${lookupElement.Id}`);
             console.log('heree lookup', lookupElement);
             // get views from server
@@ -663,7 +671,14 @@ export default class FormBuilder {
                 //controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
                 
                 if (el.TypeContent._type == Types.Lookup){
+                    console.log(this.#entity);
+                    let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
+                    //console.log('elelement ', el);
+                    console.log('field schema ', fieldSchema);
                     //console.log('next element sibling',controlElm.nextElementSibling);
+                    let value = new Value('',Types.Lookup ,fieldSchema.lookup);
+                    el.Value = value;
+                    console.log('lookup element dddd',el.Value);
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
             }
@@ -673,6 +688,8 @@ export default class FormBuilder {
 
 
     mapData(data){
+        console.log('elelemnts at map', this.#elements);
+        console.log('data',data);
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
                 colTab.getElements().forEach(sec=>{
@@ -680,6 +697,7 @@ export default class FormBuilder {
                         colSec.getElements().forEach(field=>{
                             if(data.hasOwnProperty(field.name)){
                                 let value = data[field.name];
+                               
                                 field.Value = value;
                                 document.getElementById(`${field.id}`).value = value;
                                 if(field.name === 'startDate'){

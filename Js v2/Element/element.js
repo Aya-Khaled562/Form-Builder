@@ -73,6 +73,11 @@ export default class Element {
         this.labelAlignment = obj.labelAlignment ?? null;
 
         this.displayName = obj.displayName ?? null;
+
+        if (this.typeContent._type == Types.OptionSet){
+            console.log('optin at constoructre',this);
+        }
+
     }
 
     get Collapse() {
@@ -85,6 +90,10 @@ export default class Element {
 
     get Value() {
         return this.value;
+    }
+
+    set Value(value){
+        this.value = value;
     }
 
     get Required() {

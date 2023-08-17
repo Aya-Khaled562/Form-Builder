@@ -55,6 +55,7 @@ export default class ShowSavedRecords{
     }
     async getTargetRow(id){
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`);
+        
         return response.json();
     }
 }
