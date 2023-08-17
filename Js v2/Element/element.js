@@ -53,16 +53,10 @@ export default class Element {
         this.mode = obj.mode ?? null;
         this.isRequired = obj.isRequired ?? false;
         this.readOnly = obj.readOnly ?? false;
-        // if(this.typeContent._type === Types.Section){
-        //     this.visible = obj.visible ?? false;
-        // }else{
-        //     this.visible = obj.visible ?? true;
-        // }
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? true;
         this.value = obj.value;
         this.isLocked = obj.isLocked ?? false;
-
         this.showLabel = obj.showLabel ?? true;
         this.labelPosition = obj.labelPosition ?? false;
         this.minLen = obj.minLen ?? null;
@@ -72,6 +66,7 @@ export default class Element {
         this.labelAlignment = obj.labelAlignment ?? null;
 
         this.displayName = obj.displayName ?? null;
+        console.log(this);
     }
 
     get Collapse() {

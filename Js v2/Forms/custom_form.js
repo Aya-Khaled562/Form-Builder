@@ -39,6 +39,12 @@ export default class CustomForm {
         console.log('required fields: ', this.requiredFields);
         //Get Data
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        if(this.targetData !== null){
+            console.log('target data: ', this.targetData);
+            var image = document.getElementById('empImage');
+            image.src = this.targetData.image;
+            console.log('image: ', image);
+        }
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
 
