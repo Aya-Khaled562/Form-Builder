@@ -12,6 +12,7 @@ export default class CustomForm {
     hasImage
     entity;
     constructor(entity = null){
+        console.log('from custom form: entity = ' , entity);
         this.builder = null;
         this.resolvePromise = null;
         this.targetData = null;
@@ -59,7 +60,7 @@ export default class CustomForm {
 
         }
         this.targetId = this.targetData?.id || 0;
-        this.builder = new FormBuilder(formAfterParse, 'custom' ,'form');
+        this.builder = new FormBuilder(formAfterParse, 'custom' ,'form', this.entity);
 
         let saveBtn = document.getElementById('onlysave');
         let saveandcloseBtn = document.getElementById('saveandclose');
