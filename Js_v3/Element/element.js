@@ -66,9 +66,9 @@ export default class Element {
         this.labelAlignment = obj.labelAlignment ?? null;
         this.displayName = obj.displayName ?? null;
 
-        if (this.typeContent._type == Types.OptionSet){
-            console.log('optin at constoructre',this);
-        }
+        // if (this.typeContent._type == Types.OptionSet){
+        //     console.log('optin at constoructre',this);
+        // }
 
     }
 

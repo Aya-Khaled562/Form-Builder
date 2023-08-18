@@ -14,6 +14,7 @@ export default class CustomForm {
     requiredFields;
     hasImage
     entity;
+    id;
     constructor(entity = null){
         this.builder = null;
         this.resolvePromise = null;
@@ -22,24 +23,28 @@ export default class CustomForm {
         this.flag = false;
         this.targetId = 0;
         this.requiredFields = [];
-        this.hasImage = false
+        this.hasImage = false;
+        this.id = null;
     }
 
     async initialize(){
         const form = await this.getForm();
         const mainForm = form[0];
         const formAfterParse = JSON.parse(mainForm.fromJson);
-        console.log('formAfterParse' , formAfterParse);
-
+        this.id = this.getParameterByName('id' , window.location.href);
+        console.log('id: ' , this.id);
         this.setRequiredFields(formAfterParse)
-        console.log('required fields: ', this.requiredFields);
         //Get Data
-        this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        // this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        if(this.id != null){
+            this.targetData = await this.getData(this.id);
+        }
         console.log('target data: ', this.targetData);
         if(this.hasImage){
             
             if(this.targetData !== null){
                 if(this.targetData.hasOwnProperty('image')){
+                    console.log('has image');
                     document.getElementById('ImageContainer').style.display = 'block';
                     let image = document.getElementById('empImage');
                     if(this.targetData.image !== null){
@@ -57,9 +62,9 @@ export default class CustomForm {
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
 
-        console.log('elements at custom', this.builder.getElements());
+        // console.log('elements at custom', this.builder.getElements());
         if(this.targetData !== null){
-            console.log('target data: ', this.targetData);
+            // console.log('target data: ', this.targetData);
             this.builder.mapData(this.targetData);
         }
 
@@ -80,15 +85,19 @@ export default class CustomForm {
                             if(field.isRequired){
                                 this.requiredFields.push(field);
                             }
-                            if(field.type === Types.FileUpload){
+                            if(field.type === Types.Image){
                                 this.hasImage = true;
                             }
-
                         })
                     })
                 })
             })
         });
+    }
+
+    async getData(id){
+        const data = await fetch(`http://localhost:5032/api/Employees/${id}`);
+        return await data.json()
     }
 
     async getForm(){
@@ -102,11 +111,15 @@ export default class CustomForm {
         let flag = false;
         for(let i=0; i< this.builder.Fields.length; i++){
             let key = this.builder.Fields[i].name;
-            let value = document.getElementById(this.builder.Fields[i].id).value
-            if(key === 'image'){
-                // if()
-                value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
+            let value = null;
+            if(key !== 'image'){
+                value = document.getElementById(this.builder.Fields[i].id).value
             }
+            else{
+                value = this.targetData?.image;
+                // value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
+            }
+
             dataObject[key]  = value;
         }
 
@@ -186,10 +199,11 @@ export default class CustomForm {
 
 
     handleNewBtn(){
-        console.log('hsjhfajsfh');
         localStorage.setItem('targetData', null);
         localStorage.setItem('newRecordFlag',null);
-        window.location.reload();
+        // window.location.reload();
+        window.open(`../../pages/customForm.html`, '_self');
+
     }
 
     async pushDataIntoDB(data , method , id=''){
@@ -202,12 +216,22 @@ export default class CustomForm {
             },
             body: JSON.stringify(data)
         });
-        if(method === 'POST'){
-            return await response?.json();
+        var newRecord =  await response?.json();
+        if(data.hasOwnProperty('image') && data.image !== undefined){
+            const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data.image)
+            });
         }
+
+        return newRecord;
+        
     }
 
-    async  handleModalShown(e) {
+    async handleModalShown(e) {
 
         let elementId = $('#loadMoreRecordsModal').attr('data-id');
         let element = this.builder.getElementFromMap(elementId)
@@ -288,7 +312,7 @@ export default class CustomForm {
             console.log('selected data', element.elementValue.source.selectedData);
             dataTable.search(element.elementValue.source.selectedData.name).draw();
 
-          }
+        }
 
 
         lookForSelectMenu.on('change',async function(e){
@@ -306,6 +330,18 @@ export default class CustomForm {
             }
         });
 
+    }
+
+
+    getParameterByName(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        const capturedValue = results[2];
+        console.log('captured value: ' , capturedValue);
+        return capturedValue;
     }
 }
 

@@ -13,7 +13,7 @@ export default class ShowSavedRecords{
         
         $('#new').on('click',()=> {
             localStorage.setItem('targetData', null);
-            window.open('../../pages/customForm.html', '_self');
+            window.open(`../../pages/customForm.html`, '_self');
         });
 
         $('#delete').on('click',()=> this.handleRemoveRecord());
@@ -91,9 +91,10 @@ export default class ShowSavedRecords{
                 console.log('data in show saved record: ' , data);
                 localStorage.setItem('targetData', JSON.stringify(data));
                 // window.location.href = '../../pages/customForm.html';
-                window.open('../../pages/customForm.html', '_self');
+                window.open(`../../pages/customForm.html?id=${id}`, '_self');
             }
     }
+    
 
     async getTargetRow(id){
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`);

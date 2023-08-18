@@ -3,47 +3,6 @@ import CreateForm from "./Forms/create_form.js";
 import PreviewFrom from "./Forms/preview_form.js";
 import CustomForm from "./Forms/custom_form.js";
 
-export let entityValues = {
-    entity_name:"Employee",
-    fields:[
-        {
-            displayName:"First Name",
-            name:"firstname",
-            values:[]
-        },
-        {
-            displayName:"Last Name",
-            name:"lastname",
-            values:[]
-        },
-        {
-            displayName:"Social Status",
-            name:"socialstatus",
-            values:[]
-        },
-        {
-            displayName:"Gender",
-            name:"gender",
-            values:[]
-        },
-        {
-            displayName:"Salary",
-            name:"salary",
-            values:[]
-        },
-        {
-            displayName:"Notes",
-            name:"notes",
-            values:[]
-        },
-        {
-            displayName:"Start Date",
-            name:"startdate",
-            values:[]
-        }
-    ]
-}
-
 export default class FormApp{
     forms
     targetFrom
@@ -65,7 +24,7 @@ export default class FormApp{
         console.log('entity' , this.entity)
         let formJson = await this.getJsonform(this.mode);
         
-        console.log('form json', formJson);
+        // console.log('form json', formJson);
         if(formJson){
             const formDefault = formJson[0]
             this.jsonData = JSON.parse(formDefault.fromJson)

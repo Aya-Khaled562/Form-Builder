@@ -152,7 +152,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
 
     createTwoOptions(obj) {
 
-        console.log('object at two option', obj);
+        // console.log('object at two option', obj);
 
         let twoOptions = ``;
 

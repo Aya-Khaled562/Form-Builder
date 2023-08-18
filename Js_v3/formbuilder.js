@@ -379,7 +379,7 @@ export default class FormBuilder {
 
     build(type, obj) {
         obj.mode = this.#mode;
-        console.log('obj', obj)
+        // console.log('obj', obj)
         switch (type) {
             case 'tab':
                 const tabTypeContent = this.#platformFactory.createTab(obj);
@@ -422,7 +422,7 @@ export default class FormBuilder {
                 const twoOptionsTypeContent = this.#platformFactory.createTwoOptions(obj);
                 obj.typeContent = twoOptionsTypeContent;
                 const twoOptions = new Element(obj);
-                console.log('two option ', twoOptions);
+                // console.log('two option ', twoOptions);
 
                 this.addElementToMap(twoOptions)
                 return twoOptions;
@@ -478,11 +478,11 @@ export default class FormBuilder {
             case 'lookup':
                 obj.typeContent = this.#platformFactory.createLookup(obj);
 
-                console.log('lookup obj at build', obj);
+                // console.log('lookup obj at build', obj);
 
                 const lookup = new Element(obj);
-                console.log('lookup element at build', lookup);
-                console.log('lookup element value at build', lookup.value);
+                // console.log('lookup element at build', lookup);
+                // console.log('lookup element value at build', lookup.value);
 
                 this.addElementToMap(lookup);
                 return lookup;
@@ -583,7 +583,7 @@ export default class FormBuilder {
         return async function(e){
 
             let lookupFieldElm = $(`#${lookupElement.Id}`);
-            console.log('heree lookup', lookupElement);
+            // console.log('heree lookup', lookupElement);
             // get views from server
           // console.log(this.getViewData());
           let viewData = [];
@@ -672,14 +672,14 @@ export default class FormBuilder {
                 //controlElm.addEventListener('blur', fieldMaxAndMinLen(el));
                 
                 if (el.TypeContent._type == Types.Lookup){
-                    console.log(this.#entity);
+                    // console.log(this.#entity);
                     let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
                     //console.log('elelement ', el);
-                    console.log('field schema ', fieldSchema);
+                    // console.log('field schema ', fieldSchema);
                     //console.log('next element sibling',controlElm.nextElementSibling);
                     let value = new Value('',Types.Lookup ,fieldSchema.lookup);
                     el.elementValue = value;
-                    console.log('lookup element dddd',el.elementValue);
+                    // console.log('lookup element dddd',el.elementValue);
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
             }
@@ -705,15 +705,16 @@ export default class FormBuilder {
                                     field.ElementValue.source.selectedData = res;
                                     document.getElementById(`${field.id}`).value = res.name;
                                     });
-                                }else {
-                                    field.ElementValue = value;
+                                }else if (field.name !== 'image'){
+                                    // console.log(`value in else if , ${field.name}`, value);
+                                    field.ElementValue.source = value;
                                     document.getElementById(`${field.id}`).value = value;
                                 }
                                 if(field.name === 'startDate'){
                                     let dateFromBackend = value.split('T')[0];
                                     document.getElementById(`${field.id}`).value = dateFromBackend;
                                 }
-                                console.log('field ', field);
+                                // console.log('field ', field);
                             }
                         })
                     })
