@@ -15,6 +15,8 @@ export default class CustomForm {
     hasImage
     entity;
     id;
+    image;
+    formData
     constructor(entity = null){
         this.builder = null;
         this.resolvePromise = null;
@@ -25,6 +27,8 @@ export default class CustomForm {
         this.requiredFields = [];
         this.hasImage = false;
         this.id = null;
+        this.image = null;
+        this.formData = new FormData();
     }
 
     async initialize(){
@@ -75,21 +79,19 @@ export default class CustomForm {
         const imageContainer = document.getElementById('empImage');
         const modal = document.getElementById('uploadImageModal');
         const imageInput = document.getElementById('imageInput');
-
+        const closebtns = document.getElementsByClassName('close');
+    
         imageContainer.addEventListener('dblclick', () => this.openModal(modal));
 
-        // Close the modal when the Close button or backdrop is clicked
-        modal.addEventListener('click', (event) => {
-            // if (event.target === modal) {
+        for (let i = 0; i < closebtns.length; i++) {
+            closebtns[i].addEventListener('click', () => {
                 modal.style.display = 'none';
-            // }
-        });
-
-        // Handle the image upload when the Upload button is clicked
+            });
+        }
         const uploadImageBtn = document.getElementById('uploadImageBtn');
         uploadImageBtn.addEventListener('click', () => {
-            var image = imageInput.files[0]?.name;
-            console.log('image: ' , image);
+            this.image = imageInput.files[0];
+            this.formData.append('image', imageInput.files[0]);
             modal.style.display = 'none';
         });
 
@@ -246,15 +248,21 @@ export default class CustomForm {
         });
 
         var newRecord =  await response?.json();
-        // if(data.hasOwnProperty('image') && data.image !== undefined){
-        //     const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
-        //         method: 'POST',
-        //         headers:{
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data.image)
-        //     });
-        // }
+        if(data.hasOwnProperty('image') && this.image !== null){
+            // console.log('image' , this.image);
+            // const formData = new FormData();
+            // formData.append('image', this.image);
+
+            console.log('formData', this.formData);
+            const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.formData)
+            });
+        }
+
         return newRecord;
     }
 
