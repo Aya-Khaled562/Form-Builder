@@ -124,7 +124,7 @@ a, .nav-link {
     display: flex !important;
 }
 .nav-link{font-size: 11px;}
-#addTabMenu ,#addSectionMenu,#preview,#updateMode,#createMode,#save ,#custom{
+#addTabMenu ,#addSectionMenu,#preview,#updateMode,#createMode,#save,#removeBtn,#custom{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -213,6 +213,12 @@ a, .nav-link {
 }
 
 #save i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#removeBtn i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
     width: 32px;
     height: 32px;

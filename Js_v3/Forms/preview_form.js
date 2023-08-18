@@ -1,8 +1,8 @@
 import FormBuilder from "../formbuilder.js";
-import '../../node_modules/jquery/dist/jquery.min.js'
-//import '../../node_modules/jquery/dist/jquery.min.js';
-import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../../node_modules/datatables.net/js/jquery.dataTables.min.js'
+// import '../../node_modules/jquery/dist/jquery.min.js'
+// //import '../../node_modules/jquery/dist/jquery.min.js';
+// import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+// import '../../node_modules/datatables.net/js/jquery.dataTables.min.js'
 
 export default class PreviewFrom {
     #builder;

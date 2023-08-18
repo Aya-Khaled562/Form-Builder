@@ -35,7 +35,7 @@
                 style: arguments[0].Style,
                 mode: arguments[0].Mode,
                 isRequired: arguments[0].isRequired,
-                value: arguments[0].Value,
+                elementValue: arguments[0].elementValue,
                 optionsSetValues: arguments[0].OptionsSetValues,
                 visible: arguments[0].Visible,
                 readOnly: arguments[0].ReadOnly,

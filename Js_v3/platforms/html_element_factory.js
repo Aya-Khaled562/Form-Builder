@@ -49,10 +49,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <label class="${obj.labelPosition ? '': 'col-4'}" style="flex: 0 0 auto; margin-right: 5px;">${obj.isLocked ? "<span style='color: red'><img alt='This control is locked' class='imgLock' src='/img/ico_lock.gif'></span>" : ""} ${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
                 <div class="${obj.customClass} ${obj.labelPosition ? ' w-100 ': 'col'}" id="text" style="border: 1px dashed #6d6e70;"></div> 
             </div>`,
-            `<div class="d-flex align-items-center">
-            <img src="/img/user.jfif" alt="User Image" class="me-3" style="width: 100px; height: 100px; object-fit: cover;">
-            <!-- <h5>User Name</h5> -->
-            </div>`
+            ``
             // `<div>
             //     <div class="d-flex ${obj.labelPosition? ' flex-column ' : ' flex-row '} ${obj.labelAlignment? ' align-items-end ': ' align-items-start ' }  px-2 py-1 my-1 field ${!obj.visible ? 'd-none ' : ''}">
             //         <label for="${obj.id}" class="form-label ${obj.labelPosition ? '': 'col-2'} ${!obj.showLabel ? 'd-none ' : ''}" style="flex: 0 0 auto; margin-right: 5px;">${obj.displayName}${obj.isRequired ? "<span style='color: red'>*</span>" : ""}</label>
@@ -267,7 +264,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
                 <div class="row tabArea2 collapse show" id="areaCollapsed-${obj.id}"> <!--content--></div></div>
             </div>
             `,
-            `<div id="${obj.id}" class="mb-5 ${obj.visible ? '' : 'd-none'}" style="padding:4px;">
+            `<div id="${obj.id}" class="mt-2${obj.visible ? '' : 'd-none'}" style="padding:4px;">
                 <div class="${obj.showLabel ? '' : ' d-none '}" data-bs-toggle="collapse" data-bs-target="#areaCollapsed-${obj.id}" style="width:fit-content" aria-expanded="true">
                         <i class="fas fa-caret-right"></i><label class="ms-2">${obj.name}</label>
                 </div>

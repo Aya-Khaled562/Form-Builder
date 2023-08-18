@@ -24,9 +24,9 @@
             e.stopPropagation();
             let lookupListElm = $(`#${lookupElement.Id}_lookup_list`);
 
-             if (lookupListElm){
-                 lookupListElm.addClass('d-none');
-             }
+            if (lookupListElm){
+                lookupListElm.addClass('d-none');
+            }
             console.log('modeal load more called');
            // $('button[id="display-tab"]').tab('show');
 
@@ -149,10 +149,10 @@
         }
         else if(e.target.classList.contains('field')){
             if(e.target.classList.contains('newField')){
-                console.log('drag after render', formBuilder.dragAfterRender);
+                // console.log('drag after render', formBuilder.dragAfterRender);
                 formBuilder.targetField = formBuilder.Entity.attributeSchemas.find(field => field.id === formBuilder.dragAfterRender.id);
                 console.log('target field', formBuilder.targetField);
-                let value = new Value('', formBuilder.targetField.type, formBuilder.targetField.lookup || formBuilder.targetField.options || {})
+                let elementValue = new Value('', formBuilder.targetField.type, formBuilder.targetField.lookup || formBuilder.targetField.options || {})
                 let obj = {
                     customClass: 'py-3',
                     style: 'border: 1px dashed #6d6e70',
@@ -160,7 +160,7 @@
                     name: formBuilder.targetField.name,
                     displayName: formBuilder.targetField.displayName,
                     type: formBuilder.targetField.type,
-                    value: value,
+                    elementValue: elementValue,
                     isRequired: formBuilder.targetField.isRequired,
                     minLen: formBuilder.targetField.minLen,
                     maxLen: formBuilder.targetField.maxLen,
@@ -176,7 +176,7 @@
             }
             e.target.style.opacity = '0.5';
         }
-        console.log('drag start',formBuilder.dragBeforeRender );
+        // console.log('drag start',formBuilder.dragBeforeRender );
 
         
     }
@@ -189,12 +189,12 @@
                 formBuilder.dragAfterRender = null;
             }
         }
-        console.log('dragEnd');
+        console.log('dragEnd' , formBuilder.dragAfterRender );
         
     }
 
     function handleDragOver(formBuilder , e){
-        console.log('dragOver , ', e.target);
+        // console.log('dragOver , ', e.target);
         
         e.preventDefault();
         if ((e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) ||
@@ -202,30 +202,31 @@
         {
             e.target.style.borderBottom = '3px solid blue';
         }
-        console.log('dragOver');
+        // console.log('dragOver');
         
     }
 
     function handleDragLeave(formBuilder, e ){
-        console.log('dragleave', e.target);
+        // console.log('dragleave', e.target);
 
         if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
-            e.target.style.borderBottom = '1px solid orange';
-            console.log('dragleave');
+            console.log('drag leave : ' , e.target);
+            // e.target.style.borderBottom = '1px dashed #6d6e70';
+            e.target.style.borderBottom = 'none';
+            // console.log('dragleave');
         }
         else if (e.target.classList.contains('colsec') && formBuilder.dragAfterRender.classList.contains('field')) {
             e.target.style.borderBottom = '1px dashed #6d6e70';
-            console.log('dragleave field');
+            // e.target.style.borderBottom = 'none';
+            // console.log('dragleave field');
         }
         
     }
 
     function handleDrop(formBuilder, e ){
-       
-        
         e.preventDefault();
         e.stopPropagation();
-        console.log('drop');
+        // console.log('drop');
         let targetColId = e.target.id;
         let newColBeforRender = formBuilder.ColumnsBeforRender.find(col => col.Id === targetColId);
         let oldParentColAfterRender = formBuilder.dragAfterRender.parentNode;
@@ -238,7 +239,8 @@
 
         if (e.target.classList.contains('coltab') && formBuilder.dragAfterRender.classList.contains('section')) {
             newColBeforRender.addElement(formBuilder.dragBeforeRender);
-            e.target.style.borderBottom = '1px solid orange';
+            // e.target.style.borderBottom = '1px dashed #6d6e70';
+            e.target.style.borderBottom = 'none';
             e.target.append(formBuilder.dragAfterRender);
             // console.log('drop');
         }
@@ -248,6 +250,7 @@
             // console.log('drop newColBeforRender', newColBeforRender)
 
             e.target.style.borderBottom = '1px dashed #6d6e70';
+            
 
             if(formBuilder.dragAfterRender.classList.contains('newField')) {
                 formBuilder.dragAfterRender.classList.remove('newField');
@@ -259,7 +262,7 @@
                 addAllEventsToElement(formBuilder.dragAfterRender.id, formBuilder)
             }else{
 
-                e.target.style.borderBottom = '1px dashed #6d6e70';
+                // e.target.style.borderBottom = '1px dashed #6d6e70';
                 e.target.append(formBuilder.dragAfterRender);
 
             }

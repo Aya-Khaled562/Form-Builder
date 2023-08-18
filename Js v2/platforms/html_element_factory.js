@@ -96,6 +96,7 @@ export default class HtmlElementFactory extends AbstractElementFactory {
             </div>`
         );
     }
+    
     createEmail(obj){
         return new TypeContent(
             'email',
