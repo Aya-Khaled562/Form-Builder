@@ -28,7 +28,7 @@ export default class CustomForm {
         this.hasImage = false;
         this.id = null;
         this.image = null;
-        this.formData = new FormData();
+        
     }
 
     async initialize(){
@@ -80,7 +80,7 @@ export default class CustomForm {
         const modal = document.getElementById('uploadImageModal');
         const imageInput = document.getElementById('imageInput');
         const closebtns = document.getElementsByClassName('close');
-    
+        const uploadimageform = document.getElementById('uploadimageform');
         imageContainer.addEventListener('dblclick', () => this.openModal(modal));
 
         for (let i = 0; i < closebtns.length; i++) {
@@ -91,6 +91,7 @@ export default class CustomForm {
         const uploadImageBtn = document.getElementById('uploadImageBtn');
         uploadImageBtn.addEventListener('click', () => {
             this.image = imageInput.files[0];
+            this.formData = new FormData(uploadimageform);
             this.formData.append('image', imageInput.files[0]);
             modal.style.display = 'none';
         });
@@ -253,13 +254,13 @@ export default class CustomForm {
             // const formData = new FormData();
             // formData.append('image', this.image);
 
-            console.log('formData', this.formData);
+            console.log('formData', this.formData.get('image'));
             const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
                 method: 'POST',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                 },
-                body: JSON.stringify(this.formData)
+                body: this.formData.get('image')
             });
         }
 
