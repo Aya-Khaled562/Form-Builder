@@ -25,18 +25,6 @@ export default class CustomForm {
         this.hasImage = false
     }
 
-    // initialize(){
-    //     const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
-
-    //     console.log('jsonData: ', jsonData);
-    //     this.builder = new FormBuilder(jsonData, 'custom' ,'form');
-    //     let saveBtn = document.getElementById('save');
-    //     return new Promise((resolve)=>{
-    //         this.resolvePromise = resolve;
-    //         saveBtn.addEventListener('click', this.handleNewSaveBtn(this, 'POST'))
-    //     })
-    // }
-
     async initialize(){
         const form = await this.getForm();
         const mainForm = form[0];
@@ -71,6 +59,7 @@ export default class CustomForm {
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
 
+        console.log('elements at custom', this.builder.getElements());
         if(this.targetData !== null){
             this.builder.mapData(this.targetData);
         }

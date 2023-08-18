@@ -63,7 +63,7 @@ export default class CustomForm {
         
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form', this.entity);
-
+        
         let saveBtn = document.getElementById('onlysave');
         let saveandcloseBtn = document.getElementById('saveandclose');
         let removeBtn = document.getElementById('removeBtn');

@@ -418,9 +418,12 @@ export default class FormBuilder {
                 return optionSet;
 
             case 'two options':
+                //debugger;
                 const twoOptionsTypeContent = this.#platformFactory.createTwoOptions(obj);
                 obj.typeContent = twoOptionsTypeContent;
                 const twoOptions = new Element(obj);
+                console.log('two option ', twoOptions);
+
                 this.addElementToMap(twoOptions)
                 return twoOptions;
 
@@ -685,7 +688,8 @@ export default class FormBuilder {
     }
 
 
-    mapData(data){
+   mapData(data){
+        
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
                 colTab.getElements().forEach(sec=>{
@@ -696,12 +700,26 @@ export default class FormBuilder {
                                 if(field.name === 'image'){
                                     value = null;
                                 }
-                                field.Value = value;
-                                document.getElementById(`${field.id}`).value = value;
+
+                                if (field.TypeContent._type == Types.Lookup){
+                                     fetch(`http://localhost:5032/api/Departments/${value}`).then(res => res.json())
+                                     .then(res => {
+                                        field.ElementValue.source.selectedData = res;
+                                        document.getElementById(`${field.id}`).value = res.name;
+
+                                     });
+                                        
+                                }else {
+                                    field.ElementValue = value;
+                                    document.getElementById(`${field.id}`).value = value;
+                                }
                                 if(field.name === 'startDate'){
                                     let dateFromBackend = value.split('T')[0];
-                                    document.getElementById(`${field.id}`).value = dateFromBackend;
+                                  
+                                      document.getElementById(`${field.id}`).value = dateFromBackend;
                                 }
+                                console.log('field ', field);
+
                             }
                         })
                     })

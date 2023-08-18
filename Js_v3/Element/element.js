@@ -56,7 +56,7 @@ export default class Element {
         this.readOnly = obj.readOnly ?? false;
         this.visible = obj.visible ?? true;
         this.collapse = obj.collapse ?? true;
-        this.elementValue = obj.value;
+        this.elementValue = obj.elementValue;
         this.isLocked = obj.isLocked ?? false;
         this.showLabel = obj.showLabel ?? true;
         this.labelPosition = obj.labelPosition ?? false;
