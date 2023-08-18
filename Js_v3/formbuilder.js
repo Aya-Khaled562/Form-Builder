@@ -282,7 +282,7 @@ export default class FormBuilder {
                 coltab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colsec=>{
                         this.requiredFields.forEach(field=>{
-                            let elementValue = new Value('', field.type,  field.lookup || field.options || {})
+                            let value = new Value('', field.type,  field.lookup || field.options || {})
                             let obj = {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
@@ -290,13 +290,13 @@ export default class FormBuilder {
                                 name: field.name,
                                 displayName: field.displayName,
                                 type: field.type,
-                                elementValue: elementValue,
+                                value: value,
                                 isRequired: field.isRequired,
                                 minLen: field.minLen,
                                 maxLen: field.maxLen,
                                 pattern: field.pattern
                             }
-                            // console.log('object at draw required elements', obj);
+                            console.log('object at draw required elements', obj);
 
                             let fieldElement = this.build(field.type , obj)
                             colsec.addElement(fieldElement);
@@ -379,7 +379,7 @@ export default class FormBuilder {
 
     build(type, obj) {
         obj.mode = this.#mode;
-        // console.log('obj', obj)
+        console.log('obj', obj)
         switch (type) {
             case 'tab':
                 const tabTypeContent = this.#platformFactory.createTab(obj);
@@ -418,9 +418,12 @@ export default class FormBuilder {
                 return optionSet;
 
             case 'two options':
+                //debugger;
                 const twoOptionsTypeContent = this.#platformFactory.createTwoOptions(obj);
                 obj.typeContent = twoOptionsTypeContent;
                 const twoOptions = new Element(obj);
+                console.log('two option ', twoOptions);
+
                 this.addElementToMap(twoOptions)
                 return twoOptions;
 
@@ -479,7 +482,7 @@ export default class FormBuilder {
 
                 const lookup = new Element(obj);
                 console.log('lookup element at build', lookup);
-                console.log('lookup element value at build', lookup.elementValue);
+                console.log('lookup element value at build', lookup.value);
 
                 this.addElementToMap(lookup);
                 return lookup;
@@ -684,28 +687,33 @@ export default class FormBuilder {
 
     }
 
-    mapData(data){
-        console.log('data that come from database: ' , data);
+
+   mapData(data){
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
-                            console.log('field before matching: ' , field.name);
                             if(data.hasOwnProperty(field.name)){
-                                // console.log('field in metadata: ' , field.name);
-                                let elementValue = data[field.name];
+                                let value = data[field.name];
                                 if(field.name === 'image'){
-                                    elementValue = null;
+                                    value = null;
                                 }
-                                field.ElementValue = elementValue;
-                                document.getElementById(`${field.id}`).value = elementValue;
+                                if (field.TypeContent._type == Types.Lookup){
+                                    fetch(`http://localhost:5032/api/Departments/${value}`).then(res => res.json())
+                                    .then(res => {
+                                    field.ElementValue.source.selectedData = res;
+                                    document.getElementById(`${field.id}`).value = res.name;
+                                    });
+                                }else {
+                                    field.ElementValue = value;
+                                    document.getElementById(`${field.id}`).value = value;
+                                }
                                 if(field.name === 'startDate'){
-                                    let dateFromBackend = elementValue.split('T')[0];
+                                    let dateFromBackend = value.split('T')[0];
                                     document.getElementById(`${field.id}`).value = dateFromBackend;
                                 }
-
-
+                                console.log('field ', field);
                             }
                         })
                     })
