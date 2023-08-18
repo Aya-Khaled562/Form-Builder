@@ -703,7 +703,9 @@ export default class FormBuilder {
                                     fetch(`http://localhost:5032/api/Departments/${value}`).then(res => res.json())
                                     .then(res => {
                                     field.ElementValue.source.selectedData = res;
+                                    
                                     document.getElementById(`${field.id}`).value = res.name;
+                                    document.getElementById(`${field.id}`).setAttribute('data-value', res.id)
                                     });
                                 }else {
                                     field.ElementValue = value;

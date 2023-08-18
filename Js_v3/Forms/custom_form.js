@@ -100,13 +100,21 @@ export default class CustomForm {
         let dataObject = {}
 
         let flag = false;
+       // console.log('fields of builder',this.builder.Fields);
         for(let i=0; i< this.builder.Fields.length; i++){
+
             let key = this.builder.Fields[i].name;
             let value = document.getElementById(this.builder.Fields[i].id).value
             if(key === 'image'){
                 // if()
                 value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
             }
+
+            if (this.builder.Fields[i].TypeContent._type == Types.Lookup){
+                value = document.getElementById(this.builder.Fields[i].id)?.getAttribute('data-value');
+                console.log('lookup value id', value);
+            }
+            
             dataObject[key]  = value;
         }
 
