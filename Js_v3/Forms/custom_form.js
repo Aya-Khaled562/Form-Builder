@@ -35,17 +35,15 @@ export default class CustomForm {
         console.log('id: ' , this.id);
         this.setRequiredFields(formAfterParse)
         //Get Data
-        // this.targetData = JSON.parse(localStorage.getItem('targetData'));
         if(this.id != null){
             this.targetData = await this.getData(this.id);
         }
         console.log('target data: ', this.targetData);
         if(this.hasImage){
-            
+            document.getElementById('ImageContainer').style.display = 'block';
             if(this.targetData !== null){
+                document.getElementById('userName').textContent = this.targetData.firstName + " " + this.targetData.lastName;
                 if(this.targetData.hasOwnProperty('image')){
-                    console.log('has image');
-                    document.getElementById('ImageContainer').style.display = 'block';
                     let image = document.getElementById('empImage');
                     if(this.targetData.image !== null){
                         image.src = this.targetData.image;
@@ -61,19 +59,45 @@ export default class CustomForm {
         let removeBtn = document.getElementById('delete');
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
-
-        // console.log('elements at custom', this.builder.getElements());
         if(this.targetData !== null){
-            // console.log('target data: ', this.targetData);
             this.builder.mapData(this.targetData);
         }
 
         saveBtn.addEventListener('click',()=> this.handleSaveBtn(false));
         saveandcloseBtn.addEventListener('click',()=> this.handleSaveBtn(true));
         removeBtn.addEventListener('click' , ()=> this.handleRemoveBtn());
-
         $('#loadMoreRecordsModal').on('shown.bs.modal', (e) => this.handleModalShown(e));
         $('#loadMoreRecordsModal #modalSave').on('click', (e) => this.handleModalSave(e));
+
+
+
+        //Handle Image Upload
+        const imageContainer = document.getElementById('empImage');
+        const modal = document.getElementById('uploadImageModal');
+        const imageInput = document.getElementById('imageInput');
+
+        imageContainer.addEventListener('dblclick', () => this.openModal(modal));
+
+        // Close the modal when the Close button or backdrop is clicked
+        modal.addEventListener('click', (event) => {
+            // if (event.target === modal) {
+                modal.style.display = 'none';
+            // }
+        });
+
+        // Handle the image upload when the Upload button is clicked
+        const uploadImageBtn = document.getElementById('uploadImageBtn');
+        uploadImageBtn.addEventListener('click', () => {
+            var image = imageInput.files[0]?.name;
+            console.log('image: ' , image);
+            modal.style.display = 'none';
+        });
+
+
+    }
+
+    openModal(modal){
+        modal.style.display = 'block';
     }
 
     setRequiredFields(form){
@@ -107,9 +131,7 @@ export default class CustomForm {
 
     async handleSaveBtn(shouldClose){
         let dataObject = {}
-
         let flag = false;
-       // console.log('fields of builder',this.builder.Fields);
         for(let i=0; i< this.builder.Fields.length; i++){
 
             let key = this.builder.Fields[i].name;
@@ -205,7 +227,6 @@ export default class CustomForm {
         return rows.json();
     }
 
-
     handleNewBtn(){
         localStorage.setItem('targetData', null);
         localStorage.setItem('newRecordFlag',null);
@@ -215,7 +236,6 @@ export default class CustomForm {
     }
 
     async pushDataIntoDB(data , method , id=''){
-       // data.departmentId = 1;
         console.log('data', data);
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`,{
             method: `${method}`,
@@ -224,19 +244,18 @@ export default class CustomForm {
             },
             body: JSON.stringify(data)
         });
-        var newRecord =  await response?.json();
-        if(data.hasOwnProperty('image') && data.image !== undefined){
-            const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data.image)
-            });
-        }
 
+        var newRecord =  await response?.json();
+        // if(data.hasOwnProperty('image') && data.image !== undefined){
+        //     const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
+        //         method: 'POST',
+        //         headers:{
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data.image)
+        //     });
+        // }
         return newRecord;
-        
     }
 
     async handleModalShown(e) {
@@ -351,6 +370,7 @@ export default class CustomForm {
         console.log('captured value: ' , capturedValue);
         return capturedValue;
     }
+
 }
 
 

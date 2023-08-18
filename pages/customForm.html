@@ -382,17 +382,45 @@
   </div>
     
   
-    <div class="container-fluid mt-3">
-      <div></div>
+    <!-- <div class="container-fluid mt-3">
       <div class="d-flex align-items-center" id="ImageContainer">
         <img src="/img/user.jfif" id="empImage" alt="User Image" class="me-3" style="width: 100px; height: 100px; object-fit: cover;">
         <h5 id="userName">User Name</h5>
     </div>
         <div class="row px-2 my-2" id="formContainer">
-            <div class="col-10" id="form"><!--Body--></div>
+            <div class="col-10" id="form"></div>
         </div>
-    </div>
+    </div> -->
 
+    <div class="container-fluid mt-3">
+      <div class="d-flex align-items-center" id="ImageContainer">
+          <img src="/img/user.jfif" id="empImage" alt="User Image" class="me-3" style="width: 100px; height: 100px; object-fit: cover;">
+          <h5 id="userName">User Name</h5>
+      </div>
+      <div class="row px-2 my-2" id="formContainer">
+          <div class="col-10" id="form"><!--Body--></div>
+      </div>
+  </div>
+  
+  <!-- Modal of Image-->
+  <div class="modal" id="uploadImageModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Upload Image</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <input type="file" id="imageInput" accept="image/*">
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="uploadImageBtn">Upload</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
     <div class="w-100">
       <!-- Modal -->
       <div aria-hidden="true" aria-labelledby="loadMoreRecordsModalArea" class="modal fade" id="loadMoreRecordsModal" tabindex="-1">
