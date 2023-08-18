@@ -47,18 +47,16 @@ export default class CustomForm {
         console.log('required fields: ', this.requiredFields);
         //Get Data
         this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        console.log('target data: ', this.targetData);
         if(this.hasImage){
-            console.log('target data: ', this.targetData);
+            
             if(this.targetData !== null){
                 if(this.targetData.hasOwnProperty('image')){
                     document.getElementById('ImageContainer').style.display = 'block';
                     let image = document.getElementById('empImage');
-    
                     if(this.targetData.image !== null){
                         image.src = this.targetData.image;
                     }
-    
-    
                 }
             }
         }
@@ -67,11 +65,12 @@ export default class CustomForm {
 
         let saveBtn = document.getElementById('onlysave');
         let saveandcloseBtn = document.getElementById('saveandclose');
-        let removeBtn = document.getElementById('removeBtn');
+        let removeBtn = document.getElementById('delete');
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
 
         if(this.targetData !== null){
+            console.log('target data: ', this.targetData);
             this.builder.mapData(this.targetData);
         }
 

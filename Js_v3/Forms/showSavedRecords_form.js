@@ -16,7 +16,7 @@ export default class ShowSavedRecords{
             window.open('../../pages/customForm.html', '_self');
         });
 
-        $('#removeBtn').on('click',()=> this.handleRemoveRecord());
+        $('#delete').on('click',()=> this.handleRemoveRecord());
         $('#dataTable').on('dblclick', 'tr' , (e)=> this.handleRowdbClick(e));
         $('#dataTable').on('click', 'tr',(e)=> this.handleRowClick(e));
     }
@@ -88,6 +88,7 @@ export default class ShowSavedRecords{
             if(rowData){
                 let id = rowData.id; 
                 const data = await this.getTargetRow(id);
+                console.log('data in show saved record: ' , data);
                 localStorage.setItem('targetData', JSON.stringify(data));
                 // window.location.href = '../../pages/customForm.html';
                 window.open('../../pages/customForm.html', '_self');
@@ -96,7 +97,6 @@ export default class ShowSavedRecords{
 
     async getTargetRow(id){
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`);
-        
         return response.json();
     }
 }

@@ -684,14 +684,16 @@ export default class FormBuilder {
 
     }
 
-
     mapData(data){
+        console.log('data that come from database: ' , data);
         this.#elements.forEach(tab => {
             tab.getElements().forEach(colTab => {
                 colTab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colSec=>{
                         colSec.getElements().forEach(field=>{
+                            console.log('field before matching: ' , field.name);
                             if(data.hasOwnProperty(field.name)){
+                                // console.log('field in metadata: ' , field.name);
                                 let elementValue = data[field.name];
                                 if(field.name === 'image'){
                                     elementValue = null;
@@ -702,6 +704,8 @@ export default class FormBuilder {
                                     let dateFromBackend = elementValue.split('T')[0];
                                     document.getElementById(`${field.id}`).value = dateFromBackend;
                                 }
+
+
                             }
                         })
                     })
