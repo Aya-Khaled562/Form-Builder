@@ -134,19 +134,10 @@ export default class CreateForm {
 
             // label name input
             $('#exampleModal .modal-body #display').html(`<div class="mb-3">
-            <label htmlFor="exampleFormControlInput1" id="displayNameElm" class="form-label">Label</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="${element.Name}">
+            <label htmlFor="displayNameElm" class="form-label">Label</label>
+            <input type="text" class="form-control" id="displayNameElm" value="${element.DisplayName}">
             </div>`);
 
-            // // display name of section in preview | custom 
-            // if(element.TypeContent._type === Types.Section)
-            // {
-            //     $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
-            //     <input type="checkbox" class="form-check-input" id="checkboxId">
-            //     <label class="form-check-label" for="checkboxId">Show the label of this section on the Form
-            //     </label>
-            //     </div>`); 
-            // }
 
             // label show or not.
             $('#exampleModal .modal-body #display').append(`<div class="mb-3 form-check">
@@ -205,6 +196,30 @@ export default class CreateForm {
           <option value="1" ${element.ReadOnly ? `selected` : ''}>YES</option>
         </select>
                 </div>`);
+
+
+                if (element.TypeContent._type == Types.Lookup){
+                    // default view property input    
+                    console.log('elelemnt ', element);
+                let defaultViewName = element.ElementValue.source.defaultView;
+                if (!defaultViewName){
+                    defaultViewName = element.ElementValue.source.lookFor;
+                    element.ElementValue.source.defaultView = defaultViewName;
+                }
+
+                let lookupViews = element.ElementValue.source.views;
+                
+                let selectMenuOptions = '';
+                lookupViews.forEach(view => {
+                    selectMenuOptions += `<option value="${view}" ${view == defaultViewName ? `selected` : ''}>${view}</option>`
+                });
+                $('#exampleModal .modal-body #display').append(`<div class="mb-3">
+                <label htmlFor="defaultLookupViewElm" class="form-label">Select Defualt view</label>
+                <select class="form-select" name="required" id="defaultLookupViewElm">${selectMenuOptions}</select></div>`); 
+                }
+           
+
+
         
                
         }
@@ -270,9 +285,9 @@ export default class CreateForm {
         let element = this.builder.getElementFromMap(elementId)
 
         // display name
-        let displayName = $('#exampleModal #exampleFormControlInput1').val();
-        if (displayName != undefined && displayName != null && displayName != "") {
-            element.Name = displayName;
+        let displayNameElm = $('#exampleModal #displayNameElm');
+        if (displayNameElm) {
+            element.DisplayName = displayNameElm.val();
         }
 
         // label show
@@ -394,6 +409,11 @@ export default class CreateForm {
         let readonlySelectElm = document.getElementById('readonlyPropertyControl');
         if (readonlySelectElm) {
             element.ReadOnly = readonlySelectElm.value == '0' ? false : true;
+        }
+
+        let defaultLookupViewElm = document.getElementById('defaultLookupViewElm');
+        if (defaultLookupViewElm){
+            element.ElementValue.source.defaultView = defaultLookupViewElm.value;
         }
 
         console.log('options on save model', element)
