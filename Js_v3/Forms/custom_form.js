@@ -250,17 +250,9 @@ export default class CustomForm {
 
         var newRecord =  await response?.json();
         if(data.hasOwnProperty('image') && this.image !== null){
-            // console.log('image' , this.image);
-            // const formData = new FormData();
-            // formData.append('image', this.image);
-
-            console.log('formData', this.formData.get('image'));
             const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
                 method: 'POST',
-                headers:{
-                    'Content-Type': 'multipart/form-data'
-                },
-                body: this.formData.get('image')
+                body: this.formData
             });
         }
 
