@@ -44,6 +44,8 @@ export default class Element {
     maxLen;
     minLen;
     displayName
+    textAreaRows;
+
 
     constructor(obj) {
         this.id = obj.id ?? null;
@@ -65,10 +67,8 @@ export default class Element {
         this.pattern = obj.pattern ?? null;
         this.labelAlignment = obj.labelAlignment ?? null;
         this.displayName = obj.displayName ?? null;
+        this.textAreaRows = obj.textAreaRows ?? 3;
 
-        // if (this.typeContent._type == Types.OptionSet){
-        //     console.log('optin at constoructre',this);
-        // }
 
     }
 

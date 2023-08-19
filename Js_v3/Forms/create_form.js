@@ -272,7 +272,13 @@ export default class CreateForm {
         </label>
     </div>`);
 
+    }else if (element.TypeContent._type == Types.MultipleLineOfText){
+        $('#exampleModal .modal-body #formating').append(`<div>
+        <label class="form-label" for="textAreaRows">Number of rows</label>
+        <input class="form-control" type="text" value="${element.textAreaRows}"  id="textAreaRows">
+    </div>`);
     }
+    
     
         //#endregion
 
@@ -411,6 +417,13 @@ export default class CreateForm {
             element.ReadOnly = readonlySelectElm.value == '0' ? false : true;
         }
 
+         // text area rows
+         let textAreaRowsElm = document.getElementById('textAreaRows'); 
+         if (textAreaRowsElm) {
+             element.textAreaRows = textAreaRowsElm.value;
+         }
+
+         
         let defaultLookupViewElm = document.getElementById('defaultLookupViewElm');
         if (defaultLookupViewElm){
             element.ElementValue.source.defaultView = defaultLookupViewElm.value;
