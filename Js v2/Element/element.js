@@ -17,7 +17,8 @@ export const Types = {
     PhoneNumber: 'phone number',
     Image: 'image',
     Currency: 'currency',
-    WholeNumber: 'whole number'
+    WholeNumber: 'whole number',
+    Lookup: 'lookup'
 };
 
 export const Categories = {Layout: "layout", FormControl: "formControl"};
@@ -42,6 +43,7 @@ export default class Element {
     labelAlignment;
     maxLen;
     minLen;
+    displayName
     textAreaRows;
 
     constructor(obj) {
@@ -58,14 +60,15 @@ export default class Element {
         this.collapse = obj.collapse ?? true;
         this.value = obj.value;
         this.isLocked = obj.isLocked ?? false;
-
         this.showLabel = obj.showLabel ?? true;
         this.labelPosition = obj.labelPosition ?? false;
         this.minLen = obj.minLen ?? null;
         this.maxLen = obj.maxLen ?? null;
-
         this.pattern = obj.pattern ?? null;
         this.labelAlignment = obj.labelAlignment ?? null;
+        this.displayName = obj.displayName ?? null;
+
+
     }
 
     get Collapse() {
@@ -78,6 +81,10 @@ export default class Element {
 
     get Value() {
         return this.value;
+    }
+
+    set Value(value){
+        this.value = value;
     }
 
     get Required() {
@@ -94,6 +101,14 @@ export default class Element {
 
     set ReadOnly(value) {
         this.readOnly = value;
+    }
+
+    set DisplayName(value){
+        this.displayName = value;
+    }
+
+    get DisplayName(){
+        return this.displayName;
     }
 
     get Visible() {

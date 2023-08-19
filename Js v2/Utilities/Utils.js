@@ -38,7 +38,8 @@
                 value: arguments[0].Value,
                 optionsSetValues: arguments[0].OptionsSetValues,
                 visible: arguments[0].Visible,
-                readOnly: arguments[0].ReadOnly
+                readOnly: arguments[0].ReadOnly,
+                displayName: arguments[0].DisplayName
             }
         }
         return {

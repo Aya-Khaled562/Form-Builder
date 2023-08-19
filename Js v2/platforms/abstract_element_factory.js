@@ -17,5 +17,7 @@ export default class AbstractElementFactory {
     createPassword(obj){ throw new Error("Method not implemented"); }
     createPhoneNumber(obj) { throw new Error("Method not implemented"); }
 
+    createLookup(obj)  { throw new Error("Method not implemented"); }
+
     buildContent(type, element){ throw new Error("Method not implemented"); }
 }

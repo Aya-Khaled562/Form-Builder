@@ -2,6 +2,7 @@ import FormBuilder from "../formbuilder.js";
 // import '.../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/jquery/dist/jquery.min.js';
 import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+// import {Types , Categories} from "../Element/element.js";
 import {Types , Categories} from "../Element/element.js";
 import {addAllEventsToElement, handleDragAndDrop} from "../Utilities/ElementEventHandlers.js";
 import {createElementFactoryPropertiesObj,download,getJson} from "../Utilities/Utils.js";
@@ -12,6 +13,7 @@ export default class CreateForm {
     builder;
     entity;
     toggler;
+
     constructor(jsonData, mode, entity) {
         this.tabCounter = 0;
         this.secCounter = 2;
@@ -63,7 +65,7 @@ export default class CreateForm {
     createColumnAndSection(builder , colTabclass){
 
         let col = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Tab', `coltab py-1 my-1 mx-1 ${colTabclass}`, 'border: 0px solid orange'));
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, ' section my-2', 'border: 1px dashed green;'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, 'my-2', 'border: 1px dashed green;'));
         let colSec = this.builder.build('column', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, 'Column_Section', 'colsec col py-2 px-1 my-1 mx-1', 'border: 1px dashed #6d6e70'));
        
         builder.setSectionBeforRender(sec);
@@ -98,7 +100,7 @@ export default class CreateForm {
     }
 
     addSection(numOfCols) {
-        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, 'section my-2', 'border: 1px dashed green;'));
+        let sec = this.builder.build('section', createElementFactoryPropertiesObj(`${crypto.randomUUID()}`, `Section`, 'my-2', 'border: 1px dashed green;'));
         for(let i=0; i<numOfCols; i++){
             this.secCounter++
             this.colsecCounter++
@@ -315,7 +317,7 @@ export default class CreateForm {
             let currentNumberOfCols = element.getElements().length;
             if (checkedColumnsValue < currentNumberOfCols) {
                 while (currentNumberOfCols > checkedColumnsValue) {
-                   let removedElement = element.popElement();
+                    let removedElement = element.popElement();
                     console.log('removed element', removedElement);
 
                     removedElement.getElements().forEach(el => {
@@ -323,7 +325,7 @@ export default class CreateForm {
                         if (el.TypeContent._type == Types.Section){
                             el.getElements().forEach( secCol => {
                                 secCol.getElements().forEach(control => {
-                                     document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${control.Id}'><img src="img/ico_18_attributes.gif"> ${control.Name}</div>`;
+                                    document.getElementById('FieldList').innerHTML += `<div class="border py-2 px-1 field newField" style="background-color: white;" draggable="true" id='${control.Id}'><img src="img/ico_18_attributes.gif"> ${control.Name}</div>`;
                                 });
                             });
                         }else if (el.TypeContent._category == Categories.FormControl){
@@ -339,11 +341,11 @@ export default class CreateForm {
                 while (currentNumberOfCols < checkedColumnsValue) {
                     let col = null;
                     if (element.TypeContent._type == Types.Tab) {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'coltab col py-1 my-1 mx-1', 'border: 0px solid orange;'))
-                        let section = this.builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'section', 'mx-1', 'border: 1px dashed green;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'coltab py-1 my-1 mx-1 col', 'border: 0px solid orange;'))
+                        let section = this.builder.build(Types.Section, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Section', 'my-2', 'border: 1px dashed green;'));
                         columnsAdded.push(section);
 
-                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
+                        let sectionCol = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-2 px-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                         section.addElement(sectionCol);
                         columnsAdded.push(sectionCol);
 
@@ -352,7 +354,7 @@ export default class CreateForm {
                         this.builder.setSectionBeforRender(section);
                         this.builder.setColumnsBeforeRender(sectionCol);
                     } else {
-                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
+                        col = this.builder.build(Types.Column, createElementFactoryPropertiesObj(crypto.randomUUID(), 'Column', 'colsec col py-2 px-1 my-1 mx-1', 'border: 1px dashed #6d6e70;'));
                     }
 
                     element.addElement(col);
@@ -438,14 +440,14 @@ export default class CreateForm {
 
     async pushForm(jsonForm , uri , method){
         let data = {
-            formName: 'new',
+            formName: 'main',
             entityId: this.entity.entitySchemaId,
             formJson: JSON.stringify(jsonForm)
         }
 
-        if(method === 'PUT'){
-            data.formName = 'update';
-        }
+        // if(method === 'PUT'){
+        //     data.formName = 'main_update';
+        // }
 
         let response = await fetch(uri, {
             method: method,
@@ -480,6 +482,7 @@ export default class CreateForm {
         
 
     }
+    
     handleCustom(){
         localStorage.setItem('jsonDataForm', JSON.stringify(this.builder.toSaveSchema()));
         // download(this.builder.toSaveSchema());
