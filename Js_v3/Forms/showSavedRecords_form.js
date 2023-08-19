@@ -60,6 +60,8 @@ export default class ShowSavedRecords{
 
     async createDataTable(){
         let attributes = await this.getAttributes();
+        let excludedAttributes = ['image']; // Add attribute names you want to exclude here
+        attributes = attributes.filter(att => !excludedAttributes.includes(att.name));
         this.dataTable = $('#dataTable').DataTable({
             processing: true,
             serverSide: false,
