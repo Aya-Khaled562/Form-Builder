@@ -271,7 +271,7 @@ export default class CustomForm {
 
         let elementId = $('#loadMoreRecordsModal').attr('data-id');
         let element = this.builder.getElementFromMap(elementId)
-
+        
         // let value = new Value('', Types.Lookup, formBuilder.targetField.lookup || formBuilder.targetField.options || {})
 
 
@@ -288,7 +288,7 @@ export default class CustomForm {
             lookForSelectMenu.html('');
             let systemViews = element.elementValue.source.views;
             systemViews.forEach(viewName => {
-                let option = `<option value="${viewName}" ${viewName == element.elementValue.source.selectedView? 'selected': ''}>${viewName}</option>`
+                let option = `<option value="${viewName}" ${viewName == element.elementValue.source.defaultView? 'selected': ''}>${viewName}</option>`
                 lookForSelectMenu.append(option);
             });
 
@@ -331,8 +331,8 @@ export default class CustomForm {
               });
 
               let data = [];
-              if (element.elementValue.source.selectedView){
-                   data = await this.getRows(element.elementValue.source.selectedView);
+              if (element.elementValue.source.defaultView){
+                   data = await this.getRows(element.elementValue.source.defaultView);
               }else{
                    data = await this.getRows(element.elementValue.source.views[0]);
               }
@@ -344,7 +344,7 @@ export default class CustomForm {
 
         if (element.elementValue.source.selectedData){
             dataTable = $('#dataTable').DataTable();
-            console.log('datatable', dataTable);
+            //console.log('datatable', dataTable);
             console.log('selected data', element.elementValue.source.selectedData);
             dataTable.search(element.elementValue.source.selectedData.name).draw();
 
@@ -354,7 +354,7 @@ export default class CustomForm {
         lookForSelectMenu.on('change',async function(e){
             let selectedView = $(this).val();
 
-            element.elementValue.source.selectedView = selectedView;
+            element.elementValue.source.defaultView = selectedView;
 
             let rows = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${selectedView}`);
             let data =  await rows.json();

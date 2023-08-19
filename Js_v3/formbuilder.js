@@ -282,7 +282,9 @@ export default class FormBuilder {
                 coltab.getElements().forEach(sec=>{
                     sec.getElements().forEach(colsec=>{
                         this.requiredFields.forEach(field=>{
-                            let value = new Value('', field.type,  field.lookup || field.options || {})
+                           
+                            let value = new Value('', field.type,  field.lookup || field.options || {});
+                            
                             let obj = {
                                 customClass: 'py-3',
                                 style: 'border: 1px dashed #6d6e70',
@@ -290,7 +292,7 @@ export default class FormBuilder {
                                 name: field.name,
                                 displayName: field.displayName,
                                 type: field.type,
-                                value: value,
+                                elementValue: value,
                                 isRequired: field.isRequired,
                                 minLen: field.minLen,
                                 maxLen: field.maxLen,
@@ -673,12 +675,12 @@ export default class FormBuilder {
                 
                 if (el.TypeContent._type == Types.Lookup){
                     // console.log(this.#entity);
-                    let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
+                   // let fieldSchema = this.#entity.attributeSchemas.find(field => field.id === el.Id);
                     //console.log('elelement ', el);
                     // console.log('field schema ', fieldSchema);
                     //console.log('next element sibling',controlElm.nextElementSibling);
-                    let value = new Value('',Types.Lookup ,fieldSchema.lookup);
-                    el.elementValue = value;
+                   // let value = new Value('',Types.Lookup ,fieldSchema.lookup);
+                    //el.elementValue = value;
                     // console.log('lookup element dddd',el.elementValue);
                     controlElm.nextElementSibling.addEventListener('click',  this.lookupSearchClicked(el))
                 }
