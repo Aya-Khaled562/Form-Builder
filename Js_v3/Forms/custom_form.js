@@ -15,8 +15,8 @@ export default class CustomForm {
     hasImage
     entity;
     id;
-    image;
-    formData
+    newImage;
+    formData;
     constructor(entity = null){
         this.builder = null;
         this.resolvePromise = null;
@@ -27,8 +27,7 @@ export default class CustomForm {
         this.requiredFields = [];
         this.hasImage = false;
         this.id = null;
-        this.image = null;
-        
+        this.newImage = null;
     }
 
     async initialize(){
@@ -43,18 +42,21 @@ export default class CustomForm {
             this.targetData = await this.getData(this.id);
         }
         console.log('target data: ', this.targetData);
+
+        //show image
         if(this.hasImage){
             document.getElementById('ImageContainer').style.display = 'block';
             if(this.targetData !== null){
                 document.getElementById('userName').textContent = this.targetData.firstName + " " + this.targetData.lastName;
                 if(this.targetData.hasOwnProperty('image')){
-                    let image = document.getElementById('empImage');
+                    let imagesrc = document.getElementById('empImage');
                     if(this.targetData.image !== null){
-                        image.src = this.targetData.image;
+                        imagesrc.src = this.targetData.image;
                     }
                 }
             }
         }
+
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form', this.entity);
 
@@ -63,10 +65,13 @@ export default class CustomForm {
         let removeBtn = document.getElementById('delete');
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
+
+        //Mapping Data
         if(this.targetData !== null){
             this.builder.mapData(this.targetData);
         }
 
+        //Handle Events
         saveBtn.addEventListener('click',()=> this.handleSaveBtn(false));
         saveandcloseBtn.addEventListener('click',()=> this.handleSaveBtn(true));
         removeBtn.addEventListener('click' , ()=> this.handleRemoveBtn());
@@ -90,7 +95,7 @@ export default class CustomForm {
         }
         const uploadImageBtn = document.getElementById('uploadImageBtn');
         uploadImageBtn.addEventListener('click', () => {
-            this.image = imageInput.files[0];
+            this.newImage = imageInput.files[0];
             this.formData = new FormData(uploadimageform);
             this.formData.append('image', imageInput.files[0]);
             modal.style.display = 'none';
@@ -135,25 +140,21 @@ export default class CustomForm {
     async handleSaveBtn(shouldClose){
         let dataObject = {}
         let flag = false;
+        let key = null;
+        let value = null;
         for(let i=0; i< this.builder.Fields.length; i++){
 
-            let key = this.builder.Fields[i].name;
-            let value = null;
-            if(key !== 'image'){
+            if(this.builder.Fields[i].name !== 'image'){
+                key = this.builder.Fields[i].name;
                 value = document.getElementById(this.builder.Fields[i].id).value
             }
-            else{
-                value = this.targetData?.image;
-                // value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
-            }
-
-
             if (this.builder.Fields[i].TypeContent._type == Types.Lookup){
                 value = document.getElementById(this.builder.Fields[i].id)?.getAttribute('data-value');
                 console.log('lookup value id', value);
             }
             
             dataObject[key]  = value;
+            // window.location.reload();
         }
 
         this.requiredFields.forEach(field => {
@@ -178,7 +179,7 @@ export default class CustomForm {
             if(this.targetData !== null || data !== null){
                 this.targetId = this.targetData?.id || data?.id;
                 // console.log('id in localStorage: ' , this.targetId);
-                response = await this.pushDataIntoDB(dataObject , 'PUT' , this.targetId);
+                response = await this.pushDataIntoDB(dataObject , 'PATCH' , this.targetId);
             }
             else{
                 response = await this.pushDataIntoDB(dataObject , 'POST');
@@ -249,7 +250,9 @@ export default class CustomForm {
         });
 
         var newRecord =  await response?.json();
-        if(data.hasOwnProperty('image') && this.image !== null){
+        if(this.newImage !== null){
+            // this.formData = new FormData(uploadimageform);
+            // this.formData.append('image', this.newImage);
             const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
                 method: 'POST',
                 body: this.formData
