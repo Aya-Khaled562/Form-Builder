@@ -2,48 +2,6 @@
 import CreateForm from "./Forms/create_form.js";
 import PreviewFrom from "./Forms/preview_form.js";
 import CustomForm from "./Forms/custom_form.js";
-import { download } from "./Utilities/Utils.js";
-
-export let entityValues = {
-    entity_name:"Employee",
-    fields:[
-        {
-            displayName:"First Name",
-            name:"firstname",
-            values:[]
-        },
-        {
-            displayName:"Last Name",
-            name:"lastname",
-            values:[]
-        },
-        {
-            displayName:"Social Status",
-            name:"socialstatus",
-            values:[]
-        },
-        {
-            displayName:"Gender",
-            name:"gender",
-            values:[]
-        },
-        {
-            displayName:"Salary",
-            name:"salary",
-            values:[]
-        },
-        {
-            displayName:"Notes",
-            name:"notes",
-            values:[]
-        },
-        {
-            displayName:"Start Date",
-            name:"startdate",
-            values:[]
-        }
-    ]
-}
 
 export default class FormApp{
     forms
@@ -61,10 +19,12 @@ export default class FormApp{
     }
 
     async factory(){
+        
         this.entity = await this.getEntity();
         console.log('entity' , this.entity)
         let formJson = await this.getJsonform(this.mode);
         
+        // console.log('form json', formJson);
         if(formJson){
             const formDefault = formJson[0]
             this.jsonData = JSON.parse(formDefault.fromJson)
@@ -112,18 +72,18 @@ export default class FormApp{
     }
 
     createForm(){
+        console.log('json data creawte form', this.jsonData);
         this.targetFrom = new CreateForm(this.jsonData, this.mode , this.entity);
         let form = this.targetFrom.initialize();
         this.forms.push(form);
     }
 
     previewForm(){
-        this.targetFrom = new PreviewFrom();
+        this.targetFrom = new PreviewFrom(this.entity);
         this.targetFrom.initialize();
     }
 
     async customFrom(){
-        console.log('customFrom');
         this.targetFrom = new CustomForm(this.entity);
         await this.targetFrom.initialize();
         // let values = this.targetFrom.Values;

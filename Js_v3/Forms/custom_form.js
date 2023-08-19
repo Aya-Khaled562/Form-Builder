@@ -1,6 +1,9 @@
 
 import { Types } from "../Element/element.js";
 import FormBuilder from "../formbuilder.js";
+import '../../node_modules/jquery/dist/jquery.min.js';
+import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../../node_modules/datatables.net/js/jquery.dataTables.js'
 
 export default class CustomForm {
     builder;
@@ -11,8 +14,10 @@ export default class CustomForm {
     requiredFields;
     hasImage
     entity;
+    id;
+    image;
+    formData
     constructor(entity = null){
-        console.log('from custom form: entity = ' , entity);
         this.builder = null;
         this.resolvePromise = null;
         this.targetData = null;
@@ -20,56 +25,44 @@ export default class CustomForm {
         this.flag = false;
         this.targetId = 0;
         this.requiredFields = [];
-        this.hasImage = false
+        this.hasImage = false;
+        this.id = null;
+        this.image = null;
+        
     }
-
-    // initialize(){
-    //     const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
-
-    //     console.log('jsonData: ', jsonData);
-    //     this.builder = new FormBuilder(jsonData, 'custom' ,'form');
-    //     let saveBtn = document.getElementById('save');
-    //     return new Promise((resolve)=>{
-    //         this.resolvePromise = resolve;
-    //         saveBtn.addEventListener('click', this.handleNewSaveBtn(this, 'POST'))
-    //     })
-    // }
 
     async initialize(){
         const form = await this.getForm();
         const mainForm = form[0];
         const formAfterParse = JSON.parse(mainForm.fromJson);
-        console.log('formAfterParse' , formAfterParse);
-
+        this.id = this.getParameterByName('id' , window.location.href);
+        console.log('id: ' , this.id);
         this.setRequiredFields(formAfterParse)
-        console.log('required fields: ', this.requiredFields);
         //Get Data
-        this.targetData = JSON.parse(localStorage.getItem('targetData'));
+        if(this.id != null){
+            this.targetData = await this.getData(this.id);
+        }
+        console.log('target data: ', this.targetData);
         if(this.hasImage){
-            console.log('target data: ', this.targetData);
+            document.getElementById('ImageContainer').style.display = 'block';
             if(this.targetData !== null){
+                document.getElementById('userName').textContent = this.targetData.firstName + " " + this.targetData.lastName;
                 if(this.targetData.hasOwnProperty('image')){
-                    document.getElementById('ImageContainer').style.display = 'block';
                     let image = document.getElementById('empImage');
-    
                     if(this.targetData.image !== null){
                         image.src = this.targetData.image;
                     }
-    
-    
                 }
             }
         }
-        
         this.targetId = this.targetData?.id || 0;
         this.builder = new FormBuilder(formAfterParse, 'custom' ,'form', this.entity);
-        
+
         let saveBtn = document.getElementById('onlysave');
         let saveandcloseBtn = document.getElementById('saveandclose');
-        let removeBtn = document.getElementById('removeBtn');
+        let removeBtn = document.getElementById('delete');
         let newBtn = document.getElementById('new');
         newBtn.addEventListener('click' ,this.handleNewBtn);
-
         if(this.targetData !== null){
             this.builder.mapData(this.targetData);
         }
@@ -77,9 +70,37 @@ export default class CustomForm {
         saveBtn.addEventListener('click',()=> this.handleSaveBtn(false));
         saveandcloseBtn.addEventListener('click',()=> this.handleSaveBtn(true));
         removeBtn.addEventListener('click' , ()=> this.handleRemoveBtn());
-
         $('#loadMoreRecordsModal').on('shown.bs.modal', (e) => this.handleModalShown(e));
         $('#loadMoreRecordsModal #modalSave').on('click', (e) => this.handleModalSave(e));
+
+
+
+        //Handle Image Upload
+        const imageContainer = document.getElementById('empImage');
+        const modal = document.getElementById('uploadImageModal');
+        const imageInput = document.getElementById('imageInput');
+        const closebtns = document.getElementsByClassName('close');
+        const uploadimageform = document.getElementById('uploadimageform');
+        imageContainer.addEventListener('dblclick', () => this.openModal(modal));
+
+        for (let i = 0; i < closebtns.length; i++) {
+            closebtns[i].addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+        const uploadImageBtn = document.getElementById('uploadImageBtn');
+        uploadImageBtn.addEventListener('click', () => {
+            this.image = imageInput.files[0];
+            this.formData = new FormData(uploadimageform);
+            this.formData.append('image', imageInput.files[0]);
+            modal.style.display = 'none';
+        });
+
+
+    }
+
+    openModal(modal){
+        modal.style.display = 'block';
     }
 
     setRequiredFields(form){
@@ -91,15 +112,19 @@ export default class CustomForm {
                             if(field.isRequired){
                                 this.requiredFields.push(field);
                             }
-                            if(field.type === Types.FileUpload){
+                            if(field.type === Types.Image){
                                 this.hasImage = true;
                             }
-
                         })
                     })
                 })
             })
         });
+    }
+
+    async getData(id){
+        const data = await fetch(`http://localhost:5032/api/Employees/${id}`);
+        return await data.json()
     }
 
     async getForm(){
@@ -109,15 +134,25 @@ export default class CustomForm {
 
     async handleSaveBtn(shouldClose){
         let dataObject = {}
-
         let flag = false;
         for(let i=0; i< this.builder.Fields.length; i++){
+
             let key = this.builder.Fields[i].name;
-            let value = document.getElementById(this.builder.Fields[i].id).value
-            if(key === 'image'){
-                // if()
-                value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
+            let value = null;
+            if(key !== 'image'){
+                value = document.getElementById(this.builder.Fields[i].id).value
             }
+            else{
+                value = this.targetData?.image;
+                // value = document.getElementById(this.builder.Fields[i].id)?.files[0]?.name;
+            }
+
+
+            if (this.builder.Fields[i].TypeContent._type == Types.Lookup){
+                value = document.getElementById(this.builder.Fields[i].id)?.getAttribute('data-value');
+                console.log('lookup value id', value);
+            }
+            
             dataObject[key]  = value;
         }
 
@@ -185,15 +220,25 @@ export default class CustomForm {
 
     }
 
+    async getEntity(entityId){
+        const response = await fetch(`http://localhost:5032/api/EntitySchemas/${entityId}`);
+        return await response.json();
+    }
+
+    async getRows(viewName){
+        let rows = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${viewName}`);
+        return rows.json();
+    }
+
     handleNewBtn(){
-        console.log('hsjhfajsfh');
         localStorage.setItem('targetData', null);
         localStorage.setItem('newRecordFlag',null);
-        window.location.reload();
+        // window.location.reload();
+        window.open(`../../pages/customForm.html`, '_self');
+
     }
 
     async pushDataIntoDB(data , method , id=''){
-       // data.departmentId = 1;
         console.log('data', data);
         const response = await fetch(`http://localhost:5032/api/Employees/${id}`,{
             method: `${method}`,
@@ -202,16 +247,23 @@ export default class CustomForm {
             },
             body: JSON.stringify(data)
         });
-        if(method === 'POST'){
-            return await response?.json();
+
+        var newRecord =  await response?.json();
+        if(data.hasOwnProperty('image') && this.image !== null){
+            const sendImage = await fetch(`http://localhost:5032/api/Employees/image?empId=${newRecord.id}`,{
+                method: 'POST',
+                body: this.formData
+            });
         }
+
+        return newRecord;
     }
 
-    async  handleModalShown(e) {
+    async handleModalShown(e) {
 
         let elementId = $('#loadMoreRecordsModal').attr('data-id');
         let element = this.builder.getElementFromMap(elementId)
-
+        
         // let value = new Value('', Types.Lookup, formBuilder.targetField.lookup || formBuilder.targetField.options || {})
 
 
@@ -219,23 +271,23 @@ export default class CustomForm {
         console.log('lookup element', element);
 
 
-        $('#loadMoreRecordsModal #lookFor').val(element.value.source.lookFor);
+        $('#loadMoreRecordsModal #lookFor').val(element.elementValue.source.lookFor);
 
         // look in select menu
         let lookForSelectMenu = $('#loadMoreRecordsModal #lookIn');
 
         if (lookForSelectMenu){
             lookForSelectMenu.html('');
-            let systemViews = element.value.source.views;
+            let systemViews = element.elementValue.source.views;
             systemViews.forEach(viewName => {
-                let option = `<option value="${viewName}" ${viewName == element.value.source.selectedView? 'selected': ''}>${viewName}</option>`
+                let option = `<option value="${viewName}" ${viewName == element.elementValue.source.defaultView? 'selected': ''}>${viewName}</option>`
                 lookForSelectMenu.append(option);
             });
 
 
         }
 
-        let lookupForId = element.value.source.lookForId;
+        let lookupForId = element.elementValue.source.lookForId;
 
         let entity = await this.getEntity(lookupForId);
         let attributes = entity.attributeSchemas
@@ -259,7 +311,7 @@ export default class CustomForm {
                 // Do something with the row data
                 console.log("Clicked row data:", rowData);
 
-                element.value.source.selectedData = rowData;
+                element.elementValue.source.selectedData = rowData;
 
                 if (lookupFieldElm){
                     lookupFieldElm.val(rowData.name);
@@ -271,10 +323,10 @@ export default class CustomForm {
               });
 
               let data = [];
-              if (element.value.source.selectedView){
-                   data = await this.getRows(element.value.source.selectedView);
+              if (element.elementValue.source.defaultView){
+                   data = await this.getRows(element.elementValue.source.defaultView);
               }else{
-                   data = await this.getRows(element.value.source.views[0]);
+                   data = await this.getRows(element.elementValue.source.views[0]);
               }
               dataTable.clear().rows.add(data).draw();
 
@@ -282,31 +334,44 @@ export default class CustomForm {
 
         }
 
-        if (element.value.source.selectedData){
+        if (element.elementValue.source.selectedData){
             dataTable = $('#dataTable').DataTable();
-            console.log('datatable', dataTable);
-            console.log('selected data', element.value.source.selectedData);
-            dataTable.search(element.value.source.selectedData.name).draw();
+            //console.log('datatable', dataTable);
+            console.log('selected data', element.elementValue.source.selectedData);
+            dataTable.search(element.elementValue.source.selectedData.name).draw();
 
-          }
+        }
 
 
         lookForSelectMenu.on('change',async function(e){
             let selectedView = $(this).val();
 
-            element.value.source.selectedView = selectedView;
+            element.elementValue.source.defaultView = selectedView;
 
             let rows = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${selectedView}`);
             let data =  await rows.json();
 
             dataTable.clear().rows.add(data).draw();
 
-            if (element.value.source.selectedData){
-                dataTable.search(element.value.source.selectedData.name).draw();
+            if (element.elementValue.source.selectedData){
+                dataTable.search(element.elementValue.source.selectedData.name).draw();
             }
         });
 
     }
+
+
+    getParameterByName(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        const capturedValue = results[2];
+        console.log('captured value: ' , capturedValue);
+        return capturedValue;
+    }
+
 }
 
 

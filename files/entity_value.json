@@ -1,313 +1,65 @@
 {
-    "platform": "html",
-    "mode": "create",
-    "entity": "",
-    "description": "",
-    "elements": [
-      {
-        "id": "tab_def",
-        "name": "Tab",
-        "customClass": "py-2",
-        "style": "border: 1px dashed #6d6e70",
-        "type": "tab",
-        "category": "layout",
-        "isRequired": false,
-        "readOnly": false,
-        "visible": true,
-        "showLabel": true,
-        "labelPosition": false,
-        "minLen": null,
-        "maxLen": null,
-        "pattern": null,
-        "elements": [
-          {
-            "id": "tab_col_def0",
-            "name": "Column",
-            "customClass": "coltab col py-1 my-1 mx-1",
-            "style": "border: 0px solid orange",
-            "type": "column",
-            "category": "layout",
-            "isRequired": false,
-            "readOnly": false,
-            "visible": true,
-            "showLabel": true,
-            "labelPosition": false,
-            "minLen": null,
-            "maxLen": null,
-            "pattern": null,
-            "elements": [
-              {
-                "id": "sec_def0",
-                "name": "Section1",
-                "customClass": "section",
-                "style": "border: 1px dashed green;",
-                "type": "section",
-                "category": "layout",
-                "isRequired": false,
-                "readOnly": false,
-                "visible": true,
-                "showLabel": true,
-                "labelPosition": false,
-                "minLen": null,
-                "maxLen": null,
-                "pattern": null,
-                "elements": [
-                  {
-                    "id": "sec_col_def0",
-                    "name": "Column",
-                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
-                    "style": "border: 1px dashed #6d6e70",
-                    "type": "column",
-                    "category": "layout",
-                    "isRequired": false,
-                    "readOnly": false,
-                    "visible": true,
-                    "showLabel": true,
-                    "labelPosition": false,
-                    "minLen": null,
-                    "maxLen": null,
-                    "pattern": null,
-                    "elements": [
-                      {
-                        "id": "8efe37d0-392d-11ee-be56-0242ac120002",
-                        "name": "First Name",
-                        "customClass": "py-3",
-                        "style": "border: 1px dashed #6d6e70",
-                        "value": {
-                          "id": "",
-                          "type": "single line of text",
-                          "source": {}
-                        },
-                        "isRequired": true,
-                        "readOnly": false,
-                        "visible": true,
-                        "optionsSetValues": null,
-                        "collapse": true,
-                        "isLocked": false,
-                        "showLabel": true,
-                        "labelPosition": false,
-                        "labelAlignment": null,
-                        "maxLen": null,
-                        "minLen": null,
-                        "pattern": null,
-                        "displayName": "First Name",
-                        "searchable": false,
-                        "type": "single line of text"
-                      },
-                      {
-                        "id": "a9a8a468-39bd-11ee-be56-0242ac120002",
-                        "name": "Salary",
-                        "customClass": "py-3",
-                        "style": "border: 1px dashed #6d6e70",
-                        "value": {
-                          "id": "",
-                          "type": "decimal number",
-                          "source": {}
-                        },
-                        "isRequired": true,
-                        "readOnly": false,
-                        "visible": true,
-                        "optionsSetValues": null,
-                        "collapse": true,
-                        "isLocked": false,
-                        "showLabel": true,
-                        "labelPosition": false,
-                        "labelAlignment": null,
-                        "maxLen": null,
-                        "minLen": null,
-                        "pattern": null,
-                        "displayName": "Salary",
-                        "searchable": false,
-                        "type": "decimal number"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "c3eeb26e-5e8d-442e-9693-78c7c22e0b9c",
-        "name": "Tab",
-        "customClass": "py-2",
-        "style": "border: 1px dashed #6d6e70",
-        "type": "tab",
-        "category": "layout",
-        "isRequired": false,
-        "readOnly": false,
-        "visible": true,
-        "showLabel": true,
-        "labelPosition": false,
-        "minLen": null,
-        "maxLen": null,
-        "pattern": null,
-        "elements": [
-          {
-            "id": "db227285-06c3-461f-827b-e4e1ce3482bf",
-            "name": "Column_Tab",
-            "customClass": "coltab col-4",
-            "style": "border: 0px solid orange",
-            "type": "column",
-            "category": "layout",
-            "isRequired": false,
-            "readOnly": false,
-            "visible": true,
-            "showLabel": true,
-            "labelPosition": false,
-            "minLen": null,
-            "maxLen": null,
-            "pattern": null,
-            "elements": [
-              {
-                "id": "8f2202f6-6662-4025-9f0e-705f0d3b1f62",
-                "name": "Section",
-                "customClass": " section",
-                "style": "border: 1px dashed green;",
-                "type": "section",
-                "category": "layout",
-                "isRequired": false,
-                "readOnly": false,
-                "visible": true,
-                "showLabel": true,
-                "labelPosition": false,
-                "minLen": null,
-                "maxLen": null,
-                "pattern": null,
-                "elements": [
-                  {
-                    "id": "ab2e7fab-4536-4eec-8da1-8d884ff47ebb",
-                    "name": "Column_Section",
-                    "customClass": "colsec col py-2 my-1",
-                    "style": "border: 1px dashed #6d6e70",
-                    "type": "column",
-                    "category": "layout",
-                    "isRequired": false,
-                    "readOnly": false,
-                    "visible": true,
-                    "showLabel": true,
-                    "labelPosition": false,
-                    "minLen": null,
-                    "maxLen": null,
-                    "pattern": null,
-                    "elements": [
-                      {
-                        "id": "b11c9916-39bd-11ee-be56-0242ac120002",
-                        "name": "Gender",
-                        "customClass": "py-3",
-                        "style": "border: 1px dashed #6d6e70",
-                        "value": {
-                          "id": "",
-                          "type": "two options",
-                          "source": {
-                            "Female": "1",
-                            "Male": "0"
-                          }
-                        },
-                        "isRequired": false,
-                        "readOnly": false,
-                        "visible": true,
-                        "optionsSetValues": null,
-                        "collapse": true,
-                        "isLocked": false,
-                        "showLabel": true,
-                        "labelPosition": false,
-                        "labelAlignment": null,
-                        "maxLen": null,
-                        "minLen": null,
-                        "pattern": null,
-                        "displayName": "Gender",
-                        "searchable": false,
-                        "type": "two options"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "f60a85b5-d789-47db-9df6-79aa07addecb",
-            "name": "Column_Tab",
-            "customClass": "coltab col-7 ",
-            "style": "border: 0px solid orange",
-            "type": "column",
-            "category": "layout",
-            "isRequired": false,
-            "readOnly": false,
-            "visible": true,
-            "showLabel": true,
-            "labelPosition": false,
-            "minLen": null,
-            "maxLen": null,
-            "pattern": null,
-            "elements": [
-              {
-                "id": "e9c1ed5b-6035-42c5-b429-000decf26f22",
-                "name": "Section",
-                "customClass": " section",
-                "style": "border: 1px dashed green;",
-                "type": "section",
-                "category": "layout",
-                "isRequired": false,
-                "readOnly": false,
-                "visible": true,
-                "showLabel": true,
-                "labelPosition": false,
-                "minLen": null,
-                "maxLen": null,
-                "pattern": null,
-                "elements": [
-                  {
-                    "id": "a1c91078-c92e-4b47-92fc-a8b233cae251",
-                    "name": "Column_Section",
-                    "customClass": "colsec col py-2 my-1",
-                    "style": "border: 1px dashed #6d6e70",
-                    "type": "column",
-                    "category": "layout",
-                    "isRequired": false,
-                    "readOnly": false,
-                    "visible": true,
-                    "showLabel": true,
-                    "labelPosition": false,
-                    "minLen": null,
-                    "maxLen": null,
-                    "pattern": null,
-                    "elements": [
-                      {
-                        "id": "61c0b4d6-392e-11ee-be56-0242ac120002",
-                        "name": "Last Name",
-                        "customClass": "py-3",
-                        "style": "border: 1px dashed #6d6e70",
-                        "value": {
-                          "id": "",
-                          "type": "single line of text",
-                          "source": {}
-                        },
-                        "isRequired": false,
-                        "readOnly": false,
-                        "visible": true,
-                        "optionsSetValues": null,
-                        "collapse": true,
-                        "isLocked": false,
-                        "showLabel": true,
-                        "labelPosition": false,
-                        "labelAlignment": null,
-                        "maxLen": null,
-                        "minLen": null,
-                        "pattern": null,
-                        "displayName": "Last Name",
-                        "searchable": false,
-                        "type": "single line of text"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  "departmentId": 1,
+  "email": "abdo@gmai.com",
+  "firstName": "Abdelrahman",
+  "gender": "0",
+  "lastName": "Elshenawy",
+  "notes": "some notes",
+  "password": "123654789",
+  "salary": "60000",
+  "socialStatus": "1",
+  "startDate": "2023-08-02"
+}
+{"id":"0261f1b6-3c09-11ee-be56-0242ac120002","name":"image","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"file upload","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Image","pattern":null,"searchable":false,"type":"file upload","lookup":null}
+
+{"platform":"html","mode":"create","entity":"","description":"","elements":[{"id":"tab_def","name":"General","customClass":"","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"tab_col_def0","name":"Column","customClass":"coltab mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"sec_def0","name":"Employee Data","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"sec_col_def0","name":"Column","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"8efe37d0-392d-11ee-be56-0242ac120002","name":"firstName","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"single line of text","source":{}},"isRequired":true,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"First Name","pattern":null,"searchable":false,"type":"single line of text","lookup":null},{"id":"b8e677b6-39bd-11ee-be56-0242ac120002","name":"socialStatus","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"option set","source":{"Divorced":"2","Married":"3","Single":"1"}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Social Status","pattern":null,"searchable":false,"type":"option set","lookup":null}]},{"id":"1400bac6-767c-4ac5-9dda-f7bf1f17b5c3","name":"Column","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70;","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"61c0b4d6-392e-11ee-be56-0242ac120002","name":"lastName","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"single line of text","source":{}},"isRequired":true,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Last Name","pattern":null,"searchable":false,"type":"single line of text","lookup":null},{"id":"b11c9916-39bd-11ee-be56-0242ac120002","name":"gender","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"two options","source":{"Female":"1","Male":"0"}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Gender","pattern":null,"searchable":false,"type":"two options","lookup":null}]}]}]}]},{"id":"c3c28fd7-b146-442d-a8da-9a3d715ce3e6","name":"Details","customClass":"py-2","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"9825a9f6-962d-4e11-a372-204abe0156c4","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"bb37e72d-fe92-411e-9a15-8ddfca18b393","name":"Account Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"bb760841-366f-4c1f-ab50-07c7c286212a","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"3bd4bc00-3a6d-11ee-be56-0242ac120002","name":"email","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"email","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Email","pattern":null,"searchable":false,"type":"email","lookup":null},{"id":"679253c0-3a6d-11ee-be56-0242ac120002","name":"password","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"password","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Password","pattern":null,"searchable":false,"type":"password","lookup":null}]}]}]},{"id":"0a5f6a77-9fe0-440c-8834-54ca53f56139","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col ","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"d2ee7f2d-4bb4-4f2a-b7e4-ed6792fe419f","name":"Work Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"09bc536c-c8c3-426f-8d1d-6e899f5cf6c2","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"a9a8a468-39bd-11ee-be56-0242ac120002","name":"salary","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"decimal number","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Salary","pattern":null,"searchable":false,"type":"decimal number","lookup":null},{"id":"e7a286b4-3a88-11ee-be56-0242ac120002","name":"startDate","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"date and time","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Start Date","pattern":null,"searchable":false,"type":"date and time","lookup":null}]}]}]}]},{"id":"40c2869c-f00e-4d6d-8be7-6155d448ac8f","name":"More Details","customClass":"py-2","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"118382b1-f9ef-4df2-ba1f-a2e50efd6c6b","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"b76d811d-51d0-4c94-be84-e4064b6366b7","name":"Personal Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"6bdb6dbf-9805-4062-a409-af534920e21e","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"9028567a-39c0-11ee-be56-0242ac120002","name":"notes","customClass":"py-3","style":"border: 1px dashed #6d6e70","value":{"id":"","type":"multiple line of text","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Notes","pattern":null,"searchable":false,"type":"multiple line of text","lookup":null}]}]}]}]}]}
+
+{"platform": "html",
+  "mode": "create",
+  "entity": "",
+  "description": "",
+  "elements": [
+    {
+      "id": "tab_def",
+      "name": "Tab",
+      "customClass": "",
+      "style": "border: 1px dashed #6d6e70",
+      "type": "tab",
+      "category": "layout",
+      "elements": [
+        {
+          "id": "tab_col_def0",
+          "name": "Column",
+          "customClass": "coltab py-1 my-1 mx-1 col",
+          "style": "border: 0px solid orange",
+          "type": "column",
+          "category": "layout",
+          "elements": [
+            {
+              "id": "sec_def0",
+              "name": "Section1",
+              "customClass": "mt-2",
+              "style": "border: 1px dashed green;",
+              "type": "section",
+              "category": "layout",
+              "elements": [
+                {
+                  "id": "sec_col_def0",
+                  "name": "Column",
+                  "customClass": "colsec col py-2 px-1 my-1 mx-1",
+                  "style": "border: 1px dashed #6d6e70",
+                  "type": "column",
+                  "category": "layout",
+                  "elements": []
+
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+{"platform":"html","mode":"create","entity":"","description":"","elements":[{"id":"tab_def","name":"General","customClass":"","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"tab_col_def0","name":"Column","customClass":"coltab py-1 my-1 mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"sec_def0","name":"Employee Data","customClass":"mt-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"sec_col_def0","name":"Column","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"8efe37d0-392d-11ee-be56-0242ac120002","name":"firstName","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"single line of text","source":{}},"isRequired":true,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"First Name","pattern":null,"searchable":false,"type":"single line of text","lookup":null},{"id":"b8e677b6-39bd-11ee-be56-0242ac120002","name":"socialStatus","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"option set","source":{"Divorced":"2","Married":"3","Single":"1"}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Social Status","pattern":null,"searchable":false,"type":"option set","lookup":null}]},{"id":"2247ca07-975f-47e9-8f92-a43defb88dc7","name":"Column","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70;","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"61c0b4d6-392e-11ee-be56-0242ac120002","name":"lastName","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"single line of text","source":{}},"isRequired":true,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Last Name","pattern":null,"searchable":false,"type":"single line of text","lookup":null},{"id":"b11c9916-39bd-11ee-be56-0242ac120002","name":"gender","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"two options","source":{"Female":"1","Male":"0"}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Gender","pattern":null,"searchable":false,"type":"two options","lookup":null}]}]}]}]},{"id":"dce67682-4cd5-473f-afc2-a463e1b7ef0a","name":"Details","customClass":"py-2","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"9fe0bc54-ab34-4234-bf1b-a6a8b0ced5cd","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"7089b0cd-a093-4258-80ca-837b0af7961b","name":"Work Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"b3d54b1b-5631-4e50-af7a-bb80bbf9a6c6","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"ab360368-2c0b-4ade-9057-6bcceb5e76a7","name":"departmentId","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"lookup","source":{"lookupId":"f0dd164c-ce98-4912-81b9-3eec696d7605","lookFor":"Departments","lookForId":"eed1b886-3a8a-11ee-be56-0242ac120002","views":["Department_Alex","Departments","Department_ITI"]}},"isRequired":true,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Department","pattern":null,"searchable":false,"type":"lookup","lookup":{"lookupId":"f0dd164c-ce98-4912-81b9-3eec696d7605","lookFor":"Departments","lookForId":"eed1b886-3a8a-11ee-be56-0242ac120002","views":["Department_Alex","Departments","Department_ITI"]}},{"id":"a9a8a468-39bd-11ee-be56-0242ac120002","name":"salary","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"decimal number","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Salary","pattern":null,"searchable":false,"type":"decimal number","lookup":null},{"id":"e7a286b4-3a88-11ee-be56-0242ac120002","name":"startDate","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"date and time","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Start Date","pattern":null,"searchable":false,"type":"date and time","lookup":null}]}]}]},{"id":"d0e3d37f-738c-4e33-ad16-69447dac3007","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col ","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"0803cf68-91dd-443c-99fe-0eb2616ff3e2","name":"Account Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"985a7dbc-b43a-48aa-b9d9-337565ed9bc8","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"3bd4bc00-3a6d-11ee-be56-0242ac120002","name":"email","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"email","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Email","pattern":null,"searchable":false,"type":"email","lookup":null},{"id":"679253c0-3a6d-11ee-be56-0242ac120002","name":"password","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"password","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Password","pattern":null,"searchable":false,"type":"password","lookup":null},{"id":"0261f1b6-3c09-11ee-be56-0242ac120002","name":"image","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"image","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":null,"maxLen":null,"minLen":null,"displayName":"Image","pattern":null,"searchable":false,"type":"image","lookup":null}]}]}]}]},{"id":"9f9fd65d-6abf-43fd-9362-88422c8669ad","name":"Others","customClass":"py-2","style":"border: 1px dashed #6d6e70","type":"tab","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"e2c52825-575e-4d17-a127-3d21d7c9d06a","name":"Column_Tab","customClass":"coltab py-1 my-1 mx-1 col","style":"border: 0px solid orange","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"15089b75-5523-423c-bec2-d41a2852c949","name":"More Details","customClass":"my-2","style":"border: 1px dashed green;","type":"section","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"da1241d3-fd9f-46fa-9342-9835c0729148","name":"Column_Section","customClass":"colsec col py-2 px-1 my-1 mx-1","style":"border: 1px dashed #6d6e70","type":"column","category":"layout","isRequired":false,"readOnly":false,"visible":true,"showLabel":true,"labelPosition":false,"minLen":null,"maxLen":null,"pattern":null,"elements":[{"id":"9028567a-39c0-11ee-be56-0242ac120002","name":"notes","customClass":"py-3","style":"border: 1px dashed #6d6e70","elementValue":{"id":"","type":"multiple line of text","source":{}},"isRequired":false,"readOnly":false,"visible":true,"optionsSetValues":null,"collapse":true,"isLocked":false,"showLabel":true,"labelPosition":false,"labelAlignment":false,"maxLen":null,"minLen":null,"displayName":"Notes","pattern":null,"searchable":false,"type":"multiple line of text","lookup":null}]}]}]}]}]}

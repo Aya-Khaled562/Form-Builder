@@ -124,7 +124,7 @@ a, .nav-link {
     display: flex !important;
 }
 .nav-link{font-size: 11px;}
-#addTabMenu ,#addSectionMenu,#preview,#removeBtn,#updateMode,#createMode,#save ,#custom{
+#addTabMenu ,#addSectionMenu,#preview,#updateMode,#createMode,#save,#removeBtn,#custom{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -211,13 +211,8 @@ a, .nav-link {
     height: 32px;
     overflow: hidden;
 }
+
 #save i {
-    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-}
-#custom i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
     width: 32px;
     height: 32px;
@@ -229,6 +224,13 @@ a, .nav-link {
     height: 32px;
     overflow: hidden;
 }
+#custom i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -103px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+
 #updateMode i {
     background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -580px 0px;
     width: 32px;
@@ -351,4 +353,19 @@ display: flex;
 
 .imgLock {
     width: fit-content; 
+}
+
+.select {
+    background-color: rgb(65, 172, 243)!important;
+}
+
+#dataTable tbody tr:hover {
+    background-color: rgb(168, 214, 245);
+  }
+
+
+#search-btn i {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 10px;
 }

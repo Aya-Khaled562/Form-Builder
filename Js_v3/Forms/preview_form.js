@@ -1,17 +1,21 @@
 import FormBuilder from "../formbuilder.js";
-import '../../node_modules/jquery/dist/jquery.min.js';
-import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../../node_modules/datatables.net/js/jquery.dataTables.min.js'
-//import { data } from "jquery";
+// import '../../node_modules/jquery/dist/jquery.min.js'
+// //import '../../node_modules/jquery/dist/jquery.min.js';
+// import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+// import '../../node_modules/datatables.net/js/jquery.dataTables.min.js'
+
 export default class PreviewFrom {
     #builder;
-    constructor(){
+    #entity;
+
+    constructor(entity = null){
         this.#builder = null;
+        this.#entity = entity;
     }
 
     initialize(){
         const jsonData = JSON.parse(localStorage.getItem('jsonDataForm'));
-        this.#builder = new FormBuilder(jsonData, 'preview', 'form');
+        this.#builder = new FormBuilder(jsonData, 'preview', 'form', this.#entity);
         let copyHtmlBtn = document.getElementById('save');
         copyHtmlBtn.addEventListener('click', this.handleCopyHtml(this));
 
@@ -39,23 +43,23 @@ export default class PreviewFrom {
         console.log('lookup element', element);
 
 
-        $('#loadMoreRecordsModal #lookFor').val(element.value.source.lookFor);
+        $('#loadMoreRecordsModal #lookFor').val(element.elementValue.source.lookFor);
 
         // look in select menu
         let lookForSelectMenu = $('#loadMoreRecordsModal #lookIn');
         
         if (lookForSelectMenu){
             lookForSelectMenu.html('');
-            let systemViews = element.value.source.views;
+            let systemViews = element.elementValue.source.views;
             systemViews.forEach(viewName => {
-                let option = `<option value="${viewName}" ${viewName == element.value.source.selectedView? 'selected': ''}>${viewName}</option>`
+                let option = `<option value="${viewName}" ${viewName == element.elementValue.source.selectedView? 'selected': ''}>${viewName}</option>`
                 lookForSelectMenu.append(option);
             });
 
            
         }
 
-        let lookupForId = element.value.source.lookForId;
+        let lookupForId = element.elementValue.source.lookForId;
 
         let entity = await this.getEntity(lookupForId);
         let attributes = entity.attributeSchemas
@@ -79,7 +83,7 @@ export default class PreviewFrom {
                 // Do something with the row data
                 console.log("Clicked row data:", rowData);
 
-                element.value.source.selectedData = rowData; 
+                element.elementValue.source.selectedData = rowData; 
 
                 if (lookupFieldElm){
                     lookupFieldElm.val(rowData.name);
@@ -91,10 +95,10 @@ export default class PreviewFrom {
               });
 
               let data = [];
-              if (element.value.source.selectedView){
-                   data = await this.getRows(element.value.source.selectedView);
+              if (element.elementValue.source.selectedView){
+                   data = await this.getRows(element.elementValue.source.selectedView);
               }else{
-                   data = await this.getRows(element.value.source.views[0]);
+                   data = await this.getRows(element.elementValue.source.views[0]);
               }
               dataTable.clear().rows.add(data).draw();
 
@@ -102,11 +106,11 @@ export default class PreviewFrom {
 
         }
 
-        if (element.value.source.selectedData){
+        if (element.elementValue.source.selectedData){
             dataTable = $('#dataTable').DataTable();
             console.log('datatable', dataTable);
-            console.log('selected data', element.value.source.selectedData);
-            dataTable.search(element.value.source.selectedData.name).draw();
+            console.log('selected data', element.elementValue.source.selectedData);
+            dataTable.search(element.elementValue.source.selectedData.name).draw();
           
           }
        
@@ -114,15 +118,15 @@ export default class PreviewFrom {
         lookForSelectMenu.on('change',async function(e){
             let selectedView = $(this).val();
 
-            element.value.source.selectedView = selectedView; 
+            element.elementValue.source.selectedView = selectedView; 
 
             let rows = await fetch(`http://localhost:5032/api/EntitySchemas/viewData?viewName=${selectedView}`);
             let data =  await rows.json();
 
             dataTable.clear().rows.add(data).draw();
 
-            if (element.value.source.selectedData){
-                dataTable.search(element.value.source.selectedData.name).draw();
+            if (element.elementValue.source.selectedData){
+                dataTable.search(element.elementValue.source.selectedData.name).draw();
             }
         });
 

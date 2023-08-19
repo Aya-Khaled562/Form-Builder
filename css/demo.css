@@ -1,0 +1,235 @@
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('../fonts/Segoe UI.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Segoe UI Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Italic'), url('../fonts/Segoe UI Italic.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Segoe UI Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold'), url('../fonts/Segoe UI Bold.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Segoe UI Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold Italic'), url('../fonts/Segoe UI Bold Italic.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI Regular,Tahoma,sans-serif;
+
+}
+.navbar .megamenu {
+    padding: 0;
+}
+
+@media all and (min-width: 992px) {
+    .navbar .has-megamenu {
+        position: static !important;
+    }
+
+    .navbar .megamenu {
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 0;
+        /* overflow-y: auto;
+        max-height: 50vh; */
+    }
+}
+
+@media(max-width: 991px) {
+
+    .navbar.fixed-top .navbar-collapse,
+    .navbar.sticky-top .navbar-collapse {
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top: 10px;
+    }
+}
+
+.icon-16 {
+    width: 18px;
+    height: 18px;
+}
+.fs-20{font-size: 1.25rem;}
+.fs-14{font-size: 0.875rem;}
+.navbar-brand{padding: 0;margin: 0;}
+#main_nav .nav-link {
+    color: #fff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+li.nav-item.bordered-right {
+    border-right: 1px solid #ffffff50;
+    padding-right: .5rem;;
+}
+
+li.nav-item.bordered-left {
+    border-left: 1px solid #ffffff50;
+}
+#main_nav,#main_nav .navbar-nav{height: 50px;}
+#main_nav .nav-item:hover,.navbar-brand:hover,
+.bg-on-hover:hover{background-color: #ffffff70;}
+.user-dropdown img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.user-dropdown:after{display: none;}
+.bg-063B5B {
+    background-color: #063B5B;
+}
+.dropdown-toggle.arrow-only::after {
+    display: block; 
+    content: "";
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid transparent;
+    border-right: 1px solid #fff;
+    border-left: 1px solid transparent;
+    width: 8px;
+    height: 8px;
+    transform: rotate(135deg);
+    margin: 0;
+    padding: 0; 
+}
+.arrow-only{display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;}
+    .Notification {
+    padding: .375rem;
+    background-color: #FFF19D;
+    border: 1px solid #DDDDDD;
+    overflow: auto;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}  .Notification strong{margin-right: 10px;}
+.crmAppMessageBarButton{
+    background-color: #fff;
+    border: 1px solid #D7D889;
+    color: #000;
+    padding: 4px 8px;
+    text-decoration: none;
+    margin: 0 12px;
+}
+.scroll_tab_inner {
+    display: flex;
+}
+#myTab.scroll_tabs_container div.scroll_tab_inner li{
+    width: 200px;
+    height: 95px;
+    padding: 10px 15px 0 0;
+    background: transparent;
+}
+#myTab.scroll_tabs_container div.scroll_tab_inner li .nav-link{
+    width: 180px;
+    height: 70px;
+    background: #2D74EA;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    align-items: end;
+    justify-content: space-between;
+    padding: 0 8px;
+}
+#myTab.scroll_tabs_container div.scroll_tab_inner li .nav-link:hover{background: #6c9ef0;}
+#myTab.scroll_tabs_container div.scroll_tab_inner li .nav-link.active{height: 86px;}
+#myTab.scroll_tabs_container div.scroll_tab_inner li .nav-link img {height: 65px;}
+#myTab.scroll_tabs_container div.scroll_tab_inner li .nav-link.active img{margin-bottom: 8px;height: 70px;}
+
+.nav-group-container {display: flex;padding: 0 10px 10px;width: 100%;}
+
+.nav-group-block {
+    /* min-width: 190px; */
+    margin: 0 0 0 10px;
+    /* display: inline-block; */
+    /* float: left; */
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+.nav-groupList, .nav-groupTitle,.nav-groupList ol{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 190px;
+    white-space: nowrap;
+}
+.nav-groupTitle{color: #05ABD8 !important;font-size: 18px;font-weight: bold;margin-bottom: 10px;padding: 0;}
+.nav-groupList{font-size: 14px;font-weight: 500;color: #505050;list-style: none;padding: 0;margin: 0;display: inline-block;width: 200px;flex: 0 0 200px;}
+.nav-groupList a{color: inherit;text-decoration: none;}
+.nav-groupList ol{padding: 4px;
+    margin-bottom: 4px;
+}.nav-groupList ol:hover{background: #dddddd;}
+.nav-groupList ol img{background-color: #fff;
+    margin-right: 8px;
+}
+.nav-groupArea{
+    display: inline-flex;
+}
+.dropend .dropdown-menu.show {
+    left: -100%!important;
+}
+
+
+#buttons-nav{
+    padding: 4px 16px;
+}
+#buttons-nav .btn{
+    border-radius: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: transparent;
+    color: #444;
+     /* font-weight: 600;  */
+    border: 1px solid #0000;
+    text-shadow: rgba(0 ,0,0,0.5) 0px 0px .5px;
+    padding: 4px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 180px;
+    white-space: nowrap;
+}
+#buttons-nav .btn:hover{background:#d7ebf9}
+.icon-xs  {
+    width: 16px;
+    height: 16px;
+    background: url(../img/ribbonhomepage.png) no-repeat -379px -567px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+}
+.icon-xs.icon-new-plus{background: url(../img/ribbonhomepage.png) no-repeat -361px -567px;}
+.icon-xs.icon-delete{background: url(../img/ribbonhomepage.png) no-repeat -181px -567px;}
+.icon-xs.icon-help{background: url(../img/ribbonhomepage.png) no-repeat -19px -573px;}
+.icon-xs.icon-folder{background: url(../img/ribbonhomepage.png) no-repeat -523px -519px;}
+.icon-xs.icon-update{background: url(../img/ribbonhomepage.png) no-repeat -217px -513px}
+.icon-xs.icon-bulk-delete{background: url(../img/ribbonhomepage.png) no-repeat -529px -271px}
+
+
+

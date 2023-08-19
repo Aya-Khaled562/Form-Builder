@@ -7,7 +7,7 @@
       {
         "id": "tab_def",
         "name": "Tab",
-        "customClass": "py-2",
+        "customClass": "",
         "style": "border: 1px dashed #6d6e70",
         "type": "tab",
         "category": "layout",
@@ -15,7 +15,7 @@
           {
             "id": "tab_col_def0",
             "name": "Column",
-            "customClass": "coltab col py-1 my-1 mx-1",
+            "customClass": "coltab mx-1 col",
             "style": "border: 0px solid orange",
             "type": "column",
             "category": "layout",
@@ -23,7 +23,7 @@
               {
                 "id": "sec_def0",
                 "name": "Section1",
-                "customClass": "section",
+                "customClass": "my-2",
                 "style": "border: 1px dashed green;",
                 "type": "section",
                 "category": "layout",
@@ -31,7 +31,7 @@
                   {
                     "id": "sec_col_def0",
                     "name": "Column",
-                    "customClass": "colsec col py-2 px-1 my-1 mx-1 ",
+                    "customClass": "colsec col py-2 px-1 my-1 mx-1",
                     "style": "border: 1px dashed #6d6e70",
                     "type": "column",
                     "category": "layout",

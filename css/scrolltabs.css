@@ -1,0 +1,22 @@
+.scroll_tabs_container {position: relative;top: 0px;left: 0px;right: 0px;text-align: left;height: 95px;margin-bottom: 10px;}
+.nav-group-container.scroll_tabs_container{min-height: 360px;}
+ul.scroll_tabs_container {list-style: none;}
+.scroll_tabs_container div.scroll_tab_inner {height: 95px;}
+.nav-group-container.scroll_tabs_container div.scroll_tab_inner {min-height: 360px;}
+.scroll_tabs_container div.scroll_tab_inner span {flex: 0 0 80px;overflow: hidden;word-break: break-word;height: 40px;line-height: 16px;text-align: left;white-space: normal;font-size: 13px;}
+.scroll_tabs_container div.scroll_tab_inner li {padding-left: 20px;padding-right: 20px;/* line-height: 95px; */font-size: 14px;/* background-color: #CCCCCC; */color: #333333;cursor: pointer;}
+.scroll_tabs_container div.scroll_tab_inner li {display: -moz-inline-stack;display: inline-block;list-style-type: none;}
+.scroll_tabs_container div.scroll_tab_inner span.scroll_tab_left_finisher {padding: 0px;width: 0px;}
+.scroll_tabs_container div.scroll_tab_inner span.scroll_tab_right_finisher {padding: 0px;width: 0px;}
+.scroll_tabs_container .scroll_tab_left_button {color:#AAAAAA;height: 95px;background-color: transparent;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.nav-group-container.scroll_tabs_container .scroll_tab_left_button {height: 360px}
+.scroll_tabs_container .scroll_tab_left_button::before {content: "\276e";line-height: 95px;padding-left: 5px;}
+.nav-group-container.scroll_tabs_container .scroll_tab_left_button::before{line-height: 360px;}
+.scroll_tabs_container .scroll_tab_left_button_over {background-color: transparent;}
+.scroll_tabs_container .scroll_tab_left_button_disabled {color: #AAAAAA;opacity: 0;}
+.scroll_tabs_container .scroll_tab_right_button {color:#AAAAAA;height: 95px;background-color: transparent;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.nav-group-container.scroll_tabs_container .scroll_tab_right_button {height: 360px;}
+.scroll_tabs_container .scroll_tab_right_button::before {content: "\276f";line-height: 95px;padding-left: 5px;}
+.nav-group-container.scroll_tabs_container .scroll_tab_right_button::before {line-height: 360px;}
+.scroll_tabs_container .scroll_tab_right_button_over {background-color: transparent;}
+.scroll_tabs_container .scroll_tab_right_button_disabled{color: #AAAAAA;background-color: transparent;}
