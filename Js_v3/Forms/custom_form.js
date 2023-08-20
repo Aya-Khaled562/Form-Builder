@@ -48,10 +48,10 @@ export default class CustomForm {
             document.getElementById('ImageContainer').style.display = 'block';
             if(this.targetData !== null){
                 document.getElementById('userName').textContent = this.targetData.firstName + " " + this.targetData.lastName;
-                if(this.targetData.hasOwnProperty('image')){
+                if(this.targetData.hasOwnProperty('images')){
                     let imagesrc = document.getElementById('empImage');
-                    if(this.targetData.image !== null){
-                        imagesrc.src = this.targetData.image;
+                    if(this.targetData.images[this.targetData.images.length-1] !== undefined){
+                        imagesrc.src = this.targetData.images[this.targetData.images.length-1];
                     }
                 }
             }
@@ -191,6 +191,9 @@ export default class CustomForm {
                 localStorage.setItem('targetData', null);
                 localStorage.setItem('newRecordFlag',null);
                 window.open('../../pages/showSavedRecord.html' , '_self');
+            }
+            else{
+                window.location.reload();
             }
         }catch(error){
             console.error('Error pushing data into DB:', error);
