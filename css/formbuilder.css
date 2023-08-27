@@ -124,7 +124,30 @@ a, .nav-link {
     display: flex !important;
 }
 .nav-link{font-size: 11px;}
-#addTabMenu ,#addSectionMenu,#saveJsonForm,#removeBtn,#updateMode,#createMode,#save {
+
+#SaveAs16,#EditColumns16,#EditProperities16{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+#SaveAs16 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -182px -512px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+}#EditColumns16 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -235px -568px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+}#EditProperities16 i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -109px -566px;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+}
+#Query ,#SavedViews ,#Results i ,#New,#addTabMenu,#addSectionMenu,#saveJsonForm,#removeBtn,#updateMode,#createMode,#save {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -235,8 +258,41 @@ a, .nav-link {
     height: 32px;
     overflow: hidden;
 }
+#Query i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -50px -34px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#SavedViews i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -137px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#Results i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -170px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#New i {
+    background: transparent url(../img/ribbonhomepage.png) no-repeat scroll -477px -273px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
 #MenuTabsContent .nav-link{padding-top: 6px;padding-bottom: 6px;}
 #MenuTabsContent .nav-link:hover{background-color: #D7EBF9;}
+.has-h-childs{
+    display: flex;
+    flex-direction: column;
+}
+.has-h-childs .nav-link2{
+    font-size: 11px;
+    text-decoration: none;
+    margin: 4px 0;
+}
 .has-childs{
 display: flex;
     position: relative;
@@ -244,6 +300,7 @@ display: flex;
     border-bottom: 0;
     border-top: 0;
     padding-bottom: 1.125rem;
+    
 }
 
 
